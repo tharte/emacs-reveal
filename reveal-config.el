@@ -33,9 +33,11 @@
 (setq org-reveal-init-script "  audio: { autoplay: true, onlyIfLocalAudio: true, externalPlayerCSS: true }")
 
 ;; Activate TOC progress plugin
+;; If there are lots of subsections, 'scroll'ing can be enabled or
+;; the font size can be 'reduce'd.  Go for the latter.
 (add-to-list 'org-reveal-external-plugins
 	     (cons 'toc-progress
-		   " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('scroll', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }"))
+		   " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }"))
 ;; For multiple CSS files, separate them with "\n" in org-reveal-extra-css:
 (setq org-reveal-extra-css
       (concat org-reveal-root "/plugin/toc-progress/toc-progress.css"))
