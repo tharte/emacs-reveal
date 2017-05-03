@@ -4,3 +4,9 @@
 [submodule "Reveal.js-TOC-Progress"]
 	path = Reveal.js-TOC-Progress
 	url = https://github.com/e-gor/Reveal.js-TOC-Progress
+[submodule "org-reveal"]
+	path = org-reveal
+	url = https://github.com/lechten/org-reveal.git
+[submodule "reveal.js-plugins"]
+	path = reveal.js-plugins
+	url = https://github.com/lechten/reveal.js-plugins.git
