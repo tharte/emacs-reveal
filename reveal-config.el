@@ -1,14 +1,41 @@
-;;; Org with reveal.js
+;;; reveal-config.el --- Configuration for org-reveal in GNU Emacs
+;; -*- Mode: Emacs-Lisp -*-
+;; -*- coding: utf-8 -*-
 
-;; Install org-reveal from GitHub for external plugin support.
-;; Configure the path here.
-(add-to-list 'load-path (expand-file-name "~/emacs/src/org-reveal"))
+;; Copyright (C) 2017 Jens Lechtenbörger
+
+;;; License:
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see http://www.gnu.org/licenses/ or write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+;; This file contains configuration options to create reveal.js
+;; presentations from org mode files in GNU Emacs with org-reveal
+;; and some reveal.js plugins.
+;; Load this as follows from ~/.emacs: (load "path/to/reveal-config.el")
+
+;;; Code:
+(add-to-list 'load-path (expand-file-name
+			 "./org-reveal" (file-name-directory load-file-name)))
 (require 'ox-reveal)
 
 ;; Where to find reveal.js?  Here as well as in other paths,
 ;; *relative* paths are preferable to prevent cross-origin issues with
 ;; firefox.
-;; (setq org-reveal-root "./reveal.js") ; this is the default
+(setq org-reveal-root "../emacs-reveal/reveal.js")
 
 
 ;;; Configure a local MathJax installation.
@@ -17,7 +44,7 @@
 ;; Note that the math plugin of reveal.js does not need to be
 ;; configured separately.
 (setq org-reveal-mathjax-url
-      "./MathJax-2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+      "../emacs-reveal/MathJax-2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 
 
 ;;; Configure reveal.js plugins.
@@ -61,3 +88,6 @@
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)")))
+
+(provide 'reveal-config)
+;;; reveal-config.el ends here
