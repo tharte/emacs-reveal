@@ -32,21 +32,6 @@
 			 "./org-reveal" (file-name-directory load-file-name)))
 (require 'ox-reveal)
 
-;; Where to find reveal.js?  Here as well as in other paths,
-;; *relative* paths are preferable to prevent cross-origin issues with
-;; firefox.
-(setq org-reveal-root "../emacs-reveal/reveal.js")
-
-
-;;; Configure a local MathJax installation.
-;; Beware!  I needed to add the config parameter to the path, as
-;; below.  Otherwise, MathJax did not work.
-;; Note that the math plugin of reveal.js does not need to be
-;; configured separately.
-(setq org-reveal-mathjax-url
-      "../emacs-reveal/MathJax-2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
-
-
 ;;; Configure reveal.js plugins.
 ;; Note that in the relative src-paths in org-reveal-external-plugins,
 ;; %s is automatically replaced with org-reveal-root.
