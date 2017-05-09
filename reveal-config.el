@@ -66,9 +66,9 @@
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
 
-;; Display books differently.  Remaining entries are defaults.
+;; Display articles and books differently.  Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y).<br /><a href=\"%U\">%U")
 	("book" . "%a, %t, %u, %y.</a><br /><a href=\"%U\">%U")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
