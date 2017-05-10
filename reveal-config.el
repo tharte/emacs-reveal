@@ -39,10 +39,52 @@
 ;;(setq org-reveal-external-plugins nil)
 ;; Activate audio-slideshow plugin
 (add-to-list 'org-reveal-external-plugins
-      (cons 'audio-slideshow
-	    " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } }"))
+	     (cons 'audio-slideshow
+		   " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } }"))
 ;; I do not want to see the audio player if no local audio file is given.
-(setq org-reveal-init-script "  audio: { autoplay: true, onlyIfLocalAudio: true, externalPlayerCSS: true }")
+(setq org-reveal-init-script "  audio: { advance: -1, autoplay: true, onlyIfLocalAudio: true, externalPlayerCSS: true }")
+
+;; Activate anything plugin
+(add-to-list 'org-reveal-external-plugins
+	     (cons 'anything " { src: '%splugin/anything/anything.js' }"))
+(setq org-reveal-init-script
+      (concat org-reveal-init-script
+	      ",
+  anything: [
+	{className: \"animate\",  initialize: (function(container, options){
+		Reveal.addEventListener( 'fragmentshown', function( event ) {
+			if (typeof event.fragment.beginElement === \"function\" ) {
+				event.fragment.beginElement();
+			}
+		});
+		Reveal.addEventListener( 'fragmenthidden', function( event ) {
+			if (event.fragment.hasAttribute('data-reverse') ) {
+				var reverse = event.fragment.parentElement.querySelector('[id=\\\"' + event.fragment.getAttribute('data-reverse') + '\\\"]');
+				if ( reverse && typeof reverse.beginElement === \"function\" ) {
+					reverse.beginElement();
+				}
+			}
+		});
+		if ( container.getAttribute(\"data-svg-src\") ) {
+			var xhr = new XMLHttpRequest();
+			xhr.onload = function() {
+				if (xhr.readyState === 4) {
+					var svg = container.querySelector('svg');
+					container.removeChild( svg );
+					container.innerHTML = xhr.responseText + container.innerHTML;
+					if ( svg ) {
+						container.querySelector('svg').innerHTML = container.querySelector('svg').innerHTML + svg.innerHTML;
+					}
+				}
+				else {
+					console.warn( \"Failed to get file. ReadyState: \" + xhr.readyState + \", Status: \" + xhr.status);
+				}
+			};
+			xhr.open( 'GET', container.getAttribute(\"data-svg-src\"), true );
+			xhr.send();
+		}
+	}) }
+],"))
 
 ;; Activate TOC progress plugin
 ;; If there are lots of subsections, 'scroll'ing can be enabled or
