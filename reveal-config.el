@@ -96,6 +96,9 @@
 (setq org-reveal-extra-css
       (concat org-reveal-root "/plugin/toc-progress/toc-progress.css"))
 
+;; Activate jump plugin
+(add-to-list 'org-reveal-external-plugins
+	     (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }"))
 
 ;;; Use org-ref to enable citations.
 ;; With org-reveal, only slide titles can be link targets.
