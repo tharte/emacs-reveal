@@ -111,10 +111,12 @@
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
 
-;; Display articles and books differently.  Remaining entries are defaults.
+;; Display articles and books differently, add conference article..
+;; Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y).<br /><a href=\"%U\">%U")
-	("book" . "%a, %t, %u, %y.</a><br /><a href=\"%U\">%U")
+      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U")
+	("book" . "%a, %t, %u, %y.</a> <a href=\"%U\">%U")
+	("conference" . "%a, %t, %b, %y.</a> <a href=\"%U\">%U")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)")))
