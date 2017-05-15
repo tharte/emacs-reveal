@@ -111,15 +111,15 @@
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
 
-;; Display articles and books differently, add conference article..
+;; Display article, book, and inproceedings differently.
 ;; Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
       '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U")
 	("book" . "%a, %t, %u, %y.</a> <a href=\"%U\">%U")
-	("conference" . "%a, %t, %b, %y.</a> <a href=\"%U\">%U")
+	("inproceedings" . "%a, %t, %b, %y.</a> <a href=\"%U\">%U")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
-	("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)")))
+	))
 
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
