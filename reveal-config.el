@@ -121,5 +121,22 @@
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
 
+;; Allow colored text.
+;; Following copied from the FAQ: http://orgmode.org/worg/org-faq.html
+(org-add-link-type
+ "color"
+ (lambda (path)
+   (message (concat "color "
+                    (progn (add-text-properties
+                            0 (length path)
+                            (list 'face `((t (:foreground ,path))))
+                            path) path))))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'html)
+     (format "<span style=\"color:%s;\">%s</span>" path desc))
+    ((eq format 'latex)
+     (format "{\\color{%s}%s}" path desc)))))
+
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
