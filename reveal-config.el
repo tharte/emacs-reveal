@@ -121,6 +121,12 @@
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
 
+;; Use (only) CSS to style tables, enable non-org tables
+(setq org-html-table-default-attributes nil)
+(require 'table)
+(setq table-html-th-rows 1
+      table-html-table-attribute "class=\"emacs-table\"")
+
 ;; Allow colored text.
 ;; Following copied from the FAQ: http://orgmode.org/worg/org-faq.html
 (org-add-link-type
