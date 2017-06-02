@@ -31,8 +31,7 @@ First, I tried
 [LaTeX with the Beamer package](https://en.wikibooks.org/wiki/LaTeX/Presentations),
 where presentations are created as PDF documents and
 which seems to meet all requirements.  However, although audio can be
-embedded, but I found audio support in free PDF readers
-unsatisfactory.
+embedded, I found audio support in free PDF readers unsatisfactory.
 
 Next, I tried [LibreOffice Impress](https://www.libreoffice.org/).
 I perceived the creation of presentations as too cumbersome, in
@@ -52,15 +51,20 @@ My setup is as follows:
    * Org mode (from ELPA; the version included in Emacs is too old)
    * Org-reveal (from my
      [repository](https://github.com/lechten/org-reveal))
-   * [org-ref](https://github.com/jkitchin/org-ref/blob/master/org-ref.org)
-	 (not strictly necessary, but I like proper citations)
+   * Emacs libraries org-ref (for citations) and htmlize (for source
+     code highlighting)
  * reveal.js
    * reveal.js-plugins (from my
      [repository](https://github.com/lechten/reveal.js-plugins))
+   * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
-	 (not strictly necessary, but I like the progress footer showing
-	 the table of contents, similarly to what is possible with LaTeX-Beamer)
 
 My Emacs initialization code for the above is included in
 [this file](reveal-config.el), which you can load from your `~/.emacs`
 (or embed there).
+
+My [course on Operating Systems](https://gitlab.com/oer/OS) shows in
+detail how the above can be used.  Presentations are built automatically
+upon commit by a GitLab runner.  See its
+[configuration](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
+for details.
