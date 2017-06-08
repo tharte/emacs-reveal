@@ -63,8 +63,24 @@ My Emacs initialization code for the above is included in
 [this file](reveal-config.el), which you can load from your `~/.emacs`
 (or embed there).
 
-My [course on Operating Systems](https://gitlab.com/oer/OS) shows in
-detail how the above can be used.  Presentations are built automatically
-upon commit by a GitLab runner.  See its
-[configuration](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
-for details.
+My [course on Operating Systems](https://gitlab.com/oer/OS) is a
+real-world use case for the above.  Presentations are built automatically
+upon commit by a GitLab runner (see its
+[configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
+for details).
+
+To build HTML presentations manually from org source files, do this:
+
+	$ git clone https://gitlab.com/oer/OS.git
+	$ cd OS
+	$ git submodule sync --recursive
+	$ git submodule update --init --recursive
+	$ emacs --batch --load elisp/install.el --funcall install
+	$ emacs --batch --load elisp/publish.el --funcall org-publish-all
+
+As usual, use `git pull` to update the source directory later on.
+Included submodules need to be updated separately, though, with
+`git submodule update --init --recursive`.  The first `emacs`
+invocation above installs necessary packages, which is only necessary
+once.  The second one publishes the HTML presentation into the
+subdirectory `public`.
