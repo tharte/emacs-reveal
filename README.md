@@ -83,4 +83,6 @@ Included submodules need to be updated separately, though, with
 `git submodule update --init --recursive`.  The first `emacs`
 invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
-subdirectory `public`.
+subdirectory `public`.  (From within Emacs, you can generate the HTML
+presentation for an individual Org file using the usual export
+functionality by pressing `C-c C-e R B`.)
