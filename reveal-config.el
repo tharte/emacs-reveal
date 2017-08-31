@@ -41,8 +41,15 @@
 (add-to-list 'org-reveal-external-plugins
 	     (cons 'audio-slideshow
 		   " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } }"))
-;; I do not want to see the audio player if no local audio file is given.
-(setq org-reveal-init-script "  audio: { advance: -1, autoplay: true, onlyIfLocalAudio: true, externalPlayerCSS: true }")
+;; Adjust audio-slideshow settings:
+;; - Do not advance after end of audio
+;; - Start playing audio automatically
+;; - Do not display controls if no local audio file is given
+;; - Increase opacity when unfocused (students found default too easy to miss)
+;; - Display smaller at top (bottom is for TOC plugin)
+(setq org-reveal-init-script "  audio: {
+    advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
+    playerStyle: 'position: fixed; top: 0; left: 25%; width: 50%; height:30px; z-index: 33;' }")
 
 ;; Activate anything plugin
 (add-to-list 'org-reveal-external-plugins
