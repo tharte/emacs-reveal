@@ -40,11 +40,9 @@ requirements (3) nor (4).
 
 Eventually, I ended up with reveal.js.
 To embed audio, I’m using the
-[reveal.js plugin audio-slideshow](https://github.com/rajgoel/reveal.js-plugins)
-with minor additions, which you can find in
-[my fork of audio-slideshow](https://github.com/lechten/reveal.js-plugins).
-To make that plugin work with Org-Reveal, I extended that in
-[my fork of Org-Reveal](https://github.com/lechten/org-reveal).
+[reveal.js plugin audio-slideshow](https://github.com/rajgoel/reveal.js-plugins).
+To make that plugin work with Org-Reveal, I extended
+[Org-Reveal in my fork](https://github.com/lechten/org-reveal).
 
 My setup is as follows:
  * GNU Emacs
@@ -54,8 +52,7 @@ My setup is as follows:
    * Emacs libraries org-ref (for citations) and htmlize (for source
      code highlighting)
  * reveal.js
-   * reveal.js-plugins (from my
-     [repository](https://github.com/lechten/reveal.js-plugins))
+   * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
 
