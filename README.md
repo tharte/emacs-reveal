@@ -1,6 +1,6 @@
 <!--- Local IspellDict: en -->
 
-This project provides software to create presentations (slides with
+This project provides free software to create presentations (slides with
 audio) that are suitable as
 [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources),
 which in my view comes with two frequently neglected requirements:
@@ -13,8 +13,7 @@ which in my view comes with two frequently neglected requirements:
 
 During summer term 2017 I created the software in this repository to
 produce lecture slides for a course on Operating Systems using the
-HTML presentation
-framework [reveal.js](https://github.com/hakimel/reveal.js/)
+HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
 (see [here for the official reveal.js demo](http://lab.hakim.se/reveal-js/)
 and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
 As reveal.js presentations are in HTML format, there is no need for
