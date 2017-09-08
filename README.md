@@ -1,23 +1,36 @@
 <!--- Local IspellDict: en -->
 
-I’m experimenting with lecture slides using
+During summer term 2017 I created this repository for the generation
+of lecture slides for a course on Operating Systems using the HTML
+presentation framework
 [reveal.js](https://github.com/hakimel/reveal.js/)
-(see [here for a live demo of reveal.js](http://lab.hakim.se/reveal-js/)),
-which is an HTML presentation framework.
-Thus, there is no need to use special-purpose presentation software
-such as LibreOffice Impress or its proprietary counterparts such as
-Powerpoint.  Presentations can be viewed on *any device* using a Web
-browser, with its multimedia support for embedded audio explanations
-(or videos).
+(see [here for the official reveal.js demo](http://lab.hakim.se/reveal-js/)
+and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
+As presentations are in HTML format, there is no need for students to
+use special-purpose presentation software such as LibreOffice Impress
+or its proprietary counterparts such as Powerpoint.  Instead,
+presentations can be viewed on *any device* using a Web browser, with
+its multimedia support for embedded audio explanations (or videos).
 
-I create presentations in my usual computing environment, namely
-[GNU Emacs](https://www.gnu.org/software/emacs/),
-in a simple text format called [Org Mode](http://orgmode.org/), which
-can be exported to reveal.js thanks to
+I intend to use the software of this repository for other courses (and
+talks) as well.  Feel free to use and adapt for your purposes!
+
+Although reveal.js is an HTML presentation framework, I do not create
+presentations in HTML.  Instead, I rely on my usual computing
+environment, namely the text editor
+[GNU Emacs](https://www.gnu.org/software/emacs/), in a simple
+text format called [Org Mode](http://orgmode.org/), which can be
+exported to reveal.js thanks to
 [Org-Reveal](https://github.com/yjwen/org-reveal/).
 That way, I can focus on slides’ contents in a highly intuitive plain
 text document, which can be exported to HTML for presentation in a Web
-browser.
+browser (besides, presentations can be downloaded in two different
+layouts in PDF format in response to students’ requests:
+one PDF version contains one page per slide while the other one is
+generated via [LaTeX](https://www.latex-project.org/)).  All layout
+information is kept separately from content, so little effort is
+necessary to adapt presentations to different styles or corporate
+identities.
 
 My requirements, which lead me to select reveal.js, are as follows:
  1. Free software (really, I mean
