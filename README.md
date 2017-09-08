@@ -90,7 +90,7 @@ upon commit by a GitLab runner (see its
 [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
 for details).
 
-To build HTML presentations manually from org source files, do this:
+To build HTML presentations manually from `org` source files, do this:
 
 	$ git clone https://gitlab.com/oer/OS.git
 	$ cd OS
@@ -105,5 +105,5 @@ Included submodules need to be updated separately, though, with
 invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML
-presentation for an individual Org file using the usual export
+presentation for an individual `org` file using the usual export
 functionality by pressing `C-c C-e R B`.)
