@@ -1,9 +1,9 @@
 <!--- Local IspellDict: en -->
 
-During summer term 2017 I created this repository for the generation
-of lecture slides for a course on Operating Systems using the HTML
-presentation framework
-[reveal.js](https://github.com/hakimel/reveal.js/)
+During summer term 2017 I created the software in this repository to
+produce lecture slides for a course on Operating Systems using the
+HTML presentation
+framework [reveal.js](https://github.com/hakimel/reveal.js/)
 (see [here for the official reveal.js demo](http://lab.hakim.se/reveal-js/)
 and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
 As presentations are in HTML format, there is no need for students to
