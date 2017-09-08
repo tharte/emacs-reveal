@@ -1,16 +1,28 @@
 <!--- Local IspellDict: en -->
 
+This project provides software to create presentations (slides with
+audio) that are suitable as
+[Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources),
+which in my view comes with two frequently neglected requirements:
+1. Layout and style of presentations are separated from content to
+   simplify *collaboration across organizational boundaries*.
+2. Slides’ content is written down in simple text files, which enables
+   *comparisons* of adapted or enhanced *versions* (with `diff`-like
+   functionality, e.g,
+   [comparing commits on GitLab](https://help.github.com/articles/comparing-commits-across-time/)).
+
 During summer term 2017 I created the software in this repository to
 produce lecture slides for a course on Operating Systems using the
 HTML presentation
 framework [reveal.js](https://github.com/hakimel/reveal.js/)
 (see [here for the official reveal.js demo](http://lab.hakim.se/reveal-js/)
 and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
-As presentations are in HTML format, there is no need for students to
-use special-purpose presentation software such as LibreOffice Impress
-or its proprietary counterparts such as Powerpoint.  Instead,
-presentations can be viewed on *any device* using a Web browser, with
-its multimedia support for embedded audio explanations (or videos).
+As reveal.js presentations are in HTML format, there is no need for
+students to use special-purpose presentation software such as
+LibreOffice Impress or its proprietary counterparts such as
+Powerpoint.  Instead, presentations can be viewed on *any device*
+using a Web browser, with its multimedia support for embedded audio
+explanations (or videos).
 
 I intend to use the software of this repository for other courses (and
 talks) as well.  Feel free to use and adapt for your purposes!
@@ -37,7 +49,7 @@ My requirements, which lead me to select reveal.js, are as follows:
     [free](https://fsfe.org/about/basics/freesoftware.en.html), not
     gratis) that is usable on lots of devices
  2. Embed audio recordings for self-contained presentations
- 3. Focus on contents, not on layout while creating presentations
+ 3. Focus on content, not on layout while creating presentations
  4. Allow collaboration, ideally with support for versions and diffs
 
 First, I tried
