@@ -8,8 +8,8 @@ which in my view comes with two frequently neglected requirements:
    simplify *collaboration across organizational boundaries*.
 2. Slides’ content is written down in simple text files, which enables
    *comparisons* of adapted or enhanced *versions* (with `diff`-like
-   functionality, e.g,
-   [comparing commits on GitLab](https://help.github.com/articles/comparing-commits-across-time/)).
+   functionality, e.g, with the
+   [compare functionality on GitLab](https://gitlab.com/oer/OS/compare/os02...os03)).
 
 During summer term 2017 I created the software in this repository to
 produce lecture slides for a course on Operating Systems using the
