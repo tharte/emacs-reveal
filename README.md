@@ -68,7 +68,7 @@ To embed audio, I’m using the
 To make that plugin work with Org-Reveal, I extended
 [Org-Reveal in my fork](https://github.com/lechten/org-reveal).
 
-My setup is as follows:
+The setup is as follows:
  * GNU Emacs
    * Org mode (from ELPA; the version included in Emacs is too old)
    * Org-reveal (from my
@@ -79,16 +79,20 @@ My setup is as follows:
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
+ * LaTeX for PDF generation
 
-My Emacs initialization code for the above is included in
+Emacs initialization code for the above is included in
 [this file](reveal-config.el), which you can load from your `~/.emacs`
 (or embed there).
 
 My [course on Operating Systems](https://gitlab.com/oer/OS) is a
 real-world use case for the above.  Presentations are built automatically
-upon commit by a GitLab runner (see its
+using Continuous Integration (CI) upon commit by a GitLab runner (see its
 [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
-for details).
+for details), which publishes the
+[presentations as GitLab pages](https://oer.gitlab.io/OS/).
+The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
+contains necessary underlying software such as GNU Emacs and LaTeX.
 
 To build HTML presentations manually from `org` source files, do this:
 
