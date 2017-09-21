@@ -111,9 +111,9 @@
 ;; With org-reveal, only slide titles can be link targets.
 ;; Setup Bibliography in HTML accordingly.
 (require 'org-ref)
-(setq org-ref-bib-html "</p></section>
-<section id=\"slide-bibliography\">
-<h3 class=\"org-ref-bib-h3\">Bibliography</h3>
+(setq org-ref-bib-html "</p><div class=\"slide-footer\"><br></div></section>
+<section id=\"slide-bibliography\" data-state=\"no-toc-progress\">
+<h3 class=\"org-ref-bib-h3 no-toc-progress\">Bibliography</h3>
 <p>\n")
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#/slide-bibliography\">[%s]</a>")
