@@ -116,7 +116,7 @@
 <h3 class=\"org-ref-bib-h3\">Bibliography</h3>
 <p>\n")
 (setq org-ref-ref-html
-      "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
+      "<a class=\"org-ref-reference\" href=\"#/slide-bibliography\">[%s]</a>")
 
 ;; Display article, book, and inproceedings differently.
 ;; Remaining entries are defaults.
