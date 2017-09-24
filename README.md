@@ -94,7 +94,11 @@ for details), which publishes the
 The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
 contains necessary underlying software such as GNU Emacs and LaTeX.
 
-To build HTML presentations manually from `org` source files, do this:
+This [[https://gitlab.com/oer/emacs-reveal-howto][Howto]] explains how
+to use emacs-reveal based on a small sample presentation.  For a
+real-world course on Operating Systems, you could also do this
+to build all HTML presentations manually from `org` source files (into
+sub-directory `public`):
 
 	$ git clone https://gitlab.com/oer/OS.git
 	$ cd OS
