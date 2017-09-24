@@ -96,7 +96,7 @@ contains necessary underlying software such as GNU Emacs and LaTeX.
 
 This [[https://gitlab.com/oer/emacs-reveal-howto][Howto]] explains how
 to use emacs-reveal based on a small sample presentation.  For a
-real-world course on Operating Systems, you could also do this
+real-world course on Operating Systems, you could also do the following
 to build all HTML presentations manually from `org` source files (into
 sub-directory `public`):
 
