@@ -104,7 +104,7 @@ sub-directory `public`):
 	$ cd OS
 	$ git submodule sync --recursive
 	$ git submodule update --init --recursive
-	$ emacs --batch --load elisp/install.el --funcall install
+	$ emacs --batch --load emacs-reveal/install.el --funcall install
 	$ emacs --batch --load elisp/publish.el --funcall org-publish-all
 
 As usual, use `git pull` to update the source directory later on.
