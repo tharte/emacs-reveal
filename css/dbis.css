@@ -1,0 +1,106 @@
+/**
+ * Copyright (C) 2017 Jens Lechtenbörger
+ *
+ * Theme for DBIS Group's slides
+ *
+ * Released under the MIT License: https://opensource.org/licenses/MIT
+ */
+@import url(simple.css);
+
+/*********************************************
+ * JiTT Questions
+ *********************************************/
+
+html.jitt h3, html.jitt h4 {
+  color: #002f6f; }
+
+html.jitt li, html.jitt p {
+  font-size: 0.8em; }
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 10px 0;
+  top: 0;
+  left: 0;
+  color: #981E32;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: left;
+  text-shadow: none;
+  word-wrap: break-word; }
+
+
+/*********************************************
+ * Logos
+ *********************************************/
+
+.reveal .wwu-logo {
+  position: fixed;
+  width: 296px;
+  height: 100px;
+  left: 0;
+  top: 0; }
+
+.reveal .dbis-logo {
+  position: fixed;
+  width: 200px;
+  height: 107px;
+  right: 0;
+  top: 0; }
+
+.reveal .ercis-logo {
+  position: fixed;
+  width: 200px;
+  height: 127px;
+  right: 50px;
+  bottom: 20px; }
+
+/*********************************************
+ * OTHER
+ *********************************************/
+.reveal .course-title {
+  margin: 100px 0px 10px 0px; }
+
+.reveal .course-subtitle p {
+  font-size: .6em;
+  line-height: 1.0;
+  margin: 0; }
+
+.reveal .course-context p {
+  line-height: 1.0;
+  margin: 50px 0;
+  }
+
+.reveal .course-group {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: #788a82; }
+
+.reveal .course-group p {
+  line-height: 1.0;
+  font-size: 0.6em; }
+
+.reveal .course-group strong {
+  font-weight: bold;
+  color: #788a82; }
+
+.reveal .currtopic {
+  font-weight: bold;
+  font-size: 1.2em; }
+
+.reveal .prevtopic {
+  font-weight: lighter;
+  font-size: 0.8em; }
+
+.reveal .nexttopic {
+  font-weight: normal; }
