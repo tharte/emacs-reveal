@@ -139,23 +139,53 @@ body {
   text-align: left;
 }
 
+.reveal .left40 {
+  float: left;
+  width: 40%;
+}
+.reveal .left50 {
+  float: left;
+  width: 50%;
+}
+.reveal .left60 {
+  float: left;
+  width: 60%;
+}
+
+.reveal .right30 {
+  float: right;
+  width: 30%;
+}
+.reveal .right40 {
+  float: right;
+  width: 40%;
+}
+.reveal .right50 {
+  float: right;
+  width: 50%;
+}
+.reveal .right60 {
+  float: right;
+  width: 60%;
+}
+
 /*********************************************
  * Figures with captions
  *********************************************/
 
-.reveal .figure .figure-number {
+.reveal .figure-number {
   display: none;
 }
 
-.reveal .figure p {
+.reveal .figure p, .reveal figcaption {
   margin: 10px 0;
   text-align: right;
   font-size: .5em;
   line-height: 1.0;
   color: rgba(34, 34, 34, 0.3);
-
 }
 
+.reveal figure,
 .reveal .figure img,
 .reveal .figure object,
 .reveal .figure svg {
@@ -165,6 +195,10 @@ body {
   text-align: center;
 }
 
+.reveal section figure img {
+  vertical-align: top;
+  float: none;
+}
 
 /*********************************************
  * OTHER
@@ -186,6 +220,7 @@ body {
 /* Ensure certain elements are never larger than the slide itself */
 .reveal div,
 .reveal img,
+.reveal figure,
 .reveal object,
 .reveal svg,
 .reveal video,
