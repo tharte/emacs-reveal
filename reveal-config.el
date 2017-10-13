@@ -90,7 +90,19 @@
 			xhr.open( 'GET', container.getAttribute(\"data-svg-src\"), true );
 			xhr.send();
 		}
-	}) }
+	}) },
+	{className: \"randomPic\",
+	 defaults: {imgalt: \"Dummy alt text\",
+		    imgcaption: \"Image by {name}\",
+		    choices: [ {name: \"dummyname\", path: \"dummypath\"} ]},
+	 initialize: (function(container, options){
+	     container.innerHTML = Math.trunc( Math.random()*(options.choices.length) );
+	     var choice = Math.trunc( Math.random()*(options.choices.length) );
+	     var img = \"<img src='\" + options.choices[choice].path + \"' alt='\" + options.choices[choice].imgalt + \"' />\";
+	     var caption = options.imgcaption.replace(new RegExp('\\{name\\}', 'gm'), options.choices[choice].name);
+	     container.innerHTML = img + caption;
+	 })
+	}
 ],"))
 
 ;; Activate TOC progress plugin
