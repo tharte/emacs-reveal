@@ -178,8 +178,8 @@ body {
 }
 
 .reveal .figure p, .reveal figcaption {
-  margin: 10px 0;
-  text-align: right;
+  margin: 15px 0;
+  text-align: center;
   font-size: .5em;
   line-height: 1.0;
   color: rgba(34, 34, 34, 0.3);
@@ -189,7 +189,7 @@ body {
 .reveal .figure img,
 .reveal .figure object,
 .reveal .figure svg {
-  margin: 20px auto;
+  margin: 0px auto;
   display: block;
   float: none;
   text-align: center;
