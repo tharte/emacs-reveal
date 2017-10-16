@@ -109,7 +109,7 @@ sub-directory `public`):
 
 As usual, use `git pull` to update the source directory later on.
 Included submodules need to be updated separately, though, with
-`git submodule update --init --recursive`.  The first `emacs`
+`git submodule update --recursive --remote`.  The first `emacs`
 invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML

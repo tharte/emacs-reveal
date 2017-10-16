@@ -129,7 +129,10 @@ body {
  * Footer; TOC progress plugin has height 9.5vh
  *********************************************/
 
-.reveal .slide-footer { height: 9.5vh; }
+.reveal .slide-footer {
+  height: 9.5vh;
+  clear: both;
+}
 
 /*********************************************
  * SLIDES
@@ -139,34 +142,14 @@ body {
   text-align: left;
 }
 
-.reveal .left40 {
+.reveal .left {
   float: left;
-  width: 40%;
-}
-.reveal .left50 {
-  float: left;
-  width: 50%;
-}
-.reveal .left60 {
-  float: left;
-  width: 60%;
+  width: 48%;
 }
 
-.reveal .right30 {
+.reveal .right {
   float: right;
-  width: 30%;
-}
-.reveal .right40 {
-  float: right;
-  width: 40%;
-}
-.reveal .right50 {
-  float: right;
-  width: 50%;
-}
-.reveal .right60 {
-  float: right;
-  width: 60%;
+  width: 48%;
 }
 
 /*********************************************
