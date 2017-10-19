@@ -17,27 +17,6 @@ html.jitt h3, html.jitt h4 {
 html.jitt li, html.jitt p {
   font-size: 0.8em; }
 
-/*********************************************
- * HEADERS
- *********************************************/
-.reveal h1,
-.reveal h2,
-.reveal h3,
-.reveal h4,
-.reveal h5,
-.reveal h6 {
-  margin: 0 0 10px 0;
-  top: 0;
-  left: 0;
-  color: #981E32;
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: normal;
-  text-align: left;
-  text-shadow: none;
-  word-wrap: break-word; }
-
 
 /*********************************************
  * Logos
