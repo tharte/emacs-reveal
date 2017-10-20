@@ -202,6 +202,7 @@ body {
 
 /* Ensure certain elements are never larger than the slide itself */
 .reveal img,
+.reveal .figure,
 .reveal figure,
 .reveal object,
 .reveal svg,
