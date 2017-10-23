@@ -142,12 +142,12 @@ body {
   text-align: left;
 }
 
-.reveal .left {
+.reveal .leftcol {
   float: left;
   width: 48%;
 }
 
-.reveal .right {
+.reveal .rightcol {
   float: right;
   width: 48%;
 }
