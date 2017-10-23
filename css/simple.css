@@ -152,35 +152,54 @@ body {
   width: 48%;
 }
 
-/*********************************************
+/*******************************************************************
+ * Figures without captions
+ *
+ * With Org-Reveal, by defaults those are converted into plain imgs.
+ * Float to the right.
+ ******************************************************************/
+
+.reveal img {
+  margin: 5px 5px;
+  float: right;
+}
+
+/*******************************************************************
  * Figures with captions
- *********************************************/
+ *
+ * With Org-Reveal, by defaults those are converted into divs.
+ * If they are contained inside lists, let them float to the right.
+ * Otherwise, center.
+ * Omit figure numbers, center captions.
+ ******************************************************************/
+
+/* Center by default. */
+.reveal figure,
+.reveal div.figure {
+  margin: 10px 10px;
+  text-align: center;
+}
+
+.reveal div.figure img {
+  float: none;
+  margin: 10px auto;
+  display: block;
+}
+
+/* Right in lists. */
+.reveal li > figure,
+.reveal li > div.figure {
+  float: right;
+}
 
 .reveal .figure-number {
-  display: none;
-}
+  display: none; }
 
-.reveal .figure p, .reveal figcaption {
-  margin: 15px 0;
-  text-align: center;
+.reveal div.figure p, .reveal figcaption {
+  margin: 0;
   font-size: .5em;
-  line-height: 1.0;
   color: rgba(34, 34, 34, 0.3);
-}
-
-.reveal figure,
-.reveal .figure img,
-.reveal .figure object,
-.reveal .figure svg {
-  margin: 0px auto;
-  display: block;
-  float: none;
-  text-align: center;
-}
-
-.reveal section figure img {
-  vertical-align: top;
-  float: none;
+  line-height: 1.0;
 }
 
 /*********************************************
@@ -202,7 +221,7 @@ body {
 
 /* Ensure certain elements are never larger than the slide itself */
 .reveal img,
-.reveal .figure,
+.reveal div.figure,
 .reveal figure,
 .reveal object,
 .reveal svg,
@@ -403,16 +422,6 @@ body {
 /*********************************************
  * IMAGES
  *********************************************/
-.reveal section img {
-  margin: 5px 0px 5px 0px;
-  float: right;
-  background: rgba(255, 255, 255, 0.12);
-  border: none;
-  box-shadow: none; }
-
-.reveal section img.plain {
-  border: 0;
-  box-shadow: none; }
 
 .reveal a img {
   -webkit-transition: all .15s linear;
