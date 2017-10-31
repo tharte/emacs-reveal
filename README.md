@@ -85,8 +85,11 @@ Emacs initialization code for the above is included in
 [this file](reveal-config.el), which you can load from your `~/.emacs`
 (or embed there).
 
-My [course on Operating Systems](https://gitlab.com/oer/OS) is a
-real-world use case for the above.  Presentations are built automatically
+This [https://gitlab.com/oer/emacs-reveal-howto](Howto) explains how
+to use emacs-reveal based on a small sample presentation.
+
+My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS) is a
+real-world use case for emacs-reveal.  Presentations are built automatically
 using Continuous Integration (CI) upon commit by a GitLab runner (see its
 [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
 for details), which publishes the
@@ -94,10 +97,9 @@ for details), which publishes the
 The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
 contains necessary underlying software such as GNU Emacs and LaTeX.
 
-This [https://gitlab.com/oer/emacs-reveal-howto](Howto) explains how
-to use emacs-reveal based on a small sample presentation.  For a
-real-world course on Operating Systems, you could also do the following
-to build all HTML presentations manually from `org` source files (into
+Of course, presentations can also be built locally (without Docker).
+For my course on Operating Systems you could also do the following to
+build all HTML presentations manually from `org` source files (into
 sub-directory `public`):
 
 	$ git clone https://gitlab.com/oer/OS.git
