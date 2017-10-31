@@ -100,8 +100,11 @@
 	     var img = \"<img src='\" + options.choices[choice].path + \"' alt='\" + options.choices[choice].imgalt + \"' />\";
 	     var caption = options.imgcaption.replace(new RegExp('\\{name\\}', 'gm'), options.choices[choice].name);
 	     container.innerHTML = img + caption;
-	 })
-	}
+	 }) },
+	{className: \"notes\",
+	 initialize: (function(container, options){
+	     container.addEventListener('click', function(e) { RevealNotes.open(); });
+	 }) }
 ],"))
 
 ;; Activate TOC progress plugin
