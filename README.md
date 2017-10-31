@@ -1,7 +1,7 @@
 <!--- Local IspellDict: en -->
 
-This project provides free software to create presentations (slides with
-audio) that are suitable as
+This project provides [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
+to create presentations (slides with audio) that are suitable as
 [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources),
 which in my view comes with two frequently neglected requirements:
 1. Layout and style of presentations are separated from content to
