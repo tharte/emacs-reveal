@@ -179,33 +179,38 @@ body {
  ******************************************************************/
 
 /* Center by default. */
-.reveal figure,
-.reveal div.figure {
-  margin: 10px 10px;
-  text-align: center;
-}
+.reveal .imgcontainer {
+  text-align: center; }
 
-.reveal div.figure img {
-  float: none;
-  margin: 10px auto;
-  display: block;
-}
+.reveal figure, .reveal div.figure {
+  position: relative;
+  display: inline-block; }
+
+/* No figure numbers. */
+.reveal .figure-number {
+  display: none; }
 
 /* Right in lists. */
 .reveal li > figure,
 .reveal li > div.figure {
-  float: right;
-}
-
-.reveal .figure-number {
-  display: none; }
+  float: right; }
 
 .reveal div.figure p, .reveal figcaption {
   margin: 0;
   font-size: .5em;
-  color: rgba(34, 34, 34, 0.3);
   line-height: 1.0;
-}
+  color: rgba(34, 34, 34, 0.3); }
+
+/* Display license of image rotated, in smaller font. */
+.reveal div.figure p:nth-child(3) {
+  font-size: .3em;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transform-origin: 100% 100%;
+          transform-origin: 100% 100%; }
 
 /*********************************************
  * OTHER
