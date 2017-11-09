@@ -211,7 +211,7 @@ body {
  * OTHER
  *********************************************/
 
-#forkmeongitlab a {
+#forkmeongitlab a, #forkmeongitlab-right a {
   z-index: 20;
   color: #fff;
   background: #7ab516;
@@ -219,16 +219,28 @@ body {
   text-align: center;
   padding: 3px 20px;
   font-size: 1em;
-  line-height: 1.4em;
   width: 180px;
   position: absolute;
-  top: 40px;
-  left: -50px;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
   box-shadow: 0px 5px 10px rgba(0,0,0,0.55); }
 
-#forkmeongitlab a:hover {
+#forkmeongitlab a {
+  line-height: 1.4em;
+  top: 40px;
+  left: -50px; }
+
+#forkmeongitlab-right a {
+  line-height: 1.5em;
+  padding: 5px 30px;
+  width: 180px;
+  top: 50px;
+  right: -50px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.55); }
+
+#forkmeongitlab a:hover, #forkmeongitlab-right a:hover {
   font-weight: bold; }
 
 #slide-license p {
