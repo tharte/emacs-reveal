@@ -36,7 +36,7 @@
 # Macro imgwithcap takes three argument, an image path, a caption and
 # a license text.  This is meant to be used with horizontally centered
 # images, caption underneath, license text rotated to the right.
-# See 2017-oer-fachforum.org for sample use.
+# See emacs-reveal-howto for sample use.
 #+MACRO: imgcapandcopy $1 @@html:</p><p>@@ $2
 #+MACRO: imgcopy @@html:</p><p>@@ $1
 #+MACRO: imglicense #+CAPTION: {{{imgcopy($1)}}}
