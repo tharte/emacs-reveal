@@ -204,6 +204,7 @@ body {
 /* Display license of image rotated, in smaller font. */
 .reveal div.figure p:nth-child(3) {
   font-size: .3em;
+  opacity: 0.5;
   position: absolute;
   right: 0px;
   top: 0px;
