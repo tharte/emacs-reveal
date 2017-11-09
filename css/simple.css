@@ -186,6 +186,9 @@ body {
   position: relative;
   display: inline-block; }
 
+.reveal div.figure img {
+  float: none; }
+
 /* No figure numbers. */
 .reveal .figure-number {
   display: none; }
