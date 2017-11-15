@@ -8,8 +8,7 @@
 #+REVEAL_TRANS: fade
 #+REVEAL_THEME: simple
 
-# Zoom plugin does not seem to work for me.
-#+REVEAL_PLUGINS: (notes search)
+#+REVEAL_PLUGINS: (notes search zoom)
 
 # The following variables are non-standard.
 # Do not display TOC-progress on title slide.
