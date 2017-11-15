@@ -130,14 +130,14 @@ body {
 
 
 
-/*********************************************
- * Footer; TOC progress plugin has height 9.5vh
- *********************************************/
-
+/* Footer; TOC progress plugin has height 9.5vh. */
 .reveal .slide-footer {
   height: 9.5vh;
-  clear: both;
-}
+  clear: both; }
+
+/* Footer; reduce width to avoid overlap with navigation controls. */
+#toc-progress-footer {
+  width: 90%; }
 
 /*********************************************
  * SLIDES
