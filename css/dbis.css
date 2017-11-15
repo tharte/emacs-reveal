@@ -43,6 +43,21 @@ html.jitt li, html.jitt p {
   right: 50px;
   bottom: 20px; }
 
+/* Move logos if GitLab ribbon is displayed. */
+.reveal .dbis-logo-glr {
+  position: fixed;
+  width: 200px;
+  height: 107px;
+  right: 100px;
+  top: 0; }
+
+.reveal .ercis-logo-glr {
+  position: fixed;
+  width: 200px;
+  height: 127px;
+  right: 100px;
+  bottom: 20px; }
+
 /*********************************************
  * OTHER
  *********************************************/
