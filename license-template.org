@@ -2,7 +2,7 @@
 
 Except where otherwise noted, this work, “{{{title}}}”,
 is © {{{copyrightyears}}} {{{author}}}, under the Creative Commons license
-[[https://creativecommons.org/licenses/by-sa/4.0/][CC BY-SA 4.0]].
+[[https://creativecommons.org/licenses/by-sa/4.0/][CC BY-SA 4.0.]]
 
 #+BEGIN_QUOTE
 [[https://creativecommons.org/licenses/by-sa/4.0/#deed-understanding][No warranties are given.  The license may not give you all of the permissions necessary for your intended use.]]
