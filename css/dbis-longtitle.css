@@ -1,0 +1,22 @@
+/**
+ * Copyright (C) 2017 Jens Lechtenbörger
+ *
+ * Theme for DBIS Group presentation with long title, smaller fonts.
+ *
+ * Released under the MIT License: https://opensource.org/licenses/MIT
+ */
+
+@import url(dbis.css);
+
+.reveal h1 {
+  font-size: 1.8em; }
+
+.reveal .course-title {
+  margin: 60px 0px 10px 0px; }
+
+.reveal .course-context p {
+  line-height: 1.0;
+  margin: 40px 0; }
+
+.reveal .course-group p {
+  font-size: 0.5em; }
