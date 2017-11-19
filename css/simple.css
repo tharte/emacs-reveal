@@ -131,6 +131,7 @@ body {
 /* Footer; TOC progress plugin has height 9.5vh. */
 .reveal .slide-footer {
   height: 9.5vh;
+  pointer-events: none;
   clear: both; }
 
 /*********************************************
