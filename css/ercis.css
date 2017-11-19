@@ -1,0 +1,138 @@
+/**
+ * Copyright (C) 2017 Jens Lechtenbörger
+ *
+ * Theme for ERCIS slides
+ *
+ * Released under the MIT License: https://opensource.org/licenses/MIT
+ */
+@import url(simple.css);
+
+
+/*********************************************
+ * Logos and title on title slide
+ *********************************************/
+
+.reveal .wwu-logo {
+  position: fixed;
+  width: 296px;
+  height: 100px;
+  left: 0;
+  top: 0; }
+
+.reveal .ercis-logo {
+  position: fixed;
+  width: 250px;
+  height: 219px;
+  right: 0;
+  top: 0; }
+
+.reveal h1 {
+  font-size: 2em; }
+
+/**************************************************
+ * Logo for slide headers, but not on title slide
+ **************************************************/
+
+.reveal h2:after, .reveal h3:after, .reveal h4:after {
+  content: url(ERCIS-logo.png);
+  position: fixed;
+  right: 0;
+  top: 0; }
+
+/* Different logo on questions slide. */
+#questions-ercis-slide:after {
+  content: url(ERCIS-white-logo.png); }
+
+/*********************************************
+ * OTHER
+ *********************************************/
+
+/* Make sure that content can overlay TOC footer (title slide). */
+.reveal .slides {
+    z-index: 30; }
+
+/* Create space for GitLab ribbon. */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  margin: 10px 25px; }
+
+.reveal .talk-title {
+  margin: 100px 0px 10px 0px; }
+
+.reveal .talk-subtitle p {
+  font-size: .6em;
+  line-height: 1.0;
+  margin: 0; }
+
+.ercisbackground {
+  background: rgba(133,35,57,1.0); }
+
+div.ercisfooter {
+  position: fixed;
+  height: 9.5vh;
+  width: 90%;
+  bottom: 3px;
+  padding-bottom: 0.5vh;
+  pointer-events: none;
+  z-index: 30; }
+
+.ercisfooter p {
+  color: #fff;
+  margin: 4vh 10px;
+  font-size: .4em;
+  line-height: 1.0; }
+
+.reveal p.floatleft {
+  float: left; }
+
+.reveal p.floatright {
+  float: right; }
+
+.reveal a.ercisurl {
+  position: relative;
+  top: -1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff; }
+
+.reveal p.ercisisnetwork {
+  position: relative;
+  top: -1em;
+  font-weight: bold;
+  font-size: 1em; }
+
+/*********************************************
+ * ERCIS colors
+ *********************************************/
+
+::selection {
+  color: #fff;
+  background: #852339;
+  text-shadow: none; }
+
+::-moz-selection {
+  color: #fff;
+  background: #852339;
+  text-shadow: none; }
+
+.reveal .slides section .fragment.highlight-red.visible {
+  color: #852339; }
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  max-width: 80%;
+  color: #852339; }
+
+.reveal strong,
+.reveal b {
+  color: #852339; }
+
+.reveal a {
+  color: #435c8b; }
+
+#toc-progress-footer a, #toc-progress-footer ul {
+  color: #fff; }
