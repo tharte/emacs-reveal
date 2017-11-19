@@ -57,15 +57,21 @@
   margin: 10px 25px; }
 
 .reveal .talk-title {
-  margin: 100px 0px 10px 0px; }
+  margin: 150px 0px 10px 0px; }
 
 .reveal .talk-subtitle p {
-  font-size: .6em;
+  font-size: .8em;
+  font-weight: bold;
   line-height: 1.0;
-  margin: 0; }
+  color: #852339;
+  margin-bottom: 20px; }
 
-.ercisbackground {
-  background: rgba(133,35,57,1.0); }
+.reveal .licensepointer {
+  font-size: .6em;
+  float: right; }
+
+#license-link {
+  color: rgb(195,148,146); }
 
 div.ercisfooter {
   position: fixed;
@@ -83,23 +89,19 @@ div.ercisfooter {
   line-height: 1.0; }
 
 .reveal p.floatleft {
+  pointer-events: auto;
   float: left; }
 
 .reveal p.floatright {
   float: right; }
 
 .reveal a.ercisurl {
-  position: relative;
-  top: -1em;
-  font-size: 1.5em;
+  font-size: .7em;
   font-weight: bold;
   color: #fff; }
 
 .reveal p.ercisisnetwork {
-  position: relative;
-  top: -1em;
-  font-weight: bold;
-  font-size: 1em; }
+  font-weight: bold; }
 
 /*********************************************
  * ERCIS colors
