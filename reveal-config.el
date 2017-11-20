@@ -37,10 +37,11 @@
 ;; %s is automatically replaced with org-reveal-root.
 
 ;;(setq org-reveal-external-plugins nil)
-;; Activate audio-slideshow plugin
+;; Activate audio-slideshow plugin, but not multiple times when speaker
+;; notes are shown.
 (add-to-list 'org-reveal-external-plugins
 	     (cons 'audio-slideshow
-		   " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } }"))
+		   " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList && !Reveal.isSpeakerNotes(); } }"))
 ;; Adjust audio-slideshow settings:
 ;; - Do not advance after end of audio
 ;; - Start playing audio automatically
