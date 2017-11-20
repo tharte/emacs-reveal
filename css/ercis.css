@@ -67,20 +67,26 @@
   margin-bottom: 20px; }
 
 .reveal .licensepointer {
-  font-size: .6em;
-  float: right; }
+  width: 90%; }
+
+.reveal .licensepointer p {
+  text-align: right;
+  font-size: .6em; }
 
 #license-link {
   color: rgb(195,148,146); }
 
+/* Sizing of ercisfooter copied from TOC-progress footer. */
 div.ercisfooter {
   position: fixed;
   height: 9.5vh;
   width: 90%;
   bottom: 3px;
+  padding-top: 0.5vh;
   padding-bottom: 0.5vh;
+  background: #852339;
   pointer-events: none;
-  z-index: 30; }
+  z-index: 15; }
 
 .ercisfooter p {
   color: #fff;
