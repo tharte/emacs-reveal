@@ -276,6 +276,13 @@ body {
   max-width: 90%;
   max-height: 25em; }
 
+.reveal .smaller, .reveal .smaller-nomargin {
+  line-height: 1.1;
+  font-size: 0.6em; }
+
+.reveal .smaller-nomargin {
+  margin: 0; }
+
 .reveal strong,
 .reveal b {
   font-weight: bold;
