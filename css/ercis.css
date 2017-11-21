@@ -109,6 +109,9 @@ div.ercisfooter {
 .reveal p.ercisisnetwork {
   font-weight: bold; }
 
+#slide-questions-ercis-slide div.figure p:nth-child(3) {
+  color: rgb(195,148,146); }
+
 /*********************************************
  * ERCIS colors
  *********************************************/
