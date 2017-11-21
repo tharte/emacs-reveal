@@ -91,9 +91,8 @@ div.ercisfooter {
 
 .ercisfooter p {
   color: #fff;
-  margin: 4vh 10px;
-  font-size: .4em;
-  line-height: 1.0; }
+  margin: 2vh 10px;
+  font-size: .4em; }
 
 .reveal p.floatleft {
   pointer-events: auto;
