@@ -26,8 +26,8 @@
 # size calculations.
 #+REVEAL_SLIDE_FOOTER: <br>
 
-# The first two macros below are internal ones.
-# The third and fourth macros, imglicense and imgwithcap, are meant
+# The first macro below is an internal one.
+# The second and third macros, imglicense and imgwithcap, are meant
 # to be used in presentations.
 # Macro imglicense takes one argument, a license text, and is meant to
 # be used with inline images.  It displays the license text in rotated
@@ -36,7 +36,6 @@
 # a license text.  This is meant to be used with horizontally centered
 # images, caption underneath, license text rotated to the right.
 # See emacs-reveal-howto for sample use.
-#+MACRO: imgcapandcopy $1 @@html:</p><p>@@ $2
 #+MACRO: imgcopy @@html:</p><p>@@ $1
 #+MACRO: imglicense #+CAPTION: {{{imgcopy($1)}}}
-#+MACRO: imgwithcap (eval "@@html: <div class=\"imgcontainer\">@@ \n\n#+CAPTION: {{{imgcapandcopy($2, $3)}}}\n[[$1]] \n\n@@html: </div>@@\n\n")
+#+MACRO: imgwithcap (eval "@@html: </p><div class=\"imgcontainer\"><div class=\"figure\"><p><img src=\"$1\" alt=\"$1\" /></p><p>@@ $2 @@html:</p><p>@@ $3 @@html:</p></div></div><p>@@")
