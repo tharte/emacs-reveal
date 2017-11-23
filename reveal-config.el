@@ -138,9 +138,9 @@
 ;; Display article, book, and inproceedings differently.
 ;; Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U")
-	("book" . "%a, %t, %u, %y.</a> <a href=\"%U\">%U")
-	("inproceedings" . "%a, %t, %b, %y.</a> <a href=\"%U\">%U")
+      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
+	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
+	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
