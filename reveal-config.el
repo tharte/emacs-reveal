@@ -126,12 +126,15 @@
 
 ;;; Use org-ref to enable citations.
 ;; With org-reveal, only slide titles can be link targets.
-;; Setup Bibliography in HTML accordingly.
+;; Setup Bibliography in HTML.
+;; This is a dirty hack.  A paragraph is opened before the HTML below
+;; is generated.  Thus, the paragraph must be closed first.  For valid
+;; HTML, the org file must contain "@@html:<p>@@" after the bibliography
+;; command.
 (require 'org-ref)
 (setq org-ref-bib-html "</p><div class=\"slide-footer\"><br></div></section>
 <section id=\"slide-bibliography\" data-state=\"no-toc-progress\">
-<h3 class=\"org-ref-bib-h3 no-toc-progress\">Bibliography</h3>
-<p>\n")
+<h3 class=\"org-ref-bib-h3 no-toc-progress\">Bibliography</h3>\n")
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#/slide-bibliography\">[%s]</a>")
 
