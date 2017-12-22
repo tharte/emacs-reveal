@@ -35,7 +35,8 @@
 # Macro imgwithcap takes three argument, an image path, a caption and
 # a license text.  This is meant to be used with horizontally centered
 # images, caption underneath, license text rotated to the right.
+# The caption is also used for alt attribute of the image.
 # See emacs-reveal-howto for sample use.
 #+MACRO: imgcopy @@html:</p><p>@@ $1
 #+MACRO: imglicense #+CAPTION: {{{imgcopy($1)}}}
-#+MACRO: imgwithcap (eval "@@html: </p><div class=\"imgcontainer\"><div class=\"figure\"><p><img src=\"$1\" alt=\"$1\" /></p><p>@@ $2 @@html:</p><p>@@ $3 @@html:</p></div></div><p>@@")
+#+MACRO: imgwithcap (eval "@@html: </p><div class=\"imgcontainer\"><div class=\"figure\"><p><img src=\"$1\" alt=\"$2\" /></p><p>@@ $2 @@html:</p><p>@@ $3 @@html:</p></div></div><p>@@")
