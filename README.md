@@ -85,7 +85,7 @@ Emacs initialization code for the above is included in
 [this file](reveal-config.el), which you can load from your `~/.emacs`
 (or embed there).
 
-This [https://gitlab.com/oer/emacs-reveal-howto](Howto) explains how
+This [Howto](https://gitlab.com/oer/emacs-reveal-howto) explains how
 to use emacs-reveal based on a small sample presentation.
 
 My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS) is a
