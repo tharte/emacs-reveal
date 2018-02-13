@@ -6,7 +6,7 @@
 
 # Transition styles: none/fade/slide/convex/concave/zoom/cube
 #+REVEAL_TRANS: fade
-#+REVEAL_THEME: simple
+#+REVEAL_THEME: jl-simple
 
 #+REVEAL_PLUGINS: (notes search zoom)
 
