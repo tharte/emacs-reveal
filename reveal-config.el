@@ -142,12 +142,13 @@
 (setq org-ref-ref-html
       "<a class=\"org-ref-reference\" href=\"#/slide-bibliography\">[%s]</a>")
 
-;; Display article, book, and inproceedings differently.
+;; Display article, book, inproceedings, misc differently.
 ;; Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
       '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
 	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
 	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
+	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
