@@ -212,13 +212,13 @@ HTML and LaTeX."
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
-	 (imgadapted (alist-get 'imgadapted alist "; from"))
+	 (imgadapted (alist-get 'imgadapted alist "from"))
 	 (sourceuri (alist-get 'dc:source alist))
 	 (sourcetext (alist-get 'sourcetext alist))
 	 (sourcehtml (format "; <a rel=\"dc:source\" href=\"%s\">%s %s</a>"
 			     sourceuri imgadapted sourcetext))
 	 (texwidth (alist-get 'texwidth alist 0.9))
-	 (orglicense (format "%s %s under [[%s][%s]]%s [[%s][%s]]"
+	 (orglicense (format "%s %s under [[%s][%s]]; %s [[%s][%s]]"
 			     title orgauthor licenseurl licensetext
 			     imgadapted sourceuri sourcetext))
 	 (htmllicense (format "<p>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
@@ -233,8 +233,11 @@ HTML and LaTeX."
 		"\n"
 		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s (%s)}\n\\end{figure}\n#+END_EXPORT\n"
 			texwidth filename caption texlicense))
-      (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p></p>%s</div>@@"
-			filename filename imgalt htmllicense))))
+      (concat (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p></p>%s</div>@@"
+		      filename filename imgalt htmllicense)
+	      "\n"
+	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s}\n\\end{figure}\n#+END_EXPORT\n"
+			texwidth filename texlicense)))))
 
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
