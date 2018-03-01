@@ -175,13 +175,18 @@
     ((eq format 'latex)
      (format "{\\color{%s}%s}" path desc)))))
 
-;; Code to generate proper CC attribution for images.
+;; Function to generate proper CC attribution for images.  The function
+;; is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
-(defun reveal-export-attribution (metadata caption)
+(defun reveal-export-attribution (metadata &optional caption)
   "Generate string to represent image from METADATA with CAPTION.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
-METADATA is a text file including licensing information."
+METADATA is a text file including licensing information.
+If optional CAPTION is nil, just construct #+CAPTION option, which is
+misused to display the license information.
+Otherwise, generate full image with caption and license information for
+HTML and LaTeX."
   (let* ((org-export-with-sub-superscripts nil)
 	 (alist
 	  (read (with-temp-buffer
@@ -201,11 +206,12 @@ METADATA is a text file including licensing information."
 			 (if attributionurl
 			     (format "by <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
 				     attributionurl attributionname)
-			   (format "by <span property=\"cc:attributionName\">%s</span>" attributionname))
+			   (format "by <span property=\"dc:creator cc:attributionName\">%s</span>" attributionname))
 		       ""))
 	 (title (alist-get 'dc:title alist "Image"))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
-	 (imgalt (alist-get 'imgalt alist))
+	 (imgalt (or (alist-get 'imgalt alist)
+		     title))
 	 (imgadapted (alist-get 'imgadapted alist "; from"))
 	 (sourceuri (alist-get 'dc:source alist))
 	 (sourcetext (alist-get 'sourcetext alist))
@@ -221,10 +227,14 @@ METADATA is a text file including licensing information."
 	 (texlicense (replace-regexp-in-string
 		      "\n" "" (org-export-string-as orglicense 'latex t)))
 	 )
-    (concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p>%s</p>%s</div></div><p>@@"
-		    filename filename imgalt caption htmllicense)
-	    "\n"
-	    (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s (%s)}\n\\end{figure}\n#+END_EXPORT\n" texwidth filename caption texlicense))))
+    (if caption
+	(concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p>%s</p>%s</div></div><p>@@"
+			filename filename imgalt caption htmllicense)
+		"\n"
+		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s (%s)}\n\\end{figure}\n#+END_EXPORT\n"
+			texwidth filename caption texlicense))
+      (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p></p>%s</div>@@"
+			filename filename imgalt htmllicense))))
 
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
