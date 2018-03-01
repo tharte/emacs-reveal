@@ -28,17 +28,16 @@
 # size calculations.
 #+REVEAL_SLIDE_FOOTER: <br>
 
-# The first macro below is an internal one.
-# The second and third macros, imglicense and imgwithcap, are meant
-# to be used in presentations.
-# Macro imglicense takes one argument, a license text, and is meant to
-# be used with inline images.  It displays the license text in rotated
-# form right of the image.
-# Macro imgwithcap takes three argument, an image path, a caption and
-# a license text.  This is meant to be used with horizontally centered
-# images, caption underneath, license text rotated to the right.
-# The caption is also used for alt attribute of the image.
-# See emacs-reveal-howto for sample use.
-#+MACRO: imgcopy @@html:</p><p>@@ $1
-#+MACRO: imglicense #+CAPTION: {{{imgcopy($1)}}}
-#+MACRO: imgwithcap (eval "@@html: </p><div class=\"imgcontainer\"><div class=\"figure\"><p><img src=\"$1\" alt=\"$2\" /></p><p>@@ $2 @@html:</p><p>@@ $3 @@html:</p></div></div><p>@@")
+# To display images with license information, two macros are available.
+# First, revealimg() expects two arguments, a filename for a file with
+# meta-data about an image and a caption.  This is meant to be used
+# with horizontally centered images, caption underneath, license text
+# rotated to the right.
+# Second, reveallicense() expects just one argument, the filename for
+# meta-data.  Here, the image is displayed inline in the surrouding
+# paragraph or list, aligned to the right.  Again, license information
+# is rotated to the right of the image.
+# See emacs-reveal-howto for sample use:
+# https://gitlab.com/oer/emacs-reveal-howto
+#+MACRO: revealimg (eval (reveal-export-attribution $1 $2))
+#+MACRO: reveallicense (eval (reveal-export-attribution $1))
