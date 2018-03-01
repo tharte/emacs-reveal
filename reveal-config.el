@@ -2,7 +2,7 @@
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
-;; Copyright (C) 2017 Jens Lechtenbörger
+;; Copyright (C) 2017, 2018 Jens Lechtenbörger
 
 ;;; License:
 ;; This program is free software; you can redistribute it and/or
@@ -174,6 +174,57 @@
      (format "<span style=\"color:%s;\">%s</span>" path desc))
     ((eq format 'latex)
      (format "{\\color{%s}%s}" path desc)))))
+
+;; Code to generate proper CC attribution for images.
+;; See emacs-reveal-howto for sample use:
+;; https://gitlab.com/oer/emacs-reveal-howto
+(defun reveal-export-attribution (metadata caption)
+  "Generate string to represent image from METADATA with CAPTION.
+Produce string for HTML and LaTeX exports to be embedded in Org files.
+METADATA is a text file including licensing information."
+  (let* ((org-export-with-sub-superscripts nil)
+	 (alist
+	  (read (with-temp-buffer
+		  (insert-file-contents-literally metadata)
+		  (buffer-substring-no-properties (point-min) (point-max)))))
+	 (filename (alist-get 'filename alist))
+	 (licenseurl (alist-get 'licenseurl alist))
+	 (licensetext (alist-get 'licensetext alist))
+	 (attributionname (alist-get 'cc:attributionName alist))
+	 (attributionurl (alist-get 'cc:attributionURL alist))
+	 (orgauthor (if attributionname
+			(if attributionurl
+			    (format "by [[%s][%s]]" attributionurl attributionname)
+			  (format "by %s" attributionname))
+		      ""))
+	 (htmlauthor (if attributionname
+			 (if attributionurl
+			     (format "by <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
+				     attributionurl attributionname)
+			   (format "by <span property=\"cc:attributionName\">%s</span>" attributionname))
+		       ""))
+	 (title (alist-get 'dc:title alist "Image"))
+	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
+	 (imgalt (alist-get 'imgalt alist))
+	 (imgadapted (alist-get 'imgadapted alist "; from"))
+	 (sourceuri (alist-get 'dc:source alist))
+	 (sourcetext (alist-get 'sourcetext alist))
+	 (sourcehtml (format "; <a rel=\"dc:source\" href=\"%s\">%s %s</a>"
+			     sourceuri imgadapted sourcetext))
+	 (texwidth (alist-get 'texwidth alist 0.9))
+	 (orglicense (format "%s %s under [[%s][%s]]%s [[%s][%s]]"
+			     title orgauthor licenseurl licensetext
+			     imgadapted sourceuri sourcetext))
+	 (htmllicense (format "<p>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
+			      htmltitle htmlauthor licenseurl licensetext
+			      sourcehtml))
+	 (texlicense (replace-regexp-in-string
+		      "\n" "" (org-export-string-as orglicense 'latex t)))
+	 )
+    (concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p>%s</p>%s</div></div><p>@@"
+		    filename filename imgalt caption htmllicense)
+	    "\n"
+	    (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s (%s)}\n\\end{figure}\n#+END_EXPORT\n" texwidth filename caption texlicense))))
 
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
