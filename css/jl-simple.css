@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Jens Lechtenbörger
+ * Copyright (C) 2017, 2018 Jens Lechtenbörger
  *
  * Simple presentation theme, based on 'white' theme for reveal.js
  * by Hakim El Hattab, http://hakim.se
@@ -276,12 +276,16 @@ body {
   max-width: 90%;
   max-height: 25em; }
 
-.reveal .smaller, .reveal .smaller-nomargin {
+.reveal .smaller, .reveal .smaller-nomargin, .reveal .slide-source {
   line-height: 1.1;
   font-size: 0.6em; }
 
 .reveal .smaller-nomargin {
   margin: 0; }
+
+.reveal .slide-source {
+  text-align: right;
+  opacity: 0.6; }
 
 .reveal strong,
 .reveal b {
