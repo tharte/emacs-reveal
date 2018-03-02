@@ -1,13 +1,15 @@
 # Local IspellDict: en
 
 # This file generates a bibliography slide and a slide with license
-# information.  License information requires that copyright years are
+# information.
+# The name of the bib file must be set via macro bibfile.
+# License information requires that copyright years are
 # set via macro copyrightyears.
 
 # Handling of bibliography is a hack, which requires the opening p tag
 # at the end to produce valid HTML.
 bibliographystyle:alphadin
-bibliography:references.bib
+bibliography:{{{bibfile}}}
 @@html:<p>@@
 
 #+INCLUDE: license-template.org
