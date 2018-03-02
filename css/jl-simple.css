@@ -322,7 +322,9 @@ body {
   margin-left: 40px; }
 
 .reveal .org-ref-bib {
-  font-size: 0.6em; }
+  font-size: 0.6em;
+  overflow: auto;
+  max-height: 22em; }
 
 .reveal dt {
   font-weight: bold; }
