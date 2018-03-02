@@ -28,6 +28,9 @@
 # size calculations.
 #+REVEAL_SLIDE_FOOTER: <br>
 
+# Set a default bib file.
+#+MACRO: bibliographyfile bibliography:references.bib
+
 # To display images with license information, two macros are available.
 # First, revealimg() expects two arguments, a filename for a file with
 # meta-data about an image and a caption.  This is meant to be used
