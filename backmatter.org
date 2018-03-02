@@ -2,14 +2,14 @@
 
 # This file generates a bibliography slide and a slide with license
 # information.
-# The name of the bib file must be set via macro bibfile.
+# The name of the bib file must be set via macro bibliographyfile.
 # License information requires that copyright years are
 # set via macro copyrightyears.
 
 # Handling of bibliography is a hack, which requires the opening p tag
 # at the end to produce valid HTML.
 bibliographystyle:alphadin
-bibliography:{{{bibfile}}}
+{{{bibliographyfile}}}
 @@html:<p>@@
 
 #+INCLUDE: license-template.org
