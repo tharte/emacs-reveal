@@ -232,12 +232,12 @@ HTML and LaTeX."
 	(concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p>%s</p>%s</div></div><p>@@"
 			filename filename imgalt caption htmllicense)
 		"\n"
-		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s (%s)}\n\\end{figure}\n#+END_EXPORT\n"
+		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
 			texwidth filename caption texlicense))
       (concat (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p></p>%s</div>@@"
 		      filename filename imgalt htmllicense)
 	      "\n"
-	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp]\n  \\centering\n  \\includegraphics[width=%s\\linewidth]{%s}\n  \\caption{%s}\n\\end{figure}\n#+END_EXPORT\n"
+	      (format "     #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n     #+END_EXPORT\n"
 			texwidth filename texlicense)))))
 
 (provide 'reveal-config)
