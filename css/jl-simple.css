@@ -324,6 +324,7 @@ body {
 .reveal .org-ref-bib {
   font-size: 0.6em;
   overflow: auto;
+  padding-right: 5px;
   max-height: 22em; }
 
 .reveal dt {
