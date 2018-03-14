@@ -191,6 +191,7 @@ body {
 /* Right in lists. */
 .reveal li > figure,
 .reveal li > div.figure {
+  margin: 0px 10px;
   float: right; }
 
 .reveal div.figure p, .reveal figcaption {
