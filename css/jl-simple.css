@@ -328,6 +328,9 @@ body {
   padding-right: 5px;
   max-height: 22em; }
 
+.reveal .org-ref-bib li {
+  line-height: normal; }
+
 .reveal dt {
   font-weight: bold; }
 
