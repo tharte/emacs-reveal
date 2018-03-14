@@ -147,6 +147,7 @@
 (setq org-ref-bibliography-entry-format
       '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
 	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
+	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
 	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
 	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
 	("techreport" . "%a, %t, %i, %u (%y).")
@@ -216,8 +217,8 @@ HTML and LaTeX."
 	 (imgadapted (alist-get 'imgadapted alist "from"))
 	 (sourceuri (alist-get 'dc:source alist))
 	 (sourcetext (alist-get 'sourcetext alist))
-	 (sourcehtml (format "; <a rel=\"dc:source\" href=\"%s\">%s %s</a>"
-			     sourceuri imgadapted sourcetext))
+	 (sourcehtml (format "; <br />%s <a rel=\"dc:source\" href=\"%s\">%s</a>"
+			     imgadapted sourceuri sourcetext))
 	 (texwidth (alist-get 'texwidth alist 0.9))
 	 (orglicense (format "%s %s under [[%s][%s]]; %s [[%s][%s]]"
 			     title orgauthor licenseurl licensetext
