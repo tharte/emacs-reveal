@@ -27,6 +27,7 @@
 # In this way, the footer’s height is taken into account by reveal.js’s
 # size calculations.
 #+REVEAL_SLIDE_FOOTER: <br>
+#+OPTIONS: reveal_toc_footer:t
 
 # Set a default bib file.
 #+MACRO: bibliographyfile bibliography:references.bib
