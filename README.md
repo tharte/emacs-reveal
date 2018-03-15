@@ -14,7 +14,7 @@ which in my view comes with two frequently neglected requirements:
 During summer term 2017 I created the software in this repository to
 produce lecture slides for a course on Operating Systems using the
 HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
-(see [here for the official reveal.js demo](http://lab.hakim.se/reveal-js/)
+(see [here for the official reveal.js demo](https://revealjs.com/)
 and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
 As reveal.js presentations are in HTML format, there is no need for
 students to use special-purpose presentation software such as
