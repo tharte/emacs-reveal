@@ -181,14 +181,17 @@
 ;; is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
-(defun reveal-export-attribution (metadata &optional caption)
-  "Generate string to represent image from METADATA with CAPTION.
+(defun reveal-export-attribution (metadata &optional caption maxheight)
+  "Display image from METADATA with CAPTION and MAXHEIGHT.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
-If optional CAPTION is nil, just construct #+CAPTION option, which is
-misused to display the license information.
-Otherwise, generate full image with caption and license information for
-HTML and LaTeX."
+If optional CAPTION is not nil, display it underneath the image;
+if CAPTION is nil, a LaTeX caption is generated anyways to display license
+information.
+Optional MAXHEIGHT restricts the height of the image and of the license
+information in HTML.  MAXHEIGHT needs be a full specification including
+the unit, e.g. `50vh'.
+For LaTeX, the METADATA file may specify a texwidth."
   (let* ((org-export-with-sub-superscripts nil)
 	 (alist
 	  (read (with-temp-buffer
@@ -217,26 +220,32 @@ HTML and LaTeX."
 	 (imgadapted (alist-get 'imgadapted alist "from"))
 	 (sourceuri (alist-get 'dc:source alist))
 	 (sourcetext (alist-get 'sourcetext alist))
-	 (sourcehtml (format "; <br />%s <a rel=\"dc:source\" href=\"%s\">%s</a>"
+	 (sourcehtml (format "; %s <a rel=\"dc:source\" href=\"%s\">%s</a>"
 			     imgadapted sourceuri sourcetext))
 	 (texwidth (alist-get 'texwidth alist 0.9))
+	 (h-image (if maxheight
+		      (format " style=\"max-height:%s \"" maxheight)
+		    ""))
+	 (h-license (if maxheight
+			(format " style=\"max-width:%s \"" maxheight)
+		      ""))
 	 (orglicense (format "%s %s under [[%s][%s]]; %s [[%s][%s]]"
 			     title orgauthor licenseurl licensetext
 			     imgadapted sourceuri sourcetext))
-	 (htmllicense (format "<p>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
-			      htmltitle htmlauthor licenseurl licensetext
-			      sourcehtml))
+	 (htmllicense (format "<p%s>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
+			      h-license htmltitle htmlauthor licenseurl
+			      licensetext sourcehtml))
 	 (texlicense (replace-regexp-in-string
 		      "\n" "" (org-export-string-as orglicense 'latex t)))
 	 )
     (if caption
-	(concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p>%s</p>%s</div></div><p>@@"
-			filename filename imgalt caption htmllicense)
+	(concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p>%s</p>%s</div></div><p>@@"
+			filename filename imgalt h-image caption htmllicense)
 		"\n"
 		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
 			texwidth filename caption texlicense))
-      (concat (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" /></p><p></p>%s</div>@@"
-		      filename filename imgalt htmllicense)
+      (concat (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p></p>%s</div>@@"
+		      filename filename imgalt h-image htmllicense)
 	      "\n"
 	      (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
 			texwidth filename texlicense)))))
