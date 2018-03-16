@@ -330,6 +330,9 @@ body {
   max-height: 22em; }
 
 .reveal .org-ref-bib li {
+  padding-left: 1em;
+  text-indent: -1em;
+  list-style-type: none;
   line-height: normal; }
 
 .reveal dt {
