@@ -179,6 +179,7 @@ body {
   text-align: center; }
 
 .reveal .imgcontainer figure, .reveal .imgcontainer div.figure {
+  margin: 3px 5px;
   display: inline-block; }
 
 .reveal div.figure img {
@@ -191,7 +192,6 @@ body {
 /* Right in lists. */
 .reveal li > figure,
 .reveal li > div.figure {
-  margin: 0px 10px;
   float: right; }
 
 .reveal div.figure p, .reveal figcaption {
@@ -205,6 +205,7 @@ body {
   font-size: .3em;
   opacity: 0.5;
   text-align: right;
+  margin: 5px;
   position: absolute;
   right: 0px;
   top: 0px;
