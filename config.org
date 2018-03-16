@@ -32,16 +32,18 @@
 # Set a default bib file.
 #+MACRO: bibliographyfile bibliography:references.bib
 
-# To display images with license information, two macros are available.
-# First, revealimg() expects two arguments, a filename for a file with
-# meta-data about an image and a caption.  This is meant to be used
-# with horizontally centered images, caption underneath, license text
-# rotated to the right.
-# Second, reveallicense() expects just one argument, the filename for
-# meta-data.  Here, the image is displayed inline in the surrouding
-# paragraph or list, aligned to the right.  Again, license information
-# is rotated to the right of the image.
+# To display images with license information, two macros are
+# available.  First, revealimg() expects three arguments, a filename
+# for a file with meta-data about an image, a caption, and the maximum
+# height of image in HTML, e.g., 50vh.  This is meant to be used with
+# horizontally centered images, caption underneath, license text
+# rotated to the right.  Second, reveallicense() expects two
+# arguments, the filename for meta-data and the maximum height.  Here,
+# the image is displayed inline in the surrouding paragraph or list,
+# aligned to the right.  Again, license information is rotated to the
+# right of the image.
+#
 # See emacs-reveal-howto for sample use:
 # https://gitlab.com/oer/emacs-reveal-howto
-#+MACRO: revealimg (eval (reveal-export-attribution $1 $2))
-#+MACRO: reveallicense (eval (reveal-export-attribution $1))
+#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3))
+#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2))
