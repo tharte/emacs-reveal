@@ -56,7 +56,7 @@ body {
   visibility: inherit; }
 
 .reveal .slides section .fragment.gray-out.visible {
-  color: #a0a0a0; }
+  opacity: 0.5; }
 
 .reveal .slides section .fragment.shrink.visible {
     -webkit-transform: scale(0.7);
