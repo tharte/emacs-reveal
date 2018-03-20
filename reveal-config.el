@@ -224,10 +224,10 @@ For LaTeX, the METADATA file may specify a texwidth."
 			     imgadapted sourceuri sourcetext))
 	 (texwidth (alist-get 'texwidth alist 0.9))
 	 (h-image (if maxheight
-		      (format " style=\"max-height:%s \"" maxheight)
+		      (format " style=\"max-height:%s\"" maxheight)
 		    ""))
 	 (h-license (if maxheight
-			(format " style=\"max-width:%s \"" maxheight)
+			(format " style=\"max-width:%s\"" maxheight)
 		      ""))
 	 (orglicense (format "%s %s under [[%s][%s]]; %s [[%s][%s]]"
 			     title orgauthor licenseurl licensetext
