@@ -288,6 +288,7 @@ body {
 
 .reveal .slide-source {
   text-align: right;
+  clear: both;
   opacity: 0.6; }
 
 .reveal strong,
