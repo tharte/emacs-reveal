@@ -167,15 +167,18 @@ body {
 /*******************************************************************
  * Figures with captions
  *
- * With Org-Reveal, by defaults those are converted into divs.
+ * With Org-Reveal, by default those are converted into divs.
  * If they are contained inside lists, let them float to the right.
  * Otherwise, center.
  * Omit figure numbers, center captions.
  ******************************************************************/
 
-/* Center by default. */
+/* Center by default.
+ * Right padding is to make space for the rotated license text
+ * (if present). */
 .reveal .imgcontainer, .reveal figure, .reveal div.figure {
   position: relative;
+  padding-right: 2vw;
   text-align: center; }
 
 .reveal .imgcontainer figure, .reveal .imgcontainer div.figure {
@@ -192,8 +195,7 @@ body {
 /* Right in lists. */
 .reveal li > figure,
 .reveal li > div.figure {
-  float: right;
-  padding-right: 2vw; }
+  float: right; }
 
 .reveal div.figure p, .reveal figcaption {
   margin: 0;
@@ -201,7 +203,8 @@ body {
   line-height: 1.0;
   color: rgba(34, 34, 34, 0.3); }
 
-/* Display license of image rotated, in smaller font. */
+/* Display license of image rotated, in smaller font.
+   Move to right, with same amount as padding-right above. */
 .reveal div.figure p:nth-child(3) {
   font-size: .3em;
   opacity: 0.5;
