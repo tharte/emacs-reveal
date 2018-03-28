@@ -191,7 +191,8 @@ information.
 Optional MAXHEIGHT restricts the height of the image and of the license
 information in HTML.  MAXHEIGHT needs be a full specification including
 the unit, e.g. `50vh'.
-For LaTeX, the METADATA file may specify a texwidth."
+For LaTeX, the METADATA file may specify a texwidth, which is embedded in
+the width specification as fraction of `linewidth'; 0.9 by default."
   (let* ((org-export-with-sub-superscripts nil)
 	 (alist
 	  (read (with-temp-buffer
