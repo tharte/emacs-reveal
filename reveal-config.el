@@ -201,7 +201,7 @@ the width specification as fraction of `linewidth'; 0.9 by default."
     (concat (if caption
 		(concat "@@html: </p><div class=\"imgcontainer\">"
 			(car org)
-			"@@html: </div><p>@@")
+			"@@ @@html: </div><p>@@")
 	      (concat "@@html: " (car org) "@@"))
 	    "\n"
 	    (cdr org))))
