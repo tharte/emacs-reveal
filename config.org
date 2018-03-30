@@ -66,5 +66,6 @@
 # - and grid-template-areas to specify what image to position on what
 #   grid cell(s); see, e.g.:
 #   https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
+#   With this macro, the grid areas *must* be named ga1, ga2, ...
 # This macro uses reveal-export-image-grid in reveal-config.el.
 #+MACRO: revealgrid (eval (reveal-export-image-grid $1 $2 $3 $4 $5 $6))
