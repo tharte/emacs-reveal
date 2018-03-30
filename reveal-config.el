@@ -114,11 +114,6 @@
 (add-to-list 'org-reveal-external-plugins
 	     (cons 'toc-progress
 		   " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }"))
-;; For multiple CSS files, separate them with "\n" in org-reveal-extra-css:
-(setq org-reveal-extra-css
-      (concat "./reveal.js/plugin/toc-progress/toc-progress.css"
-	      "\n"
-	      "./reveal.js/css/theme/toc-style.css"))
 
 ;; Activate jump plugin
 (add-to-list 'org-reveal-external-plugins
