@@ -272,5 +272,128 @@ See `reveal-export-attribution' for description of arguments."
 	    (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
 		    texwidth filename texlicense)))))
 
+;; Function to create a grid of images with license information in HTML.
+(defun reveal-export-image-grid
+    (grid-id grid-images height no-columns no-rows template-areas)
+  "Create HTML to display grid with id GRID-ID of GRID-IMAGES.
+The grid has a HEIGHT (percentage of viewport height without unit),
+NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
+  (let* ((images
+	  (read (with-temp-buffer
+		  (insert-file-contents-literally grid-images)
+		  (buffer-substring-no-properties (point-min) (point-max)))))
+	 (reveal--internal-grid-id grid-id)
+	 (reveal--internal-grid-img-counter 0)
+	 (reveal--internal-grid-row-height (/ (* 0.95 height) no-rows))
+	 (reveal--internal-image-heights
+	  (reveal--compute-image-heights template-areas))
+	 (css-name (reveal--save-image-grid-css
+		    grid-id images height no-columns no-rows template-areas)))
+    (concat (format "#+REVEAL_EXTRA_CSS: %s\n"
+		    (replace-regexp-in-string "/public" "" css-name))
+	    (format "@@html: </p><div class=\"grid%s\">" grid-id)
+	    (mapconcat 'reveal--export-grid-image images " ")
+	    "</div><p>@@"
+	    "\n"
+	    "@@latex: Presentation contains image grid.  \\LaTeX export not supported.@@")))
+
+(defvar reveal--internal-grid-id 0
+  "Unqiue integer number of grid.")
+(defvar reveal--internal-grid-row-height 0
+  "Computed from height of grid and number of rows.")
+(defvar reveal--internal-image-heights 0
+  "Height of image in number of cells.")
+(defvar reveal--css-filename-template "./public/figures/css/grid%s.css"
+  "Template for filename of grid's exported CSS.")
+(defvar reveal--css-grid-img-class-template "grid%s-img%d"
+  "Template for name of grid class.")
+(defvar reveal--css-grid-img-template
+  (concat "." reveal--css-grid-img-class-template "{ grid-area: ga%d; }")
+  "Template for CSS of img element.")
+(defvar reveal--css-repeat-template "repeat(%s, 1fr)"
+  "Template for size of rows and columns.")
+(defvar reveal--css-grid-template ".grid%s {
+  display: grid;
+  height: %svh;
+  grid-template-columns: %s;
+  grid-template-rows: %s;
+  grid-gap: 5px;
+  align-items: center;
+  grid-template-areas: %s; }
+"
+  "Template for CSS of grid.")
+(defvar reveal--css-grid-img-all ".grid-img img {
+  max-width: 90%; }
+"
+  "CSS for all images of grid.")
+
+(defun reveal--generate-grid-img (no)
+  "Create CSS class assigning grid-area NO to image NO in current grid."
+  (format reveal--css-grid-img-template
+	  reveal--internal-grid-id no no))
+
+(defun reveal--generate-grid-imgs (no-images)
+  "Create CSS classes assigning grid areas for NO-IMAGES images.
+Use id of current grid according to `reveal--internal-grid-id'."
+  (mapconcat 'reveal--generate-grid-img
+	     (number-sequence 1 no-images) "\n"))
+
+(defun reveal--generate-grid
+    (height no-columns no-rows template-areas)
+  "Create CSS for grid layout based on `reveal--css-grid-template'."
+  (format reveal--css-grid-template
+	  reveal--internal-grid-id height
+	  (format reveal--css-repeat-template no-columns)
+	  (format reveal--css-repeat-template no-rows)
+	  template-areas))
+
+(defun reveal--save-image-grid-css
+    (grid-id images height no-columns no-rows template-areas)
+  "Save CSS for GRID-ID to file.
+Helper function for `reveal-export-image-grid', see there for documentation
+of further arguments.
+Construct name of file with `reveal--css-filename-template', create
+directories if necessary, remove possibly previously existing file,
+write CSS to new file, and return it's name."
+  (let* ((reveal--internal-grid-id grid-id)
+	 (no-images  (length images))
+	 (filename (format reveal--css-filename-template grid-id))
+	 (dirname (file-name-directory filename))
+	 (css (concat (reveal--generate-grid-imgs no-images)
+		      "\n"
+		      (reveal--generate-grid
+		       height no-columns no-rows template-areas)
+		      reveal--css-grid-img-all "\n")))
+    (mkdir dirname t)
+    (when (file-readable-p filename)
+      (delete-file filename))
+    (append-to-file css nil filename)
+    filename))
+
+(defun reveal--compute-image-heights (template-areas)
+  "Create hash table with heights of cells in TEMPLATE-AREAS."
+  (let ((rows (delete "" (delete " " (split-string template-areas "\""))))
+	(result (make-hash-table :test 'equal)))
+    (dolist (row rows result)
+      (let ((cells (delete-dups (split-string row " "))))
+	(dolist (cell cells)
+	  (puthash cell (+ 1 (gethash cell result 0)) result))))))
+
+(defun reveal--export-grid-image (image)
+  "Create HTML for IMAGE.
+Call `reveal--attribution-strings' with proper metadata."
+  (setq reveal--internal-grid-img-counter
+	(+ 1 reveal--internal-grid-img-counter))
+  (let ((area (format "ga%d" reveal--internal-grid-img-counter)))
+    (car (reveal--attribution-strings
+	  image nil
+	  (format "%svh"
+		  (* (gethash area reveal--internal-image-heights)
+		     reveal--internal-grid-row-height))
+	  (concat "figure grid-img "
+		  (format reveal--css-grid-img-class-template
+			  reveal--internal-grid-id
+			  reveal--internal-grid-img-counter))))))
+
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
