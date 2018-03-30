@@ -181,8 +181,9 @@
 ;; is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
-(defun reveal-export-attribution (metadata &optional caption maxheight)
-  "Display image from METADATA with CAPTION and MAXHEIGHT.
+(defun reveal-export-attribution
+    (metadata &optional caption maxheight divclasses)
+  "Display image from METADATA with CAPTION, MAXHEIGHT, and DIVCLASSES.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
 If optional CAPTION is not nil, display it underneath the image;
@@ -191,8 +192,25 @@ information.
 Optional MAXHEIGHT restricts the height of the image and of the license
 information in HTML.  MAXHEIGHT needs be a full specification including
 the unit, e.g. `50vh'.
+If present, optional DIVCLASSES must be a string with space separated
+classes for the div element, including `figure'.
 For LaTeX, the METADATA file may specify a texwidth, which is embedded in
 the width specification as fraction of `linewidth'; 0.9 by default."
+  (let ((org (reveal--attribution-strings
+	      metadata caption maxheight divclasses)))
+    (concat (if caption
+		(concat "@@html: </p><div class=\"imgcontainer\">"
+			(car org)
+			"@@html: </div><p>@@")
+	      (concat "@@html: " (car org) "@@"))
+	    "\n"
+	    (cdr org))))
+
+(defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p>%s</p>%s</div>")
+(defun reveal--attribution-strings
+    (metadata &optional caption maxheight divclasses)
+  "Helper function.
+See `reveal-export-attribution' for description of arguments."
   (let* ((org-export-with-sub-superscripts nil)
 	 (alist
 	  (read (with-temp-buffer
@@ -205,14 +223,16 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	 (attributionurl (alist-get 'cc:attributionURL alist))
 	 (orgauthor (if attributionname
 			(if attributionurl
-			    (format "by [[%s][%s]]" attributionurl attributionname)
+			    (format "by [[%s][%s]]"
+				    attributionurl attributionname)
 			  (format "by %s" attributionname))
 		      ""))
 	 (htmlauthor (if attributionname
 			 (if attributionurl
 			     (format "by <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
 				     attributionurl attributionname)
-			   (format "by <span property=\"dc:creator cc:attributionName\">%s</span>" attributionname))
+			   (format "by <span property=\"dc:creator cc:attributionName\">%s</span>"
+				   attributionname))
 		       ""))
 	 (title (alist-get 'dc:title alist "Image"))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
@@ -223,6 +243,9 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	 (sourcetext (alist-get 'sourcetext alist))
 	 (sourcehtml (format "; %s <a rel=\"dc:source\" href=\"%s\">%s</a>"
 			     imgadapted sourceuri sourcetext))
+	 (divclasses (if divclasses
+			 divclasses
+		       "figure"))
 	 (texwidth (alist-get 'texwidth alist 0.9))
 	 (h-image (if maxheight
 		      (format " style=\"max-height:%s\"" maxheight)
@@ -240,16 +263,14 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 		      "\n" "" (org-export-string-as orglicense 'latex t)))
 	 )
     (if caption
-	(concat (format "@@html: </p><div class=\"imgcontainer\"><div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p>%s</p>%s</div></div><p>@@"
-			filename filename imgalt h-image caption htmllicense)
-		"\n"
-		(format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
-			texwidth filename caption texlicense))
-      (concat (format "@@html: <div about=\"%s\" class=\"figure\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p></p>%s</div>@@"
-		      filename filename imgalt h-image htmllicense)
-	      "\n"
-	      (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
-			texwidth filename texlicense)))))
+	(cons (format reveal--figure-div-template
+		      filename divclasses filename imgalt h-image caption htmllicense)
+	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
+		      texwidth filename caption texlicense))
+      (cons (format reveal--figure-div-template
+		    filename divclasses filename imgalt h-image "" htmllicense)
+	    (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
+		    texwidth filename texlicense)))))
 
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
