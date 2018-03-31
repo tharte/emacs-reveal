@@ -29,9 +29,14 @@ Since its creation, I’ve been updating my infrastructure continuously.
 In particular, sharing of OER figures with proper attribution and
 license information has been simplified considerably; see the project
 hosting [OER figures](https://gitlab.com/oer/figures/) for more
-details on my approach towards meta-data.  I’m using emacs-reveal for
-my courses and talks in general.  Feel free to use and adapt for your
-purposes!
+details on my approach towards meta-data, which is based on standard
+vocabularies and embeds license information using
+[RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML, making it
+accessible on the
+[Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web).
+
+I’m using emacs-reveal for my courses and talks in general.  Feel free
+to use and adapt for your purposes!
 
 Although reveal.js is an HTML presentation framework, I do not create
 presentations in HTML.  Instead, I rely on my usual computing
