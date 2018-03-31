@@ -11,20 +11,27 @@ which in my view comes with two frequently neglected requirements:
    functionality, e.g, with the
    [compare functionality on GitLab](https://gitlab.com/oer/OS/compare/os02...os03)).
 
-During summer term 2017 I created the software in this repository to
-produce lecture slides for a course on Operating Systems using the
+During summer term 2017 I created this repository to
+produce lecture slides (initially for a course on Operating Systems)
+and presentations as OER using the
 HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
 (see [here for the official reveal.js demo](https://revealjs.com/)
 and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
-As reveal.js presentations are in HTML format, there is no need for
-students to use special-purpose presentation software such as
-LibreOffice Impress or its proprietary counterparts such as
-Powerpoint.  Instead, presentations can be viewed on *any device*
-using a Web browser, with its multimedia support for embedded audio
-explanations (or videos).
 
-I intend to use the software of this repository for other courses (and
-talks) as well.  Feel free to use and adapt for your purposes!
+On the students’ side, as reveal.js presentations are in HTML format,
+there is no need for students to use special-purpose presentation
+software such as LibreOffice Impress or its proprietary counterparts
+such as Powerpoint.  Instead, presentations can be viewed on *any
+device* using a Web browser, with its multimedia support for embedded
+audio explanations (or videos).
+
+Since its creation, I’ve been updating my infrastructure continuously.
+In particular, sharing of OER figures with proper attribution and
+license information has been simplified considerably; see the project
+hosting [OER figures](https://gitlab.com/oer/figures/) for more
+details on my approach towards meta-data.  I’m using emacs-reveal for
+my courses and talks in general.  Feel free to use and adapt for your
+purposes!
 
 Although reveal.js is an HTML presentation framework, I do not create
 presentations in HTML.  Instead, I rely on my usual computing
