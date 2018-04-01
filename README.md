@@ -42,7 +42,7 @@ Although reveal.js is an HTML presentation framework, I do not create
 presentations in HTML.  Instead, I rely on my usual computing
 environment, namely the text editor
 [GNU Emacs](https://www.gnu.org/software/emacs/), in a simple
-text format called [Org Mode](http://orgmode.org/), which can be
+text format called [Org Mode](https://orgmode.org/), which can be
 exported to reveal.js thanks to
 [Org-Reveal](https://github.com/yjwen/org-reveal/).
 That way, I can focus on slides’ contents in a highly intuitive plain
