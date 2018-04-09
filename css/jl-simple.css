@@ -484,7 +484,7 @@ body {
 .reveal .figure a {
   white-space: nowrap; }
 
-.reveal a:hover {
+.reveal a[href]:hover {
   font-weight: bold;
   text-shadow: none;
   border: none; }
