@@ -461,7 +461,7 @@ body {
 /*********************************************
  * LINKS
  *********************************************/
-.reveal a {
+.reveal a[href] {
   color: #00568a;
   text-decoration: none;
   -webkit-transition: color .15s ease;
