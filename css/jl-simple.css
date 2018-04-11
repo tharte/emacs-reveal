@@ -206,7 +206,7 @@ body {
 /* Display license of image rotated, in smaller font.
    Move to right, with same amount as padding-right above. */
 .reveal div.figure p:nth-child(3) {
-  font-size: .3em;
+  font-size: .25em;
   opacity: 0.5;
   text-align: right;
   margin: 5px;
