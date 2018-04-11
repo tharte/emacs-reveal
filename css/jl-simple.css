@@ -481,9 +481,6 @@ body {
 .reveal .figure a[href^="http"]:after {
   content: none; }
 
-.reveal .figure a {
-  white-space: nowrap; }
-
 .reveal a[href]:hover {
   font-weight: bold;
   text-shadow: none;
