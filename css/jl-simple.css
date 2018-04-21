@@ -282,6 +282,11 @@ body {
   max-width: 90%;
   max-height: 25em; }
 
+/* center videos */
+.reveal video {
+  display: block;
+  margin: 1ex auto; }
+
 .reveal .smaller, .reveal .smaller-nomargin, .reveal .slide-source {
   line-height: 1.1;
   font-size: 0.6em; }
