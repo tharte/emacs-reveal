@@ -1,3 +1,9 @@
+/**
+ * Copyright (C) 2017, 2018 Jens Lechtenbörger
+ *
+ * Released under the MIT License: https://opensource.org/licenses/MIT
+ */
+
 /* Reduce width of TOC progress footer.
    Avoids overlap with navigation controls. */
 #toc-progress-footer { width: 90%; }
