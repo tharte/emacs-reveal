@@ -267,6 +267,11 @@ body {
 
 .reveal .talk-author { /* Nothing special */ }
 
+.reveal .keyboard-usage p {
+  margin: 1ex 0;
+  font-size: 0.5em;
+  color: rgba(0,0,0,0.6); }
+
 .reveal p {
   margin: 20px 0;
   line-height: 1.3; }
