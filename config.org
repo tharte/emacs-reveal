@@ -6,6 +6,9 @@
 # Enable: browser history, mouse wheel, links between presentations
 #+OPTIONS: reveal_history:t reveal_mousewheel:t reveal_inter_presentation_links:t
 
+# Enable smart quotes
+#+OPTIONS: ':t
+
 # Transition styles: none/fade/slide/convex/concave/zoom/cube
 #+REVEAL_TRANS: fade
 #+REVEAL_THEME: jl-simple
