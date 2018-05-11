@@ -176,7 +176,7 @@ body {
 /* Center by default.
  * Right padding is to make space for the rotated license text
  * (if present). */
-.reveal .imgcontainer, .reveal figure, .reveal div.figure {
+.reveal .imgcontainer, .reveal figure, .reveal div.figure, .reveal svg {
   position: relative;
   padding-right: 2vw;
   text-align: center; }
@@ -290,7 +290,7 @@ body {
 .reveal video,
 .reveal iframe {
   max-width: 90%;
-  max-height: 25em; }
+  max-height: 25ex; }
 
 /* center videos */
 .reveal video {
