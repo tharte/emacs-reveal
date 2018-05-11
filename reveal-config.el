@@ -183,7 +183,8 @@ Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
 If optional CAPTION is not nil, it can either be a string or t.  In that
 case, display text underneath the image: If CAPTION is t, display whatever
-the meta-data knows as title, otherwise the string CAPTION.
+the meta-data knows as title, otherwise display the string CAPTION, but
+replace cite-links if present.
 If CAPTION is nil, a LaTeX caption is generated anyways to display license
 information.
 Optional MAXHEIGHT restricts the height of the image and of the license
@@ -203,7 +204,13 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	    "\n"
 	    (cdr org))))
 
-(defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p><p>%s</p>%s</div>")
+(defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
+
+(defun reveal--export-no-newline (string backend)
+  "Call `org-export-string-as' on STRING, BACKEND, and t;
+remove newline characters and return as result."
+  (replace-regexp-in-string "\n" "" (org-export-string-as string backend t)))
+
 (defun reveal--attribution-strings
     (metadata &optional caption maxheight divclasses)
   "Helper function.
@@ -236,6 +243,10 @@ See `reveal-export-attribution' for description of arguments."
 		    (if (stringp caption)
 			caption
 		      title)))
+	 (htmlcaption (when caption
+			(reveal--export-no-newline caption 'html)))
+	 (latexcaption (when caption
+			 (reveal--export-no-newline caption 'latex)))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
@@ -260,16 +271,16 @@ See `reveal-export-attribution' for description of arguments."
 	 (htmllicense (format "<p%s>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
 			      h-license htmltitle htmlauthor licenseurl
 			      licensetext sourcehtml))
-	 (texlicense (replace-regexp-in-string
-		      "\n" "" (org-export-string-as orglicense 'latex t)))
+	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
     (if caption
 	(cons (format reveal--figure-div-template
-		      filename divclasses filename imgalt h-image caption htmllicense)
+		      filename divclasses filename imgalt h-image
+		      htmlcaption htmllicense)
 	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
-		      texwidth filename caption texlicense))
+		      texwidth filename latexcaption texlicense))
       (cons (format reveal--figure-div-template
-		    filename divclasses filename imgalt h-image "" htmllicense)
+		    filename divclasses filename imgalt h-image "<p></p>" htmllicense)
 	    (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
 		    texwidth filename texlicense)))))
 
