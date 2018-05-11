@@ -192,6 +192,11 @@ body {
 .reveal .figure-number {
   display: none; }
 
+/* Adjust background color for slide number.
+ * Use color of TOC footer (hard-coded in reveal-config.el). */
+.reveal .slide-number {
+  background-color: rgba(120,138,130,0.2); }
+
 /* Right in lists. */
 .reveal li > figure,
 .reveal li > div.figure {
