@@ -181,8 +181,10 @@
   "Display image from METADATA with CAPTION, MAXHEIGHT, and DIVCLASSES.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
-If optional CAPTION is not nil, display it underneath the image;
-if CAPTION is nil, a LaTeX caption is generated anyways to display license
+If optional CAPTION is not nil, it can either be a string or t.  In that
+case, display text underneath the image: If CAPTION is t, display whatever
+the meta-data knows as title, otherwise the string CAPTION.
+If CAPTION is nil, a LaTeX caption is generated anyways to display license
 information.
 Optional MAXHEIGHT restricts the height of the image and of the license
 information in HTML.  MAXHEIGHT needs be a full specification including
@@ -230,6 +232,10 @@ See `reveal-export-attribution' for description of arguments."
 				   attributionname))
 		       ""))
 	 (title (alist-get 'dc:title alist "Image"))
+	 (caption (when caption
+		    (if (stringp caption)
+			caption
+		      title)))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
