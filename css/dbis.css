@@ -90,11 +90,12 @@ html.jitt li, html.jitt p {
 
 .reveal .currtopic {
   font-weight: bold;
-  font-size: 1.2em; }
+  font-size: 0.9em; }
 
 .reveal .prevtopic {
   font-weight: lighter;
-  font-size: 0.8em; }
+  font-size: 0.6em; }
 
 .reveal .nexttopic {
-  font-weight: normal; }
+  font-weight: normal;
+  font-size: 0.7em; }
