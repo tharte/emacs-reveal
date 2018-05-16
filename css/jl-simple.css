@@ -202,7 +202,7 @@ body {
 .reveal li > div.figure {
   float: right; }
 
-.reveal div.figure p, .reveal figcaption {
+.reveal div.figure + p, .reveal figcaption {
   margin: 0;
   font-size: .5em;
   line-height: 1.0;
