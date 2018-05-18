@@ -202,7 +202,13 @@ body {
 .reveal li > div.figure {
   float: right; }
 
-.reveal div.figure + p, .reveal figcaption {
+/* Org embeds img elements into p elements without text. */
+.reveal div.figure p {
+  margin: 0;
+  line-height: 1.0; }
+
+/* Org creates caption as sibling, I as second child. */
+.reveal div.figure + p, .reveal div.figure p:nth-child(2), .reveal figcaption {
   margin: 0;
   font-size: .5em;
   line-height: 1.0;
