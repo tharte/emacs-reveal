@@ -61,8 +61,15 @@ html.jitt li, html.jitt p {
 /*********************************************
  * OTHER
  *********************************************/
+div.legalese {
+  font-size: 2vh;
+  position: fixed;
+  left: 3px;
+  bottom: 0;
+  z-index: 50; }
+
 .reveal .course-title {
-  margin: 100px 0px 10px 0px; }
+  margin: 80px 0px 10px 0px; }
 
 .reveal .course-subtitle p {
   font-size: .6em;
@@ -76,13 +83,13 @@ html.jitt li, html.jitt p {
 
 .reveal .course-group {
   position: fixed;
-  bottom: 0;
+  bottom: 5vh;
   left: 0;
   color: #788a82; }
 
 .reveal .course-group p {
   line-height: 1.0;
-  font-size: 0.6em; }
+  font-size: 0.5em; }
 
 .reveal .course-group strong {
   font-weight: bold;

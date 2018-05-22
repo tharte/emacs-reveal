@@ -1,0 +1,60 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="index.css" />
+#+STARTUP: showeverything
+#+AUTHOR: Jens Lechtenbörger
+#+OPTIONS: html-style:nil
+#+OPTIONS: toc:nil num:nil
+#+HTML_POSTAMBLE: nil
+
+* Imprint (German version below)
+
+Dr. Jens Lechtenbörger\\
+Dept. of Information Systems, University of Münster, Germany\\
+Leonardo-Campus 3, 48148 Münster, Germany\\
+Tel.: +49-251-8338158\\
+E-Mail: [[http://wwwuv2.uni-muenster.de/kommentieren/kontakt.php?k=1&empf=jens.lechtenboerger][jens.lechtenboerger@uni-muenster.de]]
+
+The Department of Information Systems is a unit of the University of
+Münster (WWU).  The University of Münster (WWU) is a public-sector
+statutory body of the Land of North Rhine-Westphalia, Germany.
+It is represented by its Rector, Professor Johannes Wessels.
+
+*Controlling authority*:\\
+Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen\\
+Völklinger Straße 49\\
+40221 Düsseldorf\\
+Germany
+
+*VAT identification number*: DE 126118759
+
+Editor responsible for the content of the website {{{website}}}
+in accordance with § 55 Abs. 2 RStV (Rundfunkstaatsvertrag, Interstate
+Broadcasting Agreement):\\
+Dr. Jens Lechtenbörger\\
+Postal address and contact as above
+
+
+* Impressum
+
+Dr. Jens Lechtenbörger\\
+Institut für Wirtschaftsinformatik, WWU Münster\\
+Leonardo-Campus 3, 48148 Münster\\
+Tel.: +49-251-8338158\\
+E-Mail: [[http://wwwuv2.uni-muenster.de/kommentieren/kontakt.php?k=1&empf=jens.lechtenboerger][jens.lechtenboerger@uni-muenster.de]]
+
+Das Institut für Wirtschaftsinformatik ist eine Einrichtung der
+Westfälischen Wilhelms-Universität (WWU) Münster.  Die WWU Münster ist
+eine Körperschaft des öffentlichen Rechts und zugleich eine
+Einrichtung des Landes Nordrhein-Westfalen. Sie wird vertreten durch
+Rektor Prof. Dr. Johannes Wessels.
+
+*Zuständige Aufsichtsbehörde*:\\
+Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen\\
+Völklinger Straße 49\\
+40221 Düsseldorf
+
+*Umsatzsteuer-ID-Nummer*: DE 126118759
+
+Verantwortlich für Inhalte unter der Domäne {{{website}}}
+im Sinne des Presserechts gemäß § 55 Abs. 2 RStV:\\
+Dr. Jens Lechtenbörger\\
+Anschrift und Kontakt wie oben

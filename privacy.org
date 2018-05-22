@@ -1,0 +1,69 @@
+# Local IspellDict: en
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="index.css" />
+#+STARTUP: showeverything
+#+AUTHOR: Jens Lechtenbörger
+#+OPTIONS: html-style:nil
+#+OPTIONS: toc:nil
+
+This privacy policy explains the collection of personal data during
+the use of Open Educational Resources (OER) served as HTML
+presentations under the domain {{{website}}}.
+
+First of all, you do not need to expose any personal data to access
+OER under {{{website}}}.  Personal data are neither collected nor
+even asked for.
+Furthermore, these OER neither embed ads, nor trackers, nor social
+media plugins, and they are served without the use of cookies.
+However, most OER are served as HTML presentations by web
+servers operated by [[https://about.gitlab.com/][GitLab]],
+and your web browser quite likely shares lots of data with GitLab’s
+web servers, most notably your IP address but also other technical
+information which can be used to uniquely track you.
+GitLab explains their use of such data in their
+[[https://about.gitlab.com/privacy/][privacy policy]].
+Besides, some OER presentations embed external web resources (e.g.,
+JavaScript, images, videos), and your browser shares its
+characteristics with their origin servers as well.
+
+In addition, depending on your jurisdiction, your internet service
+provider (ISP) may be required by law or misguided by monetary incentives
+to record your IP addresses or browsing behavior.  On top of that,
+thanks to the
+[[https://en.wikipedia.org/wiki/Global_surveillance_disclosures_(2013%E2%80%93present)][Snowden revelations]]
+we know that most foreign intelligence services collect all Internet
+data that they can acquire, including our browsing behavior.
+
+The good news is that you do not need to be tracked in any of the above
+ways if you choose so, in particular when learning from OER provided
+under {{{website}}}, as explained subsequently.
+
+First, if you do not want to be tracked when surfing the web in
+general, you need to learn and apply techniques for digital
+self-defense.  Luckily, appropriate privacy enhancing tools are available as
+[[https://fsfe.org/about/basics/freesoftware.en.html][free software]].
+Personally, I perform my “random” browsing protected by the
+[[https://www.torproject.org/projects/torbrowser.html.en][Tor Browser]],
+which I recommend (here
+[[https://www.informationelle-selbstbestimmung-im-internet.de/Anonymes_Surfen_mit_Tor.html][in German]],
+here [[https://blogs.fsfe.org/jens.lechtenboerger/2015/12/23/you-need-tor-and-tor-is-asking-for-your-support/][in English]]).
+The OER served under {{{website}}} are even usable under the
+higher-than-default “Safer” security settings in Tor Browser.
+
+Alternatively, you can download OER and use them locally and offline
+afterwards.  As explained for the
+[[https://oer.gitlab.io/OS/][OER presentations on Operating Systems]]
+you can either download the results of the latest build
+pipeline or clone the repository and build presentations yourself.
+(As mentioned above, some presentations include web resources from
+external servers, which will not be available for offline learning.
+When you learn online and when your browser fetches
+such resources, those requests can again be tracked on the web, which
+is why the Tor Browser might be your first choice.)
+
+Finally, if you are working with OER under {{{website}}} as one of
+[[https://www.wi.uni-muenster.de/department/dbis/people/jens-lechtenboerger][my]]
+students in Münster and feel uncomfortable with any of the above,
+please talk to me.  If you preferred to be tracked as authenticated
+user in Learnweb in accordance with our university’s privacy policy,
+the OER served under {{{website}}} could also be replicated into
+Learnweb.
