@@ -240,6 +240,27 @@ div.legalese {
   bottom: 0;
   z-index: 50; }
 
+div.ribbon-legalese {
+  z-index: 50;
+  color: #fff;
+  background: #7ab516;
+  font-size: 2vh;
+  text-align: center;
+  padding: 3px 10px;
+  width: 260px;
+  line-height: 0.3em;
+  position: absolute;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  top: 30px;
+  left: -75px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.55); }
+
+div.ribbon-legalese a {
+  color: #fff;
+  text-decoration: none;
+}
+
 #forkmeongitlab a, #forkmeongitlab-right a {
   z-index: 20;
   color: #fff;
