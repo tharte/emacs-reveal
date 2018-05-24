@@ -233,6 +233,13 @@ body {
  * OTHER
  *********************************************/
 
+div.legalese {
+  font-size: 2vh;
+  position: fixed;
+  left: 3px;
+  bottom: 0;
+  z-index: 50; }
+
 #forkmeongitlab a, #forkmeongitlab-right a {
   z-index: 20;
   color: #fff;
