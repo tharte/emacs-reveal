@@ -221,6 +221,7 @@ See `reveal-export-attribution' for description of arguments."
 		  (insert-file-contents-literally metadata)
 		  (buffer-substring-no-properties (point-min) (point-max)))))
 	 (filename (alist-get 'filename alist))
+	 (texfilename (file-name-sans-extension filename))
 	 (licenseurl (alist-get 'licenseurl alist))
 	 (licensetext (alist-get 'licensetext alist))
 	 (attributionname (alist-get 'cc:attributionName alist))
@@ -278,11 +279,11 @@ See `reveal-export-attribution' for description of arguments."
 		      filename divclasses filename imgalt h-image
 		      htmlcaption htmllicense)
 	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
-		      texwidth filename latexcaption texlicense))
+		      texwidth texfilename latexcaption texlicense))
       (cons (format reveal--figure-div-template
 		    filename divclasses filename imgalt h-image "<p></p>" htmllicense)
 	    (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
-		    texwidth filename texlicense)))))
+		    texwidth texfilename texlicense)))))
 
 ;; Function to create a grid of images with license information in HTML.
 (defun reveal-export-image-grid
