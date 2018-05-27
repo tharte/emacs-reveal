@@ -205,6 +205,26 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	    (cdr org))))
 
 (defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
+(defvar reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
+(defvar reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
+(defvar reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     External figure not included: %s \n         #+END_EXPORT\n")
+
+(defun reveal--export-latex (filename texwidth texfilename texlicense
+				      &optional latexcaption)
+  "Generate LaTeX for figure at FILENAME.
+If FILENAME is a full HTTP(S) URL, use
+`reveal--figure-external-latex-template' as placeholder.
+Otherwise, include graphics at TEXFILENAME of width TEXWIDTH
+with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
+`reveal--figure-latex-template' or
+`reveal--figure-latex-caption-template' is used to generate LaTeX code."
+  (if (string-match-p "^https?://" filename)
+      (format reveal--figure-external-latex-template texlicense)
+    (if latexcaption
+	(format reveal--figure-latex-caption-template
+		texwidth texfilename latexcaption texlicense)
+      (format reveal--figure-latex-template
+	      texwidth texfilename texlicense))))
 
 (defun reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
@@ -278,12 +298,12 @@ See `reveal-export-attribution' for description of arguments."
 	(cons (format reveal--figure-div-template
 		      filename divclasses filename imgalt h-image
 		      htmlcaption htmllicense)
-	      (format "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n"
-		      texwidth texfilename latexcaption texlicense))
+	      (reveal--export-latex
+	       filename texwidth texfilename texlicense latexcaption))
       (cons (format reveal--figure-div-template
 		    filename divclasses filename imgalt h-image "<p></p>" htmllicense)
-	    (format "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n"
-		    texwidth texfilename texlicense)))))
+	    (reveal--export-latex
+	       filename texwidth texfilename texlicense)))))
 
 ;; Function to create a grid of images with license information in HTML.
 (defun reveal-export-image-grid
