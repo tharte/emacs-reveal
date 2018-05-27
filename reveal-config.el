@@ -50,7 +50,7 @@
 ;; - Display audio controls at bottom left (to avoid overlap)
 (setq org-reveal-init-script "  audio: {
     advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
-    playerStyle: 'position: fixed; bottom: 40px; left: 0%; width: 30%; height:30px; z-index: 33;' }")
+    playerStyle: 'position: fixed; bottom: 9.5vh; left: 0%; width: 30%; height:30px; z-index: 33;' }")
 
 ;; Activate anything plugin
 (add-to-list 'org-reveal-external-plugins
