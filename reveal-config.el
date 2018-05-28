@@ -244,6 +244,9 @@ See `reveal-export-attribution' for description of arguments."
 	 (texfilename (file-name-sans-extension filename))
 	 (licenseurl (alist-get 'licenseurl alist))
 	 (licensetext (alist-get 'licensetext alist))
+	 (permit (if (alist-get 'permit alist)
+		     (format ". %s" (alist-get 'permit alist))
+		   ""))
 	 (attributionname (alist-get 'cc:attributionName alist))
 	 (attributionurl (alist-get 'cc:attributionURL alist))
 	 (orgauthor (if attributionname
@@ -286,12 +289,12 @@ See `reveal-export-attribution' for description of arguments."
 	 (h-license (if maxheight
 			(format " style=\"max-width:%s\"" maxheight)
 		      ""))
-	 (orglicense (format "%s %s under [[%s][%s]]; %s [[%s][%s]]"
+	 (orglicense (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]%s"
 			     title orgauthor licenseurl licensetext
-			     imgadapted sourceuri sourcetext))
-	 (htmllicense (format "<p%s>%s %s under <a rel=\"license\" href=\"%s\">%s</a>%s</p>"
+			     imgadapted sourceuri sourcetext permit))
+	 (htmllicense (format "<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 			      h-license htmltitle htmlauthor licenseurl
-			      licensetext sourcehtml))
+			      licensetext sourcehtml permit))
 	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
     (if caption
