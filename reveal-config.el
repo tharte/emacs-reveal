@@ -289,12 +289,12 @@ See `reveal-export-attribution' for description of arguments."
 	 (h-license (if maxheight
 			(format " style=\"max-width:%s\"" maxheight)
 		      ""))
-	 (orglicense (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]%s"
-			     title orgauthor licenseurl licensetext
-			     imgadapted sourceuri sourcetext permit))
 	 (htmllicense (format "<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 			      h-license htmltitle htmlauthor licenseurl
 			      licensetext sourcehtml permit))
+	 (orglicense (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
+			     title orgauthor licenseurl licensetext
+			     imgadapted sourceuri sourcetext))
 	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
     (if caption
