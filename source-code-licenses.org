@@ -5,13 +5,15 @@
 # https://creativecommons.org/licenses/by-sa/4.0/
 
 # This file is not meant to be exported to HTML directly but to be
-# included in other org files.  See there for an example:
+# included in other org files.  See there for an example, which also
+# defines the necessary macro gitlablink:
 # https://gitlab.com/oer/OS/blob/master/index.org
 
 In the spirit of
 [[https://en.wikipedia.org/wiki/Open_educational_resources][Open Educational Resources]]
 (OER), source files, necessary software, and presentations are published under
-[[https://en.wikipedia.org/wiki/Free_license][free licenses]].
+[[https://en.wikipedia.org/wiki/Free_license][free licenses]] in this
+{{{gitlablink(GitLab repository)}}}.
 All OER presentations are created from plain text files in a simple text
 format called [[https://orgmode.org/][Org Mode]] (a
 [[https://en.wikipedia.org/wiki/Lightweight_markup_language][lightweight markup language]]),
