@@ -43,21 +43,22 @@
 # See emacs-reveal-howto for sample use:
 # https://gitlab.com/oer/emacs-reveal-howto
 #
-# First, revealimg() expects up to three arguments, a filename for a
-# file with meta-data about an image, a caption (optional), and
-# (optionally) the maximum height of image in HTML, e.g., 50vh.  This
-# is meant to be used with horizontally centered images, caption
+# First, revealimg() expects up to four arguments, a filename for a
+# file with meta-data about an image and up to three optional
+# arguments: a caption, the maximum height of image in HTML, e.g.,
+# 50vh, and a list of CSS classes (space separated, containing "figure").
+# This is meant to be used with horizontally centered images, caption
 # underneath, license text rotated to the right.
-# Second, reveallicense() expects up to two arguments, the filename
-# for meta-data and optionally the maximum height.  Here, the image is
-# displayed inline in the surrouding paragraph or list, aligned to the
-# right.  Again, license information is rotated to the right of the
-# image.
+# Second, reveallicense() expects up to three arguments, the filename
+# for meta-data and optionally the maximum height and CSS classes.
+# Here, the image is displayed inline in the surrouding paragraph or
+# list, aligned to the right.  Again, license information is rotated
+# to the right of the image.
 # The macros use function reveal-export-attribution, defined in
 # reveal-config.el.
 #
-#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3))
-#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2))
+#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3 $4))
+#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2 $3))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:
