@@ -263,14 +263,14 @@ See `reveal-export-attribution' for description of arguments."
 				   attributionname))
 		       ""))
 	 (title (alist-get 'dc:title alist "Image"))
-	 (caption (when caption
-		    (if (stringp caption)
-			caption
-		      title)))
-	 (htmlcaption (when caption
-			(reveal--export-no-newline caption 'html)))
-	 (latexcaption (when caption
-			 (reveal--export-no-newline caption 'latex)))
+	 (realcaption (when caption
+			(if (stringp caption)
+			    caption
+			  title)))
+	 (htmlcaption (when realcaption
+			(reveal--export-no-newline realcaption 'html)))
+	 (latexcaption (when realcaption
+			 (reveal--export-no-newline realcaption 'latex)))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
@@ -297,7 +297,7 @@ See `reveal-export-attribution' for description of arguments."
 			     imgadapted sourceuri sourcetext))
 	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
-    (if caption
+    (if (stringp caption)
 	(cons (format reveal--figure-div-template
 		      filename divclasses filename imgalt h-image
 		      htmlcaption htmllicense)
