@@ -228,8 +228,9 @@ with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
 
 (defun reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
-remove newline characters and return as result."
-  (replace-regexp-in-string "\n" "" (org-export-string-as string backend t)))
+remove newline characters and, in case of HTML, surrounding p tags,
+and return as result."
+  (replace-regexp-in-string "\n\\|<p>\\|</p>" "" (org-export-string-as string backend t)))
 
 (defun reveal--attribution-strings
     (metadata &optional caption maxheight divclasses)
@@ -268,10 +269,12 @@ See `reveal-export-attribution' for description of arguments."
 			    caption
 			  title)))
 	 (htmlcaption (when realcaption
-			(reveal--export-no-newline realcaption 'html)))
+			(format "<p>%s</p>"
+				(reveal--export-no-newline realcaption 'html))))
 	 (latexcaption (when realcaption
 			 (reveal--export-no-newline realcaption 'latex)))
-	 (htmltitle (format "<span property=\"dc:title\">%s</span>" title))
+	 (htmltitle (format "<span property=\"dc:title\">%s</span>"
+			    (reveal--export-no-newline title 'html)))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
 	 (imgadapted (alist-get 'imgadapted alist "from"))
