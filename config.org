@@ -57,8 +57,8 @@
 # The macros use function reveal-export-attribution, defined in
 # reveal-config.el.
 #
-#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3 $4))
-#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2 $3))
+#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3 $4 $5))
+#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2 $3 $4))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:
