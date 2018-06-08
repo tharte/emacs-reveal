@@ -188,8 +188,8 @@ body {
 .reveal div.figure img {
   float: none; }
 
-/* No figure numbers. */
-.reveal .figure-number {
+/* No figure and table numbers. */
+.reveal .figure-number, .reveal .table-number {
   display: none; }
 
 /* Adjust background color for slide number.
