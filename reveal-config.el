@@ -177,8 +177,8 @@
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
 (defun reveal-export-attribution
-    (metadata &optional caption maxheight divclasses)
-  "Display image from METADATA with CAPTION, MAXHEIGHT, and DIVCLASSES.
+    (metadata &optional caption maxheight divclasses shortlicense)
+  "Display image from METADATA.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
 If optional CAPTION is not nil, it can either be a string or t.  In that
@@ -192,10 +192,12 @@ information in HTML.  MAXHEIGHT needs be a full specification including
 the unit, e.g. `50vh'.
 If present, optional DIVCLASSES must be a string with space separated
 classes for the div element, including `figure'.
+If optional SHORTLICENSE is t, display license based on
+`reveal--short-license-template' (instead of default (long) license text).
 For LaTeX, the METADATA file may specify a texwidth, which is embedded in
 the width specification as fraction of `linewidth'; 0.9 by default."
   (let ((org (reveal--attribution-strings
-	      metadata caption maxheight divclasses)))
+	      metadata caption maxheight divclasses shortlicense)))
     (concat (if caption
 		(concat "@@html: </p><div class=\"imgcontainer\">"
 			(car org)
@@ -204,6 +206,7 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	    "\n"
 	    (cdr org))))
 
+(defvar reveal--short-license-template "[[%s][Figure]] under [[%s][%s]]")
 (defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
 (defvar reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
 (defvar reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
@@ -233,7 +236,7 @@ and return as result."
   (replace-regexp-in-string "\n\\|<p>\\|</p>" "" (org-export-string-as string backend t)))
 
 (defun reveal--attribution-strings
-    (metadata &optional caption maxheight divclasses)
+    (metadata &optional caption maxheight divclasses shortlicense)
   "Helper function.
 See `reveal-export-attribution' for description of arguments."
   (let* ((org-export-with-sub-superscripts nil)
@@ -292,12 +295,18 @@ See `reveal-export-attribution' for description of arguments."
 	 (h-license (if maxheight
 			(format " style=\"max-width:%s\"" maxheight)
 		      ""))
-	 (htmllicense (format "<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
-			      h-license htmltitle htmlauthor licenseurl
-			      licensetext sourcehtml permit))
-	 (orglicense (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
-			     title orgauthor licenseurl licensetext
-			     imgadapted sourceuri sourcetext))
+	 (orglicense (if shortlicense
+			 (format reveal--short-license-template
+				 sourceuri licenseurl licensetext)
+		       (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
+			       title orgauthor licenseurl licensetext
+			       imgadapted sourceuri sourcetext)))
+	 (htmllicense (if shortlicense
+			  (format "<p%s>%s</p>" h-license
+				  (reveal--export-no-newline orglicense 'html))
+			(format "<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
+				h-license htmltitle htmlauthor licenseurl
+				licensetext sourcehtml permit)))
 	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
     (if (stringp caption)
