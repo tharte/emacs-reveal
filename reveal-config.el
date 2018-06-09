@@ -185,8 +185,8 @@ If optional CAPTION is not nil, it can either be a string or t.  In that
 case, display text underneath the image: If CAPTION is t, display whatever
 the meta-data knows as title, otherwise display the string CAPTION, but
 replace cite-links if present.
-If CAPTION is nil, a LaTeX caption is generated anyways to display license
-information.
+If CAPTION is nil, a LaTeX caption is generated anyways to have a numbered
+figure (and frequently to also display license information).
 Optional MAXHEIGHT restricts the height of the image and of the license
 information in HTML.  MAXHEIGHT needs be a full specification including
 the unit, e.g. `50vh'.
@@ -350,7 +350,9 @@ and whose cdr is the LaTeX representation."
 				"<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 				h-license htmltitle htmlauthor licenseurl
 				licensetext sourcehtml permit))))
-	 (texlicense (reveal--export-no-newline orglicense 'latex))
+	 (texlicense (if (< 0 (length orglicense))
+			 (reveal--export-no-newline orglicense 'latex)
+		       (reveal--export-no-newline title 'latex)))
 	 )
     (if (stringp caption)
 	(cons (reveal--export-figure-html
@@ -367,7 +369,12 @@ and whose cdr is the LaTeX representation."
 	     htmllicense imgalt h-image)
 	    (reveal--export-figure-latex
 	     filename texwidth texfilename texlicense
-	     (when shortlicense latexcaption))))))
+	     ; Similar to above case.  However, a LaTeX caption is always
+	     ; generated via texlicense.
+	     ; Only use latexcaption when shortlicense is t
+	     ; (but not if it is none).
+	     (when (and shortlicense (booleanp shortlicense))
+	       latexcaption))))))
 
 ;; Function to create a grid of images with license information in HTML.
 (defun reveal-export-image-grid
