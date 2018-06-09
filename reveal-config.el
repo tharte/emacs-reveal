@@ -192,8 +192,10 @@ information in HTML.  MAXHEIGHT needs be a full specification including
 the unit, e.g. `50vh'.
 If present, optional DIVCLASSES must be a string with space separated
 classes for the div element, including `figure'.
-If optional SHORTLICENSE is t, display license based on
-`reveal--short-license-template' (instead of default (long) license text).
+If optional SHORTLICENSE is the symbol `none', do not display license
+text (useful if image license agrees with document license);
+if it is t, display license based on `reveal--short-license-template'
+\(instead of default (long) license text).
 For LaTeX, the METADATA file may specify a texwidth, which is embedded in
 the width specification as fraction of `linewidth'; 0.9 by default."
   (let ((org (reveal--attribution-strings
@@ -208,12 +210,13 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 
 (defvar reveal--short-license-template "[[%s][Figure]] under [[%s][%s]]")
 (defvar reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
+(defvar reveal--svg-div-template  "<div about=\"%s\" class=\"%s\"><p>%s</p>%s%s</div>")
 (defvar reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
 (defvar reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
 (defvar reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     External figure not included: %s \n         #+END_EXPORT\n")
 
-(defun reveal--export-latex (filename texwidth texfilename texlicense
-				      &optional latexcaption)
+(defun reveal--export-figure-latex (filename texwidth texfilename texlicense
+					     &optional latexcaption)
   "Generate LaTeX for figure at FILENAME.
 If FILENAME is a full HTTP(S) URL, use
 `reveal--figure-external-latex-template' as placeholder.
@@ -229,22 +232,57 @@ with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
       (format reveal--figure-latex-template
 	      texwidth texfilename texlicense))))
 
+(defun reveal--export-figure-html
+    (filename divclasses htmlcaption htmllicense imgalt h-image)
+  "Generate HTML for figure at FILENAME.
+DIVCLASSES is passed from `reveal-export-attribution',
+HTMLCAPTION and HTMLLICENSE caption and license information for
+the figure in HTML format.
+If the file is a local SVG image, it is embedded directly; otherwise,
+an img tag is used, for which optional parameter IMGALT provides
+the text for the alt attribute, while H-IMAGE specifies the height
+of the image.
+Templates `reveal--svg-div-template' and `reveal--figure-div-template'
+specify the general HTML format."
+  (let ((issvg (and (string= "svg" (file-name-extension filename))
+		    (not (string-match-p "^https?://" filename)))))
+    (if issvg
+	(format reveal--svg-div-template
+		filename divclasses
+		(reveal--file-as-string filename t)
+		htmlcaption htmllicense)
+      (format reveal--figure-div-template
+	      filename divclasses filename imgalt h-image
+	      htmlcaption htmllicense))))
+
 (defun reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
 remove newline characters and, in case of HTML, surrounding p tags,
 and return as result."
-  (replace-regexp-in-string "\n\\|<p>\\|</p>" "" (org-export-string-as string backend t)))
+  (replace-regexp-in-string "\n\\|<p>\\|</p>" " "
+			    (org-export-string-as string backend t)))
+
+(defun reveal--file-as-string (filename &optional no-newlines)
+  "Return contents of FILENAME as string.
+If optional NO-NEWLINES is non-nil, return result without newlines."
+  (with-temp-buffer
+    (insert-file-contents-literally filename)
+    (if no-newlines
+	(replace-regexp-in-string
+	 "\n" " " (buffer-substring-no-properties (point-min) (point-max)))
+      (buffer-substring-no-properties (point-min) (point-max)))))
 
 (defun reveal--attribution-strings
     (metadata &optional caption maxheight divclasses shortlicense)
   "Helper function.
-See `reveal-export-attribution' for description of arguments."
+See `reveal-export-attribution' for description of arguments.
+Return cons cell whose car is the HTML representation for METADATA
+and whose cdr is the LaTeX representation."
   (let* ((org-export-with-sub-superscripts nil)
-	 (alist
-	  (read (with-temp-buffer
-		  (insert-file-contents-literally metadata)
-		  (buffer-substring-no-properties (point-min) (point-max)))))
+	 (alist (read (reveal--file-as-string metadata)))
 	 (filename (alist-get 'filename alist))
+	 (issvg (and (string= "svg" (file-name-extension filename))
+		     (not (string-match-p "^https?://" filename))))
 	 (texfilename (file-name-sans-extension filename))
 	 (licenseurl (alist-get 'licenseurl alist))
 	 (licensetext (alist-get 'licensetext alist))
@@ -271,9 +309,10 @@ See `reveal-export-attribution' for description of arguments."
 			(if (stringp caption)
 			    caption
 			  title)))
-	 (htmlcaption (when realcaption
-			(format "<p>%s</p>"
-				(reveal--export-no-newline realcaption 'html))))
+	 (htmlcaption (format "<p>%s</p>"
+			      (if realcaption
+				  (reveal--export-no-newline realcaption 'html)
+				"")))
 	 (latexcaption (when realcaption
 			 (reveal--export-no-newline realcaption 'latex)))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>"
@@ -295,30 +334,40 @@ See `reveal-export-attribution' for description of arguments."
 	 (h-license (if maxheight
 			(format " style=\"max-width:%s\"" maxheight)
 		      ""))
-	 (orglicense (if shortlicense
-			 (format reveal--short-license-template
-				 sourceuri licenseurl licensetext)
-		       (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
-			       title orgauthor licenseurl licensetext
-			       imgadapted sourceuri sourcetext)))
-	 (htmllicense (if shortlicense
-			  (format "<p%s>%s</p>" h-license
-				  (reveal--export-no-newline orglicense 'html))
-			(format "<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
+	 (orglicense (cond ((eq shortlicense 'none) "")
+			   (shortlicense (format
+					  reveal--short-license-template
+					  sourceuri licenseurl licensetext))
+			   (t (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
+				      title orgauthor licenseurl licensetext
+				      imgadapted sourceuri sourcetext))))
+	 (htmllicense (cond ((eq shortlicense 'none) "")
+			    (shortlicense (format
+					   "<p%s>%s</p>" h-license
+					   (reveal--export-no-newline
+					    orglicense 'html)))
+			    (t (format
+				"<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 				h-license htmltitle htmlauthor licenseurl
-				licensetext sourcehtml permit)))
+				licensetext sourcehtml permit))))
 	 (texlicense (reveal--export-no-newline orglicense 'latex))
 	 )
     (if (stringp caption)
-	(cons (format reveal--figure-div-template
-		      filename divclasses filename imgalt h-image
-		      htmlcaption htmllicense)
-	      (reveal--export-latex
+	(cons (reveal--export-figure-html
+	       filename divclasses htmlcaption htmllicense imgalt h-image)
+	      (reveal--export-figure-latex
 	       filename texwidth texfilename texlicense latexcaption))
-      (cons (format reveal--figure-div-template
-		    filename divclasses filename imgalt h-image "<p></p>" htmllicense)
-	    (reveal--export-latex
-	       filename texwidth texfilename texlicense)))))
+      (cons (reveal--export-figure-html
+	     filename divclasses
+	     ; In general, the title is part of the license text, and
+	     ; we do not display it twice.
+	     ; If a short license is requested, the title is not part
+	     ; of the license but passed here.
+	     (if shortlicense htmlcaption "<p></p>")
+	     htmllicense imgalt h-image)
+	    (reveal--export-figure-latex
+	     filename texwidth texfilename texlicense
+	     (when shortlicense latexcaption))))))
 
 ;; Function to create a grid of images with license information in HTML.
 (defun reveal-export-image-grid
@@ -326,10 +375,7 @@ See `reveal-export-attribution' for description of arguments."
   "Create HTML to display grid with id GRID-ID of GRID-IMAGES.
 The grid has a HEIGHT (percentage of viewport height without unit),
 NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
-  (let* ((images
-	  (read (with-temp-buffer
-		  (insert-file-contents-literally grid-images)
-		  (buffer-substring-no-properties (point-min) (point-max)))))
+  (let* ((images (read (reveal--file-as-string grid-images)))
 	 (reveal--internal-grid-id grid-id)
 	 (reveal--internal-grid-img-counter 0)
 	 (reveal--internal-grid-row-height (/ (* 0.95 height) no-rows))

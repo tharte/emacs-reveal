@@ -53,15 +53,19 @@
 # underneath, license text rotated to the right.
 # Second, reveallicense() expects up to four arguments, the filename
 # for meta-data and optionally the maximum height, CSS classes, and
-# indicator for short license.
-# Here, the image is displayed inline in the surrouding paragraph or
-# list, aligned to the right.  Again, license information is rotated
-# to the right of the image.
+# indicator for short license.  Here, the image is displayed inline in
+# the surrouding paragraph or list, aligned to the right.  Again,
+# license information is rotated to the right of the image.
+# Third, revealsamelicense expects up to three arguments (the first
+# three of reveallicense) and can be used when the license for the image
+# agrees with the one of the document and, thus, does not need to be
+# repeated.
 # The macros use function reveal-export-attribution, defined in
 # reveal-config.el.
 #
 #+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3 $4 $5))
 #+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2 $3 $4))
+#+MACRO: revealsamelicense (eval (reveal-export-attribution $1 nil (if (= 0 (length "$2")) nil $2) (if (= 0 (length "$3")) nil $3) 'none))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:
