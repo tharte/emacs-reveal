@@ -214,22 +214,30 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 (defvar reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
 (defvar reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
 (defvar reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     External figure not included: %s \n         #+END_EXPORT\n")
+(defvar reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     Figure format not supported in \\LaTeX: %s \n         #+END_EXPORT\n")
+(defvar reveal--unsupported-tex-figure-formats '("gif"))
 
 (defun reveal--export-figure-latex (filename texwidth texfilename texlicense
 					     &optional latexcaption)
   "Generate LaTeX for figure at FILENAME.
 If FILENAME is a full HTTP(S) URL, use
 `reveal--figure-external-latex-template' as placeholder.
+If FILENAME has an unsupported extension (included in
+`reveal--unsupported-tex-figure-formats'), use
+`reveal--figure-unsupported-latex-template' as placeholder.
 Otherwise, include graphics at TEXFILENAME of width TEXWIDTH
 with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
 `reveal--figure-latex-template' or
 `reveal--figure-latex-caption-template' is used to generate LaTeX code."
-  (if (string-match-p "^https?://" filename)
-      (format reveal--figure-external-latex-template texlicense)
-    (if latexcaption
-	(format reveal--figure-latex-caption-template
-		texwidth texfilename latexcaption texlicense)
-      (format reveal--figure-latex-template
+  (cond ((string-match-p "^https?://" filename)
+	 (format reveal--figure-external-latex-template texlicense))
+	((member (file-name-extension filename)
+		 reveal--unsupported-tex-figure-formats)
+	 (format reveal--figure-unsupported-latex-template texlicense))
+	(latexcaption
+	 (format reveal--figure-latex-caption-template
+		 texwidth texfilename latexcaption texlicense))
+	(t (format reveal--figure-latex-template
 	      texwidth texfilename texlicense))))
 
 (defun reveal--export-figure-html
