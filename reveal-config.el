@@ -213,8 +213,8 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 (defvar reveal--svg-div-template  "<div about=\"%s\" class=\"%s\"><p>%s</p>%s%s</div>")
 (defvar reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
 (defvar reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
-(defvar reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     External figure not included: %s \n         #+END_EXPORT\n")
-(defvar reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     Figure format not supported in \\LaTeX: %s \n         #+END_EXPORT\n")
+(defvar reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     \\newline \\textbf{Warning!} External figure \\textbf{not} included: %s \\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
+(defvar reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     \\newline \\textbf{Warning!} Figure omitted as %s format \\textbf{not} supported in \\LaTeX: “%s”\\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
 (defvar reveal--unsupported-tex-figure-formats '("gif"))
 
 (defun reveal--export-figure-latex (filename texwidth texfilename texlicense
@@ -233,7 +233,8 @@ with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
 	 (format reveal--figure-external-latex-template texlicense))
 	((member (file-name-extension filename)
 		 reveal--unsupported-tex-figure-formats)
-	 (format reveal--figure-unsupported-latex-template texlicense))
+	 (format reveal--figure-unsupported-latex-template
+		 (file-name-extension filename) texlicense))
 	(latexcaption
 	 (format reveal--figure-latex-caption-template
 		 texwidth texfilename latexcaption texlicense))
