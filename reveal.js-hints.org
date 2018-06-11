@@ -38,7 +38,7 @@
 - Notes
   - Slides contain additional notes as plain text if you see the
     folder icon
-    [[./reveal.js/css/theme//folder_inbox.png]]
+    [[./reveal.js/css/theme/folder_inbox.png]]
     - Click on that icon or press “s” to see the “speaker notes view”
     - You need to allow pop-ups
       - If the pop-up window does not work, you may need to press “s”
@@ -49,11 +49,19 @@
   - In presentations, internal and external links (the former are also
     called relative, while the latter embed a domain in the URL) are styled
     differently
-    - Different colors
-    - Special link icon for external links, e.g., in this
-      [[https://moz.com/learn/seo/external-link][external link to a page explaining external links]],
-      which are typically served by independent organizations with
-      their own agendas, with or without their own privacy policies
+    - Different colors for internal (blue) and external (green) links
+    - Special link icon for “non-local” links
+      - E.g., in this
+        [[https://moz.com/learn/seo/external-link][external link to a page explaining external links]],
+        which are typically served by independent organizations with
+        their own agendas, with or without their own privacy policies
+      - But also for links between different presentations (in
+        particular, this allows to recognize forward references, which
+        may be safely ignored upon first contact)
+    - In summary, there are three types of links:
+      - External (green with icon)
+      - Relative into different presentation (blue with icon)
+      - Relative within presentation (blue without icon)
 
 # Local Variables:
 # indent-tabs-mode: nil
