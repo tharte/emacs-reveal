@@ -58,7 +58,7 @@
       - But also for links between different presentations (in
         particular, this allows to recognize forward references, which
         may be safely ignored upon first contact)
-    - In summary, there are three types of links:
+    - In summary, presentations (not this page) use three link styles:
       - External (green with icon)
       - Relative into different presentation (blue with icon)
       - Relative within presentation (blue without icon)
