@@ -152,6 +152,46 @@ body {
   width: 48%;
 }
 
+.reveal .leftcol30 {
+  float: left;
+  width: 28%;
+}
+
+.reveal .rightcol30 {
+  float: right;
+  width: 28%;
+}
+
+.reveal .leftcol40 {
+  float: left;
+  width: 38%;
+}
+
+.reveal .rightcol40 {
+  float: right;
+  width: 38%;
+}
+
+.reveal .leftcol60 {
+  float: left;
+  width: 58%;
+}
+
+.reveal .rightcol60 {
+  float: right;
+  width: 58%;
+}
+
+.reveal .leftcol70 {
+  float: left;
+  width: 68%;
+}
+
+.reveal .rightcol70 {
+  float: right;
+  width: 68%;
+}
+
 /*******************************************************************
  * Figures without captions
  *
