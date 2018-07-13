@@ -38,6 +38,43 @@
 # Set a default bib file.
 #+MACRO: bibliographyfile bibliography:references.bib
 
+# Setup for PDF generation via LaTeX export.
+#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \usepackage[backend=biber,style=alphabetic]{biblatex}
+#+LATEX_HEADER: \addbibresource{references.bib}
+#+LATEX_HEADER: \newenvironment{NOTES}{\par\footnotesize}{\par}
+#+LATEX_HEADER: \newenvironment{leftcol}{}{}
+#+LATEX_HEADER: \newenvironment{rightcol}{}{}
+#+LATEX_HEADER: \newenvironment{leftcol30}{}{}
+#+LATEX_HEADER: \newenvironment{leftcol40}{}{}
+#+LATEX_HEADER: \newenvironment{leftcol60}{}{}
+#+LATEX_HEADER: \newenvironment{leftcol70}{}{}
+#+LATEX_HEADER: \newenvironment{rightcol30}{}{}
+#+LATEX_HEADER: \newenvironment{rightcol40}{}{}
+#+LATEX_HEADER: \newenvironment{rightcol60}{}{}
+#+LATEX_HEADER: \newenvironment{rightcol70}{}{}
+#+LATEX_HEADER: \usepackage{newunicodechar}
+#+LATEX_HEADER: \newunicodechar{≈}{$\approx$}
+#+LATEX_HEADER: \newunicodechar{⋮}{\vdots}
+#+LATEX_HEADER: \newunicodechar{ }{~}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \definecolor{darkred}{rgb}{0.3, 0.0, 0.0}
+#+LATEX_HEADER: \definecolor{darkgreen}{rgb}{0.0, 0.3, 0.1}
+#+LATEX_HEADER: \definecolor{darkblue}{rgb}{0.0, 0.1, 0.3}
+#+LATEX_HEADER: \definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+#+LATEX_HEADER: \definecolor{sienna}{rgb}{0.53, 0.18, 0.09}
+#+LATEX_HEADER: \hypersetup{colorlinks,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkgreen}
+#+LATEX_HEADER: \usepackage{newverbs}
+#+LATEX_HEADER: \newverbcommand{\rverb}{\color{darkred}}{}
+#+LATEX_HEADER: \newverbcommand{\gverb}{\color{darkgreen}}{}
+#+LATEX_HEADER: \newverbcommand{\bverb}{\color{darkblue}}{}
+
+# Macros to display code in different colors.
+#+MACRO: blackcode @@html:<code><span style="color:black; font-size:smaller;">$1</span></code>@@ @@latex:\texttt{$1}@@
+#+MACRO: redcode @@html:<code><span style="color:darkred; font-size:smaller;">$1</span></code>@@ @@latex:\rverb|$1|@@
+#+MACRO: greencode @@html:<code><span style="color:darkgreen; font-size:smaller;">$1</span></code>@@ @@latex:\gverb|$1|@@
+#+MACRO: bluecode @@html:<code><span style="color:darkblue; font-size:smaller;">$1</span></code>@@ @@latex:\bverb|$1|@@
+
 # To display images with license information, some macros are
 # available.
 # See emacs-reveal-howto for sample use:
