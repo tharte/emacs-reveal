@@ -119,6 +119,10 @@
 (add-to-list 'org-reveal-external-plugins
 	     (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }"))
 
+;; Activate quiz plugin
+(add-to-list 'org-reveal-external-plugins
+       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }"))
+
 ;;; Use org-ref to enable citations.
 (require 'org-ref)
 ;; If the declaration of the bibliography file is part of an included file,
