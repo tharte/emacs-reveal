@@ -509,5 +509,21 @@ Call `reveal--attribution-strings' with proper metadata."
 			  reveal--internal-grid-id
 			  reveal--internal-grid-img-counter))))))
 
+;; Functionality to make org-html-link use org-reveal's ID format.
+;; This is useful when publishing with org-html-publish-to-html
+;; where the HTML file is supposed to link into presentations.
+(defun reveal--rewrite-link (old-fun &rest arguments)
+  "Combine OLD-FUN with `org-reveal--maybe-replace-in-link'."
+  (let ((orig (apply old-fun arguments)))
+    (org-reveal--maybe-replace-in-link orig t)))
+
+(defun reveal--add-advice-link (&rest arguments)
+  "Extend `org-html-link' with advice for org-reveal's anchor ID format."
+  (advice-add 'org-html-link :around #'reveal--rewrite-link))
+
+(defun reveal--remove-advice-link (&rest arguments)
+  "Remove advice on `org-html-link'."
+  (advice-remove #'org-html-link #'reveal--rewrite-link))
+
 (provide 'reveal-config)
 ;;; reveal-config.el ends here
