@@ -3,8 +3,12 @@
 # Neither generate table of contents nor section numbers
 #+OPTIONS: toc:nil num:nil
 
-# Enable: browser history, mouse wheel, links between presentations
-#+OPTIONS: reveal_history:t reveal_mousewheel:t reveal_inter_presentation_links:t
+# Enable: browser history, fragment IDs in URLs, mouse wheel, links between presentations
+#+OPTIONS: reveal_history:t reveal_fragmentinurl:t
+#+OPTIONS: reveal_mousewheel:t reveal_inter_presentation_links:t
+
+# Disable separate PDF pages for each fragment.  Just use one per slide.
+#+OPTIONS: reveal_pdfseparatefragments:nil
 
 # Enable smart quotes
 #+OPTIONS: ':t
