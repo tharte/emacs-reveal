@@ -11,7 +11,7 @@
 
 In the spirit of
 [[https://en.wikipedia.org/wiki/Open_educational_resources][Open Educational Resources]]
-(OER), {{{gitlablink(source files, necessary software, and presentations are published in this GitLab repository)}}}
+(OER), {{{gitlablink(source files\, necessary software\, and presentations are published in this GitLab repository)}}}
 under [[https://en.wikipedia.org/wiki/Free_license][free licenses]].
 All OER presentations are created from plain text files in a simple text
 format called [[https://orgmode.org/][Org Mode]] (a
