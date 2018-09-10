@@ -8,6 +8,9 @@
 # included in other org files.  See there for an example:
 # https://gitlab.com/oer/OS/blob/master/index.org
 
+Presentations make use of the HTML presentation framework
+[[https://revealjs.com/][reveal.js]].
+
 - Key bindings and navigation
   - Press “?” to see key bindings of reveal.js
   - In general, “n” and “p” move to next and previous slide; mouse
