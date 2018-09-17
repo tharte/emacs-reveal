@@ -44,7 +44,8 @@ environment, namely the text editor
 [GNU Emacs](https://www.gnu.org/software/emacs/), in a simple
 text format called [Org Mode](https://orgmode.org/), which can be
 exported to reveal.js thanks to
-[Org-Reveal](https://github.com/yjwen/org-reveal/).
+[Org-Reveal](https://github.com/yjwen/org-reveal/), for which I
+maintain my own [fork](https://github.com/lechten/org-reveal/).
 That way, I can focus on slides’ contents in a highly intuitive plain
 text document, which can be exported to HTML for presentation in a Web
 browser (besides, presentations can be downloaded in two different
@@ -83,7 +84,7 @@ To make that plugin work with Org-Reveal, I extended
 The setup is as follows:
  * GNU Emacs
    * Org mode (from ELPA; the version included in Emacs is too old)
-   * Org-reveal (from my
+   * Org-Reveal (from my
      [repository](https://github.com/lechten/org-reveal))
    * Emacs libraries org-ref (for citations) and htmlize (for source
      code highlighting)
@@ -98,7 +99,10 @@ Emacs initialization code for the above is included in
 (or embed there).
 
 This [Howto](https://gitlab.com/oer/emacs-reveal-howto) explains how
-to use emacs-reveal based on a small sample presentation.
+to use emacs-reveal based on a small sample presentation.  Besides,
+the [README of Org-Reveal](https://github.com/lechten/org-reveal/)
+documents various features and options of Org-Reveal, which are also
+available with emacs-reveal.
 
 My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS) is a
 real-world use case for emacs-reveal.  Presentations are built automatically
