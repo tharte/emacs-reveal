@@ -257,16 +257,27 @@ the text for the alt attribute, while H-IMAGE specifies the height
 of the image.
 Templates `reveal--svg-div-template' and `reveal--figure-div-template'
 specify the general HTML format."
-  (let ((issvg (and (string= "svg" (file-name-extension filename))
-		    (not (string-match-p "^https?://" filename)))))
+  (let* ((extension (file-name-extension filename))
+	 (external (string-match-p "^https?://" filename))
+	 (issvg (and (string= "svg" extension) (not external)))
+	 (issingle (plist-get (org-export-get-environment 'reveal)
+			      :reveal-single-file)))
     (if issvg
 	(format reveal--svg-div-template
 		filename divclasses
 		(reveal--file-as-string filename t)
 		htmlcaption htmllicense)
       (format reveal--figure-div-template
-	      filename divclasses filename imgalt h-image
-	      htmlcaption htmllicense))))
+	      filename divclasses
+	      (if (and issingle (not external))
+		  ;; Insert base64 encoded image as single line.
+		  (concat "data:image/" extension ";base64,"
+			  (with-temp-buffer
+			    (insert-file-contents-literally filename)
+			    (base64-encode-region 1 (point-max) t)
+			    (buffer-string)))
+		filename)
+	      imgalt h-image htmlcaption htmllicense))))
 
 (defun reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
