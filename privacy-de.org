@@ -36,9 +36,9 @@ dass die meisten Geheimdienste jegliche Internet-Daten sammeln, derer
 sie habhaft werden können, einschließlich des Surf-Verhaltens.
 
 Die gute Nachricht ist, dass Sie sich in keiner der obigen Arten
-überwachen lassen müssen, wenn Sie das nicht wollen, auch
-und gerade beim Lernen anhand von OER unter {{{website}}}, wie
-nachfolgend erklärt.
+überwachen lassen müssen, wenn Sie das nicht wollen, besonders nicht
+beim Lernen anhand von OER unter {{{website}}}, wie nachfolgend
+erklärt.
 
 Wenn Sie beim Surfen nicht überwacht werden möchten, müssen Sie
 Techniken der digitalen Selbstverteidigung erlernen und anwenden.
@@ -55,14 +55,12 @@ Die OER unter {{{website}}} funktionieren auch unter den erhöhten
 Alternativ können Sie die OER auch herunterladen und anschließend
 lokal und offline verwenden.  Zu diesem Zweck können Sie entweder die
 Ergebnisse der letzten Pipeline-Ausführung von GitLab herunterladen
-(wie im Rahmen der [[https://oer.gitlab.io/OS/][OER-Präsentationen zu
-Operating Systems]] auf Englisch erklärt) oder das Repository über
-Git-Mechanismen kopieren und die Präsentationen selbst erzeugen.
-(Wie oben erwähnt beinhalten manche Präsentationen Ressourcen von
-externen Servern; diese sind bei Offline-Verwendung nicht verfügbar.
-Wenn Sie online lernen und Ihr Browser die Ressourcen anfragt, können
-diese Anfragen wieder überwacht werden, was den Tor Browser als
-erste Wahl erscheinen lässt.)
+oder das Repository über Git-Mechanismen kopieren und die
+Präsentationen selbst erzeugen.  (Wie oben erwähnt beinhalten manche
+Präsentationen Ressourcen von externen Servern; diese sind bei
+Offline-Verwendung nicht verfügbar.  Wenn Sie online lernen und Ihr
+Browser die Ressourcen anfragt, können diese Anfragen wieder überwacht
+werden, was den Tor Browser als erste Wahl erscheinen lässt.)
 
 Wenn Sie als eine/r
 [[https://www.wi.uni-muenster.de/department/dbis/people/jens-lechtenboerger][meiner]]

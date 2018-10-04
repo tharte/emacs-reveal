@@ -25,12 +25,12 @@ Die Präsentationen nutzen das HTML-Framework
 - PDF-Export
   - Warum wollen Sie das machen?
     - Die Quelldateien können im Texteditor kommentiert/ergänzt werden
-      - [[https://orgmode.org/][Org mode]], reines Textformat
+      - [[https://orgmode.org/][Org Mode]], reines Textformat
   - Ändern der Browser-URL durch Hinzufügen von ~?print-pdf~ nach ~.html~,
     dann in PDF-Datei drucken (Strg-p)
   - Je nach Projekt sind möglicherweise bereits PDF-Dateien aus den
     Quelldateien generiert worden.  In diesem Fall kann die Endung
-    ~.html~ einer Präsentations-URL durch ~.pdf~ ersetzt werden.
+    ~.html~ der URL einer Präsentation durch ~.pdf~ ersetzt werden.
 - Audio
   - Falls vorhanden liegen Tonspuren im [[https://de.wikipedia.org/wiki/Ogg][freien Ogg-Format]] vor
     - Ton sollte automatisch starten
