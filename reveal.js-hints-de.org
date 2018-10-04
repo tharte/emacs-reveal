@@ -13,13 +13,13 @@ Die Präsentationen nutzen das HTML-Framework
 
 - Tastaturbelegung und Navigation
   - Druck von „?“ zeigt Tastaturbelegung von reveal.js
-  - Tasten „n“ und „p“ führen zu nächster von vorangehender (previous)
+  - Tasten „n“ und „p“ führen zu nächster und vorangehender (previous)
     Folie; Mausrad funktioniert
   - Auf/ab (Wischen, Cursor-Tasten) navigieren innerhalb von Abschnitten,
     links/rechts zwischen Abschnitten („o“ zeigt, was wo liegt)
   - Eingabe von Foliennummer gefolgt von Return/Enter/Eingabetaste
-    führt zu dieser Folie
-  - Browser-Historie (Knöpfe, Alt-CursorLinks, Alt-CursorRechts)
+    führt zur entsprechenden Folie
+  - Browser-Historie (Vor und Zurück im Browser, Alt-CursorLinks, Alt-CursorRechts)
   - Zoom mit Strg-Maus oder Alt-Maus
   - Suche mit Strg-Umschalt-F
 - PDF-Export
@@ -32,7 +32,7 @@ Die Präsentationen nutzen das HTML-Framework
     Quelldateien generiert worden.  In diesem Fall kann die Endung
     ~.html~ einer Präsentations-URL durch ~.pdf~ ersetzt werden.
 - Audio
-  - Falls vorhanden liegen Tonspuren im [[https://de.wikipedia.org/wiki/Ogg][freiee Ogg-Format]] vor
+  - Falls vorhanden liegen Tonspuren im [[https://de.wikipedia.org/wiki/Ogg][freien Ogg-Format]] vor
     - Ton sollte automatisch starten
       - [[https://github.com/rajgoel/reveal.js-plugins/tree/master/audio-slideshow#user-content-compatibility-and-known-issues][Kompatibilität und bekannte Probleme des zugrunde liegenden Audio-Plugins]]
       - [[https://www.mozilla.org/en-US/firefox/][Firefox]]
