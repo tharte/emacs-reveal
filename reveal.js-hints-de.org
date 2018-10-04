@@ -1,0 +1,71 @@
+# Local IspellDict: de
+
+# License: (C) 2018 by Jens Lechtenbörger, released under Creative
+# Commons license CC BY-SA 4.0,
+# https://creativecommons.org/licenses/by-sa/4.0/
+
+# Diese Datei ist nicht für den direkten HTML-Export gedacht,
+# sondern sollte anderswo eingebunden werden.  Beispiel:
+# https://gitlab.com/oer/fediverse/blob/master/index.org
+
+Die Präsentationen nutzen das HTML-Framework
+[[https://revealjs.com/][reveal.js]].
+
+- Tastaturbelegung und Navigation
+  - Druck von „?“ zeigt Tastaturbelegung von reveal.js
+  - Tasten „n“ und „p“ führen zu nächster von vorangehender (previous)
+    Folie; Mausrad funktioniert
+  - Auf/ab (Wischen, Cursor-Tasten) navigieren innerhalb von Abschnitten,
+    links/rechts zwischen Abschnitten („o“ zeigt, was wo liegt)
+  - Eingabe von Foliennummer gefolgt von Return/Enter/Eingabetaste
+    führt zu dieser Folie
+  - Browser-Historie (Knöpfe, Alt-CursorLinks, Alt-CursorRechts)
+  - Zoom mit Strg-Maus oder Alt-Maus
+  - Suche mit Strg-Umschalt-F
+- PDF-Export
+  - Warum wollen Sie das machen?
+    - Die Quelldateien können im Texteditor kommentiert/ergänzt werden
+      - [[https://orgmode.org/][Org mode]], reines Textformat
+  - Ändern der Browser-URL durch Hinzufügen von ~?print-pdf~ nach ~.html~,
+    dann in PDF-Datei drucken (Strg-p)
+  - Je nach Projekt sind möglicherweise bereits PDF-Dateien aus den
+    Quelldateien generiert worden.  In diesem Fall kann die Endung
+    ~.html~ einer Präsentations-URL durch ~.pdf~ ersetzt werden.
+- Audio
+  - Falls vorhanden liegen Tonspuren im [[https://de.wikipedia.org/wiki/Ogg][freiee Ogg-Format]] vor
+    - Ton sollte automatisch starten
+      - [[https://github.com/rajgoel/reveal.js-plugins/tree/master/audio-slideshow#user-content-compatibility-and-known-issues][Kompatibilität und bekannte Probleme des zugrunde liegenden Audio-Plugins]]
+      - [[https://www.mozilla.org/en-US/firefox/][Firefox]]
+        scheint überall zu funktionieren
+    - Audio-Steuerung links unten
+- Notizen
+  - Folien enthalten Notizen, wenn das Ordner-Symbol dargestellt wird
+    [[./reveal.js/css/theme/folder_inbox.png]]
+    - Klick auf das Symbol und Druck von „s“ öffnen Notizenansicht
+    - Pop-Ups müssen erlaubt werden
+      - Wenn das Pop-Up-Fenster nicht funktioniert, kann es helfen,
+        erneut „s“ zu drücken oder das Pop-Up-Fenster einmal zu schließen
+  - Wenn die Folie eine Tonspur enthält, zeigen die Notizen den
+    zugehörigen Text
+- Verweise/Hyperlinks
+  - In Präsentationen werden interne und externe Verweise (erstere
+    heißen auch relativ, letztere zeigen auf einen externen
+    Ziel-Server) unterschiedlich dargestellt
+    - Verschiedene Farben für interne (blau) und externe (grün) Verweise
+    - Spezielles Link-Symbol für „nicht-lokale“ Verweise
+      - Z. B. in diesem
+        [[https://moz.com/learn/seo/external-link][externen Verweis zu einer Seite mit Eräuterungen zu externen Verweisen]];
+        diese führen typischerweise zu Servern von Dritten
+        mit eigenen Zielen und Datenschutzrichtlinien
+      - Aber auch zu anderen Präsentationen (dies erlaubt es,
+        Vorwärtsverweise zu erkennen und beim ersten Studium womöglich
+        zu ignorieren)
+    - Zusammenfassend werden in Präsentationen (aber nicht auf dieser
+      Seite) drei verschiedene Darstellungen verwendet:
+      - Extern (grün mit Symbol)
+      - Relativ zu anderer Präsentation (blau mit Symbol)
+      - Relativ innerhalb selber Präsentation (blau ohne Symbol)
+
+# Local Variables:
+# indent-tabs-mode: nil
+# End:
