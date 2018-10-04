@@ -563,13 +563,14 @@ div.ribbon-legalese a {
 /* Show icon for outgoing/external link.
    Icon (drawn with mtPaint) released into Public Domain.
    Icon neither shown for .nooutlink, nor when URL starts with "#",
-   nor inside figures. */
+   nor inside figures, nor for empty hyperlinks. */
 .reveal a[href]:not(.nooutlink):after {
   content: url(outgoing-link.png);
   margin: 0px 3px 0px 3px; }
 
 .reveal a[href^="#"]:not(.nooutlink):after,
-.reveal .figure a[href^="http"]:after {
+.reveal .figure a[href^="http"]:after,
+.reveal a[href]:empty:after {
   content: none; }
 
 .reveal a[href]:hover {
