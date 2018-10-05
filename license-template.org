@@ -1,7 +1,7 @@
 #+REVEAL_HTML: <div class="slide-footer"><br></div></section><section id="slide-license" data-state="no-toc-progress"><h3 class="no-toc-progress">License Information</h3>
 
 Except where otherwise noted, this work,
-@@html:“<span property="dc:title">@@{{{title}}}@@html:</span>@@”,
+“@@html:<span property="dc:title">@@{{{title}}}@@html:</span>@@”,
 is © {{{copyrightyears}}} by
 @@html:<span property="dc:creator cc:attributionName">@@{{{author}}}@@html:</span>@@,
 published under the Creative Commons license
