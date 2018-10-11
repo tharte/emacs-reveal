@@ -54,7 +54,7 @@
 /* Create space for GitLab ribbon. */
 .reveal .slides > section,
 .reveal .slides > section > section {
-  margin: 10px 25px;
+  margin: 5px 25px;
   width: 95%; }
 
 .reveal .talk-title {
