@@ -30,7 +30,13 @@
 ;;; Code:
 (add-to-list 'load-path (expand-file-name
 			 "./org-reveal" (file-name-directory load-file-name)))
+(require 'org)
 (require 'ox-reveal)
+
+;; Setup url package with hyphens option.  This is done here to avoid
+;; option clashes when implicitly loading the package from hyperref.
+(add-to-list 'org-latex-default-packages-alist
+ 	     (list "hyphens" "url" nil))
 
 ;;; Configure reveal.js plugins.
 ;; Note that in the relative src-paths in org-reveal-external-plugins,
