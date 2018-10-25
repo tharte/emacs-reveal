@@ -61,6 +61,7 @@
 #+LATEX_HEADER: \newunicodechar{≈}{$\approx$}
 #+LATEX_HEADER: \newunicodechar{⋮}{\vdots}
 #+LATEX_HEADER: \newunicodechar{ }{~}
+#+LATEX_HEADER: \usepackage[hyphens]{url}  % Break URLs at hyphen
 #+LATEX_HEADER: \usepackage{color}
 #+LATEX_HEADER: \definecolor{darkred}{rgb}{0.3, 0.0, 0.0}
 #+LATEX_HEADER: \definecolor{darkgreen}{rgb}{0.0, 0.3, 0.1}
