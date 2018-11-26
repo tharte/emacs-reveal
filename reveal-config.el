@@ -33,6 +33,9 @@
 (require 'org)
 (require 'ox-reveal)
 
+;; Fix URL fragments to use valid IDs.
+(setq org-reveal--href-fragment-prefix org-reveal--slide-id-prefix)
+
 ;; Setup url package with hyphens option.  This is done here to avoid
 ;; option clashes when implicitly loading the package from hyperref.
 (add-to-list 'org-latex-default-packages-alist
