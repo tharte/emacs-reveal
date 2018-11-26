@@ -148,7 +148,7 @@
 <section id=\"slide-bibliography\" data-state=\"no-toc-progress\">
 <h3 class=\"org-ref-bib-h3 no-toc-progress\">Bibliography</h3>\n")
 (setq org-ref-ref-html
-      "<a class=\"org-ref-reference\" href=\"#/slide-bibliography\">[%s]</a>")
+      "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
 
 ;; Display article, book, inproceedings, misc differently.
 ;; Remaining entries are defaults.
