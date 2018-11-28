@@ -33,6 +33,9 @@
 (require 'org)
 (require 'ox-reveal)
 
+;; Avoid loading of head.min.js, which does not exist any more.
+(setq org-reveal-script-files '("js/reveal.js"))
+
 ;; Fix URL fragments to use valid IDs.
 (setq org-reveal--href-fragment-prefix org-reveal--slide-id-prefix)
 
