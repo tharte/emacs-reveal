@@ -1,7 +1,6 @@
 [submodule "reveal.js"]
 	path = reveal.js
 	url = https://github.com/lechten/reveal.js.git
-	branch = valid-named-links
 [submodule "Reveal.js-TOC-Progress"]
 	path = Reveal.js-TOC-Progress
 	url = https://github.com/e-gor/Reveal.js-TOC-Progress
