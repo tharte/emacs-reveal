@@ -45,7 +45,7 @@ environment, namely the text editor
 text format called [Org Mode](https://orgmode.org/), which can be
 exported to reveal.js thanks to
 [Org-Reveal](https://github.com/yjwen/org-reveal/), for which I
-maintain my own [fork](https://github.com/lechten/org-reveal/).
+maintain [my own fork](https://github.com/lechten/org-reveal/).
 That way, I can focus on slides’ contents in a highly intuitive plain
 text document, which can be exported to HTML for presentation in a Web
 browser (besides, presentations can be downloaded in two different
@@ -84,22 +84,24 @@ To make that plugin work with Org-Reveal, I extended
 The setup is as follows:
  * GNU Emacs
    * Org mode (from ELPA; the version included in Emacs is too old)
-   * Org-Reveal (from my
-     [repository](https://github.com/lechten/org-reveal))
+   * Org-Reveal (from
+     [my repository](https://github.com/lechten/org-reveal))
    * Emacs libraries org-ref (for citations) and htmlize (for source
      code highlighting)
  * reveal.js
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
+   * [reveal.js-quiz](https://gitlab.com/schaepermeier/reveal.js-quiz)
  * LaTeX for PDF generation
 
 Emacs initialization code for the above is included in
-[this file](reveal-config.el), which you can load from your `~/.emacs`
-(or embed there).
+[the file `reveal-config.el`](reveal-config.el), which you can load
+from your `~/.emacs` (or embed there).
 
-This [Howto](https://gitlab.com/oer/emacs-reveal-howto) explains how
-to use emacs-reveal based on a small sample presentation.  Besides,
+This [Howto](https://gitlab.com/oer/emacs-reveal-howto) is a small
+sample presentation generated with emacs-reveal that explains how
+to use emacs-reveal.  Besides,
 the [README of Org-Reveal](https://github.com/lechten/org-reveal/)
 documents various features and options of Org-Reveal, which are also
 available with emacs-reveal.
