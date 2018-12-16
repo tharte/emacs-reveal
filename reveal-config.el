@@ -192,7 +192,32 @@
 ;; is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
-(defun reveal-export-attribution
+(defun reveal-export-attribution (&rest args)
+  "Generate HTML and LaTeX code for image with license attribution.
+Essentially, this function calls `reveal--export-attribution-helper'
+\(where arguments ARGS are documented), but makes sure that macro
+arguments are properly expanded to work with all Org versions,
+also after an incompatible change with Org 9.2."
+  ;; The first argument is the file name for metadata.  If that
+  ;; starts with a quotation mark, arguments have been quoted.
+  ;; (You don't start file names with quotation marks, do you?)
+  (let ((metadata (car args)))
+    (if (string-prefix-p "\"" metadata)
+	(apply 'reveal--export-attribution-helper
+	       (mapcar 'reveal--read-from-string args))
+      (apply 'reveal--export-attribution-helper args))))
+
+(defun reveal--read-from-string (object)
+  "Undo potential quoting in OBJECT for strings with Org 9.2.
+If OBJECT is a string, then return whatever it represents.
+Otherwise, return OBJECT unchanged."
+  (if (stringp object)
+      (if (= 0 (length object))
+	  nil
+	(car (read-from-string object)))
+    object))
+
+(defun reveal--export-attribution-helper
     (metadata &optional caption maxheight divclasses shortlicense)
   "Display image from METADATA.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
@@ -413,7 +438,20 @@ and whose cdr is the LaTeX representation."
 	       latexcaption))))))
 
 ;; Function to create a grid of images with license information in HTML.
-(defun reveal-export-image-grid
+(defun reveal-export-image-grid (&rest args)
+  "Generate HTML for image grid.
+Essentially, this function calls `reveal--export-image-grid-helper'
+\(where arguments ARGS are documented), but makes sure that macro
+arguments are properly expanded to work with all Org versions,
+also after an incompatible change with Org 9.2."
+  ;; The first argument is an integer ID.  If that is a string,
+  ;; arguments have been quoted.
+  (if (stringp (car args))
+      (apply 'reveal--export-image-grid-helper
+	     (mapcar 'reveal--read-from-string args))
+    (apply 'reveal--export-image-grid-helper args)))
+
+(defun reveal--export-image-grid-helper
     (grid-id grid-images height no-columns no-rows template-areas)
   "Create HTML to display grid with id GRID-ID of GRID-IMAGES.
 The grid has a HEIGHT (percentage of viewport height without unit),
