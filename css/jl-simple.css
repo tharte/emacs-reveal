@@ -395,7 +395,7 @@ div.ribbon-legalese a {
 .reveal dl,
 .reveal ul {
   text-align: left;
-  margin: 0 0 0 1em; }
+  margin: 0; }
 
 .reveal ol {
   list-style-type: decimal; }
@@ -415,7 +415,7 @@ div.ribbon-legalese a {
 .reveal ol ul {
   display: block;
   font-size: 0.8em;
-  margin-left: 40px; }
+  margin-left: 0; }
 
 .reveal .org-ref-bib {
   font-size: 0.6em;
