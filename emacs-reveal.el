@@ -57,8 +57,8 @@
 ;; A howto for the use of emacs-reveal is available over there:
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/howto.org
 ;; https://oer.gitlab.io/emacs-reveal-howto/howto.html (generated HTML)
-
-;;; Install:
+;;
+;; * Installation
 ;; Emacs-reveal can be installed manually via Git, which may be
 ;; preferable because it contains Git submodules that can be updated
 ;; independently, or as MELPA package.  Both ways are sketched
@@ -88,8 +88,8 @@
 ;; (b) Install emacs-reveal:
 ;;     - M-x package-install
 ;;     - emacs-reveal
-
-;;; Usage:
+;;
+;; * Usage
 ;; Please check out the emacs-reveal howto mentioned above.  In
 ;; particular, the howto contains Lisp code to publish reveal.js
 ;; presentations from Org source files (in file elisp/publish.el).
@@ -101,12 +101,15 @@
 ;; Variable `emacs-reveal-dir' points to the directory of emacs-reveal
 ;; and its embedded plugins and resources.  You may want to use that
 ;; variable in your own publication code (similarly to its use in
-;; elisp/publish.el of the howto).
+;; elisp/publish.el of the howto).  Note that subdirectory
+;; "title-slide" contains some variants for title slides of
+;; presentations, and subdirectory "css" contains sample CSS with
+;; logos.  Subdirectory "org" contains Org files to embed in
+;; presentations.  Please be warned that included resources, in
+;; particular css/jl-simple.css, may change in incompatible ways.
+;; You may want to work with your own copies.
 ;;
-;; Please be warned that my CSS style, css/jl-simple.css, may change
-;; in incompatible ways.  You may want to work on your own local file.
-
-;;; Customizable options:
+;; * Customizable options
 ;; Variable `emacs-reveal-script-files' lists JavaScript files to load
 ;; when initializing reveal.js.  If you use the version of reveal.js
 ;; coming with emacs-reveal, changes should not be necessary.
