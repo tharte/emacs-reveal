@@ -207,7 +207,8 @@ Note that this filename is exported into a subdirectory of
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
 
-(add-to-list 'load-path (expand-file-name "./org-reveal" emacs-reveal-dir))
+(eval-and-compile
+  (add-to-list 'load-path (expand-file-name "./org-reveal" emacs-reveal-dir)))
 
 (defconst emacs-reveal-install-prompt
   "Files for %s not found at: %s  Clone from source repository? ")
