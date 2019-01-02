@@ -33,19 +33,108 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; This file contains configuration options to create reveal.js
-;; (HTML) presentations from Org mode files in GNU Emacs with a forked
-;; version of org-reveal and several reveal.js plugins.
-;; (Originally, this file was named "reveal-config.el".)
+;; The software emacs-reveal allows to create HTML presentations (with
+;; audio explanations if you wish) with reveal.js from Org mode files
+;; in GNU Emacs with a forked version of org-reveal and several
+;; reveal.js plugins.  Generated presentations are usable with standard
+;; browsers, also mobile and offline.
+;;
+;; Essentially, emacs-reveal provides an export backend for Org mode
+;; (see https://orgmode.org/manual/Exporting.html).  As such, it comes
+;; with Org's separation of contents and layout, allowing to create
+;; presentations in a fashion similarly to Beamer LaTeX, including the
+;; use of BibTeX files for bibliographic notes (for classroom
+;; presentations), hyperlinks within and between presentations, and
+;; the generation of a keyword index.  Beyond other similar projects,
+;; emacs-reveal comes with mechanisms (a) to add audio explanations to
+;; presentations and (b) to share free and open images and figures
+;; with proper attribution information for their inclusion in open
+;; educational resources (OER).  See there for OER presentations (HTML
+;; with reveal.js and PDF generated from Org files via LaTeX) for
+;; a university course on Operating Systems that are generated with
+;; emacs-reveal: https://oer.gitlab.io/OS/
 ;;
 ;; A howto for the use of emacs-reveal is available over there:
-;; https://gitlab.com/oer/emacs-reveal-howto
+;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/howto.org
+;; https://oer.gitlab.io/emacs-reveal-howto/howto.html (generated HTML)
 
-;; TODO Explain installation options.  The following is one of them.
-;; Load this as follows from ~/.emacs: (load "path/to/emacs-reveal.el")
-;; TODO Comment on emacs-reveal-dir.
+;;; Install:
+;; Emacs-reveal can be installed manually via Git, which may be
+;; preferable because it contains Git submodules that can be updated
+;; independently, or as MELPA package.  Both ways are sketched
+;; subsequently.
+;;
+;; 1. Install emacs-reveal via Git.
+;; Create a directory for your presentation(s)' Org source files.  In
+;; that directory:
+;; (a) git clone https://gitlab.com/oer/emacs-reveal.git
+;; (b) cd emacs-reveal
+;; (c) Install submodules
+;;     - git submodule sync --recursive
+;;     - git submodule update --init --recursive
+;; (d) Make sure that Emacs packages Org and org-ref are installed.
+;;     You could install them with the usual package mechanism or like
+;;     this:
+;;     - emacs --batch --load install.el --funcall install
+;; (e) Add a line like this to ~/.emacs:
+;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
+;;
+;; 2. Install as MELPA package.  (See there for full information on
+;; MELPA: https://melpa.org/#/getting-started)
+;; (a) Add melpa, e.g.:
+;;     (add-to-list 'package-archives
+;;                  '("melpa" . "https://melpa.org/packages/"))
+;;     (package-refresh-contents)
+;; (b) Install emacs-reveal:
+;;     - M-x package-install
+;;     - emacs-reveal
+
+;;; Usage:
+;; Please check out the emacs-reveal howto mentioned above.  In
+;; particular, the howto contains Lisp code to publish reveal.js
+;; presentations from Org source files (in file elisp/publish.el).
+;; Note that the HTML version of the howto is generated in a Docker
+;; image on GitLab; its YML configuration shows the necessary steps
+;; to generate and publish the project:
+;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
+;;
+;; Variable `emacs-reveal-dir' points to the directory of emacs-reveal
+;; and its embedded plugins and resources.  You may want to use that
+;; variable in your own publication code (similarly to its use in
+;; elisp/publish.el of the howto).
+;;
+;; Please be warned that my CSS style, css/jl-simple.css, may change
+;; in incompatible ways.  You may want to work on your own local file.
 
 ;;; Customizable options:
+;; Variable `emacs-reveal-script-files' lists JavaScript files to load
+;; when initializing reveal.js.  If you use the version of reveal.js
+;; coming with emacs-reveal, changes should not be necessary.
+;;
+;; Variable `emacs-reveal-external-components' documents source
+;; locations for Git submodules related to reveal.js.
+;; Function `emacs-reveal-install' can be used to install those
+;; components (although this is not necessary when you follow the
+;; installation instructions).
+;;
+;; Variable `emacs-reveal-plugins' lists reveal.js plugins among
+;; `emacs-reveal-external-components' to be activated.  Remove those
+;; that you do not need.
+;;
+;; When generating image grids, `emacs-reveal-export-dir' specifies
+;; the directory into which to generate CSS code.  This should
+;; probably be the directory into which you publish your HTML code.
+;; I set this to "./" before exporting with `C-c C-e R B'.
+;; The names of CSS files are determined by
+;; `emacs-reveal-css-filename-template'.
+
+(defcustom emacs-reveal-script-files '("js/reveal.js")
+  "Value to apply to `org-reveal-script-files'.
+By default, `org-reveal' also loads head.min.js, which has been removed
+from the dev branch of reveal.js on 2018-10-04."
+  :group 'emacs-reveal
+  :type '(repeat string))
+
 (defcustom emacs-reveal-external-components
   '(("https://github.com/lechten/reveal.js.git" "master" javascript)
     ("https://github.com/e-gor/Reveal.js-TOC-Progress.git" "master" plugin)
@@ -83,13 +172,6 @@ initialization code yourself.  (E.g., see the code concerning
   :group 'emacs-reveal
   :type '(repeat string))
 
-(defcustom emacs-reveal-script-files '("js/reveal.js")
-  "Value to apply to `org-reveal-script-files'.
-By default, `org-reveal' also loads head.min.js, which has been removed
-from the dev branch of reveal.js on 2018-10-04."
-  :group 'emacs-reveal
-  :type '(repeat string))
-
 ;; The following options are only relevant if you use
 ;; reveal-export-image-grid to generate image grids.
 ;; Then, the options control in what directory generated CSS is saved.
@@ -117,7 +199,7 @@ Note that this filename is exported into a subdirectory of
 ;;; Code:
 (defconst emacs-reveal-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
-  "Directory of emacs-reveal containing this file.
+  "Directory of emacs-reveal containing code and resources.
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
 
@@ -140,6 +222,7 @@ Target directory is `emacs-reveal-dir'."
   "Install components listed in `emacs-reveal-external-components'.
 It is questionable whether this function is useful.  Currently, such
 components are included as Git submodules."
+  (interactive)
   (dolist (triple emacs-reveal-external-components)
     (let* ((address (car triple))
 	   (component (file-name-sans-extension
