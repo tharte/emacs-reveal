@@ -96,7 +96,7 @@ The setup is as follows:
  * LaTeX for PDF generation
 
 Emacs initialization code for the above is included in
-[the file `reveal-config.el`](reveal-config.el), which you can load
+[the file `emacs-reveal.el`](emacs-reveal.el), which you can load
 from your `~/.emacs` (or embed there).
 
 This [Howto](https://gitlab.com/oer/emacs-reveal-howto) is a small
