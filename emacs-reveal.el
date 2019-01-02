@@ -307,21 +307,23 @@ components are included as Git submodules."
       table-html-table-attribute "class=\"emacs-table\"")
 
 ;; Allow colored text.
-;; Following copied from the FAQ: http://orgmode.org/worg/org-faq.html
-(org-add-link-type
+;; The FAQ at http://orgmode.org/worg/org-faq.html contains a recipe
+;; based on the obsolete function (since Org 9.0) org-add-link-type.
+;; Adapted to use org-link-set-parameters:
+(org-link-set-parameters
  "color"
- (lambda (path)
-   (message (concat "color "
-                    (progn (add-text-properties
-                            0 (length path)
-                            (list 'face `((t (:foreground ,path))))
-                            path) path))))
- (lambda (path desc format)
-   (cond
-    ((eq format 'html)
-     (format "<span style=\"color:%s;\">%s</span>" path desc))
-    ((eq format 'latex)
-     (format "{\\color{%s}%s}" path desc)))))
+ :follow (lambda (path)
+	   (message (concat "color "
+			    (progn (add-text-properties
+				    0 (length path)
+				    (list 'face `((t (:foreground ,path))))
+				    path) path))))
+ :export (lambda (path desc backend)
+	   (cond
+	    ((eq backend 'html)
+	     (format "<span style=\"color:%s;\">%s</span>" path desc))
+	    ((eq backend 'latex)
+	     (format "{\\color{%s}%s}" path desc)))))
 
 ;; Function to generate proper CC attribution for images.  The function
 ;; is used in macros in config.org.
