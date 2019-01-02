@@ -714,11 +714,17 @@ Call `emacs-reveal--attribution-strings' with proper metadata."
     (org-reveal--maybe-replace-in-link orig t)))
 
 (defun emacs-reveal--add-advice-link (&rest arguments)
-  "Extend `org-html-link' with advice for org-reveal's anchor ID format."
+  "Extend `org-html-link' with advice for org-reveal's anchor ID format.
+ARGUMENTS are unused (but present to allow invocation as preparation
+function during Org export, which passes an argument)."
+  (ignore arguments) ; Silence byte compiler
   (advice-add #'org-html-link :around #'emacs-reveal--rewrite-link))
 
 (defun emacs-reveal--remove-advice-link (&rest arguments)
-  "Remove advice on `org-html-link'."
+  "Remove advice on `org-html-link'.
+ARGUMENTS are unused (but present to allow invocation as completion
+function during Org export, which passes an argument)."
+  (ignore arguments) ; Silence byte compiler
   (advice-remove #'org-html-link #'emacs-reveal--rewrite-link))
 
 ;; Extract version string.
