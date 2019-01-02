@@ -132,6 +132,9 @@
 ;; The names of CSS files are determined by
 ;; `emacs-reveal-css-filename-template'.
 
+(require 'cl)   ; mapcar*
+(require 'subr) ; caddr
+
 (defcustom emacs-reveal-script-files '("js/reveal.js")
   "Value to apply to `org-reveal-script-files'.
 By default, `org-reveal' also loads head.min.js, which has been removed
