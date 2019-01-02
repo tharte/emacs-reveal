@@ -78,7 +78,7 @@ which is the final path component (without the \".git\" extension) of
 the plugin's URI in `emacs-reveal-external-components'.
 If you remove a plugin from this list, it will no longer be initialized.
 If you add plugins to this list, you need to provide suitable
-initialization code yourself. (E.g., see the code concerning
+initialization code yourself.  (E.g., see the code concerning
 \"reveal.js-plugins\" in emacs-reveal.el.)"
   :group 'emacs-reveal
   :type '(repeat string))
@@ -635,7 +635,7 @@ NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
 	    "@@latex: Presentation contains image grid.  \\LaTeX export not supported.@@")))
 
 (defun emacs-reveal--generate-grid-img (grid-id no)
-  "Create CSS class assigning grid-area NO to image NO in current grid."
+  "Create CSS class assigning grid-area NO to image NO in grid GRID-ID."
   (format emacs-reveal--css-grid-img-template grid-id no no))
 
 (defun emacs-reveal--generate-grid-imgs (grid-id no-images)
@@ -646,7 +646,8 @@ NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
 (defun emacs-reveal--generate-grid
     (grid-id height no-columns no-rows template-areas)
   "Create CSS for grid layout of GRID-ID.
-Layout based on `emacs-reveal--css-grid-template'."
+Layout based on `emacs-reveal--css-grid-template' requires HEIGHT,
+NO-COLUMNS, NO-ROWS, TEMPLATE-AREAS."
   (format emacs-reveal--css-grid-template grid-id height
 	  (format emacs-reveal--css-repeat-template no-columns)
 	  (format emacs-reveal--css-repeat-template no-rows)
@@ -654,9 +655,9 @@ Layout based on `emacs-reveal--css-grid-template'."
 
 (defun emacs-reveal--save-image-grid-css
     (grid-id images height no-columns no-rows template-areas)
-  "Save CSS for GRID-ID to file.
+  "Save CSS for GRID-ID with IMAGES to file.
 Helper function for `emacs-reveal-export-image-grid', see there for
-documentation of further arguments.
+documentation of arguments HEIGHT, NO-COLUMNS, NO-ROWS, TEMPLATE-AREAS.
 Construct name of file in `emacs-reveal-export-dir' with
 `emacs-reveal-css-filename-template', create directories if necessary,
 remove possibly previously existing file, write CSS to new file, and
@@ -720,7 +721,7 @@ Call `emacs-reveal--attribution-strings' with proper metadata."
 
 ;; Extract version string.
 (defun emacs-reveal-version ()
-  "Display version string for emacs-reveal from lisp file."
+  "Display version string for emacs-reveal from Lisp file."
   (interactive)
   (let ((lisp-file
 	 (concat (file-name-sans-extension (locate-library "emacs-reveal"))
