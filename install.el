@@ -11,6 +11,6 @@
   ;; Emacs comes with an outdated version of org.
   ;; Need to be more specific to install newer version:
   (package-install (cadr (assq 'org package-archive-contents)))
-  (package-install 'htmlize)
+  ;; (package-install 'htmlize) ; Now a dependency of org-ref
   (package-install 'org-ref)
   )
