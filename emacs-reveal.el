@@ -206,10 +206,6 @@ Note that this filename is exported into a subdirectory of
   "Directory of emacs-reveal containing code and resources.
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
-
-(eval-and-compile
-  (add-to-list 'load-path (expand-file-name "./org-reveal" emacs-reveal-dir)))
-
 (defconst emacs-reveal-install-prompt
   "Files for %s not found at: %s  Clone from source repository? ")
 (defconst emacs-reveal-customize-msg
@@ -248,6 +244,8 @@ components are included as Git submodules."
 
 ;; Configuration
 (require 'org)
+(add-to-list 'load-path (expand-file-name "org-reveal" emacs-reveal-dir))
+(eval-when-compile (add-to-list 'load-path (expand-file-name "org-reveal")))
 (require 'ox-reveal)
 
 ;; Enable configurable loading of JavaScript libraries.  By default,
@@ -431,7 +429,6 @@ also after an incompatible change with Org 9.2."
 	(apply #'emacs-reveal--export-attribution-helper
 	       (mapcar #'emacs-reveal--read-from-string args))
       (apply #'emacs-reveal--export-attribution-helper args))))
-(defalias #'reveal-export-attribution #'emacs-reveal-export-attribution)
 
 (defun emacs-reveal--read-from-string (object)
   "Undo potential quoting in OBJECT for strings with Org 9.2.
@@ -699,7 +696,6 @@ also after an incompatible change with Org 9.2."
       (apply #'emacs-reveal--export-image-grid-helper
 	     (mapcar #'emacs-reveal--read-from-string args))
     (apply #'emacs-reveal--export-image-grid-helper args)))
-(defalias #'reveal-export-image-grid #'emacs-reveal-export-image-grid)
 
 (defun emacs-reveal--export-image-grid-helper
     (grid-id grid-images height no-columns no-rows template-areas)
