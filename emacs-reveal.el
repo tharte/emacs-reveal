@@ -73,9 +73,10 @@
 ;;     - git submodule sync --recursive
 ;;     - git submodule update --init --recursive
 ;; (d) Make sure that Emacs packages Org and org-ref are installed.
-;;     You could install them with the usual package mechanism or like
-;;     this:
-;;     - emacs --batch --load install.el --funcall install
+;;     - You could install them with the usual package mechanism or like
+;;       this: emacs --batch --load install.el --funcall install
+;;     - Or you could use this docker image:
+;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v2.0
 ;; (e) Add a line like this to ~/.emacs:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
 ;;
@@ -181,7 +182,7 @@ initialization code yourself.  (E.g., see the code concerning
 (defcustom emacs-reveal-export-dir "public/"
   "Directory into which HTML, CSS, and Javascript is published.
 The default supposes that `org-publish-all' publishes into a
-subdirectory of `./public/' as determined by
+subdirectory of `public/' as determined by
 `emacs-reveal-css-filename-template'.  Note that the name must end
 with a slash.  Also note that this directory is removed internally when
 setting the option `REVEAL_EXTRA_CSS' (to create valid relative links
