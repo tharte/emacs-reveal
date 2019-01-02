@@ -51,7 +51,7 @@
     ("https://github.com/e-gor/Reveal.js-TOC-Progress.git" "master" plugin)
     ("https://github.com/SethosII/reveal.js-jump-plugin.git" "master" plugin)
     ("https://github.com/rajgoel/reveal.js-plugins.git" "master" plugin)
-    ("https://gitlab.com/schaepermeier/reveal.js-quiz.git" "master" plugin))
+    ("https://gitlab.com/oer/reveal.js-quiz.git" "master" plugin))
   "List of components to use with emacs-reveal, each with source and type.
 Customize to add your own components.  Each entry is a list with three
 elements:
