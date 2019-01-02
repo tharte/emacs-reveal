@@ -189,7 +189,8 @@ subdirectory of `public/' as determined by
 with a slash.  Also note that this directory is removed internally when
 setting the option `REVEAL_EXTRA_CSS' (to create valid relative links
 when everything is exported into this directory).
-This is only used for CSS of image grids with `reveal-export-image-grid'."
+This is only used for CSS of image grids with
+`emacs-reveal-export-image-grid'."
   :group 'emacs-reveal
   :type 'directory)
 
