@@ -86,8 +86,8 @@ The setup is as follows:
    * Org mode (from ELPA; the version included in Emacs is too old)
    * Org-Reveal (from
      [my repository](https://github.com/lechten/org-reveal))
-   * Emacs libraries org-ref (for citations) and htmlize (for source
-     code highlighting)
+   * Emacs library org-ref (for citations) and its dependency htmlize
+     (for source code highlighting)
  * reveal.js
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
