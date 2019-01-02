@@ -498,7 +498,8 @@ If optional NO-NEWLINES is non-nil, return result without newlines."
 (defun emacs-reveal--attribution-strings
     (metadata &optional caption maxheight divclasses shortlicense)
   "Helper function.
-See `emacs-reveal-export-attribution' for description of arguments.
+See `emacs-reveal-export-attribution' for description of arguments
+CAPTION, MAXHEIGHT, DIVCLASSES, SHORTLICENSE.
 Return cons cell whose car is the HTML representation for METADATA
 and whose cdr is the LaTeX representation."
   (let* ((org-export-with-sub-superscripts nil)
