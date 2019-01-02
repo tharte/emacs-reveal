@@ -97,11 +97,11 @@
 # indicator for short license.  Here, the image is displayed inline in
 # the surrouding paragraph or list, aligned to the right.  Again,
 # license information is rotated to the right of the image.
-# The macros use function reveal-export-attribution, defined in
-# reveal-config.el.
+# The macros use function emacs-reveal-export-attribution, defined in
+# emacs-reveal.el.
 #
-#+MACRO: revealimg (eval (reveal-export-attribution $1 $2 $3 $4 $5))
-#+MACRO: reveallicense (eval (reveal-export-attribution $1 nil $2 $3 $4))
+#+MACRO: revealimg (eval (emacs-reveal-export-attribution $1 $2 $3 $4 $5))
+#+MACRO: reveallicense (eval (emacs-reveal-export-attribution $1 nil $2 $3 $4))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:
@@ -114,5 +114,5 @@
 #   grid cell(s); see, e.g.:
 #   https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
 #   With this macro, the grid areas *must* be named ga1, ga2, ...
-# This macro uses reveal-export-image-grid in reveal-config.el.
-#+MACRO: revealgrid (eval (reveal-export-image-grid $1 $2 $3 $4 $5 $6))
+# This macro uses emacs-reveal-export-image-grid in emacs-reveal.el.
+#+MACRO: revealgrid (eval (emacs-reveal-export-image-grid $1 $2 $3 $4 $5 $6))
