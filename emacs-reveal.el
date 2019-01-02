@@ -132,8 +132,7 @@
 ;; The names of CSS files are determined by
 ;; `emacs-reveal-css-filename-template'.
 
-(require 'cl)   ; mapcar*
-(require 'subr) ; caddr
+(require 'cl-lib) ; cl-mapcar
 
 (defcustom emacs-reveal-script-files '("js/reveal.js")
   "Value to apply to `org-reveal-script-files'.
@@ -232,7 +231,7 @@ components are included as Git submodules."
 	   (component (file-name-sans-extension
 		       (car (last (split-string address "/")))))
 	   (branch (cadr triple))
-	   (type (caddr triple))
+	   (type (cl-caddr triple))
 	   (target-dir (expand-file-name component emacs-reveal-dir)))
       (unless (file-exists-p target-dir)
 	(if (yes-or-no-p
@@ -707,7 +706,7 @@ The grid has a HEIGHT (percentage of viewport height without unit),
 NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
   (let* ((images (read (emacs-reveal--file-as-string grid-images)))
 	 (no-images (length images))
-	 (numbered (mapcar* #'cons (number-sequence 1 no-images) images))
+	 (numbered (cl-mapcar #'cons (number-sequence 1 no-images) images))
 	 (row-height (/ (* 0.95 height) no-rows))
 	 (image-heights (emacs-reveal--compute-image-heights template-areas)))
     (emacs-reveal--save-image-grid-css
