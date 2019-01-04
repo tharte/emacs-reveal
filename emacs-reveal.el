@@ -2,7 +2,8 @@
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
-;; Copyright (C) 2017, 2018, 2019 Jens Lechtenbörger
+;; Copyright (C) 2017-2019 Jens Lechtenbörger
+;; SPDX-License-Identifier: GPL-3.0-or-later
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal

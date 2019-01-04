@@ -1,9 +1,10 @@
 /**
- * Copyright (C) 2017 Jens Lechtenbörger
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: LicenseRef-MIT-JL
  *
  * Theme for DBIS Group presentation with long title, smaller fonts.
  *
- * Released under the MIT License: https://opensource.org/licenses/MIT
  */
 
 @import url(dbis.css);

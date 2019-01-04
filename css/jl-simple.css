@@ -1,10 +1,11 @@
 /**
- * Copyright (C) 2017, 2018 Jens Lechtenbörger
+ * Copyright (C) 2014-2016 Hakim El Hattab
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: LicenseRef-MIT-HEH-JL
  *
  * Simple presentation theme, based on 'white' theme for reveal.js
  * by Hakim El Hattab, http://hakim.se
- *
- * Released under the MIT License: https://opensource.org/licenses/MIT
  */
 @import url(../../lib/font/source-sans-pro/source-sans-pro.css);
 section.has-dark-background, section.has-dark-background h1, section.has-dark-background h2, section.has-dark-background h3, section.has-dark-background h4, section.has-dark-background h5, section.has-dark-background h6 {

@@ -1,3 +1,6 @@
+;; Copyright (C) 2017-2019 Jens Lechtenbörger
+;; SPDX-License-Identifier: GPL-3.0-or-later
+
 ;; If you use the Docker image specified in .gitlab-ci.yml,
 ;; this file is not necessary as the image contains the packages
 ;; installed here.
