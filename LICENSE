@@ -9,8 +9,7 @@ terms with their identifiers.  Those identifiers are included in
 source files to clarify their license terms.  Some files do not
 include license identifiers but come with an additional file whose
 name ends in ".license"; that latter file either points to a license
-or embeds usage terms (in particular, this applies to logos whose
-usage is restricted).
+or embeds usage terms.
 
 For projects included in subdirectories, each subdirectory (or
 sub-subdirectory in case of reveal.js-quiz) contains its original
