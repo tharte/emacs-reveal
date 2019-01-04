@@ -133,8 +133,10 @@
 ;; The names of CSS files are determined by
 ;; `emacs-reveal-css-filename-template'.
 
+;;; Code:
 (require 'cl-lib) ; cl-mapcar
 
+;; Customizable options
 (defcustom emacs-reveal-script-files '("js/reveal.js")
   "Value to apply to `org-reveal-script-files'.
 By default, `org-reveal' also loads head.min.js, which has been removed
@@ -204,7 +206,6 @@ Note that this filename is exported into a subdirectory of
   :group 'emacs-reveal
   :type 'string)
 
-;;; Code:
 (defconst emacs-reveal-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "Directory of emacs-reveal containing code and resources.
@@ -217,6 +218,7 @@ contained in this directory.")
 (defconst emacs-reveal-plugin-not-used
   "Plugin %s will not be used.")
 
+;; Functions to clone components:
 (defun emacs-reveal--clone-component (component address branch)
   "Clone COMPONENT from ADDRESS and checkout BRANCH.
 Target directory is `emacs-reveal-dir'."
@@ -246,7 +248,7 @@ components are included as Git submodules."
 		 (message emacs-reveal-plugin-not-used component)
 		 (sleep-for 2))))))))
 
-;; Configuration
+;;; Configuration of various components.
 (require 'org)
 (add-to-list 'load-path (expand-file-name "org-reveal" emacs-reveal-dir))
 (eval-when-compile (add-to-list 'load-path (expand-file-name "org-reveal")))
@@ -390,13 +392,13 @@ components are included as Git submodules."
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
 
-;; Use (only) CSS to style tables, enable non-org tables.
+;;; Use (only) CSS to style tables, enable non-org tables.
 (setq org-html-table-default-attributes nil)
 (require 'table)
 (setq table-html-th-rows 1
       table-html-table-attribute "class=\"emacs-table\"")
 
-;; Allow colored text.
+;;; Allow colored text.
 ;; The FAQ at http://orgmode.org/worg/org-faq.html contains a recipe
 ;; based on the obsolete function (since Org 9.0) org-add-link-type.
 ;; Adapted to use org-link-set-parameters:
@@ -415,8 +417,8 @@ components are included as Git submodules."
 	    ((eq backend 'latex)
 	     (format "{\\color{%s}%s}" path desc)))))
 
-;; Function to generate proper CC attribution for images.  The function
-;; is used in macros in config.org.
+;;; Function to generate proper CC attribution for images.
+;; Function emacs-reveal-export-attribution is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
 (defun emacs-reveal-export-attribution (&rest args)
@@ -687,7 +689,10 @@ and whose cdr is the LaTeX representation."
 	     (when (and shortlicense (booleanp shortlicense))
 	       latexcaption))))))
 
-;; Function to create a grid of images with license information in HTML.
+;;; Function to create a grid of images with license information in HTML.
+;; Function emacs-reveal-export-image-grid is used in macro in config.org.
+;; See emacs-reveal-howto for sample use:
+;; https://gitlab.com/oer/emacs-reveal-howto
 (defun emacs-reveal-export-image-grid (&rest args)
   "Generate HTML for image grid.
 Essentially, this function calls `emacs-reveal--export-image-grid-helper'
@@ -793,7 +798,7 @@ Call `emacs-reveal--attribution-strings' with proper metadata."
 		  (format emacs-reveal--css-grid-img-class-template
 			  grid-id no))))))
 
-;; Functionality to make org-html-link use org-reveal's ID format.
+;;; Functionality to make org-html-link use org-reveal's ID format.
 ;; This is useful when publishing with org-html-publish-to-html
 ;; where the HTML file is supposed to link into presentations.
 ;; Sample use: https://gitlab.com/oer/OS/blob/master/elisp/publish.el
@@ -816,7 +821,7 @@ function during Org export, which passes an argument)."
   (ignore arguments) ; Silence byte compiler
   (advice-remove #'org-html-link #'emacs-reveal--rewrite-link))
 
-;; Extract version string.
+;;; Extract version string.
 (defun emacs-reveal-version ()
   "Display version string for emacs-reveal from Lisp file."
   (interactive)
