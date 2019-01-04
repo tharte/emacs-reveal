@@ -1,8 +1,7 @@
 # Local IspellDict: de
 
-# License: (C) 2018 by Jens Lechtenbörger, released under Creative
-# Commons license CC BY-SA 4.0,
-# https://creativecommons.org/licenses/by-sa/4.0/
+# Copyright (C) 2018-2019 Jens Lechtenbörger
+# SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Diese Datei ist nicht für den direkten HTML-Export gedacht,
 # sondern sollte anderswo eingebunden werden.  Beispiel:

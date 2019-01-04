@@ -1,5 +1,8 @@
 # Local IspellDict: en
 
+# Copyright (C) 2017-2019 Jens Lechtenbörger
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
 # This file generates a bibliography slide and a slide with license
 # information.
 # The name of the bib file must be set via macro bibliographyfile.
