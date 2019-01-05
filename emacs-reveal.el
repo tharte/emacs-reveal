@@ -105,10 +105,10 @@
 ;; variable in your own publication code (similarly to its use in
 ;; elisp/publish.el of the howto).  Note that subdirectory
 ;; "title-slide" contains some variants for title slides of
-;; presentations, and subdirectory "css" contains sample CSS with
-;; logos.  Subdirectory "org" contains Org files to embed in
-;; presentations.  Please be warned that included resources, in
-;; particular css/jl-simple.css, may change in incompatible ways.
+;; presentations, and subdirectory "css" contains sample CSS.
+;; Subdirectory "org" contains Org files to embed in presentations.
+;; Please be warned that included resources, in particular
+;; css/jl-simple.css, may change in incompatible ways.
 ;; You may want to work with your own copies.
 ;;
 ;; * Customizable options
