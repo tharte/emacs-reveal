@@ -40,20 +40,27 @@
 ;; reveal.js plugins.  Generated presentations are usable with standard
 ;; browsers, also mobile and offline.
 ;;
-;; Essentially, emacs-reveal provides an export backend for Org mode
-;; (see https://orgmode.org/manual/Exporting.html).  As such, it comes
-;; with Org's separation of contents and layout, allowing to create
-;; presentations in a fashion similarly to Beamer LaTeX, including the
-;; use of BibTeX files for bibliographic notes (for classroom
-;; presentations), hyperlinks within and between presentations, and
-;; the generation of a keyword index.  Beyond other similar projects,
-;; emacs-reveal comes with mechanisms (a) to add audio explanations to
-;; presentations and (b) to share free and open images and figures
-;; with proper attribution information for their inclusion in open
-;; educational resources (OER).  See there for OER presentations (HTML
-;; with reveal.js and PDF generated from Org files via LaTeX) for
-;; a university course on Operating Systems that are generated with
-;; emacs-reveal: https://oer.gitlab.io/OS/
+;; Emacs-reveal grew out of a forked version of org-reveal whose
+;; development seems to have stalled.  Please see there for more
+;; information:
+;; https://github.com/yjwen/org-reveal/issues/349
+;; https://github.com/yjwen/org-reveal/pull/277
+;;
+;; Just as org-reveal, emacs-reveal provides an export backend for Org
+;; mode (see https://orgmode.org/manual/Exporting.html).  As such, it
+;; comes with Org's separation of contents and layout, allowing to
+;; create presentations in a fashion similarly to Beamer LaTeX,
+;; including the use of BibTeX files for bibliographic notes (for
+;; classroom presentations), hyperlinks within and between
+;; presentations, and the generation of a keyword index.
+;; Beyond other similar projects, emacs-reveal comes with mechanisms
+;; (a) to add audio explanations to presentations and (b) to share
+;; free and open images and figures with proper attribution
+;; information for their inclusion in open educational resources
+;; (OER).  See there for OER presentations (HTML with reveal.js and
+;; PDF generated from Org files via LaTeX) for a university course on
+;; Operating Systems that are generated with emacs-reveal:
+;; https://oer.gitlab.io/OS/
 ;;
 ;; A howto for the use of emacs-reveal is available over there:
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/howto.org
