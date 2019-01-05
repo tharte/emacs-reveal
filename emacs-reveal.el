@@ -70,12 +70,8 @@
 ;; https://oer.gitlab.io/emacs-reveal-howto/howto.html (generated HTML)
 ;;
 ;; * Installation
-;; Emacs-reveal can be installed manually via Git, which may be
-;; preferable because it contains Git submodules that can be updated
-;; independently, or as MELPA package.  Both ways are sketched
-;; subsequently.
+;; Currently, emacs-reveal is only available from GitLab.
 ;;
-;; 1. Install emacs-reveal via Git.
 ;; Create a directory for your presentation(s)' Org source files.  In
 ;; that directory:
 ;; (a) git clone https://gitlab.com/oer/emacs-reveal.git
@@ -90,16 +86,6 @@
 ;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v2.0
 ;; (e) Add a line like this to ~/.emacs:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
-;;
-;; 2. Install as MELPA package.  (See there for full information on
-;; MELPA: https://melpa.org/#/getting-started)
-;; (a) Add melpa, e.g.:
-;;     (add-to-list 'package-archives
-;;                  '("melpa" . "https://melpa.org/packages/"))
-;;     (package-refresh-contents)
-;; (b) Install emacs-reveal:
-;;     - M-x package-install
-;;     - emacs-reveal
 ;;
 ;; * Usage
 ;; Please check out the emacs-reveal howto mentioned above.  In
