@@ -1,3 +1,6 @@
+# Copyright (C) 2018-2019 Jens Lechtenbörger
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="index.css" />
 #+STARTUP: showeverything
 #+AUTHOR: Jens Lechtenbörger
