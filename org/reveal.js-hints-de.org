@@ -51,6 +51,9 @@ Die Präsentationen nutzen das HTML-Framework
     heißen auch relativ, letztere zeigen auf einen externen
     Ziel-Server) unterschiedlich dargestellt
     - Verschiedene Farben für interne (blau) und externe (grün) Verweise
+      - Für interne Verweise innerhalb einer Präsentation wird
+        angezeigt, ob sie zu einer vorigen (◂) oder einer
+        nachfolgenden (▸) Folie führen
     - Spezielles Link-Symbol für „nicht-lokale“ Verweise
       - Z. B. in diesem
         [[https://moz.com/learn/seo/external-link][externen Verweis zu einer Seite mit Eräuterungen zu externen Verweisen]];
@@ -60,10 +63,11 @@ Die Präsentationen nutzen das HTML-Framework
         Vorwärtsverweise zu erkennen und beim ersten Studium womöglich
         zu ignorieren)
     - Zusammenfassend werden in Präsentationen (aber nicht auf dieser
-      Seite) drei verschiedene Darstellungen verwendet:
+      Seite) vier verschiedene Darstellungen verwendet:
       - Extern (grün mit Symbol)
       - Relativ zu anderer Präsentation (blau mit Symbol)
-      - Relativ innerhalb selber Präsentation (blau ohne Symbol)
+      - Relativ innerhalb selber Präsentation (blau), entweder zurück
+        (◂) oder vorwärts (▸)
 
 # Local Variables:
 # indent-tabs-mode: nil
