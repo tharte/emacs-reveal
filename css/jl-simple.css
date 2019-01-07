@@ -574,6 +574,12 @@ div.ribbon-legalese a {
 .reveal a[href]:empty:after {
   content: none; }
 
+/* Indicate direction of internal link. */
+.reveal a[href].backwardlink::before {
+  content: "\25c2\00a0"; }
+.reveal a[href].forwardlink::after {
+  content: "\00a0\25b8"; }
+
 .reveal a[href]:hover {
   font-weight: bold;
   text-shadow: none;
