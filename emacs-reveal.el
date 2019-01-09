@@ -364,25 +364,46 @@ components are included as Git submodules."
 ;; org-ref does not know about it.  Use a default bibliography then.
 (setq org-ref-default-bibliography "references.bib")
 
-;; With org-reveal, only slide titles can be link targets.
 ;; Setup Bibliography in HTML.
-;; This is a dirty hack.  A paragraph is opened before the HTML below
-;; is generated.  Thus, the paragraph must be closed first.  For valid
-;; HTML, the org file must contain "@@html:<p>@@" after the bibliography
-;; command.
-(setq org-ref-bib-html "</p><div class=\"slide-footer\"><br></div></section>
-<section id=\"slide-bibliography\" data-state=\"no-toc-progress\">
-<h3 class=\"org-ref-bib-h3 no-toc-progress\">Bibliography</h3>\n")
-(setq org-ref-ref-html
-      "<a class=\"org-ref-reference\" href=\"#slide-bibliography\">[%s]</a>")
+;; Use the subsequent configuration with something like this at the end
+;; of your Org file:
+;; --8<---------------cut here---------------start------------->8---
+;; ** Bibliography
+;;    :PROPERTIES:
+;;    :reveal_data_state: no-toc-progress
+;;    :HTML_HEADLINE_CLASS: no-toc-progress
+;;    :CUSTOM_ID: bibliography
+;;    :UNNUMBERED: t
+;;    :END:
+;;
+;; printbibliography:references.bib
+;; @@html:<p>@@
+;; --8<---------------cut here---------------end--------------->8---
+;;
+;; In the following, setting org-ref-bib-html to a closing p element
+;; is a dirty hack to get rid of an unnecessary open p element.  For
+;; valid HTML, the Org file must contain "@@html:<p>@@" after the
+;; printbibliography command as shown above.
+;; Note that with the above Org code, a Bibliography heading is
+;; created; thus, org-ref-printbibliography-cmd is set not to produce
+;; one as well.
+;; With reveal.js, only entire slides can be link targets, not
+;; individual elements.  With the Org code above, the link target is
+;; determined by the CUSTOM_ID.  Use that in org-ref-ref-html.
+(setq org-ref-bib-html "</p>"
+      org-ref-printbibliography-cmd "\\printbibliography[heading=none]"
+      org-ref-ref-html (concat
+			"<a class=\"org-ref-reference\" href=\"#"
+			org-reveal--href-fragment-prefix
+			"bibliography\">[%s]</a>"))
 
-;; Display article, book, inproceedings, misc differently.
+;; Display article, book, inproceedings differently.  Entry misc is new.
 ;; Remaining entries are defaults.
 (setq org-ref-bibliography-entry-format
       '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
 	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
-	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
 	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
+	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
 	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
