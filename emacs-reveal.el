@@ -364,6 +364,20 @@ components are included as Git submodules."
 ;; org-ref does not know about it.  Use a default bibliography then.
 (setq org-ref-default-bibliography '("references.bib"))
 
+(defun emacs-reveal-filter-bib-para (text backend info)
+  "Replace incorrect p tags around bibliography.
+This function is added to `org-export-filter-paragraph-functions',
+where TEXT is the paragraph, BACKEND is checked for `reveal', and INFO
+is unused."
+  (ignore info) ; Silence byte compiler
+  (when (and (org-export-derived-backend-p backend 'reveal)
+	     (string-match-p "<p>[ \n]*<ul" text))
+    (replace-regexp-in-string
+     "<p>[ \n]*<ul" "<ul"
+     (replace-regexp-in-string "</p>\n" "" text))))
+(add-to-list 'org-export-filter-paragraph-functions
+	     #'emacs-reveal-filter-bib-para)
+
 ;; Setup Bibliography in HTML.
 ;; Use the subsequent configuration with something like this at the end
 ;; of your Org file:
@@ -377,20 +391,16 @@ components are included as Git submodules."
 ;;    :END:
 ;;
 ;; printbibliography:references.bib
-;; @@html:<p>@@
 ;; --8<---------------cut here---------------end--------------->8---
 ;;
-;; In the following, setting org-ref-bib-html to a closing p element
-;; is a dirty hack to get rid of an unnecessary open p element.  For
-;; valid HTML, the Org file must contain "@@html:<p>@@" after the
-;; printbibliography command as shown above.
-;; Note that with the above Org code, a Bibliography heading is
-;; created; thus, org-ref-printbibliography-cmd is set not to produce
+;; In the following, org-ref-bib-html is set to the empty string as
+;; the above Org snippet defines the necessary heading.  Also, given
+;; that heading, org-ref-printbibliography-cmd is set not to produce
 ;; one as well.
 ;; With reveal.js, only entire slides can be link targets, not
 ;; individual elements.  With the Org code above, the link target is
 ;; determined by the CUSTOM_ID.  Use that in org-ref-ref-html.
-(setq org-ref-bib-html "</p>"
+(setq org-ref-bib-html ""
       org-ref-printbibliography-cmd "\\printbibliography[heading=none]"
       org-ref-ref-html (concat
 			"<a class=\"org-ref-reference\" href=\"#"
