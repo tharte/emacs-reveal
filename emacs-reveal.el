@@ -362,7 +362,7 @@ components are included as Git submodules."
 (require 'org-ref)
 ;; If the declaration of the bibliography file is part of an included file,
 ;; org-ref does not know about it.  Use a default bibliography then.
-(setq org-ref-default-bibliography "references.bib")
+(setq org-ref-default-bibliography '("references.bib"))
 
 ;; Setup Bibliography in HTML.
 ;; Use the subsequent configuration with something like this at the end
