@@ -470,7 +470,11 @@ Otherwise, return OBJECT unchanged."
   (if (stringp object)
       (if (= 0 (length object))
 	  nil
-	(car (read-from-string object)))
+	(let ((first (car (read-from-string object))))
+	  (cond ((not first) nil)
+		((stringp first) first)
+		((and (consp first) (eq 'quote (car first))) (cadr first))
+		(t (error "Unexpected object: %s" object)))))
     object))
 
 (defun emacs-reveal--export-attribution-helper
