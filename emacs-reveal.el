@@ -682,9 +682,9 @@ and whose cdr is the LaTeX representation."
 			   (shortlicense (format
 					  emacs-reveal--short-license-template
 					  sourceuri licenseurl licensetext))
-			   (t (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]"
+			   (t (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]%s"
 				      title orgauthor licenseurl licensetext
-				      imgadapted sourceuri sourcetext))))
+				      imgadapted sourceuri sourcetext permit))))
 	 (htmllicense (cond ((eq shortlicense 'none) "")
 			    (shortlicense (format
 					   "<p%s>%s</p>" h-license
@@ -693,7 +693,8 @@ and whose cdr is the LaTeX representation."
 			    (t (format
 				"<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 				h-license htmltitle htmlauthor licenseurl
-				licensetext sourcehtml permit))))
+				licensetext sourcehtml
+				(emacs-reveal--export-no-newline permit 'html)))))
 	 (texlicense (if (< 0 (length orglicense))
 			 (emacs-reveal--export-no-newline orglicense 'latex)
 		       (emacs-reveal--export-no-newline title 'latex)))
