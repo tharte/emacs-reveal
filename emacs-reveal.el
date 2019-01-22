@@ -471,7 +471,7 @@ Otherwise, return OBJECT unchanged."
       (if (= 0 (length object))
 	  nil
 	(let ((first (car (read-from-string object))))
-	  (cond ((not first) nil)
+	  (cond ((booleanp first) first)
 		((stringp first) first)
 		((and (consp first) (eq 'quote (car first))) (cadr first))
 		(t (error "Unexpected object: %s" object)))))
