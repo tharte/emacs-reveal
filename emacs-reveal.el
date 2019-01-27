@@ -465,16 +465,17 @@ also after an incompatible change with Org 9.2."
 
 (defun emacs-reveal--read-from-string (object)
   "Undo potential quoting in OBJECT for strings with Org 9.2.
-If OBJECT is a string, then return whatever it represents.
-Otherwise, return OBJECT unchanged."
+If OBJECT is a string, then use `read-from-string' to return
+a string, boolean, or symbol.
+If OBJECT is not a string, return it unchanged."
   (if (stringp object)
       (if (= 0 (length object))
 	  nil
 	(let ((first (car (read-from-string object))))
-	  (cond ((booleanp first) first)
-		((stringp first) first)
-		((and (consp first) (eq 'quote (car first))) (cadr first))
-		(t (error "Unexpected object: %s" object)))))
+	  (if (or (booleanp first) (stringp first) (symbolp first))
+	      first
+	    (user-error "Unexpected type `%s' in string `%s'"
+			(type-of object) object))))
     object))
 
 (defun emacs-reveal--export-attribution-helper
