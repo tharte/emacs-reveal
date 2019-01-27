@@ -91,8 +91,9 @@
 # file with meta-data about an image and up to four optional
 # arguments: a caption, the maximum height of image in HTML, e.g.,
 # 50vh, a list of CSS classes (space separated, containing "figure"),
-# and a Boolean attribute specifying whether a short license should
-# be used.
+# and an attribute specifying whether a long, short, or no license
+# should be used (arguments are documented for function
+# emacs-reveal--export-attribution-helper).
 # This is meant to be used with horizontally centered images, caption
 # underneath, license text rotated to the right.
 # Second, reveallicense() expects up to four arguments, the filename
