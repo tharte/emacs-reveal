@@ -463,19 +463,33 @@ also after an incompatible change with Org 9.2."
 	       (mapcar #'emacs-reveal--read-from-string args))
       (apply #'emacs-reveal--export-attribution-helper args))))
 
+(defun emacs-reveal--check-symbol (object)
+  "Helper function for `emacs-reveal--read-from-string'.
+Different Org versions treat macro arguments differently.  Check whether
+OBJECT is a quoted symbol, where no quoting is necessary.  Notify user
+if applicable.  Raise `user-error' in case of unknown type."
+  (if (and (consp object) (eq 'quote (car object)))
+      (progn
+	(message
+	 "Explicit quoting of symbol in `%s' not necessary (with your Org version)"
+	 object)
+	(sit-for 2)
+	(cadr object))
+    (user-error "Unexpected type `%s' in `%s'" (type-of object) object)))
+
 (defun emacs-reveal--read-from-string (object)
   "Undo potential quoting in OBJECT for strings with Org 9.2.
 If OBJECT is a string, then use `read-from-string' to return
-a string, boolean, or symbol.
+a boolean, integer, string, or symbol.
 If OBJECT is not a string, return it unchanged."
   (if (stringp object)
       (if (= 0 (length object))
 	  nil
 	(let ((first (car (read-from-string object))))
-	  (if (or (booleanp first) (stringp first) (symbolp first))
+	  (if (or (booleanp first) (integerp first) (stringp first)
+		  (symbolp first))
 	      first
-	    (user-error "Unexpected type `%s' in string `%s'"
-			(type-of object) object))))
+	    (emacs-reveal--check-symbol first))))
     object))
 
 (defun emacs-reveal--export-attribution-helper
