@@ -177,6 +177,12 @@ initialization code yourself.  (E.g., see the code concerning
   :group 'emacs-reveal
   :type '(repeat string))
 
+(defcustom emacs-reveal-latex-figure-float "htp"
+  "Define position for floating figures in LaTeX export.
+You may want to use \"H\" with the float package."
+  :group 'emacs-reveal
+  :type 'string)
+
 ;; The following options are only relevant if you use
 ;; reveal-export-image-grid to generate image grids.
 ;; Then, the options control in what directory generated CSS is saved.
@@ -527,8 +533,8 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 (defvar emacs-reveal--short-license-template "[[%s][Figure]] under [[%s][%s]]")
 (defvar emacs-reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
 (defvar emacs-reveal--svg-div-template  "<div about=\"%s\" class=\"%s\"><p>%s</p>%s%s</div>")
-(defvar emacs-reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[htp] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
-(defvar emacs-reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[htp] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
+(defvar emacs-reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[%s] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
+(defvar emacs-reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[%s] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
 (defvar emacs-reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} External figure \\textbf{not} included: %s \\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
 (defvar emacs-reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} Figure omitted as %s format \\textbf{not} supported in \\LaTeX: “%s”\\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
 (defvar emacs-reveal--unsupported-tex-figure-formats '("gif"))
@@ -577,9 +583,11 @@ with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
 		 (file-name-extension filename) texlicense))
 	(latexcaption
 	 (format emacs-reveal--figure-latex-caption-template
+		 emacs-reveal-latex-figure-float
 		 texwidth texfilename latexcaption texlicense))
 	(t (format emacs-reveal--figure-latex-template
-	      texwidth texfilename texlicense))))
+		   emacs-reveal-latex-figure-float
+		   texwidth texfilename texlicense))))
 
 (defun emacs-reveal--export-figure-html
     (filename divclasses htmlcaption htmllicense imgalt h-image)
