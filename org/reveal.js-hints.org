@@ -40,7 +40,7 @@ Presentations make use of the HTML presentation framework
 - Notes
   - Slides contain additional notes as plain text if you see the
     folder icon
-    [[./reveal.js/css/theme/folder_inbox.png]]
+    [[../../reveal.js/css/theme/folder_inbox.png]]
     - Click on that icon or press “s” to see the “speaker notes view”
     - You need to allow pop-ups
       - If the pop-up window does not work, you may need to press “s”
