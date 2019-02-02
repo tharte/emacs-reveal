@@ -131,5 +131,5 @@ Included submodules need to be updated separately, though, with
 invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML
-presentation for an individual `org` file using the usual export
-functionality by pressing `C-c C-e R B`.)
+presentation for an individual `org` file using Org’s export
+functionality by pressing `C-c C-e r b`.)
