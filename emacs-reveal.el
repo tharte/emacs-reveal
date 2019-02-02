@@ -1,4 +1,4 @@
-;;; emacs-reveal.el --- Configuration for and extension of org-revealjs  -*- lexical-binding: t; -*-
+;;; emacs-reveal.el --- Configuration for and extension of org-re-reveal  -*- lexical-binding: t; -*-
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
@@ -8,7 +8,7 @@
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
 ;; Version: 0.9.3
-;; Package-Requires: ((emacs "24.4") (org-ref "1.1.1") (org-revealjs "0.9.0"))
+;; Package-Requires: ((emacs "24.4") (org-ref "1.1.1") (org-re-reveal "0.9.3"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
 ;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
@@ -36,7 +36,7 @@
 ;;; Commentary:
 ;; The software emacs-reveal allows to create HTML presentations (with
 ;; audio explanations if you wish) with reveal.js from Org mode files
-;; in GNU Emacs with org-revealjs (a fork of org-reveal) and several
+;; in GNU Emacs with org-re-reveal (a fork of org-reveal) and several
 ;; reveal.js plugins.  Generated presentations are usable with standard
 ;; browsers, also mobile and offline.
 ;;
@@ -134,18 +134,18 @@
 
 ;; Customizable options
 (defcustom emacs-reveal-script-files '("js/reveal.js")
-  "Value to apply to `org-revealjs-script-files'.
-By default, `org-revealjs' also loads head.min.js, which has been removed
+  "Value to apply to `org-re-reveal-script-files'.
+By default, `org-re-reveal' also loads head.min.js, which has been removed
 from the dev branch of reveal.js on 2018-10-04."
   :group 'emacs-reveal
   :type '(repeat string))
 
 (defcustom emacs-reveal-external-components
-  '(("https://github.com/lechten/reveal.js.git" "master" javascript)
+  '(("https://github.com/hakimel/reveal.js.git" "master" javascript)
     ("https://github.com/e-gor/Reveal.js-TOC-Progress.git" "master" plugin)
     ("https://github.com/SethosII/reveal.js-jump-plugin.git" "master" plugin)
     ("https://github.com/rajgoel/reveal.js-plugins.git" "master" plugin)
-    ("https://gitlab.com/oer/reveal.js-quiz.git" "master" plugin))
+    ("https://gitlab.com/schaepermeier/reveal.js-quiz.git" "master" plugin))
   "List of components to use with emacs-reveal, each with source and type.
 Customize to add your own components.  Each entry is a list with three
 elements:
@@ -252,16 +252,16 @@ components are included as Git submodules."
 
 ;;; Configuration of various components.
 (require 'org)
-(add-to-list 'load-path (expand-file-name "org-revealjs" emacs-reveal-dir))
-(eval-when-compile (add-to-list 'load-path (expand-file-name "org-revealjs")))
-(require 'org-revealjs)
+(add-to-list 'load-path (expand-file-name "org-re-reveal" emacs-reveal-dir))
+(eval-when-compile (add-to-list 'load-path (expand-file-name "org-re-reveal")))
+(require 'org-re-reveal)
 
 ;; Enable configurable loading of JavaScript libraries.  By default,
 ;; avoid loading of head.min.js, which does not exist any more.
-(setq org-revealjs-script-files emacs-reveal-script-files)
+(setq org-re-reveal-script-files emacs-reveal-script-files)
 
 ;; Fix URL fragments to use valid IDs.
-(setq org-revealjs--href-fragment-prefix org-revealjs--slide-id-prefix)
+(setq org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix)
 
 ;; Setup url package with hyphens option.  This is done here to avoid
 ;; option clashes when implicitly loading the package from hyperref.
@@ -269,14 +269,14 @@ components are included as Git submodules."
  	     (list "hyphens" "url" nil))
 
 ;;; Configure reveal.js plugins.
-;; Note that in the relative src-paths in org-revealjs-external-plugins,
-;; %s is automatically replaced with org-revealjs-root.
+;; Note that in the relative src-paths in org-re-reveal-external-plugins,
+;; %s is automatically replaced with org-re-reveal-root.
 
-;;(setq org-revealjs-external-plugins nil)
+;;(setq org-re-reveal-external-plugins nil)
 (when (member "reveal.js-plugins" emacs-reveal-plugins)
   ;; Activate audio-slideshow plugin, but not multiple times when speaker
   ;; notes are shown.
-  (add-to-list 'org-revealjs-external-plugins
+  (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'audio-slideshow
 		     " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList && !Reveal.isSpeakerNotes(); } }"))
 
@@ -286,15 +286,15 @@ components are included as Git submodules."
   ;; - Do not display controls if no local audio file is given
   ;; - Increase opacity when unfocused (students found default too easy to miss)
   ;; - Display audio controls at bottom left (to avoid overlap)
-  (setq org-revealjs-init-script "  audio: {
+  (setq org-re-reveal-init-script "  audio: {
     advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
     playerStyle: 'position: fixed; bottom: 9.5vh; left: 0%; width: 30%; height:30px; z-index: 33;' }")
 
   ;; Activate anything plugin.
-  (add-to-list 'org-revealjs-external-plugins
+  (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'anything " { src: '%splugin/anything/anything.js' }"))
-  (setq org-revealjs-init-script
-	(concat org-revealjs-init-script
+  (setq org-re-reveal-init-script
+	(concat org-re-reveal-init-script
 		",
   anything: [
 	{className: \"animate\",  initialize: (function(container, options){
@@ -350,18 +350,18 @@ components are included as Git submodules."
   ;; Activate TOC progress plugin.
   ;; If there are lots of subsections, 'scroll'ing can be enabled or
   ;; the font size can be 'reduce'd.  Go for the latter.
-  (add-to-list 'org-revealjs-external-plugins
+  (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'toc-progress
 		     " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }")))
 
 (when (member "reveal.js-jump-plugin" emacs-reveal-plugins)
   ;; Activate jump plugin.
-  (add-to-list 'org-revealjs-external-plugins
+  (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }")))
 
 (when (member "reveal.js-quiz" emacs-reveal-plugins)
   ;; Activate quiz plugin.
-  (add-to-list 'org-revealjs-external-plugins
+  (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
 
 ;;; Use org-ref to enable citations.
@@ -410,7 +410,7 @@ is unused."
       org-ref-printbibliography-cmd "\\printbibliography[heading=none]"
       org-ref-ref-html (concat
 			"<a class=\"org-ref-reference\" href=\"#"
-			org-revealjs--href-fragment-prefix
+			org-re-reveal--href-fragment-prefix
 			"bibliography\">[%s]</a>"))
 
 ;; Display article, book, inproceedings differently.  Entry misc is new.
@@ -853,17 +853,17 @@ Call `emacs-reveal--attribution-strings' with proper metadata."
 		  (format emacs-reveal--css-grid-img-class-template
 			  grid-id no))))))
 
-;;; Functionality to make org-html-link use org-revealjs's ID format.
+;;; Functionality to make org-html-link use org-re-reveal's ID format.
 ;; This is useful when publishing with org-html-publish-to-html
 ;; where the HTML file is supposed to link into presentations.
 ;; Sample use: https://gitlab.com/oer/OS/blob/master/elisp/publish.el
 (defun emacs-reveal--rewrite-link (old-fun &rest arguments)
-  "Combine OLD-FUN on ARGUMENTS with `org-revealjs--maybe-replace-in-link'."
+  "Combine OLD-FUN on ARGUMENTS with `org-re-reveal--maybe-replace-in-link'."
   (let ((orig (apply old-fun arguments)))
-    (org-revealjs--maybe-replace-in-link orig t)))
+    (org-re-reveal--maybe-replace-in-link orig t)))
 
 (defun emacs-reveal--add-advice-link (&rest arguments)
-  "Extend `org-html-link' with advice for org-revealjs's anchor ID format.
+  "Extend `org-html-link' with advice for org-re-reveal's anchor ID format.
 ARGUMENTS are unused (but present to allow invocation as preparation
 function during Org export, which passes an argument)."
   (ignore arguments) ; Silence byte compiler
