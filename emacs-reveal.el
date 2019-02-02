@@ -373,10 +373,10 @@ components are included as Git submodules."
 (defun emacs-reveal-filter-bib-para (text backend info)
   "Replace incorrect p tags around bibliography.
 This function is added to `org-export-filter-paragraph-functions',
-where TEXT is the paragraph, BACKEND is checked for `reveal', and INFO
+where TEXT is the paragraph, BACKEND is checked for `re-reveal', and INFO
 is unused."
   (ignore info) ; Silence byte compiler
-  (when (and (org-export-derived-backend-p backend 'reveal)
+  (when (and (org-export-derived-backend-p backend 're-reveal)
 	     (string-match-p "<p>[ \n]*<ul" text))
     (replace-regexp-in-string
      "<p>[ \n]*<ul" "<ul"
@@ -604,7 +604,7 @@ Templates `emacs-reveal--svg-div-template' and
   (let* ((extension (file-name-extension filename))
 	 (external (string-match-p "^https?://" filename))
 	 (issvg (and (string= "svg" extension) (not external)))
-	 (issingle (plist-get (org-export-get-environment 'reveal)
+	 (issingle (plist-get (org-export-get-environment 're-reveal)
 			      :reveal-single-file)))
     (if issvg
 	(format emacs-reveal--svg-div-template
