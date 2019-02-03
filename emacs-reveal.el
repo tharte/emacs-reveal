@@ -125,7 +125,7 @@
 ;; When generating image grids, `emacs-reveal-export-dir' specifies
 ;; the directory into which to generate CSS code.  This should
 ;; probably be the directory into which you publish your HTML code.
-;; I set this to "./" before exporting with `C-c C-e R B'.
+;; I set this to "./" before exporting with `C-c C-e r b'.
 ;; The names of CSS files are determined by
 ;; `emacs-reveal-css-filename-template'.
 
