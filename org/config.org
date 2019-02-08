@@ -97,21 +97,18 @@
 # emacs-reveal--export-attribution-helper).
 # This is meant to be used with horizontally centered images, caption
 # underneath, license text rotated to the right.
-# Second, reveallicense() expects up to four arguments, the filename
-# for meta-data and optionally the maximum height, CSS classes, and
-# indicator for short license.  Here, the image is displayed inline in
-# the surrouding paragraph or list, aligned to the right.  Again,
-# license information is rotated to the right of the image.
-# The macros use function emacs-reveal-export-attribution, defined in
-# emacs-reveal.el.
-#
-# Note that SVG images are somewhat challenging.  For animated SVGs,
-# the XML code must be embedded directly into the HTML document.
-# However, assigning a maximum height in a style attribute of the XML
-# svg element did not yield desirable results.  Thus, SVG images are
-# only embedded directly if no maximum height is passed as argument.
-# With maximum height, an HTML img element is exported.  This, in
-# turn, is not possible if option :reveal-single-file is used.
+# Second, reveallicense() expects up to five arguments, the filename
+# for meta-data and optionally the maximum height, CSS classes, an
+# indicator for short license, and an indicator whether the image is
+# an SVG to be embedded as XML code into the HTML document.
+# Embedding SVG directly is useful for single-file export with
+# :reveal-single-file and for animated SVGs.
+# Here, the image is displayed inline in the surrouding paragraph or
+# list, aligned to the right.  Again, license information is rotated
+# to the right of the image.
+# Note that SVG images can also be used with revealimg().  In that case,
+# they are just used in img elements, which is not possible if option
+# :reveal-single-file is used.
 #
 # Concerning LaTeX export, the file extension is stripped for
 # includegraphics commands, so a compatible format must be available.
@@ -122,7 +119,7 @@
 # are not exported to LaTeX.
 
 #+MACRO: revealimg (eval (emacs-reveal-export-attribution $1 $2 $3 $4 $5))
-#+MACRO: reveallicense (eval (emacs-reveal-export-attribution $1 nil $2 $3 $4))
+#+MACRO: reveallicense (eval (emacs-reveal-export-attribution $1 nil $2 $3 $4 $5))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:

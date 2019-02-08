@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 0.9.4
+;; Version: 0.9.5
 ;; Package-Requires: ((emacs "24.4") (org-ref "1.1.1") (org-re-reveal "0.9.3"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
@@ -499,7 +499,8 @@ If OBJECT is not a string, return it unchanged."
     object))
 
 (defun emacs-reveal--export-attribution-helper
-    (metadata &optional caption maxheight divclasses shortlicense)
+    (metadata
+     &optional caption maxheight divclasses shortlicense embed-svg)
   "Display image from METADATA.
 Produce string for HTML and LaTeX exports to be embedded in Org files.
 METADATA is a text file including licensing information.
@@ -518,10 +519,12 @@ If optional SHORTLICENSE is the symbol `none', do not display license
 text (useful if image license agrees with document license);
 if it is t, display license based on `emacs-reveal--short-license-template'
 \(instead of default (long) license text).
+If optional EMBED-SVG is non-nil, embed XML code of SVG image directly.  In
+this case, the maximum height on the image does not have any effect.
 For LaTeX, the METADATA file may specify a texwidth, which is embedded in
 the width specification as fraction of `linewidth'; 0.9 by default."
   (let ((org (emacs-reveal--attribution-strings
-	      metadata caption maxheight divclasses shortlicense)))
+	      metadata caption maxheight divclasses shortlicense embed-svg)))
     (concat (if caption
 		(concat "@@html: </p><div class=\"imgcontainer\">"
 			(car org)
@@ -590,15 +593,18 @@ with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
 		   texwidth texfilename texlicense))))
 
 (defun emacs-reveal--export-figure-html
-    (filename divclasses htmlcaption htmllicense imgalt h-image)
+    (filename divclasses htmlcaption htmllicense imgalt h-image
+	      &optional embed-svg)
   "Generate HTML for figure at FILENAME.
 DIVCLASSES is passed from `emacs-reveal-export-attribution',
 HTMLCAPTION and HTMLLICENSE caption and license information for
 the figure in HTML format.
-If the file is a local SVG image, it is embedded directly; otherwise,
-an img tag is used, for which optional parameter IMGALT provides
-the text for the alt attribute, while H-IMAGE specifies the height
-of the image.
+If optional EMBED-SVG is non-nil, the file must be an SVG image
+which is embedded directly.  SVG images are also embedded directly if
+single file export is requested, which fails if a H-IMAGE is given.
+Otherwise, an img tag is used, for which optional parameter IMGALT provides
+the text for the alt attribute, while H-IMAGE specifies the height of the
+image.
 Templates `emacs-reveal--svg-div-template' and
 `emacs-reveal--figure-div-template'specify the general HTML format."
   (let* ((extension (file-name-extension filename))
@@ -606,30 +612,26 @@ Templates `emacs-reveal--svg-div-template' and
 	 (issvg (and (string= "svg" extension) (not external)))
 	 (issingle (plist-get (org-export-get-environment 're-reveal)
 			      :reveal-single-file)))
-    (if issvg
-	(if (and h-image (< 0 (length h-image)))
-	    (if issingle
-		(error "Cannot embed SVG with specified height: %s" filename)
-	      ;; If a height is specified, embed SVG in img element.
-	      (format emacs-reveal--figure-div-template
-		      filename divclasses filename
-		      imgalt h-image htmlcaption htmllicense))
-	  ;; Without height specification, embed SVG as text.
+    (if (and issvg issingle (not embed-svg))
+	(user-error "Cannot produce single file without embedding SVG: %s"
+		    filename)
+      (if embed-svg
+	  ;; Embed SVG's XML directly.
 	  (format emacs-reveal--svg-div-template
 		  filename divclasses
 		  (emacs-reveal--file-as-string filename t)
-		  htmlcaption htmllicense))
-      (format emacs-reveal--figure-div-template
-	      filename divclasses
-	      (if (and issingle (not external))
-		  ;; Insert base64 encoded image as single line.
-		  (concat "data:image/" extension ";base64,"
-			  (with-temp-buffer
-			    (insert-file-contents-literally filename)
-			    (base64-encode-region 1 (point-max) t)
-			    (buffer-string)))
-		filename)
-	      imgalt h-image htmlcaption htmllicense))))
+		  htmlcaption htmllicense)
+	(format emacs-reveal--figure-div-template
+		filename divclasses
+		(if (and issingle (not external))
+		    ;; Insert base64 encoded image as single line.
+		    (concat "data:image/" extension ";base64,"
+			    (with-temp-buffer
+			      (insert-file-contents-literally filename)
+			      (base64-encode-region 1 (point-max) t)
+			      (buffer-string)))
+		  filename)
+		imgalt h-image htmlcaption htmllicense)))))
 
 (defun emacs-reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
@@ -649,10 +651,11 @@ If optional NO-NEWLINES is non-nil, return result without newlines."
       (buffer-substring-no-properties (point-min) (point-max)))))
 
 (defun emacs-reveal--attribution-strings
-    (metadata &optional caption maxheight divclasses shortlicense)
+    (metadata &optional caption maxheight divclasses shortlicense embed-svg)
   "Helper function.
-See `emacs-reveal-export-attribution' for description of arguments
-CAPTION, MAXHEIGHT, DIVCLASSES, SHORTLICENSE.
+See `emacs-reveal-export-attribution' and
+`emacs-reveal--export-attribution-helper' for description of arguments
+CAPTION, MAXHEIGHT, DIVCLASSES, SHORTLICENSE, EMBED-SVG.
 Return cons cell whose car is the HTML representation for METADATA
 and whose cdr is the LaTeX representation."
   (let* ((org-export-with-sub-superscripts nil)
@@ -732,7 +735,8 @@ and whose cdr is the LaTeX representation."
 	 )
     (if (stringp caption)
 	(cons (emacs-reveal--export-figure-html
-	       filename divclasses htmlcaption htmllicense imgalt h-image)
+	       filename divclasses htmlcaption htmllicense imgalt h-image
+	       embed-svg)
 	      (emacs-reveal--export-figure-latex
 	       filename texwidth texfilename texlicense latexcaption))
       (cons (emacs-reveal--export-figure-html
@@ -742,7 +746,7 @@ and whose cdr is the LaTeX representation."
 	     ;; If a short license is requested, the title is not part
 	     ;; of the license but passed here.
 	     (if shortlicense htmlcaption "<p></p>")
-	     htmllicense imgalt h-image)
+	     htmllicense imgalt h-image embed-svg)
 	    (emacs-reveal--export-figure-latex
 	     filename texwidth texfilename texlicense
 	     ;; Similar to above case.  However, a LaTeX caption is always
