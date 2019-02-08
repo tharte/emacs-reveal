@@ -105,6 +105,22 @@
 # The macros use function emacs-reveal-export-attribution, defined in
 # emacs-reveal.el.
 #
+# Note that SVG images are somewhat challenging.  For animated SVGs,
+# the XML code must be embedded directly into the HTML document.
+# However, assigning a maximum height in a style attribute of the XML
+# svg element did not yield desirable results.  Thus, SVG images are
+# only embedded directly if no maximum height is passed as argument.
+# With maximum height, an HTML img element is exported.  This, in
+# turn, is not possible if option :reveal-single-file is used.
+#
+# Concerning LaTeX export, the file extension is stripped for
+# includegraphics commands, so a compatible format must be available.
+# GIF images cannot be exported to LaTeX; variable
+# emacs-reveal--unsupported-tex-figure-formats contains a list of such
+# formats.
+# Finally, external images (those with a URL starting with "http[s]")
+# are not exported to LaTeX.
+
 #+MACRO: revealimg (eval (emacs-reveal-export-attribution $1 $2 $3 $4 $5))
 #+MACRO: reveallicense (eval (emacs-reveal-export-attribution $1 nil $2 $3 $4))
 

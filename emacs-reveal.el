@@ -607,10 +607,18 @@ Templates `emacs-reveal--svg-div-template' and
 	 (issingle (plist-get (org-export-get-environment 're-reveal)
 			      :reveal-single-file)))
     (if issvg
-	(format emacs-reveal--svg-div-template
-		filename divclasses
-		(emacs-reveal--file-as-string filename t)
-		htmlcaption htmllicense)
+	(if (and h-image (< 0 (length h-image)))
+	    (if issingle
+		(error "Cannot embed SVG with specified height: %s" filename)
+	      ;; If a height is specified, embed SVG in img element.
+	      (format emacs-reveal--figure-div-template
+		      filename divclasses filename
+		      imgalt h-image htmlcaption htmllicense))
+	  ;; Without height specification, embed SVG as text.
+	  (format emacs-reveal--svg-div-template
+		  filename divclasses
+		  (emacs-reveal--file-as-string filename t)
+		  htmlcaption htmllicense))
       (format emacs-reveal--figure-div-template
 	      filename divclasses
 	      (if (and issingle (not external))
