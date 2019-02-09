@@ -15,5 +15,5 @@
   ;; Need to be more specific to install newer version:
   (package-install (cadr (assq 'org package-archive-contents)))
   ;; (package-install 'htmlize) ; Now a dependency of org-ref
-  (package-install 'org-ref)
+  (package-install 'org-re-reveal-ref)
   )

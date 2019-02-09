@@ -13,6 +13,3 @@
 [submodule "reveal.js-quiz"]
 	path = reveal.js-quiz
 	url = ../../schaepermeier/reveal.js-quiz.git
-[submodule "org-re-reveal"]
-	path = org-re-reveal
-	url = ../../oer/org-re-reveal.git

@@ -1,4 +1,4 @@
-;;; emacs-reveal.el --- Configuration for and extension of org-re-reveal  -*- lexical-binding: t; -*-
+;;; emacs-reveal.el --- Configuration for and extension of org-re-reveal-ref  -*- lexical-binding: t; -*-
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
@@ -7,13 +7,13 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 0.9.5
-;; Package-Requires: ((emacs "24.4") (org-ref "1.1.1") (org-re-reveal "0.9.3"))
+;; Version: 0.9.6
+;; Package-Requires: ((emacs "24.4") (org-re-reveal-ref "0.9.0"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
 ;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
-;;    Emacs 24.4 is still OK as org-ref uses pdf-utils, which defines
-;;    alist-get if necessary.
+;;    Emacs 24.4 is still OK as org-re-reveal-ref requries org-ref which
+;;    in turn requires pdf-utils, which defines alist-get if necessary.
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
 ;;; License:
@@ -49,7 +49,7 @@
 ;; https://github.com/yjwen/org-reveal/issues/349
 ;; https://github.com/yjwen/org-reveal/pull/277
 ;;
-;; Just as org-reveal, emacs-reveal provides an export backend for Org
+;; Just as org-reveal, emacs-reveal provides an export back-end for Org
 ;; mode (see https://orgmode.org/manual/Exporting.html).  As such, it
 ;; comes with Org's separation of contents and layout, allowing to
 ;; create presentations in a fashion similarly to Beamer LaTeX,
@@ -79,8 +79,8 @@
 ;; (c) Install submodules
 ;;     - git submodule sync --recursive
 ;;     - git submodule update --init --recursive
-;; (d) Make sure that Emacs packages Org and org-ref are installed.
-;;     - You could install them with the usual package mechanism or like
+;; (d) Make sure that Emacs package org-re-reveal-ref is installed.
+;;     - Install with the usual package mechanism or like
 ;;       this: emacs --batch --load install.el --funcall install
 ;;     - Or you could use this docker image:
 ;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v2.0
@@ -252,9 +252,9 @@ components are included as Git submodules."
 
 ;;; Configuration of various components.
 (require 'org)
-(add-to-list 'load-path (expand-file-name "org-re-reveal" emacs-reveal-dir))
-(eval-when-compile (add-to-list 'load-path (expand-file-name "org-re-reveal")))
+(require 'org-ref)
 (require 'org-re-reveal)
+(require 'org-re-reveal-ref)
 
 ;; Enable configurable loading of JavaScript libraries.  By default,
 ;; avoid loading of head.min.js, which does not exist any more.
@@ -364,58 +364,12 @@ components are included as Git submodules."
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
 
-;;; Use org-ref to enable citations.
-(require 'org-ref)
-;; If the declaration of the bibliography file is part of an included file,
-;; org-ref does not know about it.  Use a default bibliography then.
-(setq org-ref-default-bibliography '("references.bib"))
-
-(defun emacs-reveal-filter-bib-para (text backend info)
-  "Replace incorrect p tags around bibliography.
-This function is added to `org-export-filter-paragraph-functions',
-where TEXT is the paragraph, BACKEND is checked for `re-reveal', and INFO
-is unused."
-  (ignore info) ; Silence byte compiler
-  (when (and (org-export-derived-backend-p backend 're-reveal)
-	     (string-match-p "<p>[ \n]*<ul" text))
-    (replace-regexp-in-string
-     "<p>[ \n]*<ul" "<ul"
-     (replace-regexp-in-string "</p>\n" "" text))))
-(add-to-list 'org-export-filter-paragraph-functions
-	     #'emacs-reveal-filter-bib-para)
-
-;; Setup Bibliography in HTML.
-;; Use the subsequent configuration with something like this at the end
-;; of your Org file:
-;; --8<---------------cut here---------------start------------->8---
-;; ** Bibliography
-;;    :PROPERTIES:
-;;    :reveal_data_state: no-toc-progress
-;;    :HTML_HEADLINE_CLASS: no-toc-progress
-;;    :CUSTOM_ID: bibliography
-;;    :UNNUMBERED: t
-;;    :END:
-;;
-;; printbibliography:references.bib
-;; --8<---------------cut here---------------end--------------->8---
-;;
-;; In the following, org-ref-bib-html is set to the empty string as
-;; the above Org snippet defines the necessary heading.  Also, given
-;; that heading, org-ref-printbibliography-cmd is set not to produce
-;; one as well.
-;; With reveal.js, only entire slides can be link targets, not
-;; individual elements.  With the Org code above, the link target is
-;; determined by the CUSTOM_ID.  Use that in org-ref-ref-html.
-(setq org-ref-bib-html ""
-      org-ref-printbibliography-cmd "\\printbibliography[heading=none]"
-      org-ref-ref-html (concat
-			"<a class=\"org-ref-reference\" href=\"#"
-			org-re-reveal--href-fragment-prefix
-			"bibliography\">[%s]</a>"))
-
+;; Setup Bibliography in HTML based on default bib file (which helps to
+;; locate the bib file when the current buffer does not specify one).
 ;; Display article, book, inproceedings differently.  Entry misc is new.
 ;; Remaining entries are defaults.
-(setq org-ref-bibliography-entry-format
+(setq org-ref-default-bibliography '("references.bib")
+      org-ref-bibliography-entry-format
       '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
 	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
 	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
@@ -566,8 +520,8 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 "
   "CSS for all images of grid.")
 
-(defun emacs-reveal--export-figure-latex (filename texwidth texfilename texlicense
-					     &optional latexcaption)
+(defun emacs-reveal--export-figure-latex
+    (filename texwidth texfilename texlicense &optional latexcaption)
   "Generate LaTeX for figure at FILENAME.
 If FILENAME is a full HTTP(S) URL, use
 `emacs-reveal--figure-external-latex-template' as placeholder.
