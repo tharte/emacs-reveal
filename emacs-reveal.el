@@ -268,6 +268,11 @@ components are included as Git submodules."
 (add-to-list 'org-latex-default-packages-alist
  	     (list "hyphens" "url" nil))
 
+;; Load float package.  This must come before hyperref to avoid
+;; warnings for figures: warning (ext4): destination with the same identifier
+(add-to-list 'org-latex-default-packages-alist
+ 	     (list "" "float" nil))
+
 ;;; Configure reveal.js plugins.
 ;; Note that in the relative src-paths in org-re-reveal-external-plugins,
 ;; %s is automatically replaced with org-re-reveal-root.

@@ -50,7 +50,6 @@
 #+LATEX_HEADER: \usepackage[backend=biber,style=alphabetic]{biblatex}
 #+LATEX_HEADER: \addbibresource{references.bib}
 #+LATEX_HEADER: \newenvironment{NOTES}{\par\footnotesize}{\par}
-#+LATEX_HEADER: \usepackage{float}
 #+LATEX_HEADER: \newenvironment{leftcol}{\begin{minipage}{.49\textwidth}}{\end{minipage}}
 #+LATEX_HEADER: \newenvironment{rightcol}{\begin{minipage}{.49\textwidth}}{\end{minipage}}
 #+LATEX_HEADER: \newenvironment{leftcol30}{\begin{minipage}{.29\textwidth}}{\end{minipage}}
