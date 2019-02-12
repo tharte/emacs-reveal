@@ -40,14 +40,10 @@
 ;; reveal.js plugins.  Generated presentations are usable with standard
 ;; browsers, also mobile and offline.
 ;;
-;; Emacs-reveal grew out of a forked version of org-reveal whose
-;; development seems to have stalled and which cannot be installed
-;; with recent versions of Org mode any more:
-;; https://github.com/yjwen/org-reveal/issues/342
-;; I tried to contribute to org-reveal but did not receive a response
-;; from the maintainer:
-;; https://github.com/yjwen/org-reveal/issues/349
-;; https://github.com/yjwen/org-reveal/pull/277
+;; Emacs-reveal grew out of a forked version of org-reveal
+;; (https://github.com/yjwen/org-reveal) whose development seems to
+;; have stalled.  This lead to the creation of org-re-reveal and
+;; org-re-reveal-ref, upon which emacs-reveal is built.
 ;;
 ;; Just as org-reveal, emacs-reveal provides an export back-end for Org
 ;; mode (see https://orgmode.org/manual/Exporting.html).  As such, it
