@@ -1,6 +1,7 @@
 <!--- Local IspellDict: en -->
 
-This project provides [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
+This repository provides *emacs-reveal*, which is
+[free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
 to create presentations (slides with audio) that are suitable as
 [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources),
 which in my view comes with two frequently neglected requirements:
@@ -11,7 +12,7 @@ which in my view comes with two frequently neglected requirements:
    functionality, e.g, with the
    [compare functionality on GitLab](https://gitlab.com/oer/OS/compare/os02...os03)).
 
-During summer term 2017 I created this repository to
+During summer term 2017 I created emacs-reveal to
 produce lecture slides (initially for a course on Operating Systems)
 and presentations as OER using the
 HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
@@ -42,17 +43,19 @@ Although reveal.js is an HTML presentation framework, I do not create
 presentations in HTML.  Instead, I rely on my usual computing
 environment, namely the text editor
 [GNU Emacs](https://www.gnu.org/software/emacs/), in a simple
-text format called [Org Mode](https://orgmode.org/), which can be
-exported to reveal.js with
-[org-re-reveal](https://gitlab.com/oer/org-re-reveal) (which grew out
-of my own fork of [Org-Reveal](https://github.com/yjwen/org-reveal/)
-after the latter has not been maintained for some time).
+text format called [Org mode](https://orgmode.org/), which can be
+exported to reveal.js thanks to
+[Org-Reveal](https://github.com/yjwen/org-reveal/), for which I
+maintain [the forked variant org-re-reveal](https://gitlab.com/oer/org-re-reveal)
+with an extension for citations and bibliography, namely
+[org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref).
 That way, I can focus on slides’ contents in a highly intuitive plain
 text document, which can be exported to HTML for presentation in a Web
 browser (besides, presentations can be downloaded in two different
 layouts in PDF format in response to students’ requests:
 one PDF version contains one page per slide while the other one is
-generated via [LaTeX](https://www.latex-project.org/)).  All layout
+generated via [LaTeX](https://www.latex-project.org/) from Org source
+documents).  All layout
 information is kept separately from content, so little effort is
 necessary to adapt presentations to different styles or corporate
 identities.
@@ -78,14 +81,14 @@ requirements (3) nor (4).
 
 Eventually, I ended up with reveal.js.
 To embed audio, I’m using the
-[reveal.js plugin audio-slideshow](https://github.com/rajgoel/reveal.js-plugins).
+[audio-slideshow plugin of reveal.js](https://github.com/rajgoel/reveal.js-plugins).
 
 The setup is as follows:
  * GNU Emacs
-   * Org mode (from ELPA; the version included in Emacs is too old)
-   * Org-re-reveal (for export of HTML with reveal.js)
-   * Org-ref (for citations and bibliography)
-   * Htmlize (for source code highlighting)
+   * Org mode (recent versions, e.g., from ELPA)
+   * Org-re-reveal-ref (from MELPA or
+     [my repository](https://gitlab.com/oer/org-re-reveal-ref))
+   * Emacs library htmlize (for source code highlighting)
  * reveal.js
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
