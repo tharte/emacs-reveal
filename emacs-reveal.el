@@ -8,7 +8,7 @@
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
 ;; Version: 0.9.6
-;; Package-Requires: ((emacs "24.4") (org-re-reveal-ref "0.9.0"))
+;; Package-Requires: ((emacs "24.4") (org-re-reveal-ref "0.9.1"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
 ;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
@@ -83,7 +83,7 @@
 ;;     - Install with the usual package mechanism or like
 ;;       this: emacs --batch --load install.el --funcall install
 ;;     - Or you could use this docker image:
-;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v2.0
+;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.1
 ;; (e) Add a line like this to ~/.emacs:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
 ;;
