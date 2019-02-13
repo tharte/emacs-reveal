@@ -135,4 +135,5 @@ invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML
 presentation for an individual `org` file using Org’s export
-functionality by pressing `C-c C-e r b`.)
+functionality by pressing a key such as `C-c C-e v b`; the precise key
+binding changed with different versions of the back-end.)
