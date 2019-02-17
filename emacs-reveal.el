@@ -87,7 +87,8 @@
 ;;     variable `emacs-reveal-submodules-dir'.
 ;;     Upon first loading in Emacs, emacs-reveal offers to download
 ;;     necessary software via Git for you.
-;;     Also, (aiming for installation via MELPA one day) it offers to
+;;     Also, (aiming for installation via MELPA one day) you may
+;;     customize `emacs-reveal-generate-org-includes-p' to
 ;;     generate include files for shipped Org config files in the
 ;;     stable location specified by `emacs-reveal-org-includes-dir'.
 ;;
@@ -254,8 +255,8 @@ This directory must not be a relative path (but can start with \"~\")."
   :type 'directory)
 
 ;; Variables to control generation of file to include Org files.
-(defcustom emacs-reveal-generate-org-includes-p t
-  "Set to nil to avoid question whether to generate include files.
+(defcustom emacs-reveal-generate-org-includes-p nil
+  "Set to t for question whether to generate include files upon loading.
 Used in `emacs-reveal-generate-include-files'."
   :group 'emacs-reveal
   :type 'boolean)
