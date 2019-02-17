@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 0.9.6
+;; Version: 0.9.7
 ;; Package-Requires: ((emacs "24.4") (org-re-reveal-ref "0.9.1"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
@@ -41,8 +41,8 @@
 ;; browsers, also mobile and offline.
 ;;
 ;; Emacs-reveal grew out of a forked version of org-reveal
-;; (https://github.com/yjwen/org-reveal) whose development seems to
-;; have stalled.  This lead to the creation of org-re-reveal and
+;; (https://github.com/yjwen/org-reveal) when its development
+;; stopped.  This lead to the creation of org-re-reveal and
 ;; org-re-reveal-ref, upon which emacs-reveal is built.
 ;;
 ;; Just as org-reveal, emacs-reveal provides an export back-end for Org
@@ -66,22 +66,30 @@
 ;; https://oer.gitlab.io/emacs-reveal-howto/howto.html (generated HTML)
 ;;
 ;; * Installation
+;; You need Git to use emacs-reveal.  See there:
+;; https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+;;
 ;; Currently, emacs-reveal is only available from GitLab.
 ;;
 ;; Create a directory for your presentation(s)' Org source files.  In
 ;; that directory:
 ;; (a) git clone https://gitlab.com/oer/emacs-reveal.git
 ;; (b) cd emacs-reveal
-;; (c) Install submodules
-;;     - git submodule sync --recursive
-;;     - git submodule update --init --recursive
-;; (d) Make sure that Emacs package org-re-reveal-ref is installed.
+;; (c) Make sure that Emacs package org-re-reveal-ref is installed.
 ;;     - Install with the usual package mechanism or like
 ;;       this: emacs --batch --load install.el --funcall install
 ;;     - Or you could use this docker image:
-;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.1
-;; (e) Add a line like this to ~/.emacs:
+;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.2
+;; (d) Add a line like this to ~/.emacs:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
+;; (e) Emacs-reveal suggests that reveal.js and several of its plugins
+;;     are installed in the directory specified by customizable
+;;     variable `emacs-reveal-submodules-dir'.
+;;     Upon first loading in Emacs, emacs-reveal offers to download
+;;     necessary software via Git for you.
+;;     Also, (aiming for installation via MELPA one day) it offers to
+;;     generate include files for shipped Org config files in the
+;;     stable location specified by `emacs-reveal-org-includes-dir'.
 ;;
 ;; * Usage
 ;; Please check out the emacs-reveal howto mentioned above.  In
@@ -129,6 +137,7 @@
 
 ;;; Code:
 (require 'cl-lib) ; cl-mapcar
+(require 'subr-x) ; string-trim
 
 ;; Customizable options
 (defcustom emacs-reveal-script-files '("js/reveal.js")
@@ -160,6 +169,10 @@ emacs-reveal."
 		  (string :tag "Branch")
 		  (choice (const :tag "JavaScript library" javascript)
 			  (const :tag "Configurable plugin" plugin)))))
+(make-obsolete-variable
+ 'emacs-reveal-external-components
+ "Variable emacs-reveal-external-components is obsolete as reveal.js and its plugins are available in their own repository."
+ "0.9.7")
 
 (defcustom emacs-reveal-plugins
   '("reveal.js-plugins" "Reveal.js-TOC-Progress" "reveal.js-jump-plugin"
@@ -206,6 +219,7 @@ Note that this filename is exported into a subdirectory of
   :group 'emacs-reveal
   :type 'string)
 
+;; Variables about installation location and reveal.js plugins follow.
 (defconst emacs-reveal-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "Directory of emacs-reveal containing code and resources.
@@ -218,12 +232,50 @@ contained in this directory.")
 (defconst emacs-reveal-plugin-not-used
   "Plugin %s will not be used.")
 
+(defconst emacs-reveal-submodules-url
+  "https://gitlab.com/oer/emacs-reveal-submodules.git"
+  "Git URL for submodules of reveal.js and plugins.")
+(defconst emacs-reveal-submodules-version "0.9.0"
+  "Version of submodules to check out.")
+(defconst emacs-reveal-buffer "*Emacs-reveal git output*"
+  "Name of buffer holding git output.")
+(defcustom emacs-reveal-submodules-dir
+  (concat (file-name-as-directory user-emacs-directory)
+	  (file-name-sans-extension
+	   (file-name-nondirectory emacs-reveal-submodules-url)))
+  "Directory with submodules of emacs-reveal.
+Submodules include reveal.js and its plugins.
+If this directory does not exist, installation is offered.
+If this directory exists, it must have been cloned via git from
+`emacs-reveal-submodules-url'.  If that condition is violated, strange
+things may happen.
+This directory must not be a relative path (but can start with \"~\")."
+  :group 'emacs-reveal
+  :type 'directory)
+
+;; Variables to control generation of file to include Org files.
+(defcustom emacs-reveal-generate-org-includes-p t
+  "Set to nil to avoid question whether to generate include files.
+Used in `emacs-reveal-generate-include-files'."
+  :group 'emacs-reveal
+  :type 'boolean)
+
+(defcustom emacs-reveal-org-includes-dir
+  (concat (file-name-as-directory user-emacs-directory) "emacs-reveal-org")
+  "Target directory for `emacs-reveal-generate-include-files'."
+  :group 'emacs-reveal
+  :type 'directory)
+
 ;; Functions to clone components:
 (defun emacs-reveal--clone-component (component address branch)
   "Clone COMPONENT from ADDRESS and checkout BRANCH.
 Target directory is `emacs-reveal-dir'."
   (shell-command (format "cd %s; git clone %s; cd %s; git checkout %s"
 			 emacs-reveal-dir address component branch)))
+(make-obsolete
+ #'emacs-reveal--clone-component
+ "Function emacs-reveal--clone-component is obsolete as reveal.js and its plugins are available in their own repository."
+ "0.9.7")
 
 (defun emacs-reveal-install ()
   "Install components listed in `emacs-reveal-external-components'.
@@ -247,6 +299,108 @@ components are included as Git submodules."
 		(t
 		 (message emacs-reveal-plugin-not-used component)
 		 (sleep-for 2))))))))
+(make-obsolete
+ #'emacs-reveal-install
+ "Function emacs-reveal-install is obsolete as reveal.js and its plugins are available in their own repository."
+ "0.9.7")
+
+;; Functions to install and update submodules.
+(defun emacs-reveal-clone-submodules ()
+  "Clone submodules from `emacs-reveal-submodules-url'.
+Target directory is `emacs-reveal-submodules-dir'.
+Output of Git goes to current buffer."
+  (let ((parent (directory-file-name
+		 (file-name-directory emacs-reveal-submodules-dir))))
+    (unless (file-writable-p parent)
+      (error "Directory to install submodules not writable: %s" parent))
+    (let ((default-directory parent))
+      (insert "Performing git clone...\n")
+      (call-process "git" nil t t "clone" emacs-reveal-submodules-url)
+      (insert "...done\n\n"))
+    (unless (file-readable-p emacs-reveal-submodules-dir)
+      (error "Cloning of submodules failed.  Directory not readable: %s"
+	     emacs-reveal-submodules-dir))))
+
+(defun emacs-reveal-submodules-ok-p ()
+  "Return t if submodules have correct version.
+For, this check that \"git tag\" in `emacs-reveal-submodules-dir' returns
+the version `emacs-reveal-submodules-version'."
+  (string=
+   emacs-reveal-submodules-version
+   (string-trim (shell-command-to-string
+		 (format "cd %s; git tag" emacs-reveal-submodules-dir)))))
+
+(defun emacs-reveal-update-submodules (&optional force)
+  "Update submodules for this version of emacs-reveal.
+If optional FORCE is non-nil, update even if tag indicates current version.
+Output of Git goes to current buffer."
+  (unless (file-writable-p emacs-reveal-submodules-dir)
+    (error "Directory of submodules not writable: %s"
+	   emacs-reveal-submodules-dir))
+  (when (or force (not (emacs-reveal-submodules-ok-p)))
+    (let ((default-directory emacs-reveal-submodules-dir))
+      (insert "Performing git pull and checkout...\n")
+      (call-process "git" nil t t "checkout" "master")
+      (call-process "git" nil t t "pull")
+      (call-process "git" nil t t "checkout" emacs-reveal-submodules-version)
+      (insert "...done\n\nPerforming submodule install...\n")
+      (call-process "git" nil t t "submodule" "sync" "--recursive")
+      (call-process "git" nil t t "submodule" "update" "--init" "--recursive")
+      (insert "...done\n\n")))
+  (unless (emacs-reveal-submodules-ok-p)
+    (error "Submodule update failed")))
+
+(defun emacs-reveal-install-submodules ()
+  "Install reveal.js and plugins as submodules.
+Software is cloned from `emacs-reveal-submodules-url' into
+`emacs-reveal-submodules-dir'."
+  (save-excursion
+    (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
+    (emacs-reveal-clone-submodules)
+    (emacs-reveal-update-submodules t)))
+
+(defun emacs-reveal-setup-submodules ()
+  "Install or update submodules of emacs-reveal."
+  (interactive)
+  (if (file-exists-p emacs-reveal-submodules-dir)
+      (emacs-reveal-update-submodules)
+    (when (y-or-n-p (format "Directory \"%s\" for reveal.js and plugins does not exist.  Type \"y\" to have it set up for you (needs to download about 26 MB).  Type \"n\" to install necessary submodules yourself or customize `emacs-reveal-submodules-dir'.  Your choice? "
+			    emacs-reveal-submodules-dir))
+      (emacs-reveal-install-submodules))))
+
+(defun emacs-reveal--generate-include-file (source-file)
+  "Generate include file for SOURCE-FILE.
+Resulting file is stored under `emacs-reveal-org-includes-dir'."
+  (let* ((source-base (file-name-nondirectory source-file))
+	 (target-file (concat
+		       (file-name-as-directory emacs-reveal-org-includes-dir)
+		       source-base)))
+    (with-temp-file target-file
+      (insert (format "# Generated file.  Will be overwritten without warning.
+#+INCLUDE: \"%s\"" source-file)))))
+
+(defun emacs-reveal-generate-include-files ()
+  "Generate files that include Org configuration files of emacs-reveal.
+If `emacs-reveal-org-includes-dir' does not exist and
+`emacs-reveal-generate-org-includes-p' is t, ask user whether that directory
+should be created to store generated files.
+This provides a stable location for \"#+INCLUDE\" statements in your
+Org files."
+  (catch 'aborted
+    (if (not (file-exists-p emacs-reveal-org-includes-dir))
+	(if (or (not emacs-reveal-generate-org-includes-p)
+		(not (y-or-n-p
+		      (format "Directory \"%s\" does not exist.  Create and populate for you (if not, maybe customize `emacs-reveal-generate-org-includes-p')? "
+			      emacs-reveal-org-includes-dir))))
+	    (throw 'aborted nil)
+	  (make-directory emacs-reveal-org-includes-dir t)))
+    (let* ((source-dir (concat (file-name-as-directory emacs-reveal-dir) "org"))
+	   (source-files (directory-files source-dir t "[.]org$")))
+      (mapcar #'emacs-reveal--generate-include-file source-files))))
+
+;; Setup and installation.
+(emacs-reveal-setup-submodules)
+(emacs-reveal-generate-include-files)
 
 ;;; Configuration of various components.
 (require 'org)
@@ -846,8 +1000,8 @@ function during Org export, which passes an argument)."
   (advice-remove #'org-html-link #'emacs-reveal--rewrite-link))
 
 ;;; Extract version string.
-(defun emacs-reveal-version ()
-  "Display version string for emacs-reveal from Lisp file."
+(defun emacs-reveal-short-version ()
+  "Display short version string for emacs-reveal from Lisp file."
   (interactive)
   (let ((lisp-file
 	 (concat (file-name-sans-extension (locate-library "emacs-reveal"))
@@ -856,7 +1010,12 @@ function during Org export, which passes an argument)."
       (insert-file-contents lisp-file)
       (goto-char (point-min))
       (re-search-forward "^;; Version: \\([0-9.]+\\)$")
-      (message "emacs-reveal version %s" (match-string 1)))))
+      (message "%s" (match-string 1)))))
+
+(defun emacs-reveal-version ()
+  "Display version string for emacs-reveal from Lisp file."
+  (interactive)
+  (message "emacs-reveal version %s" (emacs-reveal-short-version)))
 
 (provide 'emacs-reveal)
 ;;; emacs-reveal.el ends here
