@@ -566,6 +566,7 @@ Org files."
 ;; Function emacs-reveal-export-attribution is used in macros in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
+;;;###autoload
 (defun emacs-reveal-export-attribution (&rest args)
   "Generate HTML and LaTeX code for image with license attribution.
 Essentially, this function calls `emacs-reveal--export-attribution-helper'
@@ -872,6 +873,7 @@ and whose cdr is the LaTeX representation."
 ;; Function emacs-reveal-export-image-grid is used in macro in config.org.
 ;; See emacs-reveal-howto for sample use:
 ;; https://gitlab.com/oer/emacs-reveal-howto
+;;;###autoload
 (defun emacs-reveal-export-image-grid (&rest args)
   "Generate HTML for image grid.
 Essentially, this function calls `emacs-reveal--export-image-grid-helper'
@@ -1013,6 +1015,7 @@ function during Org export, which passes an argument)."
       (re-search-forward "^;; Version: \\([0-9.]+\\)$")
       (message "%s" (match-string 1)))))
 
+;;;###autoload
 (defun emacs-reveal-version ()
   "Display version string for emacs-reveal from Lisp file."
   (interactive)
