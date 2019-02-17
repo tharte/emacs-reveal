@@ -42,7 +42,7 @@
 ;;
 ;; Emacs-reveal grew out of a forked version of org-reveal
 ;; (https://github.com/yjwen/org-reveal) when its development
-;; stopped.  This lead to the creation of org-re-reveal and
+;; stopped.  This led to the creation of org-re-reveal and
 ;; org-re-reveal-ref, upon which emacs-reveal is built.
 ;;
 ;; Just as org-reveal, emacs-reveal provides an export back-end for Org
