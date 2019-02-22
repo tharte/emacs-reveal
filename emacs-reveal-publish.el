@@ -87,7 +87,7 @@ Set to nil to avoid an assignment."
   :group 'emacs-reveal
   :type '(choice (const nil) (repeat string)))
 
-(defcustom emacs-reveal-publish-html-doctype "HTML5"
+(defcustom emacs-reveal-publish-html-doctype "html5"
   "Value to assign to `org-html-doctype' before export.
 Set to nil to avoid an assignment."
   :group 'emacs-reveal
