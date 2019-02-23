@@ -32,6 +32,13 @@ and make use of the HTML presentation framework
     have been generated via LaTeX from org source files.  If
     available, those PDF versions are accessible by replacing
     ~.html~ in a presentation’s URL with ~.pdf~
+- Offline use
+  - Presentations can be downloaded from build pipelines of
+    source projects as self-contained zip archives
+    - Extract contents and open local HTML file(s) in browser
+    - E.g., go to [[https://gitlab.com/oer/OS/pipelines][pipelines of course on Operating Systems]],
+      click on download icon of most recent pipeline
+  - Alternatively, clone source repository and build presentations locally
 - Audio
   - If audio is embedded, [[https://en.wikipedia.org/wiki/Ogg][the free Ogg format]] is used
     - Playback should start automatically
