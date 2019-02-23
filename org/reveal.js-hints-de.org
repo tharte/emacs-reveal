@@ -7,7 +7,9 @@
 # sondern sollte anderswo eingebunden werden.  Beispiel:
 # https://gitlab.com/oer/fediverse/blob/master/index.org
 
-Die Präsentationen nutzen das HTML-Framework
+Die Präsentationen werden mit
+[[https://gitlab.com/oer/emacs-reveal][emacs-reveal]]
+erzeugt und nutzen das HTML-Framework
 [[https://revealjs.com/][reveal.js]].
 
 - Tastaturbelegung und Navigation
