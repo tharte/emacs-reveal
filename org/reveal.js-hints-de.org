@@ -32,6 +32,13 @@ erzeugt und nutzen das HTML-Framework
   - Je nach Projekt sind möglicherweise bereits PDF-Dateien aus den
     Quelldateien generiert worden.  In diesem Fall kann die Endung
     ~.html~ der URL einer Präsentation durch ~.pdf~ ersetzt werden.
+- Offline-Verwendung
+  - Präsentationen können als ZIP-Archive von Build-Pipelines ihrer
+    Quellprojekte heruntergeladen werden
+    - Archiv-Inhalte extrahieren, lokale HTML-Datei(en) im Browser öffnen
+    - Z.~B. von [[https://gitlab.com/oer/OS/pipelines][Pipelines eines Kurses zu Betriebssystemen]]
+      durch Klick auf Download-Icon der aktuellsten Pipeline
+  - Alternatively, clone source repository and build presentations locally
 - Audio
   - Falls vorhanden liegen Tonspuren im [[https://de.wikipedia.org/wiki/Ogg][freien Ogg-Format]] vor
     - Ton sollte automatisch starten
