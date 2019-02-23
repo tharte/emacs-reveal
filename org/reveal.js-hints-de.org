@@ -36,7 +36,7 @@ erzeugt und nutzen das HTML-Framework
   - Präsentationen können als ZIP-Archive von Build-Pipelines ihrer
     Quellprojekte heruntergeladen werden
     - Archiv-Inhalte extrahieren, lokale HTML-Datei(en) im Browser öffnen
-    - Z.~B. von [[https://gitlab.com/oer/OS/pipelines][Pipelines eines Kurses zu Betriebssystemen]]
+    - Z. B. von [[https://gitlab.com/oer/OS/pipelines][Pipelines eines Kurses zu Betriebssystemen]]
       durch Klick auf Download-Icon der aktuellsten Pipeline
   - Alternativ können Präsentationen lokal aus Quelldateien erzeugt werden
 - Audio
