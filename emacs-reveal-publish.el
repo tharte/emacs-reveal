@@ -66,7 +66,7 @@
 
 (defcustom emacs-reveal-publish-confirm-evaluate nil
   "Value to assign to `org-confirm-babel-evaluate' before export.
-The default is nil, which may be dangerous is not recommended for
+The default is nil, which may be dangerous and is not recommended for
 general Emacs sessions."
   :group 'emacs-reveal
   :type 'boolean)
@@ -76,7 +76,8 @@ general Emacs sessions."
   '(org-re-reveal-publish-to-reveal org-latex-publish-to-pdf)
   "Functions to publish Org source files.
 By default, Org files are published as reveal.js presentations and as
-PDF.  For the latter, `org-latex-pdf-process' is modified in emacs-reveal-publish"
+PDF.  For the latter, `org-latex-pdf-process' is modified via
+`emacs-reveal-publish-pdf-process'."
   :group 'emacs-reveal
   :type '(repeat function))
 
