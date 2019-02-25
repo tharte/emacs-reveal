@@ -82,6 +82,11 @@ PDF.  For the latter, `org-latex-pdf-process' is modified via
   :group 'emacs-reveal
   :type '(repeat function))
 
+(defcustom emacs-reveal-publish-makeindex nil
+  "Value to use for makeindex option when publishing Org files."
+  :group 'emacs-reveal
+  :type 'boolean)
+
 (defcustom emacs-reveal-publish-pdf-process
   '("latexmk -outdir=%o -interaction=nonstopmode -shell-escape -bibtex -pdf %f")
   "Value to assign to `org-latex-pdf-process' before export.
@@ -133,6 +138,7 @@ Set to nil to avoid an assignment."
        (list "org-presentations"
 	     :base-directory "."
 	     :base-extension "org"
+	     :makeindex emacs-reveal-publish-makeindex
 	     :exclude "index\\|backmatter\\|config\\|course-list\\|license-template\\|imprint\\|privacy"
 	     :publishing-function emacs-reveal-publish-org-publishing-functions
 	     :publishing-directory "./public")
