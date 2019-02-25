@@ -88,6 +88,12 @@ Set to nil to avoid an assignment."
   :group 'emacs-reveal
   :type '(choice (const nil) (repeat string)))
 
+(defcustom emacs-reveal-publish-figure-float "H"
+  "Value to assign to `emacs-reveal-latex-figure-float' before export.
+Set to nil to avoid an assignment."
+  :group 'emacs-reveal
+  :type '(choice (const nil) string))
+
 (defcustom emacs-reveal-publish-html-doctype "html5"
   "Value to assign to `org-html-doctype' before export.
 Set to nil to avoid an assignment."
@@ -107,6 +113,8 @@ Set to nil to avoid an assignment."
 
 (when emacs-reveal-publish-pdf-process
   (setq org-latex-pdf-process emacs-reveal-publish-pdf-process))
+(when emacs-reveal-publish-figure-float
+  (setq emacs-reveal-latex-figure-float emacs-reveal-publish-figure-float))
 (when emacs-reveal-publish-html-doctype
   (setq org-html-doctype emacs-reveal-publish-html-doctype))
 (when emacs-reveal-publish-html-postamble
