@@ -91,6 +91,9 @@ Set to nil to avoid an assignment."
 
 (defcustom emacs-reveal-publish-figure-float "H"
   "Value to assign to `emacs-reveal-latex-figure-float' before export.
+The default uses the LaTeX float package to position figures \"here\",
+which results in a layout that is more similar to HTML slides.
+See URL `https://ctan.org/pkg/float' for float documentation.
 Set to nil to avoid an assignment."
   :group 'emacs-reveal
   :type '(choice (const nil) string))
