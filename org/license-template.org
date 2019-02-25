@@ -19,7 +19,7 @@ Except where otherwise noted, this work,
 is © {{{copyrightyears}}} by
 @@html:<span property="dc:creator cc:attributionName">@@{{{author}}}@@html:</span>@@,
 published under the Creative Commons license @@latex: \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0.}@@
-@@html:<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0.</a>@@
+@@html:<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.@@
 
 #+BEGIN_QUOTE
 [[https://creativecommons.org/licenses/by-sa/4.0/#deed-understanding][No warranties are given.  The license may not give you all of the permissions necessary for your intended use.]]
