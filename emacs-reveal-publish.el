@@ -25,8 +25,9 @@
 ;; HTML export back-end).  HTML export is modified by
 ;; `emacs-reveal-publish-html-doctype' and
 ;; `emacs-reveal-publish-html-postamble'.
-;; Existing directories among "audio", "figures", "quizzes" are added
-;; to `org-publish-project-alist' for export as attachment (copy).
+;; If existing, file "index.css" and directories among "audio",
+;; "figures", "quizzes" are added to `org-publish-project-alist'
+;; for export as attachment (copy).
 ;;
 ;; You may want to load/require this file from your own publish.el
 ;; with additional entries added to `org-publish-project-alist'.
@@ -199,6 +200,14 @@ Set to nil to avoid an assignment."
 		     :include '("index.org")
 		     :exclude ".*"
 		     :publishing-function '(org-html-publish-to-html)
+		     :publishing-directory "./public")))
+(when (file-exists-p "index.css")
+  (add-to-list 'org-publish-project-alist
+	       (list "index-css"
+		     :base-directory "."
+		     :include '("index.css")
+		     :exclude ".*"
+		     :publishing-function '(org-publish-attachment)
 		     :publishing-directory "./public")))
 (when (file-accessible-directory-p "audio")
   (add-to-list 'org-publish-project-alist
