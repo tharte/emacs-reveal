@@ -94,7 +94,7 @@ Set to nil to avoid an assignment."
   :type '(choice (const nil) string))
 
 (defcustom emacs-reveal-publish-html-postamble
-  "<p class=\"author\">License: This text, “<span property=\"dc:title\">%t</span>,” by <span property=\"dc:creator cc:attributionName\">%a</span> is published under the Creative Commons license <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0.</a></p>
+  "<p class=\"author\">License: This text, “<span property=\"dc:title\">%t</span>,” by <span property=\"dc:creator cc:attributionName\">%a</span> is published under the Creative Commons license <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</p>
 <p class=\"date\">Created: <span property=\"dc:created\">%C</span></p>
 <div class=\"legalese\"><p><a href=\"/imprint.html\">Imprint</a> | <a href=\"/privacy.html\">Privacy Policy</a></p></div>"
   "Value to assign to `org-html-postamble' before export.
