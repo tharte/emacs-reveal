@@ -582,7 +582,8 @@ div.ribbon-legalese a {
 .reveal a[href^="#"]:not(.nooutlink):after,
 .reveal .figure a[href]:after, .reveal .src a[href]:after,
 .reveal a[href]:empty:after {
-  content: none; }
+  content: none;
+  background: none; }
 
 /* Indicate direction of internal link. */
 .reveal a[href].backwardlink::before {
