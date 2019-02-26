@@ -160,6 +160,14 @@ Set to nil to avoid an assignment."
 	     :publishing-directory "./public/reveal.js"
 	     :publishing-function 'org-publish-attachment
 	     :recursive t)
+       (list "reveal.js-coursemod"
+	     :base-directory (expand-file-name
+			      "reveal.js-coursemod/coursemod"
+			      emacs-reveal-submodules-dir)
+	     :base-extension 'any
+	     :publishing-directory "./public/reveal.js/plugin/coursemod"
+	     :publishing-function 'org-publish-attachment
+	     :recursive t)
        (list "reveal.js-jump-plugin"
 	     :base-directory (expand-file-name
 			      "reveal.js-jump-plugin/jump"

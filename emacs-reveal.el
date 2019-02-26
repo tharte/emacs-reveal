@@ -177,7 +177,7 @@ emacs-reveal."
 
 (defcustom emacs-reveal-plugins
   '("reveal.js-plugins" "Reveal.js-TOC-Progress" "reveal.js-jump-plugin"
-    "reveal.js-quiz")
+    "reveal.js-quiz" "reveal.js-coursemod")
   "List of `plugin' components to initialize.
 Each element here needs to be the directory name of the plugin,
 which is the final path component (without the \".git\" extension) of
@@ -430,6 +430,18 @@ Org files."
 ;; Note that in the relative src-paths in org-re-reveal-external-plugins,
 ;; %s is automatically replaced with org-re-reveal-root.
 
+(defun emacs-reveal-add-to-init-script (initstring)
+  "Add INITSTRING to `org-re-reveal-init-script'.
+If `org-re-reveal-init-script' is a non-empty string, concatenate INITSTRING
+after comma; otherwise, just `setq' to INITSTRING."
+  (setq org-re-reveal-init-script
+	(if (and (stringp org-re-reveal-init-script)
+		 (< 0 (length org-re-reveal-init-script)))
+	    (concat org-re-reveal-init-script ",
+  "
+		    initstring)
+	  initstring)))
+
 ;;(setq org-re-reveal-external-plugins nil)
 (when (member "reveal.js-plugins" emacs-reveal-plugins)
   ;; Activate audio-slideshow plugin, but not multiple times when speaker
@@ -444,17 +456,14 @@ Org files."
   ;; - Do not display controls if no local audio file is given
   ;; - Increase opacity when unfocused (students found default too easy to miss)
   ;; - Display audio controls at bottom left (to avoid overlap)
-  (setq org-re-reveal-init-script "  audio: {
+  (emacs-reveal-add-to-init-script "audio: {
     advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
     playerStyle: 'position: fixed; bottom: 9.5vh; left: 0%; width: 30%; height:30px; z-index: 33;' }")
 
   ;; Activate anything plugin.
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'anything " { src: '%splugin/anything/anything.js' }"))
-  (setq org-re-reveal-init-script
-	(concat org-re-reveal-init-script
-		",
-  anything: [
+  (emacs-reveal-add-to-init-script "anything: [
 	{className: \"animate\",  initialize: (function(container, options){
 		Reveal.addEventListener( 'fragmentshown', function( event ) {
 			if (typeof event.fragment.beginElement === \"function\" ) {
@@ -502,7 +511,7 @@ Org files."
 	 initialize: (function(container, options){
 	     container.addEventListener('click', function(e) { RevealNotes.open(); });
 	 }) }
-],")))
+]"))
 
 (when (member "Reveal.js-TOC-Progress" emacs-reveal-plugins)
   ;; Activate TOC progress plugin.
@@ -521,6 +530,12 @@ Org files."
   ;; Activate quiz plugin.
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
+
+(when (member "reveal.js-coursemod" emacs-reveal-plugins)
+  ;; Enable courseware plugin, but do not show it.
+  (emacs-reveal-add-to-init-script "coursemod: { enabled: true, shown: false }")
+  (add-to-list 'org-re-reveal-external-plugins
+	       (cons 'quiz "{ src: '%splugin/coursemod/coursemod.js', async: true }")))
 
 ;; Setup Bibliography in HTML based on default bib file (which helps to
 ;; locate the bib file when the current buffer does not specify one).
