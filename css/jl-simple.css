@@ -582,6 +582,8 @@ div.ribbon-legalese a {
 .reveal a[href^="#"]:not(.nooutlink):after,
 .reveal .figure a[href]:after, .reveal .src a[href]:after,
 .reveal a[href]:empty:after {
+  margin: 0;
+  padding-right: 0;
   content: none;
   background: none; }
 
