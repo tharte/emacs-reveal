@@ -275,11 +275,15 @@ body {
  *********************************************/
 
 div.legalese {
-  font-size: 2vh;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 1.4vh;
   position: fixed;
   left: 3px;
-  bottom: 0;
+  bottom: 3px;
   z-index: 50; }
+
+div.legalese p { margin: 0; }
+div.legalese a { text-decoration: none; }
 
 div.ribbon-legalese {
   z-index: 50;
