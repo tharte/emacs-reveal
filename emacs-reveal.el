@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 0.9.8
+;; Version: 0.9.9
 ;; Package-Requires: ((emacs "24.4") (org-re-reveal-ref "0.9.1"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
@@ -236,7 +236,7 @@ contained in this directory.")
 (defconst emacs-reveal-submodules-url
   "https://gitlab.com/oer/emacs-reveal-submodules.git"
   "Git URL for submodules of reveal.js and plugins.")
-(defconst emacs-reveal-submodules-version "0.9.0"
+(defconst emacs-reveal-submodules-version "0.9.1"
   "Version of submodules to check out.")
 (defconst emacs-reveal-buffer "*Emacs-reveal git output*"
   "Name of buffer holding git output.")
