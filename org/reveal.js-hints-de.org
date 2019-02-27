@@ -49,8 +49,9 @@ erzeugt und nutzen das HTML-Framework
 - Notizen
   - Folien enthalten Notizen, wenn das Ordner-Symbol dargestellt wird
     [[../../reveal.js/css/theme/folder_inbox.png]]
-    - Klick auf das Symbol sowie Taste „s“ öffnen Notizenansicht
-    - Pop-Ups müssen erlaubt werden
+    - Taste „v“ öffnet „Courseware-Ansicht“; alternativ öffnen Klick
+      auf das Symbol sowie Taste „s“ die Vortragsansicht
+      - Pop-Ups müssen für Vortragsansicht erlaubt werden
       - Wenn das Pop-Up-Fenster nicht funktioniert, kann es helfen,
         erneut „s“ zu drücken oder das Pop-Up-Fenster einmal zu schließen
   - Wenn die Folie eine Tonspur enthält, zeigen die Notizen den

@@ -50,8 +50,9 @@ and make use of the HTML presentation framework
   - Slides contain additional notes as plain text if you see the
     folder icon
     [[../../reveal.js/css/theme/folder_inbox.png]]
-    - Click on that icon or press “s” to see the “speaker notes view”
-    - You need to allow pop-ups
+    - Press “v” to open the “courseware view” or click on that icon or
+      press “s” to see the “speaker notes view”
+      - For the speaker notes view you need to allow pop-ups
       - If the pop-up window does not work, you may need to press “s”
         twice or close the pop-up window once
   - If the slide contains audio, the notes are a transcript of the
