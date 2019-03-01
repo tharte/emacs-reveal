@@ -41,9 +41,9 @@
 ;; browsers, also mobile and offline.
 ;;
 ;; Emacs-reveal grew out of a forked version of org-reveal
-;; (https://github.com/yjwen/org-reveal) when its development
-;; stopped.  This led to the creation of org-re-reveal and
-;; org-re-reveal-ref, upon which emacs-reveal is built.
+;; (https://github.com/yjwen/org-reveal) when its development stopped.
+;; This led to the creation of org-re-reveal and org-re-reveal-ref,
+;; upon which emacs-reveal is built.
 ;;
 ;; Just as org-reveal, emacs-reveal provides an export back-end for Org
 ;; mode (see https://orgmode.org/manual/Exporting.html).  As such, it
@@ -79,7 +79,7 @@
 ;;     - Install with the usual package mechanism or like
 ;;       this: emacs --batch --load install.el --funcall install
 ;;     - Or you could use this docker image:
-;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.2
+;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.3
 ;; (d) Add a line like this to ~/.emacs:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
 ;; (e) Emacs-reveal suggests that reveal.js and several of its plugins
@@ -94,8 +94,9 @@
 ;;
 ;; * Usage
 ;; Please check out the emacs-reveal howto mentioned above.  In
-;; particular, the howto contains Lisp code to publish reveal.js
-;; presentations from Org source files (in file elisp/publish.el).
+;; particular, the howto makes use of emacs-reveal-publish.el to
+;; publish reveal.js presentations from Org source files (in file
+;; elisp/publish.el).
 ;; Note that the HTML version of the howto is generated in a Docker
 ;; image on GitLab; its YML configuration shows the necessary steps
 ;; to generate and publish the project:
@@ -117,15 +118,8 @@
 ;; when initializing reveal.js.  If you use the version of reveal.js
 ;; coming with emacs-reveal, changes should not be necessary.
 ;;
-;; Variable `emacs-reveal-external-components' documents source
-;; locations for Git submodules related to reveal.js.
-;; Function `emacs-reveal-install' can be used to install those
-;; components (although this is not necessary when you follow the
-;; installation instructions).
-;;
-;; Variable `emacs-reveal-plugins' lists reveal.js plugins among
-;; `emacs-reveal-external-components' to be activated.  Remove those
-;; that you do not need.
+;; Variable `emacs-reveal-plugins' lists reveal.js plugins to be
+;; activated.  Remove those that you do not need.
 ;;
 ;; When generating image grids, `emacs-reveal-export-dir' specifies
 ;; the directory into which to generate CSS code.  This should
