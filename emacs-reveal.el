@@ -308,10 +308,12 @@ Output of Git goes to current buffer."
 		 (file-name-directory emacs-reveal-submodules-dir))))
     (unless (file-writable-p parent)
       (error "Directory to install submodules not writable: %s" parent))
-    (let ((default-directory parent))
-      (insert "Performing git clone...\n")
-      (call-process "git" nil t t "clone" emacs-reveal-submodules-url)
-      (insert "...done\n\n"))
+    (save-excursion
+      (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
+      (let ((default-directory parent))
+	(insert "Performing git clone...\n")
+	(call-process "git" nil t t "clone" emacs-reveal-submodules-url)
+	(insert "...done\n\n")))
     (unless (file-readable-p emacs-reveal-submodules-dir)
       (error "Cloning of submodules failed.  Directory not readable: %s"
 	     emacs-reveal-submodules-dir))))
@@ -323,7 +325,8 @@ the version `emacs-reveal-submodules-version'."
   (string=
    emacs-reveal-submodules-version
    (string-trim (shell-command-to-string
-		 (format "cd %s; git tag" emacs-reveal-submodules-dir)))))
+		 (format "cd %s; git describe --tags"
+			 emacs-reveal-submodules-dir)))))
 
 (defun emacs-reveal-update-submodules (&optional force)
   "Update submodules for this version of emacs-reveal.
@@ -333,15 +336,18 @@ Output of Git goes to current buffer."
     (error "Directory of submodules not writable: %s"
 	   emacs-reveal-submodules-dir))
   (when (or force (not (emacs-reveal-submodules-ok-p)))
-    (let ((default-directory emacs-reveal-submodules-dir))
-      (insert "Performing git pull and checkout...\n")
-      (call-process "git" nil t t "checkout" "master")
-      (call-process "git" nil t t "pull")
-      (call-process "git" nil t t "checkout" emacs-reveal-submodules-version)
-      (insert "...done\n\nPerforming submodule install...\n")
-      (call-process "git" nil t t "submodule" "sync" "--recursive")
-      (call-process "git" nil t t "submodule" "update" "--init" "--recursive")
-      (insert "...done\n\n")))
+    (save-excursion
+      (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
+      (let ((default-directory
+	      (file-name-as-directory emacs-reveal-submodules-dir)))
+	(insert "Performing git pull and checkout...\n")
+	(call-process "git" nil t t "checkout" "master")
+	(call-process "git" nil t t "pull")
+	(call-process "git" nil t t "checkout" emacs-reveal-submodules-version)
+	(insert "...done\n\nPerforming submodule install...\n")
+	(call-process "git" nil t t "submodule" "sync" "--recursive")
+	(call-process "git" nil t t "submodule" "update" "--init" "--recursive")
+	(insert "...done\n\n"))))
   (unless (emacs-reveal-submodules-ok-p)
     (error "Submodule update failed")))
 
@@ -349,10 +355,8 @@ Output of Git goes to current buffer."
   "Install reveal.js and plugins as submodules.
 Software is cloned from `emacs-reveal-submodules-url' into
 `emacs-reveal-submodules-dir'."
-  (save-excursion
-    (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
-    (emacs-reveal-clone-submodules)
-    (emacs-reveal-update-submodules t)))
+  (emacs-reveal-clone-submodules)
+  (emacs-reveal-update-submodules t))
 
 (defun emacs-reveal-setup-submodules ()
   "Install or update submodules of emacs-reveal."
