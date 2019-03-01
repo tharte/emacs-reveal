@@ -90,17 +90,18 @@ The setup is as follows:
      [my repository](https://gitlab.com/oer/org-re-reveal-ref))
    * Emacs library htmlize (for source code highlighting)
  * reveal.js
-   * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins.git)
+   * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins)
+   * [reveal.js-coursemod](https://github.com/Sonaryr/reveal.js-coursemod)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
-   * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
    * [reveal.js-quiz](https://gitlab.com/schaepermeier/reveal.js-quiz)
+   * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
  * LaTeX for PDF generation
 
 Emacs initialization code for the above is included in
 [the file `emacs-reveal.el`](emacs-reveal.el), which you can load
 from your `~/.emacs` (or embed there).
 
-This [Howto](https://gitlab.com/oer/emacs-reveal-howto) is a small
+A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
 sample presentation generated with emacs-reveal that explains how
 to use emacs-reveal.  Besides,
 the [README of org-re-reveal](https://gitlab.com/oer/org-re-reveal)
