@@ -235,10 +235,6 @@ Org files."
 	   (source-files (directory-files source-dir t "\\.org$")))
       (mapcar #'oer-reveal--generate-include-file source-files))))
 
-;; Setup and installation.
-(oer-reveal-setup-submodules)
-(oer-reveal-generate-include-files)
-
 ;; The following options are only relevant if you use
 ;; oer-reveal-export-image-grid to generate image grids.
 ;; Then, the options control in what directory generated CSS is saved.
@@ -262,30 +258,8 @@ Note that this filename is exported into a subdirectory of
 
 ;;; Configuration of various components.
 (require 'org)
-(require 'org-ref)
 (require 'org-re-reveal)
 (require 'org-re-reveal-ref)
-
-;; Enable configurable loading of JavaScript libraries.  By default,
-;; avoid loading of head.min.js, which does not exist any more.
-(setq org-re-reveal-script-files oer-reveal-script-files)
-
-;; Fix URL fragments to use valid IDs.
-(setq org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix)
-
-;; Setup url package with hyphens option.  This is done here to avoid
-;; option clashes when implicitly loading the package from hyperref.
-(add-to-list 'org-latex-default-packages-alist
- 	     (list "hyphens" "url" nil))
-
-;; Load float package.  This must come before hyperref to avoid
-;; warnings for figures: warning (ext4): destination with the same identifier
-(add-to-list 'org-latex-default-packages-alist
- 	     (list "" "float" nil))
-
-;;; Configure reveal.js plugins.
-;; Note that in the relative src-paths in org-re-reveal-external-plugins,
-;; %s is automatically replaced with org-re-reveal-root.
 
 (defun oer-reveal-add-to-init-script (initstring)
   "Add INITSTRING to `org-re-reveal-init-script'.
@@ -298,28 +272,31 @@ after comma; otherwise, just `setq' to INITSTRING."
 		    initstring)
 	  initstring)))
 
-;;(setq org-re-reveal-external-plugins nil)
-(when (member "reveal.js-plugins" oer-reveal-plugins)
-  ;; Activate audio-slideshow plugin, but not multiple times when speaker
-  ;; notes are shown.
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'audio-slideshow
-		     " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList && !Reveal.isSpeakerNotes(); } }"))
+(defun oer-reveal-setup-plugins ()
+  "Setup `org-re-reveal-external-plugins'.
+For elements of `oer-reveal-plugins', add initialization code to
+`org-re-reveal-external-plugins'."
+  (when (member "reveal.js-plugins" oer-reveal-plugins)
+    ;; Activate audio-slideshow plugin, but not multiple times when speaker
+    ;; notes are shown.
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'audio-slideshow
+		       " { src: '%splugin/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList && !Reveal.isSpeakerNotes(); } }"))
 
-  ;; Adjust audio-slideshow settings:
-  ;; - Do not advance after end of audio
-  ;; - Start playing audio automatically
-  ;; - Do not display controls if no local audio file is given
-  ;; - Increase opacity when unfocused (students found default too easy to miss)
-  ;; - Display audio controls at bottom left (to avoid overlap)
-  (oer-reveal-add-to-init-script "audio: {
+    ;; Adjust audio-slideshow settings:
+    ;; - Do not advance after end of audio
+    ;; - Start playing audio automatically
+    ;; - Do not display controls if no local audio file is given
+    ;; - Increase opacity when unfocused (students found default too easy to miss)
+    ;; - Display audio controls at bottom left (to avoid overlap)
+    (oer-reveal-add-to-init-script "audio: {
     advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
     playerStyle: 'position: fixed; bottom: 9.5vh; left: 0%; width: 30%; height:30px; z-index: 33;' }")
 
-  ;; Activate anything plugin.
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'anything " { src: '%splugin/anything/anything.js' }"))
-  (oer-reveal-add-to-init-script "anything: [
+    ;; Activate anything plugin.
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'anything " { src: '%splugin/anything/anything.js' }"))
+    (oer-reveal-add-to-init-script "anything: [
 	{className: \"animate\",  initialize: (function(container, options){
 		Reveal.addEventListener( 'fragmentshown', function( event ) {
 			if (typeof event.fragment.beginElement === \"function\" ) {
@@ -369,50 +346,29 @@ after comma; otherwise, just `setq' to INITSTRING."
 	 }) }
 ]"))
 
-(when (member "Reveal.js-TOC-Progress" oer-reveal-plugins)
-  ;; Activate TOC progress plugin.
-  ;; If there are lots of subsections, 'scroll'ing can be enabled or
-  ;; the font size can be 'reduce'd.  Go for the latter.
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'toc-progress
-		     " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }")))
+  (when (member "Reveal.js-TOC-Progress" oer-reveal-plugins)
+    ;; Activate TOC progress plugin.
+    ;; If there are lots of subsections, 'scroll'ing can be enabled or
+    ;; the font size can be 'reduce'd.  Go for the latter.
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'toc-progress
+		       " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }")))
 
-(when (member "reveal.js-jump-plugin" oer-reveal-plugins)
-  ;; Activate jump plugin.
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }")))
+  (when (member "reveal.js-jump-plugin" oer-reveal-plugins)
+    ;; Activate jump plugin.
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }")))
 
-(when (member "reveal.js-quiz" oer-reveal-plugins)
-  ;; Activate quiz plugin.
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
+  (when (member "reveal.js-quiz" oer-reveal-plugins)
+    ;; Activate quiz plugin.
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
 
-(when (member "reveal.js-coursemod" oer-reveal-plugins)
-  ;; Enable courseware plugin, but do not show it.
-  (oer-reveal-add-to-init-script "coursemod: { enabled: true, shown: false }")
-  (add-to-list 'org-re-reveal-external-plugins
-	       (cons 'quiz "{ src: '%splugin/coursemod/coursemod.js', async: true }")))
-
-;; Setup Bibliography in HTML based on default bib file (which helps to
-;; locate the bib file when the current buffer does not specify one).
-;; Display article, book, inproceedings differently.  Entry misc is new.
-;; Remaining entries are defaults.
-(setq org-ref-default-bibliography '("references.bib")
-      org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
-	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
-	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
-	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
-	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
-	("techreport" . "%a, %t, %i, %u (%y).")
-	("proceedings" . "%e, %t in %S, %u (%y).")
-	))
-
-;;; Use (only) CSS to style tables, enable non-org tables.
-(setq org-html-table-default-attributes nil)
-(require 'table)
-(setq table-html-th-rows 1
-      table-html-table-attribute "class=\"emacs-table\"")
+  (when (member "reveal.js-coursemod" oer-reveal-plugins)
+    ;; Enable courseware plugin, but do not show it.
+    (oer-reveal-add-to-init-script "coursemod: { enabled: true, shown: false }")
+    (add-to-list 'org-re-reveal-external-plugins
+		 (cons 'quiz "{ src: '%splugin/coursemod/coursemod.js', async: true }"))))
 
 ;;; Allow colored text.
 ;; The FAQ at http://orgmode.org/worg/org-faq.html contains a recipe
