@@ -232,8 +232,9 @@ returns the version `emacs-reveal-submodules-version'."
 
 (defun emacs-reveal-update-submodules (&optional force)
   "Update submodules for this version of emacs-reveal.
-If optional FORCE is non-nil, update even if tag indicates current version.
-Output of Git goes to current buffer."
+Do not update if `emacs-reveal-submodules-ok-p' returns t, unless
+optional FORCE is non-nil.
+Output of Git goes to buffer `emacs-reveal-buffer'."
   (unless (file-writable-p emacs-reveal-submodules-dir)
     (error "Directory of submodules not writable: %s"
 	   emacs-reveal-submodules-dir))
