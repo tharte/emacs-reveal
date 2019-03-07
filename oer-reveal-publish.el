@@ -23,9 +23,7 @@
 ;; If file "index.org" is present in the current directory (e.g., to
 ;; collect links to generated reveal.js presentations), it is added to
 ;; `org-publish-project-alist' for export to HTML (with the standard
-;; HTML export back-end).  HTML export is modified by
-;; `oer-reveal-publish-html-doctype' and
-;; `oer-reveal-publish-html-postamble'.
+;; HTML export back-end).
 ;; If existing, file "index.css" and directories among "audio",
 ;; "figures", "quizzes" are added to `org-publish-project-alist'
 ;; for export as attachment (copy).
@@ -35,18 +33,22 @@
 ;; Then, invoke publication based on your own publish.el:
 ;; emacs --batch --load publish.el --funcall oer-reveal-publish-all
 ;;
-;; Warning! By default, code below sets `org-confirm-babel-evaluate'
-;; to `oer-reveal-publish-confirm-evaluate', which defaults to nil.
+;; Warning!  By default, `oer-reveal-publish-all' sets
+;; `org-confirm-babel-evaluate' to `oer-reveal-publish-confirm-evaluate',
+;; which defaults to nil.
 ;; This enables automatic execution of code embedded in Org source
 ;; files.  This may be dangerous, but is useful for execution in batch
 ;; mode.  Set `oer-reveal-publish-confirm-evaluate' to t to be asked
 ;; for confirmation.
 ;;
+;; Function `org-reveal-publish-setq-defaults' uses `setq' to change
+;; various variables of other packages related to export to HTML and
+;; LaTeX.  Please check what it does before using it.
+;;
 ;; Inspired by publish.el by Rasmus:
 ;; https://gitlab.com/pages/org-mode/blob/master/publish.el
 
 ;;; Code:
-(package-initialize)
 (require 'org)
 (require 'ox-publish)
 (require 'oer-reveal)
@@ -122,6 +124,20 @@ Set to nil for default syntax highlighting."
   :group 'oer-reveal
   :type '(choice (const nil) function))
 
+(require 'table)
+(defun org-reveal-publish-setq-defaults ()
+  "Change various variables with `setq'."
+  (setq table-html-th-rows 1
+	table-html-table-attribute "class=\"emacs-table\""
+	org-html-table-default-attributes nil
+	org-html-doctype oer-reveal-publish-html-doctype
+	org-html-postamble oer-reveal-publish-html-postamble
+	org-latex-pdf-process oer-reveal-publish-pdf-process
+	oer-reveal-latex-figure-float oer-reveal-publish-figure-float
+	org-re-reveal-script-files oer-reveal-script-files
+	org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix
+  ))
+
 (defun oer-reveal-publish-all (&optional project-alist)
   "Configure settings and invoke `org-publish-all'.
 Apply settings for `oer-reveal', which influence export to reveal.js,
@@ -130,11 +146,7 @@ Optional PROJECT-ALIST defines additional projects to be added to
 `org-publish-project-alist'."
   (when oer-reveal-publish-faces-function
     (funcall oer-reveal-publish-faces-function))
-  (let ((org-latex-pdf-process oer-reveal-publish-pdf-process)
-	(oer-reveal-latex-figure-float oer-reveal-publish-figure-float)
-	(org-html-doctype oer-reveal-publish-html-doctype)
-	(org-html-postamble oer-reveal-publish-html-postamble)
-	(org-confirm-babel-evaluate oer-reveal-publish-confirm-evaluate)
+  (let ((org-confirm-babel-evaluate oer-reveal-publish-confirm-evaluate)
 
 	;; Export different parts of Org presentations to sub-directory
 	;; "public".  Org presentations are exported according to
