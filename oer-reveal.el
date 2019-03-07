@@ -101,7 +101,7 @@ You may want to use \"H\" with the float package."
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
 (defconst oer-reveal-submodules-url
-  "https://gitlab.com/oer/oer-reveal-submodules.git"
+  "https://gitlab.com/oer/emacs-reveal-submodules.git"
   "Git URL for submodules of reveal.js and plugins.")
 (defconst oer-reveal-submodules-version "0.9.1"
   "Version of submodules to check out.")
@@ -434,9 +434,9 @@ after comma; otherwise, just `setq' to INITSTRING."
 	     (format "{\\color{%s}%s}" path desc)))))
 
 ;;; Function to generate proper CC attribution for images.
-;; Function oer-reveal-export-attribution is used in macros in config.org.
-;; See oer-reveal-howto for sample use:
-;; https://gitlab.com/oer/oer-reveal-howto
+;; Function oer-reveal-export-attribution is used in macros in org/config.org.
+;; See emacs-reveal-howto for sample use:
+;; https://gitlab.com/oer/emacs-reveal-howto
 ;;;###autoload
 (defun oer-reveal-export-attribution (&rest args)
   "Generate HTML and LaTeX code for image with license attribution.
@@ -741,9 +741,9 @@ and whose cdr is the LaTeX representation."
 	       latexcaption))))))
 
 ;;; Function to create a grid of images with license information in HTML.
-;; Function oer-reveal-export-image-grid is used in macro in config.org.
-;; See oer-reveal-howto for sample use:
-;; https://gitlab.com/oer/oer-reveal-howto
+;; Function oer-reveal-export-image-grid is used in macro in org/config.org.
+;; See emacs-reveal-howto for sample use:
+;; https://gitlab.com/oer/emacs-reveal-howto
 ;;;###autoload
 (defun oer-reveal-export-image-grid (&rest args)
   "Generate HTML for image grid.
