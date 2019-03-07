@@ -1,4 +1,4 @@
-;;; emacs-reveal.el --- Configuration for and extension of org-re-reveal-ref  -*- lexical-binding: t; -*-
+;;; oer-reveal.el --- Configuration for and extension of org-re-reveal-ref  -*- lexical-binding: t; -*-
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
@@ -6,8 +6,8 @@
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
 ;; Author: Jens Lechtenbörger
-;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 0.9.9
+;; URL: https://gitlab.com/oer/oer-reveal
+;; Version: 0.9.0
 ;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.2") (org-re-reveal-ref "0.9.1"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
@@ -34,78 +34,12 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; The software emacs-reveal allows to create HTML presentations (with
-;; audio explanations if you wish) with reveal.js from Org mode files
-;; in GNU Emacs with org-re-reveal (a fork of org-reveal) and several
-;; reveal.js plugins.  Generated presentations are usable with standard
-;; browsers, also mobile and offline.
-;;
-;; Emacs-reveal grew out of a forked version of org-reveal
-;; (https://github.com/yjwen/org-reveal) when its development stopped.
-;; This led to the creation of org-re-reveal and org-re-reveal-ref,
-;; upon which emacs-reveal is built.
-;;
-;; Just as org-reveal, emacs-reveal provides an export back-end for Org
-;; mode (see https://orgmode.org/manual/Exporting.html).  As such, it
-;; comes with Org's separation of contents and layout, allowing to
-;; create presentations in a fashion similarly to Beamer LaTeX,
-;; including the use of BibTeX files for bibliographic notes (for
-;; classroom presentations), hyperlinks within and between
-;; presentations, and the generation of a keyword index.
-;; Beyond other similar projects, emacs-reveal comes with mechanisms
-;; (a) to add audio explanations to presentations and (b) to share
-;; free and open images and figures with proper attribution
-;; information for their inclusion in open educational resources
-;; (OER).  See there for OER presentations (HTML with reveal.js and
-;; PDF generated from Org files via LaTeX) for a university course on
-;; Operating Systems that are generated with emacs-reveal:
-;; https://oer.gitlab.io/OS/
-;;
-;; A howto for the use of emacs-reveal is available over there:
-;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/howto.org
-;; https://oer.gitlab.io/emacs-reveal-howto/howto.html (generated HTML)
-;;
-;; * Installation
-;; You need Git to use emacs-reveal.  See there:
-;; https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-;;
-;; Currently, emacs-reveal is only available from GitLab.
-;;
-;; Create a directory for your presentation(s)' Org source files.  In
-;; that directory:
-;; (a) git clone https://gitlab.com/oer/emacs-reveal.git
-;; (b) cd emacs-reveal
-;; (c) Make sure that Emacs package org-re-reveal-ref is installed.
-;;     - Install with the usual package mechanism or like
-;;       this: emacs --batch --load install.el --funcall install
-;;     - Or you could use this docker image:
-;;       registry.gitlab.com/oer/docker/debian-emacs-tex-org:v3.3
-;; (d) Add a line like this to ~/.emacs:
-;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
-;; (e) Emacs-reveal suggests that reveal.js and several of its plugins
-;;     are installed in the directory specified by customizable
-;;     variable `emacs-reveal-submodules-dir'.
-;;     Upon first loading in Emacs, emacs-reveal offers to download
-;;     necessary software via Git for you.
-;;     Also, (aiming for installation via MELPA one day) you may
-;;     customize `emacs-reveal-generate-org-includes-p' to
-;;     generate include files for shipped Org config files in the
-;;     stable location specified by `emacs-reveal-org-includes-dir'.
+;; TODO
 ;;
 ;; * Usage
-;; Please check out the emacs-reveal howto mentioned above.  In
-;; particular, the howto makes use of emacs-reveal-publish.el to
-;; publish reveal.js presentations from Org source files (in file
-;; elisp/publish.el).
-;; Note that the HTML version of the howto is generated in a Docker
-;; image on GitLab; its YML configuration shows the necessary steps
-;; to generate and publish the project:
-;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
-;;
-;; Variable `emacs-reveal-dir' points to the directory of emacs-reveal
+;; Variable `oer-reveal-dir' points to the directory of oer-reveal
 ;; and its embedded plugins and resources.  You may want to use that
-;; variable in your own publication code (similarly to its use in
-;; elisp/publish.el of the howto).  Note that subdirectory
+;; variable in your own publication code.  Note that subdirectory
 ;; "title-slide" contains some variants for title slides of
 ;; presentations, and subdirectory "css" contains sample CSS.
 ;; Subdirectory "org" contains Org files to embed in presentations.
@@ -114,35 +48,35 @@
 ;; You may want to work with your own copies.
 ;;
 ;; * Customizable options
-;; Variable `emacs-reveal-script-files' lists JavaScript files to load
+;; Variable `oer-reveal-script-files' lists JavaScript files to load
 ;; when initializing reveal.js.  If you use the version of reveal.js
-;; coming with emacs-reveal, changes should not be necessary.
+;; coming with oer-reveal, changes should not be necessary.
 ;;
-;; Variable `emacs-reveal-plugins' lists reveal.js plugins to be
+;; Variable `oer-reveal-plugins' lists reveal.js plugins to be
 ;; activated.  Remove those that you do not need.
 ;;
-;; When generating image grids, `emacs-reveal-export-dir' specifies
+;; When generating image grids, `oer-reveal-export-dir' specifies
 ;; the directory into which to generate CSS code.  This should
 ;; probably be the directory into which you publish your HTML code.
 ;; I set this to "./" before exporting with `C-c C-e v b' (or a
 ;; similar key binding, which depends on the version of the export
 ;; back-end).
 ;; The names of CSS files are determined by
-;; `emacs-reveal-css-filename-template'.
+;; `oer-reveal-css-filename-template'.
 
 ;;; Code:
 (require 'cl-lib) ; cl-mapcar
 (require 'subr-x) ; string-trim
 
 ;; Customizable options
-(defcustom emacs-reveal-script-files '("js/reveal.js")
+(defcustom oer-reveal-script-files '("js/reveal.js")
   "Value to apply to `org-re-reveal-script-files'.
 By default, `org-re-reveal' also loads head.min.js, which has been removed
 from the dev branch of reveal.js on 2018-10-04."
-  :group 'emacs-reveal
+  :group 'oer-reveal
   :type '(repeat string))
 
-(defcustom emacs-reveal-plugins
+(defcustom oer-reveal-plugins
   '("reveal.js-plugins" "Reveal.js-TOC-Progress" "reveal.js-jump-plugin"
     "reveal.js-quiz" "reveal.js-coursemod")
   "List of `plugin' components to initialize.
@@ -150,180 +84,180 @@ Each element here is supposed to be the directory name of the plugin.
 If you remove a plugin from this list, it will no longer be initialized.
 If you add plugins to this list, you need to provide suitable
 initialization code yourself.  (E.g., see the code concerning
-\"reveal.js-plugins\" in the file defining `emacs-reveal-plugins'.)"
-  :group 'emacs-reveal
+\"reveal.js-plugins\" in the file defining `oer-reveal-plugins'.)"
+  :group 'oer-reveal
   :type '(repeat string))
 
-(defcustom emacs-reveal-latex-figure-float "htp"
+(defcustom oer-reveal-latex-figure-float "htp"
   "Define position for floating figures in LaTeX export.
 You may want to use \"H\" with the float package."
-  :group 'emacs-reveal
+  :group 'oer-reveal
   :type 'string)
 
 ;; Variables about installation location and reveal.js plugins follow.
-(defconst emacs-reveal-dir
+(defconst oer-reveal-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
-  "Directory of emacs-reveal containing code and resources.
+  "Directory of oer-reveal containing code and resources.
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
-(defconst emacs-reveal-submodules-url
-  "https://gitlab.com/oer/emacs-reveal-submodules.git"
+(defconst oer-reveal-submodules-url
+  "https://gitlab.com/oer/oer-reveal-submodules.git"
   "Git URL for submodules of reveal.js and plugins.")
-(defconst emacs-reveal-submodules-version "0.9.1"
+(defconst oer-reveal-submodules-version "0.9.1"
   "Version of submodules to check out.")
-(defconst emacs-reveal-buffer "*Emacs-reveal git output*"
+(defconst oer-reveal-buffer "*oer-reveal git output*"
   "Name of buffer holding Git output.")
-(defcustom emacs-reveal-submodules-dir
+(defcustom oer-reveal-submodules-dir
   (concat (file-name-as-directory user-emacs-directory)
 	  (file-name-sans-extension
-	   (file-name-nondirectory emacs-reveal-submodules-url)))
-  "Directory with submodules of emacs-reveal.
+	   (file-name-nondirectory oer-reveal-submodules-url)))
+  "Directory with submodules of oer-reveal.
 Submodules include reveal.js and its plugins.
 If this directory does not exist, installation is offered.
 If this directory exists, it must have been cloned via git from
-`emacs-reveal-submodules-url'.  If that condition is violated, strange
+`oer-reveal-submodules-url'.  If that condition is violated, strange
 things may happen.
 This directory must not be a relative path (but can start with \"~\")."
-  :group 'emacs-reveal
+  :group 'oer-reveal
   :type 'directory)
 
 ;; Variables to control generation of files to include Org files.
-(defcustom emacs-reveal-generate-org-includes-p nil
+(defcustom oer-reveal-generate-org-includes-p nil
   "Set to t for question whether to generate include files upon loading.
-Used in `emacs-reveal-generate-include-files'."
-  :group 'emacs-reveal
+Used in `oer-reveal-generate-include-files'."
+  :group 'oer-reveal
   :type 'boolean)
 
-(defcustom emacs-reveal-org-includes-dir
-  (concat (file-name-as-directory user-emacs-directory) "emacs-reveal-org")
-  "Target directory for `emacs-reveal-generate-include-files'."
-  :group 'emacs-reveal
+(defcustom oer-reveal-org-includes-dir
+  (concat (file-name-as-directory user-emacs-directory) "oer-reveal-org")
+  "Target directory for `oer-reveal-generate-include-files'."
+  :group 'oer-reveal
   :type 'directory)
 
 ;; Functions to install and update submodules.
-(defun emacs-reveal-clone-submodules ()
-  "Clone submodules from `emacs-reveal-submodules-url'.
-Target directory is `emacs-reveal-submodules-dir'.
-Output of Git goes to buffer `emacs-reveal-buffer'."
+(defun oer-reveal-clone-submodules ()
+  "Clone submodules from `oer-reveal-submodules-url'.
+Target directory is `oer-reveal-submodules-dir'.
+Output of Git goes to buffer `oer-reveal-buffer'."
   (let ((parent (directory-file-name
-		 (file-name-directory emacs-reveal-submodules-dir))))
+		 (file-name-directory oer-reveal-submodules-dir))))
     (unless (file-writable-p parent)
       (error "Directory to install submodules not writable: %s" parent))
     (save-excursion
-      (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
+      (pop-to-buffer (get-buffer-create oer-reveal-buffer) nil t)
       (let ((default-directory parent))
 	(insert "Performing git clone...\n")
-	(call-process "git" nil t t "clone" emacs-reveal-submodules-url)
+	(call-process "git" nil t t "clone" oer-reveal-submodules-url)
 	(insert "...done\n\n")))
-    (unless (file-readable-p emacs-reveal-submodules-dir)
+    (unless (file-readable-p oer-reveal-submodules-dir)
       (error "Cloning of submodules failed.  Directory not readable: %s"
-	     emacs-reveal-submodules-dir))))
+	     oer-reveal-submodules-dir))))
 
-(defun emacs-reveal-submodules-ok-p ()
+(defun oer-reveal-submodules-ok-p ()
   "Return t if submodules have correct version.
-Check that \"git describe --tags\" in `emacs-reveal-submodules-dir'
-returns the version `emacs-reveal-submodules-version'."
+Check that \"git describe --tags\" in `oer-reveal-submodules-dir'
+returns the version `oer-reveal-submodules-version'."
   (string=
-   emacs-reveal-submodules-version
+   oer-reveal-submodules-version
    (string-trim (shell-command-to-string
 		 (format "cd %s; git describe --tags"
 			 (shell-quote-argument
-			  (expand-file-name emacs-reveal-submodules-dir)))))))
+			  (expand-file-name oer-reveal-submodules-dir)))))))
 
-(defun emacs-reveal-update-submodules (&optional force)
-  "Update submodules for this version of emacs-reveal.
-Do not update if `emacs-reveal-submodules-ok-p' returns t, unless
+(defun oer-reveal-update-submodules (&optional force)
+  "Update submodules for this version of oer-reveal.
+Do not update if `oer-reveal-submodules-ok-p' returns t, unless
 optional FORCE is non-nil.
-Output of Git goes to buffer `emacs-reveal-buffer'."
-  (unless (file-writable-p emacs-reveal-submodules-dir)
+Output of Git goes to buffer `oer-reveal-buffer'."
+  (unless (file-writable-p oer-reveal-submodules-dir)
     (error "Directory of submodules not writable: %s"
-	   emacs-reveal-submodules-dir))
-  (when (or force (not (emacs-reveal-submodules-ok-p)))
+	   oer-reveal-submodules-dir))
+  (when (or force (not (oer-reveal-submodules-ok-p)))
     (save-excursion
-      (pop-to-buffer (get-buffer-create emacs-reveal-buffer) nil t)
+      (pop-to-buffer (get-buffer-create oer-reveal-buffer) nil t)
       (let ((default-directory
-	      (file-name-as-directory emacs-reveal-submodules-dir)))
+	      (file-name-as-directory oer-reveal-submodules-dir)))
 	(insert "Performing git pull and checkout...\n")
 	(call-process "git" nil t t "checkout" "master")
 	(call-process "git" nil t t "pull")
-	(call-process "git" nil t t "checkout" emacs-reveal-submodules-version)
+	(call-process "git" nil t t "checkout" oer-reveal-submodules-version)
 	(insert "...done\n\nPerforming submodule install...\n")
 	(call-process "git" nil t t "submodule" "sync" "--recursive")
 	(call-process "git" nil t t "submodule" "update" "--init" "--recursive")
 	(insert "...done\n\n"))))
-  (unless (emacs-reveal-submodules-ok-p)
+  (unless (oer-reveal-submodules-ok-p)
     (error "Submodule update failed")))
 
-(defun emacs-reveal-install-submodules ()
+(defun oer-reveal-install-submodules ()
   "Install reveal.js and plugins as submodules.
-Software is cloned from `emacs-reveal-submodules-url' into
-`emacs-reveal-submodules-dir'."
-  (emacs-reveal-clone-submodules)
-  (emacs-reveal-update-submodules t))
+Software is cloned from `oer-reveal-submodules-url' into
+`oer-reveal-submodules-dir'."
+  (oer-reveal-clone-submodules)
+  (oer-reveal-update-submodules t))
 
-(defun emacs-reveal-setup-submodules ()
-  "Install or update submodules of emacs-reveal."
+(defun oer-reveal-setup-submodules ()
+  "Install or update submodules of oer-reveal."
   (interactive)
-  (if (file-exists-p emacs-reveal-submodules-dir)
-      (emacs-reveal-update-submodules)
-    (when (y-or-n-p (format "Directory \"%s\" for reveal.js and plugins does not exist.  Type \"y\" to have it set up for you (needs to download about 26 MB).  Type \"n\" to install necessary submodules yourself or customize `emacs-reveal-submodules-dir'.  Your choice? "
-			    emacs-reveal-submodules-dir))
-      (emacs-reveal-install-submodules))))
+  (if (file-exists-p oer-reveal-submodules-dir)
+      (oer-reveal-update-submodules)
+    (when (y-or-n-p (format "Directory \"%s\" for reveal.js and plugins does not exist.  Type \"y\" to have it set up for you (needs to download about 26 MB).  Type \"n\" to install necessary submodules yourself or customize `oer-reveal-submodules-dir'.  Your choice? "
+			    oer-reveal-submodules-dir))
+      (oer-reveal-install-submodules))))
 
-(defun emacs-reveal--generate-include-file (source-file)
+(defun oer-reveal--generate-include-file (source-file)
   "Generate include file for SOURCE-FILE.
-Resulting file is stored under `emacs-reveal-org-includes-dir'."
+Resulting file is stored under `oer-reveal-org-includes-dir'."
   (let* ((source-base (file-name-nondirectory source-file))
 	 (target-file (concat
-		       (file-name-as-directory emacs-reveal-org-includes-dir)
+		       (file-name-as-directory oer-reveal-org-includes-dir)
 		       source-base)))
     (with-temp-file target-file
       (insert (format "# Generated file.  Will be overwritten without warning.
 #+INCLUDE: \"%s\"" source-file)))))
 
-(defun emacs-reveal-generate-include-files ()
-  "Generate files that include Org configuration files of emacs-reveal.
-If `emacs-reveal-org-includes-dir' does not exist and
-`emacs-reveal-generate-org-includes-p' is t, ask user whether that directory
+(defun oer-reveal-generate-include-files ()
+  "Generate files that include Org configuration files of oer-reveal.
+If `oer-reveal-org-includes-dir' does not exist and
+`oer-reveal-generate-org-includes-p' is t, ask user whether that directory
 should be created to store generated files.
 This provides a stable location for \"#+INCLUDE\" statements in your
 Org files."
   (catch 'aborted
-    (if (not (file-exists-p emacs-reveal-org-includes-dir))
-	(if (or (not emacs-reveal-generate-org-includes-p)
+    (if (not (file-exists-p oer-reveal-org-includes-dir))
+	(if (or (not oer-reveal-generate-org-includes-p)
 		(not (y-or-n-p
-		      (format "Directory \"%s\" does not exist.  Create and populate for you (if not, maybe customize `emacs-reveal-generate-org-includes-p')? "
-			      emacs-reveal-org-includes-dir))))
+		      (format "Directory \"%s\" does not exist.  Create and populate for you (if not, maybe customize `oer-reveal-generate-org-includes-p')? "
+			      oer-reveal-org-includes-dir))))
 	    (throw 'aborted nil)
-	  (make-directory emacs-reveal-org-includes-dir t)))
+	  (make-directory oer-reveal-org-includes-dir t)))
     (let* ((source-dir (concat (file-name-as-directory
-				(expand-file-name emacs-reveal-dir)) "org"))
+				(expand-file-name oer-reveal-dir)) "org"))
 	   (source-files (directory-files source-dir t "\\.org$")))
-      (mapcar #'emacs-reveal--generate-include-file source-files))))
+      (mapcar #'oer-reveal--generate-include-file source-files))))
 
 ;; Setup and installation.
-(emacs-reveal-setup-submodules)
-(emacs-reveal-generate-include-files)
+(oer-reveal-setup-submodules)
+(oer-reveal-generate-include-files)
 
 ;; The following options are only relevant if you use
-;; emacs-reveal-export-image-grid to generate image grids.
+;; oer-reveal-export-image-grid to generate image grids.
 ;; Then, the options control in what directory generated CSS is saved.
-(defcustom emacs-reveal-export-dir "public/"
+(defcustom oer-reveal-export-dir "public/"
   "Directory into which HTML, CSS, and Javascript is published.
 The default supposes that `org-publish-all' publishes into a
 subdirectory of `public/'.
 This is only used to publish CSS of image grids with
-`emacs-reveal-export-image-grid'."
-  :group 'emacs-reveal
+`oer-reveal-export-image-grid'."
+  :group 'oer-reveal
   :type 'directory)
 
-(defcustom emacs-reveal-css-filename-template
+(defcustom oer-reveal-css-filename-template
   "figures/internal_grid_css/grid%s.css"
   "Template for filename of CSS generated for image grid.
 This must contain `%s' as placeholder for the grid's identifier.
 Note that this filename is exported into a subdirectory of
-`emacs-reveal-export-dir' under the current directory."
-  :group 'emacs-reveal
+`oer-reveal-export-dir' under the current directory."
+  :group 'oer-reveal
   :type 'string)
 
 ;;; Configuration of various components.
@@ -334,7 +268,7 @@ Note that this filename is exported into a subdirectory of
 
 ;; Enable configurable loading of JavaScript libraries.  By default,
 ;; avoid loading of head.min.js, which does not exist any more.
-(setq org-re-reveal-script-files emacs-reveal-script-files)
+(setq org-re-reveal-script-files oer-reveal-script-files)
 
 ;; Fix URL fragments to use valid IDs.
 (setq org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix)
@@ -353,7 +287,7 @@ Note that this filename is exported into a subdirectory of
 ;; Note that in the relative src-paths in org-re-reveal-external-plugins,
 ;; %s is automatically replaced with org-re-reveal-root.
 
-(defun emacs-reveal-add-to-init-script (initstring)
+(defun oer-reveal-add-to-init-script (initstring)
   "Add INITSTRING to `org-re-reveal-init-script'.
 If `org-re-reveal-init-script' is a non-empty string, concatenate INITSTRING
 after comma; otherwise, just `setq' to INITSTRING."
@@ -365,7 +299,7 @@ after comma; otherwise, just `setq' to INITSTRING."
 	  initstring)))
 
 ;;(setq org-re-reveal-external-plugins nil)
-(when (member "reveal.js-plugins" emacs-reveal-plugins)
+(when (member "reveal.js-plugins" oer-reveal-plugins)
   ;; Activate audio-slideshow plugin, but not multiple times when speaker
   ;; notes are shown.
   (add-to-list 'org-re-reveal-external-plugins
@@ -378,14 +312,14 @@ after comma; otherwise, just `setq' to INITSTRING."
   ;; - Do not display controls if no local audio file is given
   ;; - Increase opacity when unfocused (students found default too easy to miss)
   ;; - Display audio controls at bottom left (to avoid overlap)
-  (emacs-reveal-add-to-init-script "audio: {
+  (oer-reveal-add-to-init-script "audio: {
     advance: -1, autoplay: true, defaultDuration: 0, playerOpacity: 0.3,
     playerStyle: 'position: fixed; bottom: 9.5vh; left: 0%; width: 30%; height:30px; z-index: 33;' }")
 
   ;; Activate anything plugin.
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'anything " { src: '%splugin/anything/anything.js' }"))
-  (emacs-reveal-add-to-init-script "anything: [
+  (oer-reveal-add-to-init-script "anything: [
 	{className: \"animate\",  initialize: (function(container, options){
 		Reveal.addEventListener( 'fragmentshown', function( event ) {
 			if (typeof event.fragment.beginElement === \"function\" ) {
@@ -435,7 +369,7 @@ after comma; otherwise, just `setq' to INITSTRING."
 	 }) }
 ]"))
 
-(when (member "Reveal.js-TOC-Progress" emacs-reveal-plugins)
+(when (member "Reveal.js-TOC-Progress" oer-reveal-plugins)
   ;; Activate TOC progress plugin.
   ;; If there are lots of subsections, 'scroll'ing can be enabled or
   ;; the font size can be 'reduce'd.  Go for the latter.
@@ -443,19 +377,19 @@ after comma; otherwise, just `setq' to INITSTRING."
 	       (cons 'toc-progress
 		     " { src: '%splugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize('reduce', 'rgba(120,138,130,0.2)'); toc_progress.create(); } }")))
 
-(when (member "reveal.js-jump-plugin" emacs-reveal-plugins)
+(when (member "reveal.js-jump-plugin" oer-reveal-plugins)
   ;; Activate jump plugin.
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'jump "{ src: '%splugin/jump/jump.js', async: true }")))
 
-(when (member "reveal.js-quiz" emacs-reveal-plugins)
+(when (member "reveal.js-quiz" oer-reveal-plugins)
   ;; Activate quiz plugin.
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'quiz "{ src: '%splugin/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true}); } }")))
 
-(when (member "reveal.js-coursemod" emacs-reveal-plugins)
+(when (member "reveal.js-coursemod" oer-reveal-plugins)
   ;; Enable courseware plugin, but do not show it.
-  (emacs-reveal-add-to-init-script "coursemod: { enabled: true, shown: false }")
+  (oer-reveal-add-to-init-script "coursemod: { enabled: true, shown: false }")
   (add-to-list 'org-re-reveal-external-plugins
 	       (cons 'quiz "{ src: '%splugin/coursemod/coursemod.js', async: true }")))
 
@@ -500,13 +434,13 @@ after comma; otherwise, just `setq' to INITSTRING."
 	     (format "{\\color{%s}%s}" path desc)))))
 
 ;;; Function to generate proper CC attribution for images.
-;; Function emacs-reveal-export-attribution is used in macros in config.org.
-;; See emacs-reveal-howto for sample use:
-;; https://gitlab.com/oer/emacs-reveal-howto
+;; Function oer-reveal-export-attribution is used in macros in config.org.
+;; See oer-reveal-howto for sample use:
+;; https://gitlab.com/oer/oer-reveal-howto
 ;;;###autoload
-(defun emacs-reveal-export-attribution (&rest args)
+(defun oer-reveal-export-attribution (&rest args)
   "Generate HTML and LaTeX code for image with license attribution.
-Essentially, this function calls `emacs-reveal--export-attribution-helper'
+Essentially, this function calls `oer-reveal--export-attribution-helper'
 \(where arguments ARGS are documented), but makes sure that macro
 arguments are properly expanded to work with all Org versions,
 also after an incompatible change with Org 9.2."
@@ -515,12 +449,12 @@ also after an incompatible change with Org 9.2."
   ;; (You don't start file names with quotation marks, do you?)
   (let ((metadata (car args)))
     (if (string-prefix-p "\"" metadata)
-	(apply #'emacs-reveal--export-attribution-helper
-	       (mapcar #'emacs-reveal--read-from-string args))
-      (apply #'emacs-reveal--export-attribution-helper args))))
+	(apply #'oer-reveal--export-attribution-helper
+	       (mapcar #'oer-reveal--read-from-string args))
+      (apply #'oer-reveal--export-attribution-helper args))))
 
-(defun emacs-reveal--check-symbol (object)
-  "Helper function for `emacs-reveal--read-from-string'.
+(defun oer-reveal--check-symbol (object)
+  "Helper function for `oer-reveal--read-from-string'.
 Different Org versions treat macro arguments differently.  Check whether
 OBJECT is a quoted symbol, where no quoting is necessary.  Notify user
 if applicable.  Raise `user-error' in case of unknown type."
@@ -533,7 +467,7 @@ if applicable.  Raise `user-error' in case of unknown type."
 	(cadr object))
     (user-error "Unexpected type `%s' in `%s'" (type-of object) object)))
 
-(defun emacs-reveal--read-from-string (object)
+(defun oer-reveal--read-from-string (object)
   "Undo potential quoting in OBJECT for strings with Org 9.2.
 If OBJECT is a string, then use `read-from-string' to return
 a boolean, integer, string, or symbol.
@@ -545,10 +479,10 @@ If OBJECT is not a string, return it unchanged."
 	  (if (or (booleanp first) (integerp first) (stringp first)
 		  (symbolp first))
 	      first
-	    (emacs-reveal--check-symbol first))))
+	    (oer-reveal--check-symbol first))))
     object))
 
-(defun emacs-reveal--export-attribution-helper
+(defun oer-reveal--export-attribution-helper
     (metadata
      &optional caption maxheight divclasses shortlicense embed-svg)
   "Display image from METADATA.
@@ -567,13 +501,13 @@ If present, optional DIVCLASSES must be a string with space separated
 classes for the div element, including `figure'.
 If optional SHORTLICENSE is the symbol `none', do not display license
 text (useful if image license agrees with document license);
-if it is t, display license based on `emacs-reveal--short-license-template'
+if it is t, display license based on `oer-reveal--short-license-template'
 \(instead of default (long) license text).
 If optional EMBED-SVG is non-nil, embed XML code of SVG image directly.  In
 this case, the maximum height on the image does not have any effect.
 For LaTeX, the METADATA file may specify a texwidth, which is embedded in
 the width specification as fraction of `linewidth'; 0.9 by default."
-  (let ((org (emacs-reveal--attribution-strings
+  (let ((org (oer-reveal--attribution-strings
 	      metadata caption maxheight divclasses shortlicense embed-svg)))
     (concat (if caption
 		(concat "@@html: </p><div class=\"imgcontainer\">"
@@ -583,25 +517,25 @@ the width specification as fraction of `linewidth'; 0.9 by default."
 	    "\n"
 	    (cdr org))))
 
-(defvar emacs-reveal--short-license-template "[[%s][Figure]] under [[%s][%s]]")
-(defvar emacs-reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
-(defvar emacs-reveal--svg-div-template  "<div about=\"%s\" class=\"%s\"><p>%s</p>%s%s</div>")
-(defvar emacs-reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[%s] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
-(defvar emacs-reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[%s] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
-(defvar emacs-reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} External figure \\textbf{not} included: %s \\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
-(defvar emacs-reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} Figure omitted as %s format \\textbf{not} supported in \\LaTeX: “%s”\\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
-(defvar emacs-reveal--unsupported-tex-figure-formats '("gif"))
+(defvar oer-reveal--short-license-template "[[%s][Figure]] under [[%s][%s]]")
+(defvar oer-reveal--figure-div-template  "<div about=\"%s\" class=\"%s\"><p><img src=\"%s\" alt=\"%s\" %s/></p>%s%s</div>")
+(defvar oer-reveal--svg-div-template  "<div about=\"%s\" class=\"%s\"><p>%s</p>%s%s</div>")
+(defvar oer-reveal--figure-latex-caption-template "#+BEGIN_EXPORT latex\n\\begin{figure}[%s] \\centering\n  \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s (%s)}\n  \\end{figure}\n#+END_EXPORT\n")
+(defvar oer-reveal--figure-latex-template "         #+BEGIN_EXPORT latex\n     \\begin{figure}[%s] \\centering\n       \\includegraphics[width=%s\\linewidth]{%s} \\caption{%s}\n     \\end{figure}\n         #+END_EXPORT\n")
+(defvar oer-reveal--figure-external-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} External figure \\textbf{not} included: %s \\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
+(defvar oer-reveal--figure-unsupported-latex-template "         #+BEGIN_EXPORT latex\n     \\textbf{Warning!} Figure omitted as %s format \\textbf{not} supported in \\LaTeX: “%s”\\newline (See HTML presentation instead.)\n         #+END_EXPORT\n")
+(defvar oer-reveal--unsupported-tex-figure-formats '("gif"))
 
 ;; Image grid variables
-(defvar emacs-reveal--css-grid-img-class-template "grid%s-img%d"
+(defvar oer-reveal--css-grid-img-class-template "grid%s-img%d"
   "Template for name of grid class.")
-(defvar emacs-reveal--css-grid-img-template
-  (concat "." emacs-reveal--css-grid-img-class-template
+(defvar oer-reveal--css-grid-img-template
+  (concat "." oer-reveal--css-grid-img-class-template
 	  " { grid-area: ga%d; }")
   "Template for CSS of img element.")
-(defvar emacs-reveal--css-repeat-template "repeat(%s, 1fr)"
+(defvar oer-reveal--css-repeat-template "repeat(%s, 1fr)"
   "Template for size of rows and columns.")
-(defvar emacs-reveal--css-grid-template ".grid%s {
+(defvar oer-reveal--css-grid-template ".grid%s {
   display: grid;
   height: %svh;
   grid-template-columns: %s;
@@ -611,42 +545,42 @@ the width specification as fraction of `linewidth'; 0.9 by default."
   grid-template-areas: %s; }
 "
   "Template for CSS of grid.")
-(defvar emacs-reveal--css-grid-img-all ".grid-img img {
+(defvar oer-reveal--css-grid-img-all ".grid-img img {
   max-width: 90%; }
 "
   "CSS for all images of grid.")
 
-(defun emacs-reveal--export-figure-latex
+(defun oer-reveal--export-figure-latex
     (filename texwidth texfilename texlicense &optional latexcaption)
   "Generate LaTeX for figure at FILENAME.
 If FILENAME is a full HTTP(S) URL, use
-`emacs-reveal--figure-external-latex-template' as placeholder.
+`oer-reveal--figure-external-latex-template' as placeholder.
 If FILENAME has an unsupported extension (included in
-`emacs-reveal--unsupported-tex-figure-formats'), use
-`emacs-reveal--figure-unsupported-latex-template' as placeholder.
+`oer-reveal--unsupported-tex-figure-formats'), use
+`oer-reveal--figure-unsupported-latex-template' as placeholder.
 Otherwise, include graphics at TEXFILENAME of width TEXWIDTH
 with caption TEXLICENSE.  Optional LATEXCAPTION determines whether
-`emacs-reveal--figure-latex-template' or
-`emacs-reveal--figure-latex-caption-template' is used to generate LaTeX code."
+`oer-reveal--figure-latex-template' or
+`oer-reveal--figure-latex-caption-template' is used to generate LaTeX code."
   (cond ((string-match-p "^https?://" filename)
-	 (format emacs-reveal--figure-external-latex-template texlicense))
+	 (format oer-reveal--figure-external-latex-template texlicense))
 	((member (file-name-extension filename)
-		 emacs-reveal--unsupported-tex-figure-formats)
-	 (format emacs-reveal--figure-unsupported-latex-template
+		 oer-reveal--unsupported-tex-figure-formats)
+	 (format oer-reveal--figure-unsupported-latex-template
 		 (file-name-extension filename) texlicense))
 	(latexcaption
-	 (format emacs-reveal--figure-latex-caption-template
-		 emacs-reveal-latex-figure-float
+	 (format oer-reveal--figure-latex-caption-template
+		 oer-reveal-latex-figure-float
 		 texwidth texfilename latexcaption texlicense))
-	(t (format emacs-reveal--figure-latex-template
-		   emacs-reveal-latex-figure-float
+	(t (format oer-reveal--figure-latex-template
+		   oer-reveal-latex-figure-float
 		   texwidth texfilename texlicense))))
 
-(defun emacs-reveal--export-figure-html
+(defun oer-reveal--export-figure-html
     (filename divclasses htmlcaption htmllicense imgalt h-image
 	      &optional embed-svg)
   "Generate HTML for figure at FILENAME.
-DIVCLASSES is passed from `emacs-reveal-export-attribution',
+DIVCLASSES is passed from `oer-reveal-export-attribution',
 HTMLCAPTION and HTMLLICENSE caption and license information for
 the figure in HTML format.
 If optional EMBED-SVG is non-nil, the file must be an SVG image
@@ -655,8 +589,8 @@ single file export is requested, which fails if a H-IMAGE is given.
 Otherwise, an img tag is used, for which optional parameter IMGALT provides
 the text for the alt attribute, while H-IMAGE specifies the height of the
 image.
-Templates `emacs-reveal--svg-div-template' and
-`emacs-reveal--figure-div-template'specify the general HTML format."
+Templates `oer-reveal--svg-div-template' and
+`oer-reveal--figure-div-template'specify the general HTML format."
   (let* ((extension (file-name-extension filename))
 	 (external (string-match-p "^https?://" filename))
 	 (issvg (and (string= "svg" extension) (not external)))
@@ -667,11 +601,11 @@ Templates `emacs-reveal--svg-div-template' and
 		    filename)
       (if embed-svg
 	  ;; Embed SVG's XML directly.
-	  (format emacs-reveal--svg-div-template
+	  (format oer-reveal--svg-div-template
 		  filename divclasses
-		  (emacs-reveal--file-as-string filename t)
+		  (oer-reveal--file-as-string filename t)
 		  htmlcaption htmllicense)
-	(format emacs-reveal--figure-div-template
+	(format oer-reveal--figure-div-template
 		filename divclasses
 		(if (and issingle (not external))
 		    ;; Insert base64 encoded image as single line.
@@ -683,14 +617,14 @@ Templates `emacs-reveal--svg-div-template' and
 		  filename)
 		imgalt h-image htmlcaption htmllicense)))))
 
-(defun emacs-reveal--export-no-newline (string backend)
+(defun oer-reveal--export-no-newline (string backend)
   "Call `org-export-string-as' on STRING, BACKEND, and t;
 remove newline characters and, in case of HTML, surrounding p tags,
 and return as result."
   (replace-regexp-in-string "\n\\|<p>\\|</p>" " "
 			    (org-export-string-as string backend t)))
 
-(defun emacs-reveal--file-as-string (filename &optional no-newlines)
+(defun oer-reveal--file-as-string (filename &optional no-newlines)
   "Return contents of FILENAME as string.
 If optional NO-NEWLINES is non-nil, return result without newlines."
   (with-temp-buffer
@@ -700,16 +634,16 @@ If optional NO-NEWLINES is non-nil, return result without newlines."
 	 "\n" " " (buffer-substring-no-properties (point-min) (point-max)))
       (buffer-substring-no-properties (point-min) (point-max)))))
 
-(defun emacs-reveal--attribution-strings
+(defun oer-reveal--attribution-strings
     (metadata &optional caption maxheight divclasses shortlicense embed-svg)
   "Helper function.
-See `emacs-reveal-export-attribution' and
-`emacs-reveal--export-attribution-helper' for description of arguments
+See `oer-reveal-export-attribution' and
+`oer-reveal--export-attribution-helper' for description of arguments
 CAPTION, MAXHEIGHT, DIVCLASSES, SHORTLICENSE, EMBED-SVG.
 Return cons cell whose car is the HTML representation for METADATA
 and whose cdr is the LaTeX representation."
   (let* ((org-export-with-sub-superscripts nil)
-	 (alist (read (emacs-reveal--file-as-string metadata)))
+	 (alist (read (oer-reveal--file-as-string metadata)))
 	 (filename (alist-get 'filename alist))
 	 (texfilename (file-name-sans-extension filename))
 	 (licenseurl (alist-get 'licenseurl alist))
@@ -739,12 +673,12 @@ and whose cdr is the LaTeX representation."
 			  title)))
 	 (htmlcaption (format "<p>%s</p>"
 			      (if realcaption
-				  (emacs-reveal--export-no-newline realcaption 'html)
+				  (oer-reveal--export-no-newline realcaption 'html)
 				"")))
 	 (latexcaption (when realcaption
-			 (emacs-reveal--export-no-newline realcaption 'latex)))
+			 (oer-reveal--export-no-newline realcaption 'latex)))
 	 (htmltitle (format "<span property=\"dc:title\">%s</span>"
-			    (emacs-reveal--export-no-newline title 'html)))
+			    (oer-reveal--export-no-newline title 'html)))
 	 (imgalt (or (alist-get 'imgalt alist)
 		     title))
 	 (imgadapted (alist-get 'imgadapted alist "from"))
@@ -764,7 +698,7 @@ and whose cdr is the LaTeX representation."
 		      ""))
 	 (orglicense (cond ((eq shortlicense 'none) "")
 			   (shortlicense (format
-					  emacs-reveal--short-license-template
+					  oer-reveal--short-license-template
 					  sourceuri licenseurl licensetext))
 			   (t (format "“%s” %s under [[%s][%s]]; %s [[%s][%s]]%s"
 				      title orgauthor licenseurl licensetext
@@ -772,24 +706,24 @@ and whose cdr is the LaTeX representation."
 	 (htmllicense (cond ((eq shortlicense 'none) "")
 			    (shortlicense (format
 					   "<p%s>%s</p>" h-license
-					   (emacs-reveal--export-no-newline
+					   (oer-reveal--export-no-newline
 					    orglicense 'html)))
 			    (t (format
 				"<p%s>&ldquo;%s&rdquo; %s under <a rel=\"license\" href=\"%s\">%s</a>%s%s</p>"
 				h-license htmltitle htmlauthor licenseurl
 				licensetext sourcehtml
-				(emacs-reveal--export-no-newline permit 'html)))))
+				(oer-reveal--export-no-newline permit 'html)))))
 	 (texlicense (if (< 0 (length orglicense))
-			 (emacs-reveal--export-no-newline orglicense 'latex)
-		       (emacs-reveal--export-no-newline title 'latex)))
+			 (oer-reveal--export-no-newline orglicense 'latex)
+		       (oer-reveal--export-no-newline title 'latex)))
 	 )
     (if (stringp caption)
-	(cons (emacs-reveal--export-figure-html
+	(cons (oer-reveal--export-figure-html
 	       filename divclasses htmlcaption htmllicense imgalt h-image
 	       embed-svg)
-	      (emacs-reveal--export-figure-latex
+	      (oer-reveal--export-figure-latex
 	       filename texwidth texfilename texlicense latexcaption))
-      (cons (emacs-reveal--export-figure-html
+      (cons (oer-reveal--export-figure-html
 	     filename divclasses
 	     ;; In general, the title is part of the license text, and
 	     ;; we do not display it twice.
@@ -797,7 +731,7 @@ and whose cdr is the LaTeX representation."
 	     ;; of the license but passed here.
 	     (if shortlicense htmlcaption "<p></p>")
 	     htmllicense imgalt h-image embed-svg)
-	    (emacs-reveal--export-figure-latex
+	    (oer-reveal--export-figure-latex
 	     filename texwidth texfilename texlicense
 	     ;; Similar to above case.  However, a LaTeX caption is always
 	     ;; generated via texlicense.
@@ -807,40 +741,40 @@ and whose cdr is the LaTeX representation."
 	       latexcaption))))))
 
 ;;; Function to create a grid of images with license information in HTML.
-;; Function emacs-reveal-export-image-grid is used in macro in config.org.
-;; See emacs-reveal-howto for sample use:
-;; https://gitlab.com/oer/emacs-reveal-howto
+;; Function oer-reveal-export-image-grid is used in macro in config.org.
+;; See oer-reveal-howto for sample use:
+;; https://gitlab.com/oer/oer-reveal-howto
 ;;;###autoload
-(defun emacs-reveal-export-image-grid (&rest args)
+(defun oer-reveal-export-image-grid (&rest args)
   "Generate HTML for image grid.
-Essentially, this function calls `emacs-reveal--export-image-grid-helper'
+Essentially, this function calls `oer-reveal--export-image-grid-helper'
 \(where arguments ARGS are documented), but makes sure that macro
 arguments are properly expanded to work with all Org versions,
 also after an incompatible change with Org 9.2."
   ;; The first argument is an integer ID.  If that is a string,
   ;; arguments have been quoted.
   (if (stringp (car args))
-      (apply #'emacs-reveal--export-image-grid-helper
-	     (mapcar #'emacs-reveal--read-from-string args))
-    (apply #'emacs-reveal--export-image-grid-helper args)))
+      (apply #'oer-reveal--export-image-grid-helper
+	     (mapcar #'oer-reveal--read-from-string args))
+    (apply #'oer-reveal--export-image-grid-helper args)))
 
-(defun emacs-reveal--export-image-grid-helper
+(defun oer-reveal--export-image-grid-helper
     (grid-id grid-images height no-columns no-rows template-areas)
   "Create HTML to display grid with id GRID-ID of GRID-IMAGES.
 The grid has a HEIGHT (percentage of viewport height without unit),
 NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
-  (let* ((images (read (emacs-reveal--file-as-string grid-images)))
+  (let* ((images (read (oer-reveal--file-as-string grid-images)))
 	 (no-images (length images))
 	 (numbered (cl-mapcar #'cons (number-sequence 1 no-images) images))
 	 (row-height (/ (* 0.95 height) no-rows))
-	 (image-heights (emacs-reveal--compute-image-heights template-areas)))
-    (emacs-reveal--save-image-grid-css
+	 (image-heights (oer-reveal--compute-image-heights template-areas)))
+    (oer-reveal--save-image-grid-css
      grid-id images height no-columns no-rows template-areas)
     (concat (format "#+REVEAL_EXTRA_CSS: %s\n"
-		    (format emacs-reveal-css-filename-template grid-id))
+		    (format oer-reveal-css-filename-template grid-id))
 	    (format "@@html: </p><div class=\"grid%s\">" grid-id)
 	    (mapconcat (lambda (pair)
-			 (emacs-reveal--export-grid-image
+			 (oer-reveal--export-grid-image
 			  grid-id row-height image-heights
 			  (car pair) (cdr pair)))
 		       numbered " ")
@@ -848,51 +782,51 @@ NO-COLUMNS columns, NO-ROWS rows; positioning is specified by TEMPLATE-AREAS."
 	    "\n"
 	    "@@latex: Presentation contains image grid.  \\LaTeX export not supported.@@")))
 
-(defun emacs-reveal--generate-grid-img (grid-id no)
+(defun oer-reveal--generate-grid-img (grid-id no)
   "Create CSS class assigning grid-area NO to image NO in grid GRID-ID."
-  (format emacs-reveal--css-grid-img-template grid-id no no))
+  (format oer-reveal--css-grid-img-template grid-id no no))
 
-(defun emacs-reveal--generate-grid-imgs (grid-id no-images)
+(defun oer-reveal--generate-grid-imgs (grid-id no-images)
   "Create CSS classes for GRID-ID assigning grid areas for NO-IMAGES images."
-  (mapconcat (lambda (no) (emacs-reveal--generate-grid-img grid-id no))
+  (mapconcat (lambda (no) (oer-reveal--generate-grid-img grid-id no))
 	     (number-sequence 1 no-images) "\n"))
 
-(defun emacs-reveal--generate-grid
+(defun oer-reveal--generate-grid
     (grid-id height no-columns no-rows template-areas)
   "Create CSS for grid layout of GRID-ID.
-Layout based on `emacs-reveal--css-grid-template' requires HEIGHT,
+Layout based on `oer-reveal--css-grid-template' requires HEIGHT,
 NO-COLUMNS, NO-ROWS, TEMPLATE-AREAS."
-  (format emacs-reveal--css-grid-template grid-id height
-	  (format emacs-reveal--css-repeat-template no-columns)
-	  (format emacs-reveal--css-repeat-template no-rows)
+  (format oer-reveal--css-grid-template grid-id height
+	  (format oer-reveal--css-repeat-template no-columns)
+	  (format oer-reveal--css-repeat-template no-rows)
 	  template-areas))
 
-(defun emacs-reveal--save-image-grid-css
+(defun oer-reveal--save-image-grid-css
     (grid-id images height no-columns no-rows template-areas)
   "Save CSS for GRID-ID with IMAGES to file.
-Helper function for `emacs-reveal-export-image-grid', see there for
+Helper function for `oer-reveal-export-image-grid', see there for
 documentation of arguments HEIGHT, NO-COLUMNS, NO-ROWS, TEMPLATE-AREAS.
-Construct name of file in `emacs-reveal-export-dir' with
-`emacs-reveal-css-filename-template', create directories if necessary,
+Construct name of file in `oer-reveal-export-dir' with
+`oer-reveal-css-filename-template', create directories if necessary,
 remove possibly previously existing file, write CSS to new file, and
 return it's name."
   (let* ((no-images  (length images))
 	 (filename (expand-file-name
-		    (format emacs-reveal-css-filename-template grid-id)
-		    emacs-reveal-export-dir))
+		    (format oer-reveal-css-filename-template grid-id)
+		    oer-reveal-export-dir))
 	 (dirname (file-name-directory filename))
-	 (css (concat (emacs-reveal--generate-grid-imgs grid-id no-images)
+	 (css (concat (oer-reveal--generate-grid-imgs grid-id no-images)
 		      "\n"
-		      (emacs-reveal--generate-grid
+		      (oer-reveal--generate-grid
 		       grid-id height no-columns no-rows template-areas)
-		      emacs-reveal--css-grid-img-all "\n")))
+		      oer-reveal--css-grid-img-all "\n")))
     (mkdir dirname t)
     (when (file-readable-p filename)
       (delete-file filename))
     (append-to-file css nil filename)
     filename))
 
-(defun emacs-reveal--compute-image-heights (template-areas)
+(defun oer-reveal--compute-image-heights (template-areas)
   "Create hash table with heights of cells in TEMPLATE-AREAS."
   (let ((rows (delete "" (delete " " (split-string template-areas "\""))))
 	(result (make-hash-table :test 'equal)))
@@ -901,43 +835,43 @@ return it's name."
 	(dolist (cell cells)
 	  (puthash cell (+ 1 (gethash cell result 0)) result))))))
 
-(defun emacs-reveal--export-grid-image
+(defun oer-reveal--export-grid-image
     (grid-id row-height image-heights no image)
   "Create HTML for IMAGE number NO in GRID-ID.
 The height of the row is ROW-HEIGHT, heights of images are given by
 IMAGE-HEIGHTS.
-Call `emacs-reveal--attribution-strings' with proper metadata."
+Call `oer-reveal--attribution-strings' with proper metadata."
   (let ((area (format "ga%d" no)))
-    (car (emacs-reveal--attribution-strings
+    (car (oer-reveal--attribution-strings
 	  image nil
 	  (format "%svh"
 		  (* (gethash area image-heights) row-height))
 	  (concat "figure grid-img "
-		  (format emacs-reveal--css-grid-img-class-template
+		  (format oer-reveal--css-grid-img-class-template
 			  grid-id no))))))
 
 ;;; Functionality to make org-html-link use org-re-reveal's ID format.
 ;; This is useful when publishing with org-html-publish-to-html
 ;; where the HTML file is supposed to link into presentations.
 ;; Sample use: https://gitlab.com/oer/OS/blob/master/elisp/publish.el
-(defun emacs-reveal--rewrite-link (old-fun &rest arguments)
+(defun oer-reveal--rewrite-link (old-fun &rest arguments)
   "Combine OLD-FUN on ARGUMENTS with `org-re-reveal--maybe-replace-in-link'."
   (let ((orig (apply old-fun arguments)))
     (org-re-reveal--maybe-replace-in-link orig t)))
 
-(defun emacs-reveal--add-advice-link (&rest arguments)
+(defun oer-reveal--add-advice-link (&rest arguments)
   "Extend `org-html-link' with advice for org-re-reveal's anchor ID format.
 ARGUMENTS are unused (but present to allow invocation as preparation
 function during Org export, which passes an argument)."
   (ignore arguments) ; Silence byte compiler
-  (advice-add #'org-html-link :around #'emacs-reveal--rewrite-link))
+  (advice-add #'org-html-link :around #'oer-reveal--rewrite-link))
 
-(defun emacs-reveal--remove-advice-link (&rest arguments)
+(defun oer-reveal--remove-advice-link (&rest arguments)
   "Remove advice on `org-html-link'.
 ARGUMENTS are unused (but present to allow invocation as completion
 function during Org export, which passes an argument)."
   (ignore arguments) ; Silence byte compiler
-  (advice-remove #'org-html-link #'emacs-reveal--rewrite-link))
+  (advice-remove #'org-html-link #'oer-reveal--rewrite-link))
 
-(provide 'emacs-reveal)
-;;; emacs-reveal.el ends here
+(provide 'oer-reveal)
+;;; oer-reveal.el ends here
