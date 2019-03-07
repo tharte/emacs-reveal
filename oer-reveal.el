@@ -142,44 +142,15 @@ from the dev branch of reveal.js on 2018-10-04."
   :group 'emacs-reveal
   :type '(repeat string))
 
-(defcustom emacs-reveal-external-components
-  '(("https://github.com/hakimel/reveal.js.git" "master" javascript)
-    ("https://github.com/e-gor/Reveal.js-TOC-Progress.git" "master" plugin)
-    ("https://github.com/SethosII/reveal.js-jump-plugin.git" "master" plugin)
-    ("https://github.com/rajgoel/reveal.js-plugins.git" "master" plugin)
-    ("https://gitlab.com/schaepermeier/reveal.js-quiz.git" "master" plugin))
-  "List of components to use with emacs-reveal, each with source and type.
-Customize to add your own components.  Each entry is a list with three
-elements:
-First, a Git URI from which to clone the component.
-Second, the Git branch to checkout.
-Third, the type of the component, which can be `javascript' (to be
-installed in any case), or `plugin' (to be installed if the component
-occurs in `emacs-reveal-plugins').
-This list documents source locations for Git submodules of
-emacs-reveal."
-  :group 'emacs-reveal
-  :type '(repeat (list
-		  (string :tag "Repository")
-		  (string :tag "Branch")
-		  (choice (const :tag "JavaScript library" javascript)
-			  (const :tag "Configurable plugin" plugin)))))
-(make-obsolete-variable
- 'emacs-reveal-external-components
- "Variable emacs-reveal-external-components is obsolete as reveal.js and its plugins are available in their own repository."
- "0.9.7")
-
 (defcustom emacs-reveal-plugins
   '("reveal.js-plugins" "Reveal.js-TOC-Progress" "reveal.js-jump-plugin"
     "reveal.js-quiz" "reveal.js-coursemod")
   "List of `plugin' components to initialize.
-Each element here needs to be the directory name of the plugin,
-which is the final path component (without the \".git\" extension) of
-the plugin's URI in `emacs-reveal-external-components'.
+Each element here is supposed to be the directory name of the plugin.
 If you remove a plugin from this list, it will no longer be initialized.
 If you add plugins to this list, you need to provide suitable
 initialization code yourself.  (E.g., see the code concerning
-\"reveal.js-plugins\" in emacs-reveal.el.)"
+\"reveal.js-plugins\" in the file defining `emacs-reveal-plugins'.)"
   :group 'emacs-reveal
   :type '(repeat string))
 
@@ -189,51 +160,19 @@ You may want to use \"H\" with the float package."
   :group 'emacs-reveal
   :type 'string)
 
-;; The following options are only relevant if you use
-;; reveal-export-image-grid to generate image grids.
-;; Then, the options control in what directory generated CSS is saved.
-(defcustom emacs-reveal-export-dir "public/"
-  "Directory into which HTML, CSS, and Javascript is published.
-The default supposes that `org-publish-all' publishes into a
-subdirectory of `public/' as determined by
-`emacs-reveal-css-filename-template'.  Note that the name must end
-with a slash.  Also note that this directory is removed internally when
-setting the option `REVEAL_EXTRA_CSS' (to create valid relative links
-when everything is exported into this directory).
-This is only used for CSS of image grids with
-`emacs-reveal-export-image-grid'."
-  :group 'emacs-reveal
-  :type 'directory)
-
-(defcustom emacs-reveal-css-filename-template
-  "figures/internal_grid_css/grid%s.css"
-  "Template for filename of CSS generated for image grid.
-This must contain `%s' as placeholder for the grid's identifier.
-Note that this filename is exported into a subdirectory of
-`emacs-reveal-export-dir' under the current directory."
-  :group 'emacs-reveal
-  :type 'string)
-
 ;; Variables about installation location and reveal.js plugins follow.
 (defconst emacs-reveal-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "Directory of emacs-reveal containing code and resources.
 Useful for `org-publish-all' to publish resources that are also
 contained in this directory.")
-(defconst emacs-reveal-install-prompt
-  "Files for %s not found at: %s  Clone from source repository? ")
-(defconst emacs-reveal-customize-msg
-  "Make sure to configure your setup properly.")
-(defconst emacs-reveal-plugin-not-used
-  "Plugin %s will not be used.")
-
 (defconst emacs-reveal-submodules-url
   "https://gitlab.com/oer/emacs-reveal-submodules.git"
   "Git URL for submodules of reveal.js and plugins.")
 (defconst emacs-reveal-submodules-version "0.9.1"
   "Version of submodules to check out.")
 (defconst emacs-reveal-buffer "*Emacs-reveal git output*"
-  "Name of buffer holding git output.")
+  "Name of buffer holding Git output.")
 (defcustom emacs-reveal-submodules-dir
   (concat (file-name-as-directory user-emacs-directory)
 	  (file-name-sans-extension
@@ -248,7 +187,7 @@ This directory must not be a relative path (but can start with \"~\")."
   :group 'emacs-reveal
   :type 'directory)
 
-;; Variables to control generation of file to include Org files.
+;; Variables to control generation of files to include Org files.
 (defcustom emacs-reveal-generate-org-includes-p nil
   "Set to t for question whether to generate include files upon loading.
 Used in `emacs-reveal-generate-include-files'."
@@ -261,49 +200,11 @@ Used in `emacs-reveal-generate-include-files'."
   :group 'emacs-reveal
   :type 'directory)
 
-;; Functions to clone components:
-(defun emacs-reveal--clone-component (component address branch)
-  "Clone COMPONENT from ADDRESS and checkout BRANCH.
-Target directory is `emacs-reveal-dir'."
-  (shell-command (format "cd %s; git clone %s; cd %s; git checkout %s"
-			 emacs-reveal-dir address component branch)))
-(make-obsolete
- #'emacs-reveal--clone-component
- "Function emacs-reveal--clone-component is obsolete as reveal.js and its plugins are available in their own repository."
- "0.9.7")
-
-(defun emacs-reveal-install ()
-  "Install components listed in `emacs-reveal-external-components'.
-It is questionable whether this function is useful.  Currently, such
-components are included as Git submodules."
-  (interactive)
-  (dolist (triple emacs-reveal-external-components)
-    (let* ((address (car triple))
-	   (component (file-name-sans-extension
-		       (car (last (split-string address "/")))))
-	   (branch (cadr triple))
-	   (type (cl-caddr triple))
-	   (target-dir (expand-file-name component emacs-reveal-dir)))
-      (unless (file-exists-p target-dir)
-	(if (yes-or-no-p
-	     (format emacs-reveal-install-prompt component target-dir))
-	    (emacs-reveal--clone-component component address branch)
-	  (cond ((eq type 'javascript)
-		 (message emacs-reveal-customize-msg)
-		 (sleep-for 2))
-		(t
-		 (message emacs-reveal-plugin-not-used component)
-		 (sleep-for 2))))))))
-(make-obsolete
- #'emacs-reveal-install
- "Function emacs-reveal-install is obsolete as reveal.js and its plugins are available in their own repository."
- "0.9.7")
-
 ;; Functions to install and update submodules.
 (defun emacs-reveal-clone-submodules ()
   "Clone submodules from `emacs-reveal-submodules-url'.
 Target directory is `emacs-reveal-submodules-dir'.
-Output of Git goes to current buffer."
+Output of Git goes to buffer `emacs-reveal-buffer'."
   (let ((parent (directory-file-name
 		 (file-name-directory emacs-reveal-submodules-dir))))
     (unless (file-writable-p parent)
@@ -393,13 +294,35 @@ Org files."
 			      emacs-reveal-org-includes-dir))))
 	    (throw 'aborted nil)
 	  (make-directory emacs-reveal-org-includes-dir t)))
-    (let* ((source-dir (concat (file-name-as-directory emacs-reveal-dir) "org"))
-	   (source-files (directory-files source-dir t "[.]org$")))
+    (let* ((source-dir (concat (file-name-as-directory
+				(expand-file-name emacs-reveal-dir)) "org"))
+	   (source-files (directory-files source-dir t "\\.org$")))
       (mapcar #'emacs-reveal--generate-include-file source-files))))
 
 ;; Setup and installation.
 (emacs-reveal-setup-submodules)
 (emacs-reveal-generate-include-files)
+
+;; The following options are only relevant if you use
+;; emacs-reveal-export-image-grid to generate image grids.
+;; Then, the options control in what directory generated CSS is saved.
+(defcustom emacs-reveal-export-dir "public/"
+  "Directory into which HTML, CSS, and Javascript is published.
+The default supposes that `org-publish-all' publishes into a
+subdirectory of `public/'.
+This is only used to publish CSS of image grids with
+`emacs-reveal-export-image-grid'."
+  :group 'emacs-reveal
+  :type 'directory)
+
+(defcustom emacs-reveal-css-filename-template
+  "figures/internal_grid_css/grid%s.css"
+  "Template for filename of CSS generated for image grid.
+This must contain `%s' as placeholder for the grid's identifier.
+Note that this filename is exported into a subdirectory of
+`emacs-reveal-export-dir' under the current directory."
+  :group 'emacs-reveal
+  :type 'string)
 
 ;;; Configuration of various components.
 (require 'org)
@@ -1014,25 +937,6 @@ ARGUMENTS are unused (but present to allow invocation as completion
 function during Org export, which passes an argument)."
   (ignore arguments) ; Silence byte compiler
   (advice-remove #'org-html-link #'emacs-reveal--rewrite-link))
-
-;;; Extract version string.
-(defun emacs-reveal-short-version ()
-  "Display short version string for emacs-reveal from Lisp file."
-  (interactive)
-  (let ((lisp-file
-	 (concat (file-name-sans-extension (locate-library "emacs-reveal"))
-		 ".el")))
-    (with-temp-buffer
-      (insert-file-contents lisp-file)
-      (goto-char (point-min))
-      (re-search-forward "^;; Version: \\([0-9.]+\\)$")
-      (message "%s" (match-string 1)))))
-
-;;;###autoload
-(defun emacs-reveal-version ()
-  "Display version string for emacs-reveal from Lisp file."
-  (interactive)
-  (message "emacs-reveal version %s" (emacs-reveal-short-version)))
 
 (provide 'emacs-reveal)
 ;;; emacs-reveal.el ends here
