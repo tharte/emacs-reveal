@@ -11,9 +11,6 @@
 ;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.2"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
-;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
-;;    Emacs 24.4 is still OK as org-re-reveal-ref requries org-ref which
-;;    in turn requires pdf-utils, which defines alist-get if necessary.
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
 ;;; License:
@@ -38,7 +35,7 @@
 ;;
 ;; * Usage
 ;; Variable `oer-reveal-dir' points to the directory of oer-reveal
-;; and its embedded plugins and resources.  You may want to use that
+;; and its embedded resources.  You may want to use that
 ;; variable in your own publication code.  Note that subdirectory
 ;; "title-slide" contains some variants for title slides of
 ;; presentations, and subdirectory "css" contains sample CSS.
@@ -67,6 +64,22 @@
 ;;; Code:
 (require 'cl-lib) ; cl-mapcar
 (require 'subr-x) ; string-trim
+
+(unless (fboundp 'alist-get)
+  ;; Following copied from subr.el, Emacs 27.0.50.
+  (defun alist-get (key alist &optional default remove testfn)
+    "Return the value associated with KEY in ALIST.
+If KEY is not found in ALIST, return DEFAULT.
+Use TESTFN to lookup in the alist if non-nil.  Otherwise, use `assq'.
+
+This is a generalized variable suitable for use with `setf'.
+When using it to set a value, optional argument REMOVE non-nil
+means to remove KEY from ALIST if the new value is `eql' to DEFAULT."
+    (ignore remove) ;;Silence byte-compiler.
+    (let ((x (if (not testfn)
+		 (assq key alist)
+               (assoc key alist testfn))))
+      (if x (cdr x) default))))
 
 ;; Customizable options
 (defcustom oer-reveal-script-files '("js/reveal.js")
@@ -259,7 +272,6 @@ Note that this filename is exported into a subdirectory of
 ;;; Configuration of various components.
 (require 'org)
 (require 'org-re-reveal)
-(require 'org-re-reveal-ref)
 
 (defun oer-reveal-add-to-init-script (initstring)
   "Add INITSTRING to `org-re-reveal-init-script'.
