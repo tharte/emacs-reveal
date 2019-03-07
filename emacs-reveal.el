@@ -326,7 +326,8 @@ returns the version `emacs-reveal-submodules-version'."
    emacs-reveal-submodules-version
    (string-trim (shell-command-to-string
 		 (format "cd %s; git describe --tags"
-			 emacs-reveal-submodules-dir)))))
+			 (shell-quote-argument
+			  (expand-file-name emacs-reveal-submodules-dir)))))))
 
 (defun emacs-reveal-update-submodules (&optional force)
   "Update submodules for this version of emacs-reveal.
