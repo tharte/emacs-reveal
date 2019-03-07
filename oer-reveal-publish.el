@@ -1,4 +1,4 @@
-;;; emacs-reveal-publish.el --- Publish reveal.js presentations from Org sources
+;;; oer-reveal-publish.el --- Publish reveal.js presentations from Org sources
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
@@ -9,22 +9,23 @@
 
 ;;; Commentary:
 ;; This file contains setup code to publish reveal.js presentations
-;; from Org source files with emacs-reveal.
+;; from Org source files with oer-reveal.
 ;;
-;; After loading this file, the standard Org export function
-;; `org-publish-all' publishes all projects added by code below to
-;; `org-publish-project-alist'.  Org source files (except explicitly
-;; excluded ones) are published according to
-;; `emacs-reveal-publish-org-publishing-functions'.  The target
-;; directory is "public".  Besides, reveal.js resources are copied to
-;; "public".
+;; This file defines function `oer-reveal-publish-all', which invokes
+;; the standard Org export function `org-publish-all' to publish all
+;; projects added to `org-publish-project-alist'.
+;; Org source files (except explicitly excluded ones) are published
+;; according to `oer-reveal-publish-org-publishing-functions'.  Other
+;; resources (e.g., reveal.js and plugins, CSS, figures) are copied with
+;; `org-publish-attachment'.
+;; The target directory is "public".
 ;;
 ;; If file "index.org" is present in the current directory (e.g., to
 ;; collect links to generated reveal.js presentations), it is added to
 ;; `org-publish-project-alist' for export to HTML (with the standard
 ;; HTML export back-end).  HTML export is modified by
-;; `emacs-reveal-publish-html-doctype' and
-;; `emacs-reveal-publish-html-postamble'.
+;; `oer-reveal-publish-html-doctype' and
+;; `oer-reveal-publish-html-postamble'.
 ;; If existing, file "index.css" and directories among "audio",
 ;; "figures", "quizzes" are added to `org-publish-project-alist'
 ;; for export as attachment (copy).
@@ -32,15 +33,14 @@
 ;; You may want to load/require this file from your own publish.el
 ;; with additional entries added to `org-publish-project-alist'.
 ;; Then, invoke publication based on your own publish.el:
-;; emacs --batch --load publish.el --funcall org-publish-all
+;; emacs --batch --load publish.el --funcall oer-reveal-publish-all
 ;;
 ;; Warning! By default, code below sets `org-confirm-babel-evaluate'
-;; to `emacs-reveal-publish-confirm-evaluate', which defaults to nil.
+;; to `oer-reveal-publish-confirm-evaluate', which defaults to nil.
 ;; This enables automatic execution of code embedded in Org source
-;; files.  This may be dangerous, and I do *not* recommend this for
-;; general Emacs sessions.  Set
-;; `emacs-reveal-publish-confirm-evaluate' to t to be asked for
-;; confirmation.
+;; files.  This may be dangerous, but is useful for execution in batch
+;; mode.  Set `oer-reveal-publish-confirm-evaluate' to t to be asked
+;; for confirmation.
 ;;
 ;; Inspired by publish.el by Rasmus:
 ;; https://gitlab.com/pages/org-mode/blob/master/publish.el
@@ -49,205 +49,214 @@
 (package-initialize)
 (require 'org)
 (require 'ox-publish)
-(require 'emacs-reveal)
+(require 'oer-reveal)
 
-;; The following colors are based on the tango custom theme.
-;; Used for syntax highlighting.
-(custom-set-faces
- '(default                      ((t (:foreground "#2e3436"))))
- '(font-lock-builtin-face       ((t (:foreground "#75507b"))))
- '(font-lock-comment-face       ((t (:foreground "#5f615c"))))
- '(font-lock-constant-face      ((t (:foreground "#204a87"))))
- '(font-lock-function-name-face ((t (:bold t :foreground "#a40000"))))
- '(font-lock-keyword-face       ((t (:foreground "#346604"))))
- '(font-lock-string-face        ((t (:foreground "#5c3566"))))
- '(font-lock-type-face          ((t (:foreground "#204a87"))))
- '(font-lock-variable-name-face ((t (:foreground "#b35000"))))
- )
-
-(defcustom emacs-reveal-publish-confirm-evaluate nil
+(defcustom oer-reveal-publish-confirm-evaluate nil
   "Value to assign to `org-confirm-babel-evaluate' before export.
 The default is nil, which may be dangerous and is not recommended for
 general Emacs sessions."
-  :group 'emacs-reveal
+  :group 'oer-reveal
   :type 'boolean)
-(setq org-confirm-babel-evaluate emacs-reveal-publish-confirm-evaluate)
 
-(defcustom emacs-reveal-publish-org-publishing-functions
+(defcustom oer-reveal-publish-org-publishing-functions
   '(org-re-reveal-publish-to-reveal org-latex-publish-to-pdf)
   "Functions to publish Org source files.
 By default, Org files are published as reveal.js presentations and as
 PDF.  For the latter, `org-latex-pdf-process' is modified via
-`emacs-reveal-publish-pdf-process'."
-  :group 'emacs-reveal
+`oer-reveal-publish-pdf-process'."
+  :group 'oer-reveal
   :type '(repeat function))
 
-(defcustom emacs-reveal-publish-makeindex nil
+(defcustom oer-reveal-publish-makeindex nil
   "Value to use for makeindex option when publishing Org files."
-  :group 'emacs-reveal
+  :group 'oer-reveal
   :type 'boolean)
 
-(defcustom emacs-reveal-publish-pdf-process
+(defcustom oer-reveal-publish-pdf-process
   '("latexmk -outdir=%o -interaction=nonstopmode -shell-escape -bibtex -pdf %f")
-  "Value to assign to `org-latex-pdf-process' before export.
-Set to nil to avoid an assignment."
-  :group 'emacs-reveal
-  :type '(choice (const nil) (repeat string)))
+  "Value to assign to `org-latex-pdf-process' before export."
+  :group 'oer-reveal
+  :type '(repeat string))
 
-(defcustom emacs-reveal-publish-figure-float "H"
-  "Value to assign to `emacs-reveal-latex-figure-float' before export.
+(defcustom oer-reveal-publish-figure-float "H"
+  "Value to assign to `oer-reveal-latex-figure-float' before export.
 The default uses the LaTeX float package to position figures \"here\",
 which results in a layout that is more similar to HTML slides.
-See URL `https://ctan.org/pkg/float' for float documentation.
-Set to nil to avoid an assignment."
-  :group 'emacs-reveal
-  :type '(choice (const nil) string))
+See URL `https://ctan.org/pkg/float' for float documentation."
+  :group 'oer-reveal
+  :type 'string)
 
-(defcustom emacs-reveal-publish-html-doctype "html5"
-  "Value to assign to `org-html-doctype' before export.
-Set to nil to avoid an assignment."
-  :group 'emacs-reveal
-  :type '(choice (const nil) string))
+(defcustom oer-reveal-publish-html-doctype "html5"
+  "Value to assign to `org-html-doctype' before export."
+  :group 'oer-reveal
+  :type 'string)
 
-(defcustom emacs-reveal-publish-html-postamble
+(defcustom oer-reveal-publish-html-postamble
   "<p class=\"author\">License: This text, “<span property=\"dc:title\">%t</span>,” by <span property=\"dc:creator cc:attributionName\">%a</span> is published under the Creative Commons license <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</p>
 <p class=\"date\">Created: <span property=\"dc:created\">%C</span></p>
 <div class=\"legalese\"><p><a href=\"/imprint.html\">Imprint</a> | <a href=\"/privacy.html\">Privacy Policy</a></p></div>"
   "Value to assign to `org-html-postamble' before export.
 The default generates CC BY-SA 4.0 license information and links to
-imprint and privacy policy.
-Set to nil to avoid an assignment."
-  :group 'emacs-reveal
-  :type '(choice (const nil) string))
+imprint and privacy policy."
+  :group 'oer-reveal
+  :type 'string)
 
-(when emacs-reveal-publish-pdf-process
-  (setq org-latex-pdf-process emacs-reveal-publish-pdf-process))
-(when emacs-reveal-publish-figure-float
-  (setq emacs-reveal-latex-figure-float emacs-reveal-publish-figure-float))
-(when emacs-reveal-publish-html-doctype
-  (setq org-html-doctype emacs-reveal-publish-html-doctype))
-(when emacs-reveal-publish-html-postamble
-  (setq org-html-postamble emacs-reveal-publish-html-postamble))
+(defun oer-reveal-publish-faces ()
+  "Call `custom-set-faces' for syntax highlighting in batch mode."
+  ;; The following colors are based on the tango custom theme.
+  (custom-set-faces
+   '(default                      ((t (:foreground "#2e3436"))))
+   '(font-lock-builtin-face       ((t (:foreground "#75507b"))))
+   '(font-lock-comment-face       ((t (:foreground "#5f615c"))))
+   '(font-lock-constant-face      ((t (:foreground "#204a87"))))
+   '(font-lock-function-name-face ((t (:bold t :foreground "#a40000"))))
+   '(font-lock-keyword-face       ((t (:foreground "#346604"))))
+   '(font-lock-string-face        ((t (:foreground "#5c3566"))))
+   '(font-lock-type-face          ((t (:foreground "#204a87"))))
+   '(font-lock-variable-name-face ((t (:foreground "#b35000"))))
+   ))
 
-;; Export different parts of Org presentations to sub-directory
-;; "public".  Org presentations are exported according to
-;; `emacs-reveal-publish-org-publishing-functions'.
-;; Other parts are just copied with `org-publish-attachment'.
-(setq org-publish-project-alist
-      (list
-       (list "org-presentations"
-	     :base-directory "."
-	     :base-extension "org"
-	     :makeindex emacs-reveal-publish-makeindex
-	     :exclude "index\\|backmatter\\|config\\|course-list\\|license-template\\|imprint\\|privacy"
-	     :publishing-function emacs-reveal-publish-org-publishing-functions
-	     :publishing-directory "./public")
-       (list "title-slide"
-	     :base-directory (expand-file-name "title-slide" emacs-reveal-dir)
-	     :base-extension (regexp-opt '("png" "jpg" "svg"))
-	     :publishing-directory "./public/title-slide/"
-	     :publishing-function 'org-publish-attachment)
-       (list "reveal-theme"
-	     :base-directory (expand-file-name "css" emacs-reveal-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/css/theme"
-	     :publishing-function 'org-publish-attachment)
-       (list "reveal-static"
-	     :base-directory (expand-file-name
-			      "reveal.js" emacs-reveal-submodules-dir)
-	     :exclude "\\.git"
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal.js-coursemod"
-	     :base-directory (expand-file-name
-			      "reveal.js-coursemod/coursemod"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin/coursemod"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal.js-jump-plugin"
-	     :base-directory (expand-file-name
-			      "reveal.js-jump-plugin/jump"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin/jump"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal.js-plugins-anything"
-	     :base-directory (expand-file-name
-			      "reveal.js-plugins/anything"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin/anything"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal.js-plugins-audio-slideshow"
-	     :base-directory (expand-file-name
-			      "reveal.js-plugins/audio-slideshow"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin/audio-slideshow"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal.js-quiz-plugin"
-	     :base-directory (expand-file-name
-			      "reveal.js-quiz/quiz"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin/quiz"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       (list "reveal-toc-plugin"
-	     :base-directory (expand-file-name
-			      "Reveal.js-TOC-Progress/plugin"
-			      emacs-reveal-submodules-dir)
-	     :base-extension 'any
-	     :publishing-directory "./public/reveal.js/plugin"
-	     :publishing-function 'org-publish-attachment
-	     :recursive t)
-       ))
+(defcustom oer-reveal-publish-faces-function #'oer-reveal-publish-faces
+  "Function to change faces for syntax highlighting.
+Set to nil for default syntax highlighting."
+  :group 'oer-reveal
+  :type '(choice (const nil) function))
 
-(when (file-exists-p "index.org")
-  (add-to-list 'org-publish-project-alist
-	       (list "index"
-		     :base-directory "."
-		     :include '("index.org")
-		     :exclude ".*"
-		     :publishing-function '(org-html-publish-to-html)
-		     :publishing-directory "./public")))
-(when (file-exists-p "index.css")
-  (add-to-list 'org-publish-project-alist
-	       (list "index-css"
-		     :base-directory "."
-		     :include '("index.css")
-		     :exclude ".*"
-		     :publishing-function '(org-publish-attachment)
-		     :publishing-directory "./public")))
-(when (file-accessible-directory-p "audio")
-  (add-to-list 'org-publish-project-alist
-	       (list "audio"
-		     :base-directory "audio"
-		     :base-extension (regexp-opt '("ogg" "mp3"))
-		     :publishing-directory "./public/audio"
-		     :publishing-function 'org-publish-attachment)))
-(when (file-accessible-directory-p "figures")
-  (add-to-list 'org-publish-project-alist
-	       (list "figures"
-		     :base-directory "figures"
-		     :base-extension (regexp-opt '("png" "jpg" "ico" "svg" "gif"))
-		     :publishing-directory "./public/figures"
-		     :publishing-function 'org-publish-attachment
-		     :recursive t)))
-(when (file-accessible-directory-p "quizzes")
-  (add-to-list 'org-publish-project-alist
-	       (list "quizzes"
-		     :base-directory "quizzes"
-		     :base-extension (regexp-opt '("js"))
-		     :publishing-directory "./public/quizzes"
-		     :publishing-function 'org-publish-attachment)))
+(defun oer-reveal-publish-all (&optional project-alist)
+  "Configure settings and invoke `org-publish-all'.
+Apply settings for `oer-reveal', which influence export to reveal.js,
+PDF, and HTML, and set up `org-publish-project-alist'.
+Optional PROJECT-ALIST defines additional projects to be added to
+`org-publish-project-alist'."
+  (when oer-reveal-publish-faces-function
+    (funcall oer-reveal-publish-faces-function))
+  (let ((org-latex-pdf-process oer-reveal-publish-pdf-process)
+	(oer-reveal-latex-figure-float oer-reveal-publish-figure-float)
+	(org-html-doctype oer-reveal-publish-html-doctype)
+	(org-html-postamble oer-reveal-publish-html-postamble)
+	(org-confirm-babel-evaluate oer-reveal-publish-confirm-evaluate)
 
-(provide 'emacs-reveal-publish)
-;;; emacs-reveal-publish.el ends here
+	;; Export different parts of Org presentations to sub-directory
+	;; "public".  Org presentations are exported according to
+	;; `oer-reveal-publish-org-publishing-functions'.
+	;; Other parts are just copied with `org-publish-attachment'.
+	(org-publish-project-alist
+	 (append
+	  (list
+	   (list "org-presentations"
+		 :base-directory "."
+		 :base-extension "org"
+		 :makeindex oer-reveal-publish-makeindex
+		 :exclude "index\\|backmatter\\|config\\|course-list\\|license-template\\|imprint\\|privacy"
+		 :publishing-function oer-reveal-publish-org-publishing-functions
+		 :publishing-directory "./public")
+	   (list "title-slide"
+		 :base-directory (expand-file-name "title-slide" oer-reveal-dir)
+		 :base-extension (regexp-opt '("png" "jpg" "svg"))
+		 :publishing-directory "./public/title-slide/"
+		 :publishing-function 'org-publish-attachment)
+	   (list "reveal-theme"
+		 :base-directory (expand-file-name "css" oer-reveal-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/css/theme"
+		 :publishing-function 'org-publish-attachment)
+	   (list "reveal-static"
+		 :base-directory (expand-file-name
+				  "reveal.js" oer-reveal-submodules-dir)
+		 :exclude "\\.git"
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal.js-coursemod"
+		 :base-directory (expand-file-name
+				  "reveal.js-coursemod/coursemod"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin/coursemod"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal.js-jump-plugin"
+		 :base-directory (expand-file-name
+				  "reveal.js-jump-plugin/jump"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin/jump"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal.js-plugins-anything"
+		 :base-directory (expand-file-name
+				  "reveal.js-plugins/anything"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin/anything"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal.js-plugins-audio-slideshow"
+		 :base-directory (expand-file-name
+				  "reveal.js-plugins/audio-slideshow"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin/audio-slideshow"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal.js-quiz-plugin"
+		 :base-directory (expand-file-name
+				  "reveal.js-quiz/quiz"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin/quiz"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   (list "reveal-toc-plugin"
+		 :base-directory (expand-file-name
+				  "Reveal.js-TOC-Progress/plugin"
+				  oer-reveal-submodules-dir)
+		 :base-extension 'any
+		 :publishing-directory "./public/reveal.js/plugin"
+		 :publishing-function 'org-publish-attachment
+		 :recursive t)
+	   )
+	  project-alist)))
+    (when (file-exists-p "index.org")
+      (add-to-list 'org-publish-project-alist
+		   (list "index"
+			 :base-directory "."
+			 :include '("index.org")
+			 :exclude ".*"
+			 :publishing-function '(org-html-publish-to-html)
+			 :publishing-directory "./public")))
+    (when (file-exists-p "index.css")
+      (add-to-list 'org-publish-project-alist
+		   (list "index-css"
+			 :base-directory "."
+			 :include '("index.css")
+			 :exclude ".*"
+			 :publishing-function '(org-publish-attachment)
+			 :publishing-directory "./public")))
+    (when (file-accessible-directory-p "audio")
+      (add-to-list 'org-publish-project-alist
+		   (list "audio"
+			 :base-directory "audio"
+			 :base-extension (regexp-opt '("ogg" "mp3"))
+			 :publishing-directory "./public/audio"
+			 :publishing-function 'org-publish-attachment)))
+    (when (file-accessible-directory-p "figures")
+      (add-to-list 'org-publish-project-alist
+		   (list "figures"
+			 :base-directory "figures"
+			 :base-extension (regexp-opt '("png" "jpg" "ico" "svg" "gif"))
+			 :publishing-directory "./public/figures"
+			 :publishing-function 'org-publish-attachment
+			 :recursive t)))
+    (when (file-accessible-directory-p "quizzes")
+      (add-to-list 'org-publish-project-alist
+		   (list "quizzes"
+			 :base-directory "quizzes"
+			 :base-extension (regexp-opt '("js"))
+			 :publishing-directory "./public/quizzes"
+			 :publishing-function 'org-publish-attachment)))
+    (org-publish-all)))
+
+(provide 'oer-reveal-publish)
+;;; oer-reveal-publish.el ends here
