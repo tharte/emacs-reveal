@@ -11,9 +11,10 @@
 ;; This file contains setup code to publish reveal.js presentations
 ;; from Org source files with oer-reveal.
 ;;
-;; This file defines function `oer-reveal-publish-all', which invokes
-;; the standard Org export function `org-publish-all' to publish all
-;; projects added to `org-publish-project-alist'.
+;; This file defines function `oer-reveal-publish-all' to be used in
+;; batch mode, which invokes the standard Org export function
+;; `org-publish-all' to publish all projects added to
+;; `org-publish-project-alist'.
 ;; Org source files (except explicitly excluded ones) are published
 ;; according to `oer-reveal-publish-org-publishing-functions'.  Other
 ;; resources (e.g., reveal.js and plugins, CSS, figures) are copied with
@@ -40,10 +41,14 @@
 ;; files.  This may be dangerous, but is useful for execution in batch
 ;; mode.  Set `oer-reveal-publish-confirm-evaluate' to t to be asked
 ;; for confirmation.
+;; Also, `oer-reveal-publish-all' invokes the function specified in
+;; `oer-reveal-publish-faces-function' to change faces for syntax
+;; highlighting in batch mode; set that variable to nil to avoid such
+;; changes.
 ;;
 ;; Function `org-reveal-publish-setq-defaults' uses `setq' to change
 ;; various variables of other packages related to export to HTML and
-;; LaTeX.  Please check what it does before using it.
+;; LaTeX.  Please check what it does before invoking it.
 ;;
 ;; Inspired by publish.el by Rasmus:
 ;; https://gitlab.com/pages/org-mode/blob/master/publish.el
@@ -124,7 +129,30 @@ Set to nil for default syntax highlighting."
   :group 'oer-reveal
   :type '(choice (const nil) function))
 
+(defcustom oer-reveal-latex-packages
+  '(
+    ;; Setup url package with hyphens option.  This is done here to avoid
+    ;; option clashes when implicitly loading the package from hyperref.
+    ("hyphens" "url" nil)
+    ;; Load float package.  This must come before hyperref to avoid
+    ;; warnings for figures:
+    ;; warning (ext4): destination with the same identifier
+    ("" "float" nil))
+  "Packages to add to beginning of `org-latex-default-packages-alist'."
+  :group 'oer-reveal
+  :type '(repeat
+	  (choice
+	   (list :tag "options/package pair"
+		 (string :tag "options")
+		 (string :tag "package")
+		 (boolean :tag "Snippet")
+		 (choice
+		  (const :tag "For all compilers" nil)
+		  (repeat :tag "Allowed compiler" string)))
+	   (string :tag "A line of LaTeX"))))
+
 (require 'table)
+;;;###autoload
 (defun org-reveal-publish-setq-defaults ()
   "Change various variables with `setq'."
   (setq table-html-th-rows 1
@@ -132,11 +160,29 @@ Set to nil for default syntax highlighting."
 	org-html-table-default-attributes nil
 	org-html-doctype oer-reveal-publish-html-doctype
 	org-html-postamble oer-reveal-publish-html-postamble
-	org-latex-pdf-process oer-reveal-publish-pdf-process
 	oer-reveal-latex-figure-float oer-reveal-publish-figure-float
 	org-re-reveal-script-files oer-reveal-script-files
 	org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix
-  ))
+	org-latex-pdf-process oer-reveal-publish-pdf-process
+	;; Add packages that need to be at the beginning of
+	;; org-latex-default-packages-alist.
+	org-latex-default-packages-alist
+	(append oer-reveal-latex-packages org-latex-default-packages-alist)
+	;; Setup Bibliography in HTML based on default bib file (which
+	;; helps to locate the bib file when the current buffer does
+	;; not specify one).
+	org-ref-default-bibliography '("references.bib")
+	;; Display article, book, inproceedings differently.  Entry
+	;; misc is new.  Remaining entries are defaults.
+	org-ref-bibliography-entry-format
+	'(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
+	  ("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
+	  ("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
+	  ("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
+	  ("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
+	  ("techreport" . "%a, %t, %i, %u (%y).")
+	  ("proceedings" . "%e, %t in %S, %u (%y).")
+	  )))
 
 (defun oer-reveal-publish-all (&optional project-alist)
   "Configure settings and invoke `org-publish-all'.
