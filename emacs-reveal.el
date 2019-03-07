@@ -437,8 +437,7 @@ after comma; otherwise, just `setq' to INITSTRING."
   (setq org-re-reveal-init-script
 	(if (and (stringp org-re-reveal-init-script)
 		 (< 0 (length org-re-reveal-init-script)))
-	    (concat org-re-reveal-init-script ",
-  "
+	    (concat org-re-reveal-init-script ",\n  "
 		    initstring)
 	  initstring)))
 
