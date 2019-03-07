@@ -93,7 +93,7 @@
 # 50vh, a list of CSS classes (space separated, containing "figure"),
 # and an attribute specifying whether a long, short, or no license
 # should be used (arguments are documented for function
-# oer-reveal--export-attribution-helper).
+# emacs-reveal--export-attribution-helper).
 # This is meant to be used with horizontally centered images, caption
 # underneath, license text rotated to the right.
 # Second, reveallicense() expects up to five arguments, the filename
@@ -112,13 +112,13 @@
 # Concerning LaTeX export, the file extension is stripped for
 # includegraphics commands, so a compatible format must be available.
 # GIF images cannot be exported to LaTeX; variable
-# oer-reveal--unsupported-tex-figure-formats contains a list of such
+# emacs-reveal--unsupported-tex-figure-formats contains a list of such
 # formats.
 # Finally, external images (those with a URL starting with "http[s]")
 # are not exported to LaTeX.
 
-#+MACRO: revealimg (eval (oer-reveal-export-attribution $1 $2 $3 $4 $5))
-#+MACRO: reveallicense (eval (oer-reveal-export-attribution $1 nil $2 $3 $4 $5))
+#+MACRO: revealimg (eval (emacs-reveal-export-attribution $1 $2 $3 $4 $5))
+#+MACRO: reveallicense (eval (emacs-reveal-export-attribution $1 nil $2 $3 $4 $5))
 
 # Finally, revealgrid creates an image grid.  Its six arguments are as
 # follows:
@@ -131,5 +131,5 @@
 #   grid cell(s); see, e.g.:
 #   https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
 #   With this macro, the grid areas *must* be named ga1, ga2, ...
-# This macro uses oer-reveal-export-image-grid in oer-reveal.el.
-#+MACRO: revealgrid (eval (oer-reveal-export-image-grid $1 $2 $3 $4 $5 $6))
+# This macro uses emacs-reveal-export-image-grid in emacs-reveal.el.
+#+MACRO: revealgrid (eval (emacs-reveal-export-image-grid $1 $2 $3 $4 $5 $6))
