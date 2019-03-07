@@ -1,4 +1,4 @@
-;;; oer-reveal.el --- Configuration for and extension of org-re-reveal-ref  -*- lexical-binding: t; -*-
+;;; oer-reveal.el --- Setup for reveal.js plugins with org-re-reveal  -*- lexical-binding: t; -*-
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
@@ -8,7 +8,7 @@
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/oer-reveal
 ;; Version: 0.9.0
-;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.2") (org-re-reveal-ref "0.9.1"))
+;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.2"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
 ;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
