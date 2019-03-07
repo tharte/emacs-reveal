@@ -320,8 +320,8 @@ Output of Git goes to current buffer."
 
 (defun emacs-reveal-submodules-ok-p ()
   "Return t if submodules have correct version.
-For, this check that \"git tag\" in `emacs-reveal-submodules-dir' returns
-the version `emacs-reveal-submodules-version'."
+Check that \"git describe --tags\" in `emacs-reveal-submodules-dir'
+returns the version `emacs-reveal-submodules-version'."
   (string=
    emacs-reveal-submodules-version
    (string-trim (shell-command-to-string
