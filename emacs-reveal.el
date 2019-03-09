@@ -232,8 +232,8 @@ contained in this directory.")
   "Git URL for submodules of reveal.js and plugins.")
 (defconst emacs-reveal-submodules-version "0.9.1"
   "Version of submodules to check out.")
-(defconst emacs-reveal-buffer "*Emacs-reveal git output*"
-  "Name of buffer holding git output.")
+(defconst emacs-reveal-buffer "*Emacs-reveal Git output*"
+  "Name of buffer holding Git output.")
 (defcustom emacs-reveal-submodules-dir
   (concat (file-name-as-directory user-emacs-directory)
 	  (file-name-sans-extension
