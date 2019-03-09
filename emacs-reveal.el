@@ -248,7 +248,7 @@ This directory must not be a relative path (but can start with \"~\")."
   :group 'emacs-reveal
   :type 'directory)
 
-;; Variables to control generation of file to include Org files.
+;; Variables to control generation of files to include Org files.
 (defcustom emacs-reveal-generate-org-includes-p nil
   "Set to t for question whether to generate include files upon loading.
 Used in `emacs-reveal-generate-include-files'."
