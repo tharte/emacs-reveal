@@ -8,7 +8,7 @@
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
 ;; Version: 0.9.9
-;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.2") (org-re-reveal-ref "0.9.1"))
+;; Package-Requires: ((emacs "24.4") (org-re-reveal "1.0.3") (org-re-reveal-ref "0.9.1"))
 ;;    Emacs 24.4 adds advice-add and advice-remove.  Thus, Emacs
 ;;    should not be older.
 ;;    Note that we use alist-get, introduced in Emacs 25.1.   However,
@@ -415,6 +415,10 @@ Org files."
 
 ;; Fix URL fragments to use valid IDs.
 (setq org-re-reveal--href-fragment-prefix org-re-reveal--slide-id-prefix)
+
+;; Define prefixes for RDFa meta-data.
+(setq org-re-reveal-body-attrs
+      "prefix=\"dc: http://purl.org/dc/terms/ cc: http://creativecommons.org/ns#\"")
 
 ;; Setup url package with hyphens option.  This is done here to avoid
 ;; option clashes when implicitly loading the package from hyperref.
