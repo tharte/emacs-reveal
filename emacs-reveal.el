@@ -801,18 +801,19 @@ and whose cdr is the LaTeX representation."
 		   ""))
 	 (attributionname (alist-get 'cc:attributionName alist))
 	 (attributionurl (alist-get 'cc:attributionURL alist))
+	 (copyright (alist-get 'copyright alist "by"))
 	 (orgauthor (if attributionname
 			(if attributionurl
-			    (format "by [[%s][%s]]"
-				    attributionurl attributionname)
-			  (format "by %s" attributionname))
+			    (format "%s [[%s][%s]]"
+				    copyright attributionurl attributionname)
+			  (format "%s %s" copyright attributionname))
 		      ""))
 	 (htmlauthor (if attributionname
 			 (if attributionurl
-			     (format "by <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
-				     attributionurl attributionname)
-			   (format "by <span property=\"dc:creator cc:attributionName\">%s</span>"
-				   attributionname))
+			     (format "%s <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
+				     copyright attributionurl attributionname)
+			   (format "%s <span property=\"dc:creator cc:attributionName\">%s</span>"
+				   copyright attributionname))
 		       ""))
 	 (title (alist-get 'dc:title alist "Image"))
 	 (realcaption (when caption
