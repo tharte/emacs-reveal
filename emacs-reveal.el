@@ -810,7 +810,7 @@ and whose cdr is the LaTeX representation."
 		      ""))
 	 (htmlauthor (if attributionname
 			 (if attributionurl
-			     (format "%s <a rel=\"dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
+			     (format "%s <a rel=\"cc:attributionURL dc:creator\" href=\"%s\" property=\"cc:attributionName\">%s</a>"
 				     copyright attributionurl attributionname)
 			   (format "%s <span property=\"dc:creator cc:attributionName\">%s</span>"
 				   copyright attributionname))
