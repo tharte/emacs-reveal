@@ -834,7 +834,8 @@ and whose cdr is the LaTeX representation."
 	 (sourceuri (alist-get 'dc:source alist))
 	 (sourcetext (alist-get 'sourcetext alist))
 	 (sourcehtml (format "; %s <a rel=\"dc:source\" href=\"%s\">%s</a>"
-			     imgadapted sourceuri sourcetext))
+			     (emacs-reveal--export-no-newline imgadapted 'html)
+			     sourceuri sourcetext))
 	 (divclasses (if divclasses
 			 divclasses
 		       "figure"))
