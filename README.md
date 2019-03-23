@@ -1,4 +1,5 @@
 <!--- Local IspellDict: en -->
+<!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
