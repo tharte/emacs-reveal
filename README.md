@@ -123,6 +123,10 @@ For my course on Operating Systems you could also do the following to
 build all HTML presentations manually from `org` source files (into
 sub-directory `public`):
 
+**Notice!** As of 2019-03-24, the following still works but uses an
+older version of emacs-reveal (0.9.x).  The course will be updated
+soon for version 1.x
+
 	$ git clone https://gitlab.com/oer/OS.git
 	$ cd OS
 	$ git submodule sync --recursive
