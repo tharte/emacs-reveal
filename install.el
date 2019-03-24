@@ -9,5 +9,6 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
   (package-refresh-contents)
+  (package-install 'org-re-reveal-ref)
   (package-install 'oer-reveal)
   )
