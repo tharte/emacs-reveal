@@ -1,4 +1,5 @@
 <!--- Local IspellDict: en -->
+<!--- Copyright (C) 2017-2019 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
 This repository provides *emacs-reveal*, which is
@@ -27,14 +28,17 @@ such as Powerpoint.  Instead, presentations can be viewed on *any
 device* using a Web browser, with its multimedia support for embedded
 audio explanations (or videos).
 
-Since its creation, I’ve been updating my infrastructure continuously.
-In particular, sharing of OER figures with proper attribution and
-license information has been simplified considerably; see the project
-hosting [OER figures](https://gitlab.com/oer/figures/) for more
-details on my approach towards meta-data, which is based on standard
-vocabularies and embeds license information using
-[RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML, making it
-accessible on the
+Since its creation, I’ve been updating emacs-reveal and the
+surrounding infrastructure continuously.  In particular, sharing of
+OER figures with proper attribution and license information has been
+simplified considerably; see the project hosting
+[OER figures](https://gitlab.com/oer/figures/) for more details on my
+approach towards meta-data, which is based on standard vocabularies
+and embeds license information using
+[CC REL](https://labs.creativecommons.org/2011/ccrel-guide/) (with
+[RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML),
+(a) avoiding manual identification and copying of licensing
+information and (b) making licensing information accessible on the
 [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web).
 
 I’m using emacs-reveal for my courses and talks in general.  Feel free
@@ -47,9 +51,10 @@ environment, namely the text editor
 text format called [Org mode](https://orgmode.org/), which can be
 exported to reveal.js thanks to
 [Org-Reveal](https://github.com/yjwen/org-reveal/), for which I
-maintain [the forked variant org-re-reveal](https://gitlab.com/oer/org-re-reveal)
-with an extension for citations and bibliography, namely
-[org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref).
+maintain [the forked variant org-re-reveal](https://gitlab.com/oer/org-re-reveal),
+its extension [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref)
+for citations and bibliography, and
+[oer-reveal](https://gitlab.com/oer/oer-reveal) with further OER resources.
 That way, I can focus on slides’ contents in a highly intuitive plain
 text document, which can be exported to HTML for presentation in a Web
 browser (besides, presentations can be downloaded in two different
@@ -87,8 +92,8 @@ To embed audio, I’m using the
 The setup is as follows:
  * GNU Emacs
    * Org mode (recent versions, e.g., from ELPA)
-   * Org-re-reveal-ref (from MELPA or
-     [my repository](https://gitlab.com/oer/org-re-reveal-ref))
+   * Org-re-reveal, org-re-reveal-ref, oer-reveal (from MELPA or
+     [my repositories](https://gitlab.com/oer))
    * Emacs library htmlize (for source code highlighting)
  * reveal.js
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins)
@@ -116,30 +121,28 @@ using Continuous Integration (CI) upon commit by a GitLab runner (see its
 for details), which publishes the
 [presentations as GitLab pages](https://oer.gitlab.io/OS/).
 The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
-contains necessary underlying software such as GNU Emacs and LaTeX.
+contains necessary underlying software such as GNU Emacs with additional
+packages and LaTeX.
 
-Of course, presentations can also be built locally (without Docker).
-For my course on Operating Systems you could also do the following to
-build all HTML presentations manually from `org` source files (into
-sub-directory `public`):
+<!-- Of course, presentations can also be built locally (without Docker). -->
+<!-- For my course on Operating Systems you could also do the following to -->
+<!-- build all HTML presentations manually from `org` source files into -->
+<!-- target directory `public` (as of March 2019, the first `git` command -->
+<!-- alone downloads about 150 MB of resources): -->
 
-**Notice!** As of 2019-03-24, the following still works but uses an
-older version of emacs-reveal (0.9.x).  The course will be updated
-soon for version 1.x
+<!-- 	$ git clone https://gitlab.com/oer/OS.git -->
+<!-- 	$ cd OS -->
+<!-- 	$ git submodule sync --recursive -->
+<!-- 	$ git submodule update --init --recursive -->
+<!-- 	$ emacs --batch --load emacs-reveal/install.el --funcall install -->
+<!-- 	$ emacs --batch --load elisp/publish.el -->
 
-	$ git clone https://gitlab.com/oer/OS.git
-	$ cd OS
-	$ git submodule sync --recursive
-	$ git submodule update --init --recursive
-	$ emacs --batch --load emacs-reveal/install.el --funcall install
-	$ emacs --batch --load elisp/publish.el --funcall org-publish-all
-
-As usual, use `git pull` to update the source directory later on.
-Included submodules need to be updated separately, though, with
-`git submodule update --recursive --remote`.  The first `emacs`
-invocation above installs necessary packages, which is only necessary
-once.  The second one publishes the HTML presentation into the
-subdirectory `public`.  (From within Emacs, you can generate the HTML
-presentation for an individual `org` file using Org’s export
-functionality by pressing a key such as `C-c C-e v b`; the precise key
-binding changed with different versions of the back-end.)
+<!-- As usual, use `git pull` to update the source directory later on. -->
+<!-- Included submodules need to be updated separately, though, with -->
+<!-- `git submodule update --recursive --remote`.  The first `emacs` -->
+<!-- invocation above installs necessary packages, which is only necessary -->
+<!-- once.  The second one publishes the HTML presentation into the -->
+<!-- subdirectory `public`.  (From within Emacs, you can generate the HTML -->
+<!-- presentation for an individual `org` file using Org’s export -->
+<!-- functionality by pressing a key such as `C-c C-e v b`; the precise key -->
+<!-- binding changed with different versions of the back-end.) -->
