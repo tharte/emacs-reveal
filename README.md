@@ -124,25 +124,25 @@ The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
 contains necessary underlying software such as GNU Emacs with additional
 packages and LaTeX.
 
-<!-- Of course, presentations can also be built locally (without Docker). -->
-<!-- For my course on Operating Systems you could also do the following to -->
-<!-- build all HTML presentations manually from `org` source files into -->
-<!-- target directory `public` (as of March 2019, the first `git` command -->
-<!-- alone downloads about 150 MB of resources): -->
+Of course, presentations can also be built locally (without Docker).
+For my course on Operating Systems you could also do the following to
+build all HTML presentations manually from `org` source files into
+target directory `public` (as of March 2019, the first `git` command
+alone downloads about 150 MB of resources):
 
-<!-- 	$ git clone https://gitlab.com/oer/OS.git -->
-<!-- 	$ cd OS -->
-<!-- 	$ git submodule sync --recursive -->
-<!-- 	$ git submodule update --init --recursive -->
-<!-- 	$ emacs --batch --load emacs-reveal/install.el --funcall install -->
-<!-- 	$ emacs --batch --load elisp/publish.el -->
+	$ git clone https://gitlab.com/oer/OS.git
+	$ cd OS
+	$ git submodule sync --recursive
+	$ git submodule update --init --recursive
+	$ emacs --batch --load emacs-reveal/install.el --funcall install
+	$ emacs --batch --load elisp/publish.el
 
-<!-- As usual, use `git pull` to update the source directory later on. -->
-<!-- Included submodules need to be updated separately, though, with -->
-<!-- `git submodule update --recursive --remote`.  The first `emacs` -->
-<!-- invocation above installs necessary packages, which is only necessary -->
-<!-- once.  The second one publishes the HTML presentation into the -->
-<!-- subdirectory `public`.  (From within Emacs, you can generate the HTML -->
-<!-- presentation for an individual `org` file using Org’s export -->
-<!-- functionality by pressing a key such as `C-c C-e v b`; the precise key -->
-<!-- binding changed with different versions of the back-end.) -->
+As usual, use `git pull` to update the source directory later on.
+Included submodules need to be updated separately, though, with
+`git submodule update --recursive --remote`.  The first `emacs`
+invocation above installs necessary packages, which is only necessary
+once.  The second one publishes the HTML presentation into the
+subdirectory `public`.  (From within Emacs, you can generate the HTML
+presentation for an individual `org` file using Org’s export
+functionality by pressing a key such as `C-c C-e v b`; the precise key
+binding changed with different versions of the back-end.)
