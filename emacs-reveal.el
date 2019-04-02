@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Package-Requires: ((emacs "24.4") (oer-reveal "0.9.5") (org-re-reveal-ref "0.9.1"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
@@ -99,7 +99,8 @@
 
 ;; Setup Bibliography in HTML based on default bib file (which helps to
 ;; locate the bib file when the current buffer does not specify one).
-;; Display article, book, inproceedings differently.  Entry misc is new.
+;; Display article, book, inproceedings differently.  Entries misc and
+;; phdthesis are new.
 ;; Remaining entries are defaults.
 (require 'org-ref)
 (require 'org-re-reveal-ref)
@@ -110,6 +111,7 @@
 	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
 	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
 	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
+	("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
 	("techreport" . "%a, %t, %i, %u (%y).")
 	("proceedings" . "%e, %t in %S, %u (%y).")
 	))
