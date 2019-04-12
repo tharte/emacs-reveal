@@ -4,29 +4,30 @@
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
-to create presentations (slides with audio) that are suitable as
-[Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources),
-which in my view comes with two frequently neglected requirements:
-1. Layout and style of presentations are separated from content to
-   simplify *collaboration across organizational boundaries*.
-2. Slides’ content is written down in simple text files, which enables
-   *comparisons* of adapted or enhanced *versions* (with `diff`-like
-   functionality, e.g, with the
-   [compare functionality on GitLab](https://gitlab.com/oer/OS/compare/os02...os03)).
+to create HTML presentations (slides with audio) that are suitable as
+[Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources).
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Introduction](#introduction)
+- [Technical Background](#technical-background)
+- [Usage of emacs-reveal](#usage-of-emacs-reveal)
+  - [Emacs-reveal in GitLab CI/CD](#emacs-reveal-in-gitlab-cicd)
+  - [Emacs-reveal with Docker](#emacs-reveal-with-docker)
+  - [Emacs-reveal for daily use](#emacs-reveal-for-daily-use)
+- [Emacs-reveal for a course on Operating Systems](#emacs-reveal-for-a-course-on-operating-systems)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Introduction
 
 During summer term 2017 I created emacs-reveal to
 produce lecture slides (initially for a course on Operating Systems)
 and presentations as OER using the
 HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
-(see [here for the official reveal.js demo](https://revealjs.com/)
-and [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
-
-On the students’ side, as reveal.js presentations are in HTML format,
-there is no need for students to use special-purpose presentation
-software such as LibreOffice Impress or its proprietary counterparts
-such as Powerpoint.  Instead, presentations can be viewed on *any
-device* using a Web browser, with its multimedia support for embedded
-audio explanations (or videos).
+(see [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
 
 Since its creation, I’ve been updating emacs-reveal and the
 surrounding infrastructure continuously.  In particular, sharing of
@@ -43,6 +44,21 @@ information and (b) making licensing information accessible on the
 
 I’m using emacs-reveal for my courses and talks in general.  Feel free
 to use and adapt for your purposes!
+
+# Technical Background
+
+Emacs-reveal addresses several technical requirements for OER
+(explained in detail in
+[this paper (in German)](https://www.medienpaed.com/article/view/651)):
+1. Layout and style of presentations are separated from content to
+   simplify *collaboration across organizational boundaries*.
+2. Slides’ content is written down in simple text files, which enables
+   *comparisons* of adapted or enhanced *versions* (with `diff`-like
+   functionality, e.g, with the
+   [compare functionality on GitLab](https://gitlab.com/oer/OS/compare/os02...os03)).
+3. Presentations are usable in standard Web browsers with their
+   multimedia support on almost *any device*, without the need for
+   special-purpose software.  Offline use is supported.
 
 Although reveal.js is an HTML presentation framework, I do not create
 presentations in HTML.  Instead, I rely on my usual computing
@@ -90,45 +106,132 @@ To embed audio, I’m using the
 [audio-slideshow plugin of reveal.js](https://github.com/rajgoel/reveal.js-plugins).
 
 The setup is as follows:
- * GNU Emacs
+ * GNU Emacs with the following packages
    * Org mode (recent versions, e.g., from ELPA)
    * Org-re-reveal, org-re-reveal-ref, oer-reveal (from MELPA or
      [my repositories](https://gitlab.com/oer))
-   * Emacs library htmlize (for source code highlighting)
+   * Htmlize (for source code highlighting)
  * reveal.js
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins)
+     (for audio explanations and SVG animations)
    * [reveal.js-coursemod](https://github.com/Sonaryr/reveal.js-coursemod)
+     (for a courseware view where notes are visible)
    * [reveal.js-jump-plugin](https://github.com/SethosII/reveal.js-jump-plugin)
+     (for jumps to slides by entering their numbers)
    * [reveal.js-quiz](https://gitlab.com/schaepermeier/reveal.js-quiz)
+     (for embedded quizzes supporting retrieval practice)
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
+     (for a hyperlinked table of contents as slide footer)
  * LaTeX for PDF generation
 
-Emacs initialization code for the above is included in
-[the file `emacs-reveal.el`](emacs-reveal.el), which you can load
-from your `~/.emacs` (or embed there).
+# Usage of emacs-reveal
+
+To use emacs-reveal, several options exist as sketched subsequently.
+
+1. Use emacs-reveal inside [GitLab’s Continuous Integration](https://docs.gitlab.com/ce/ci/)
+   infrastructure with automatic deployment of resulting presentations
+   as [GitLab Pages](https://docs.gitlab.com/ce/user/project/pages/index.html).
+2. Use docker image `registry.gitlab.com/oer/docker/emacs-reveal`.
+3. Install GNU Emacs, emacs-reveal, and above packages.
+
+## Emacs-reveal in GitLab CI/CD
+
+A simple way to get started with the first option is to fork the
+[emacs-reveal howto](https://gitlab.com/oer/emacs-reveal-howto) at
+GitLab.  In your clone, change the file `howto.org` and commit the
+change.  A GitLab runner will start automatically and publish the
+presentation under your
+[GitLab Pages namespace](https://docs.gitlab.com/ce/user/project/pages/getting_started_part_one.html).
+
+## Emacs-reveal with Docker
+
+For the second option, [install Docker](https://docs.docker.com/install/)
+and start a container for emacs-reveal, e.g.:
+
+```
+docker run --rm --name emacs-reveal -it registry.gitlab.com/oer/docker/emacs-reveal
+```
+
+Or for GUI support:
+
+```
+docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority registry.gitlab.com/oer/docker/emacs-reveal
+```
+
+In both cases, a shell opens in the container.  Type `emacs` to start
+GNU Emacs, load an `org` file (e.g., `Readme.org` coming with
+`org-re-reveal`, available under directory
+`/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>`)
+and export the reveal.js presentation (with function
+`org-re-reveal-export-to-html`, bound to key `C-c C-e v v`).
+
+Copy the generated HTML presentation (and resources `local.css` as well as
+`images/`) from the container to a directory with your `reveal.js`
+installation.  E.g., use commands such as the following:
+
+```
+docker cp emacs-reveal:/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>/Readme.html .
+```
+
+Open presentation in browser.
+
+In general, copying files to and from the container can be avoided by
+binding your directory with `org` files into the container (with
+option `-v`):
+
+```
+docker run --rm --name emacs-reveal -it -v /some/dir/with/org-files:/tmp registry.gitlab.com/oer/docker/emacs-reveal
+```
+
+Note that more powerful features of emacs-reveal based on plugins of
+reveal.js listed above are not enabled by default when starting Emacs
+inside the Docker container.  They require additional setup (which is
+activated when publishing according to the first option with GitLab
+CI/CD and also with the following option).
+
+## Emacs-reveal for daily use
+
+For the third option (my daily work environment), you need
+[GNU Emacs](https://www.gnu.org/software/emacs/download.html),
+a directory containing the contents of
+[this GitLab repository](https://gitlab.com/oer/emacs-reveal)
+(cloned via Git or extracted from an archive downloaded from GitLab, e.g.,
+[a ZIP archive](https://gitlab.com/oer/oer-courses/vm-neuland/-/archive/master/vm-neuland-master.zip)),
+and the packages mentioned above.  Once Emacs is installed,
+the packages can be installed manually or with the following command:
+
+```
+emacs --batch --load emacs-reveal/install.el --funcall install
+```
+
+Emacs initialization code for all packages and reveal.js with its
+plugins can be activated with [the file `emacs-reveal.el`](emacs-reveal.el),
+which you can load from your `~/.emacs` (as done in
+[.emacs](https://gitlab.com/oer/docker/blob/master/code/.emacs)
+coming with the Docker image).
 
 A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
-sample presentation generated with emacs-reveal that explains how
-to use emacs-reveal.  Besides,
-the [README of org-re-reveal](https://gitlab.com/oer/org-re-reveal)
-documents various features and options of org-re-reveal, which are also
-available with emacs-reveal.
+sample presentation generated with emacs-reveal that explains how to
+use emacs-reveal.  Its publication code automatically loads
+`emacs-reveal.el`.  Besides, the
+[README of org-re-reveal](https://gitlab.com/oer/org-re-reveal)
+mentioned above documents various features and options of
+org-re-reveal, which are also available with emacs-reveal.
 
-My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS) is a
-real-world use case for emacs-reveal.  Presentations are built automatically
-using Continuous Integration (CI) upon commit by a GitLab runner (see its
+# Emacs-reveal for a course on Operating Systems
+
+My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS)
+is a real-world use case for emacs-reveal, combining all previously
+mentioned aspects.  Presentations are built automatically using
+Continuous Integration (CI) upon commit by a GitLab runner (see its
 [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
 for details), which publishes the
 [presentations as GitLab pages](https://oer.gitlab.io/OS/).
-The [Docker image used by the GitLab runner](https://gitlab.com/oer/docker)
-contains necessary underlying software such as GNU Emacs with additional
-packages and LaTeX.
 
-Of course, presentations can also be built locally (without Docker).
-For my course on Operating Systems you could also do the following to
-build all HTML presentations manually from `org` source files into
-target directory `public` (as of March 2019, the first `git` command
-alone downloads about 150 MB of resources):
+The following builds presentations for my course on Operating Systems
+locally (without Docker) from `org` source files into target directory
+`public` (as of March 2019, the first `git` command alone downloads
+about 150 MB of resources):
 
 	$ git clone https://gitlab.com/oer/OS.git
 	$ cd OS
@@ -144,5 +247,6 @@ invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML
 presentation for an individual `org` file using Org’s export
-functionality by pressing a key such as `C-c C-e v b`; the precise key
-binding changed with different versions of the back-end.)
+functionality by pressing a key such as `C-c C-e v b` or
+`C-c C-e v v`; note that the key binding changed with different
+versions of the back-end.)
