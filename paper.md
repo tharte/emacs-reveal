@@ -1,6 +1,6 @@
 <!--- Local IspellDict: en -->
 <!--- Copyright (C) 2019 Jens Lechtenbörger -->
-<!--- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!--- SPDX-License-Identifier: CC-BY-4.0 -->
 ---
 title: 'Emacs-reveal: A software bundle to create OER presentations with audio explanations'
 tags:
