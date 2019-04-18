@@ -2,7 +2,7 @@
 <!--- Copyright (C) 2019 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: CC-BY-4.0 -->
 ---
-title: 'Emacs-reveal: A software bundle to create OER presentations with audio explanations'
+title: 'Emacs-reveal: A software bundle to create OER presentations'
 tags:
   - slideshow
   - Open Educational Resources (OER)
@@ -19,7 +19,7 @@ date: 15 April 2019
 bibliography: paper.bib
 ---
 
-# Summary
+# Introduction
 
 According to the *Ljubljana OER Action Plan 2017* [@Une17], “Open
 Educational Resources (OER) support quality education that is
@@ -38,14 +38,17 @@ Emacs-reveal [@emacs-reveal] is a Free/Libre and Open Source Software
 (FLOSS) bundle (combining novel and established FLOSS components) in
 accordance with action (c).  Briefly, emacs-reveal is a software tool,
 embedded in a powerful Continuous Integration infrastructure, to
-create and (re-) use OER slideshows (for courses and talks) with with
+create and (re-) use OER slideshows (for courses and talks) with
 references and embedded multimedia contents such as figures, audio
 explanations, animations, videos, quizzes, and live code execution.
 The software simplifies creation and re-use of OER by addressing
-OER-specific requirements as summarized next.  For educational
-resources to be free and open, next to proper licensing requirements
-also technical requirements exist (as defined in the ALMS framework
-[@HWSJ10], extended in [@Lec19]):
+OER-specific requirements as summarized next.
+
+# Technical requirements for OER
+
+For educational resources to be free and open, next to proper
+licensing requirements also technical requirements exist (as defined
+in the ALMS framework [@HWSJ10], extended in [@Lec19]):
 
 - OER should be usable (for learning) with FLOSS
   on (almost) any device, also mobile and offline.
@@ -65,24 +68,61 @@ also technical requirements exist (as defined in the ALMS framework
   control systems such as Git for the management of OER collaboration
   (comparison, revision, merge).
 
-Emacs-reveal meets all of the above requirements, which lowers entry
-barriers towards a more widespread creation of OER.  Besides, it
-simplifies licensing attribution when re-using figures with
-machine-readable meta-data based on an extension of CC REL (The
-Creative Commons Rights Expression Language) [@AAL+12], (a) avoiding
-manual identification and copying of licensing information, which is
-among the most time-consuming factors for OER projects [@FLGB16], and
-(b) making licensing information accessible on the Semantic Web (with
-RDFa in HTML) [@Hor08].
+# Statement of Need
 
-Source files for presentations are written in the lightweight
-markup language Org Mode [@SD11] (which is native to the text editor
-GNU Emacs [@emacs] but can be edited in any text editor) and converted
-to slideshows based on the HTML presentation framework reveal.js
-[@revealjs].  A Docker image for emacs-reveal
+In spring 2017, the author was looking for FLOSS to create OER
+presentations with audio explanations for teaching and self-study that
+satisfies the above requirements.  OER were meant for a course on
+Operating Systems, which was about to be transformed from more
+traditional lecturing to Just-in-Time Teaching (JiTT, see [@jitt]) in
+the context of a fellowship for innovation in digital university
+teaching funded by the Ministry of Innovation, Science and Research of
+the State of North Rhine-Westphalia, Germany, and Stifterverband,
+Germany.
+
+JiTT relies on students’ self-study, and for subjective reasons the
+author decided to create presentations with audio explanations: While
+videos might be more popular, the author finds them difficult to
+create in high quality and difficult to use for learning (no skim
+reading, limited navigation and search, no hyperlinks).  A survey
+result of [Lec19] justifies this decision: More students prefer
+emacs-reveal presentations over videos than the other way round.
+
+To create such presentations, an initial analysis confirmed the need
+for “new tools and technologies for the creation and sharing of OER”
+identified in the Action Plan [Une17] cited above: Support for
+presentations created with software such as LibreOffice Impress on
+mobile devices was and still is limited, as is support for Single
+Sourcing and separation of contents from layout.  Beamer LaTeX
+presentations [@beamer] support Single Sourcing with separation of
+contents from layout, and generated PDF documents can embed audio
+files, but their playback using FLOSS on mobile devices was and still
+is limited.  The author did not systematically analyze Wiki-style
+presentations, such as those created with SlideWiki [@AKT13], because
+he was looking for support for Single Sourcing and collaboration based
+on the capabilities of decentralized version control systems such as
+Git [@gitbook].
+
+Emacs-reveal meets all of the above requirements, which lowers entry
+barriers towards a more widespread creation of OER.  For OER creators,
+it simplifies licensing attribution when re-using figures with
+machine-readable meta-data based on an extension of CC REL (The
+Creative Commons Rights Expression Language, see [@AAL+12]), (a)
+avoiding manual identification and copying of licensing information,
+which is among the most time-consuming factors for OER projects
+[@FLGB16], and (b) making licensing information accessible on the
+Semantic Web (with RDFa in HTML) [@Hor08].
+
+With emacs-reveal, source files for presentations are written in the
+lightweight markup language Org Mode [@SD11] (which is native to the
+text editor GNU Emacs [@emacs] but can be edited in any text editor)
+and converted to slideshows based on the HTML presentation framework
+reveal.js [@revealjs].  A Docker image for emacs-reveal
 [@emacs-reveal-docker] can be used to generate OER presentations in
 GitLab Continuous Integration infrastructures, notably a Howto
-presentation [@howto] for emacs-reveal is maintained that way.
+presentation [@howto] for emacs-reveal is maintained that way, as are
+presentations [@os-course] for the course on Operating Systems for
+which emacs-reveal was originally developed.
 
 
 # Acknowledgements
