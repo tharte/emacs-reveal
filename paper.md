@@ -116,7 +116,9 @@ Semantic Web (with RDFa in HTML) [@Hor08].
 
 With emacs-reveal, source files for presentations are written in the
 lightweight markup language Org Mode [@SD11] (which is native to the
-text editor GNU Emacs [@emacs] but can be edited in any text editor)
+text editor GNU Emacs [@emacs] but can be edited in any text editor
+and which is also used in other contexts to create modular and
+reusable teaching materials [@org-coursepack])
 and converted to slideshows based on the HTML presentation framework
 reveal.js [@revealjs].  A Docker image for emacs-reveal
 [@emacs-reveal-docker] can be used to generate OER presentations in
