@@ -6,8 +6,9 @@ Emacs-reveal is Free/Libre and Open Source Software (FLOSS) for the
 creation of Open Educational Resources (OER).  Contributions to the
 software as well as to educational resources are very welcome, be they
 small or large.
-Please open [issues](issues) or [merge/pull requests](merge_requests) to
-contribute questions, suggestions, corrections, new features, etc.
+Please open [issues](https://gitlab.com/oer/emacs-reveal/issues)
+or [merge/pull requests](https://gitlab.com/oer/emacs-reveal/merge_requests)
+to contribute questions, suggestions, corrections, new features, etc.
 Note that your contributions must also be licensed under free and open licenses.
 
 As emacs-reveal builds the core of the infrastructure for the group
