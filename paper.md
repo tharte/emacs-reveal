@@ -116,15 +116,17 @@ Semantic Web (with RDFa in HTML) [@Hor08].
 
 With emacs-reveal, source files for presentations are written in the
 lightweight markup language Org Mode [@SD11] (which is native to the
-text editor GNU Emacs [@emacs] but can be edited in any text editor
-and which is also used in other contexts to create modular and
-reusable teaching materials [@org-coursepack])
+text editor [GNU Emacs](https://www.gnu.org/software/emacs/) but can
+be edited in any text editor and which is also used in other contexts
+to create modular and reusable teaching materials [@org-coursepack])
 and converted to slideshows based on the HTML presentation framework
-reveal.js [@revealjs].  A Docker image for emacs-reveal
-[@emacs-reveal-docker] can be used to generate OER presentations in
-GitLab Continuous Integration infrastructures, notably a Howto
-presentation [@howto] for emacs-reveal is maintained that way, as are
-presentations [@os-course] for the course on Operating Systems for
+[reveal.js](https://revealjs.com/).
+[Docker images for emacs-reveal](https://gitlab.com/oer/docker)
+can be used to generate OER presentations in
+GitLab Continuous Integration infrastructures, notably a
+[Howto presentation](https://oer.gitlab.io/emacs-reveal-howto/howto.html)
+for emacs-reveal is maintained that way, as are
+[presentations](https://oer.gitlab.io/OS/) for the course on Operating Systems for
 which emacs-reveal was originally developed.
 
 
