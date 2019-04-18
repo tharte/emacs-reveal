@@ -8,6 +8,7 @@ tags:
   - Open Educational Resources (OER)
   - GNU Emacs
   - reveal.js
+  - Org Mode
 authors:
   - name: Jens Lechtenbörger
     orcid: 0000-0002-3064-147X
@@ -15,7 +16,7 @@ authors:
 affiliations:
  - name: ERCIS, University of Münster, Germany
    index: 1
-date: 15 April 2019
+date: 18 April 2019
 bibliography: paper.bib
 ---
 
