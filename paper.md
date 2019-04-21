@@ -1,6 +1,3 @@
-<!--- Local IspellDict: en -->
-<!--- Copyright (C) 2019 Jens Lechtenbörger -->
-<!--- SPDX-License-Identifier: CC-BY-4.0 -->
 ---
 title: 'Emacs-reveal: A software bundle to create OER presentations'
 tags:
@@ -16,7 +13,7 @@ authors:
 affiliations:
  - name: ERCIS, University of Münster, Germany
    index: 1
-date: 18 April 2019
+date: 21 April 2019
 bibliography: paper.bib
 ---
 
