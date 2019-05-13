@@ -1,6 +1,6 @@
 <!--- Local IspellDict: en -->
 <!--- Copyright (C) 2019 Jens Lechtenbörger -->
-<!--- SPDX-License-Identifier: CC0 -->
+<!--- SPDX-License-Identifier: CC0-1.0 -->
 
 Emacs-reveal is Free/Libre and Open Source Software (FLOSS) for the
 creation of Open Educational Resources (OER).  Contributions to the
