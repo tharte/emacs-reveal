@@ -4,8 +4,11 @@
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
-to create HTML presentations (slides with audio) that are suitable as
-[Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources).
+to create HTML presentations (slides with audio)
+from [Org mode](https://orgmode.org/) source files.
+Emacs-reveal satisfies several requirements in a novel way to
+ensure that resulting presentations and source files are
+suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -33,9 +36,10 @@ Since its creation, I’ve been updating emacs-reveal and the
 surrounding infrastructure continuously.  In particular, sharing of
 OER figures with proper attribution and license information has been
 simplified considerably; see the project hosting
-[OER figures](https://gitlab.com/oer/figures/) for more details on my
-approach towards meta-data, which is based on standard vocabularies
-and embeds license information using
+[OER figures](https://gitlab.com/oer/figures/) and
+[this paper](https://gitlab.com/lechten/publications/blob/master/delfi2019/delfi.org)
+for more details on my approach towards meta-data, which is based on
+standard vocabularies and embeds license information using
 [CC REL](https://labs.creativecommons.org/2011/ccrel-guide/) (with
 [RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML),
 (a) avoiding manual identification and copying of licensing
