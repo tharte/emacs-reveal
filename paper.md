@@ -13,7 +13,7 @@ authors:
 affiliations:
  - name: ERCIS, University of Münster, Germany
    index: 1
-date: 21 April 2019
+date: 14 June 2019
 bibliography: paper.bib
 ---
 
@@ -68,48 +68,35 @@ in the ALMS framework [@HWSJ10], extended in [@Lec19]):
 
 # Statement of Need
 
-In spring 2017, the author was looking for FLOSS to create OER
-presentations with audio explanations for teaching and self-study that
-satisfies the above requirements.  OER were meant for a course on
-Operating Systems, which was about to be transformed from more
-traditional lecturing to Just-in-Time Teaching (JiTT, see [@jitt]) in
-the context of a fellowship for innovation in digital university
-teaching funded by the Ministry of Innovation, Science and Research of
-the State of North Rhine-Westphalia, Germany, and Stifterverband,
-Germany.
+The author was unable to locate FLOSS for the creation of OER
+presentations with audio explanations that satisfies the above
+requirements, confirming the need for “new tools and technologies for
+the creation and sharing of OER” identified in the Action Plan
+[@Une17] cited above.
 
-JiTT relies on students’ self-study, and for subjective reasons the
-author decided to create presentations with audio explanations: While
-videos might be more popular, the author finds them difficult to
-create in high quality and difficult to use for learning (no skim
-reading, limited navigation and search, no hyperlinks).  A survey
-result of [Lec19] justifies this decision: More students prefer
-emacs-reveal presentations over videos than the other way round.
+For example, support for presentations created with software such as
+LibreOffice Impress on mobile devices was and still is limited, as is
+support for Single Sourcing and separation of contents from layout.
+Beamer LaTeX presentations [@beamer] support Single Sourcing with
+separation of contents from layout, and generated PDF documents can
+embed audio files, but their playback using FLOSS on mobile devices
+was and still is limited.  The author did not systematically analyze
+Wiki-style presentations, such as those created with SlideWiki
+[@AKT13], because he was looking for support for Single Sourcing and
+collaboration based on the capabilities of decentralized version
+control systems such as Git [@gitbook].
 
-To create such presentations, an initial analysis confirmed the need
-for “new tools and technologies for the creation and sharing of OER”
-identified in the Action Plan [Une17] cited above: Support for
-presentations created with software such as LibreOffice Impress on
-mobile devices was and still is limited, as is support for Single
-Sourcing and separation of contents from layout.  Beamer LaTeX
-presentations [@beamer] support Single Sourcing with separation of
-contents from layout, and generated PDF documents can embed audio
-files, but their playback using FLOSS on mobile devices was and still
-is limited.  The author did not systematically analyze Wiki-style
-presentations, such as those created with SlideWiki [@AKT13], because
-he was looking for support for Single Sourcing and collaboration based
-on the capabilities of decentralized version control systems such as
-Git [@gitbook].
+# Functionality of emacs-reveal
 
 Emacs-reveal meets all of the above requirements, which lowers entry
-barriers towards a more widespread creation of OER.  For OER creators,
-it simplifies licensing attribution when re-using figures with
-machine-readable meta-data based on an extension of CC REL (The
-Creative Commons Rights Expression Language, see [@AAL+12]), (a)
-avoiding manual identification and copying of licensing information,
-which is among the most time-consuming factors for OER projects
-[@FLGB16], and (b) making licensing information accessible on the
-Semantic Web (with RDFa in HTML) [@Hor08].
+barriers towards a more widespread creation of OER.  As described in
+[@Lec19b], for OER creators it simplifies licensing attribution when
+re-using figures with machine-readable meta-data based on an extension
+of CC REL (The Creative Commons Rights Expression Language, see
+[@AAL+12]), (a) avoiding manual identification and copying of
+licensing information, which is among the most time-consuming factors
+for OER projects [@FLGB16], and (b) making licensing information
+accessible on the Semantic Web (with RDFa in HTML) [@Hor08].
 
 With emacs-reveal, source files for presentations are written in the
 lightweight markup language Org Mode [@SD11] (which is native to the
@@ -123,14 +110,16 @@ can be used to generate OER presentations in
 GitLab Continuous Integration infrastructures, notably a
 [Howto presentation](https://oer.gitlab.io/emacs-reveal-howto/howto.html)
 for emacs-reveal is maintained that way, as are
-[presentations](https://oer.gitlab.io/OS/) for the course on Operating Systems for
-which emacs-reveal was originally developed.
-
+[presentations](https://oer.gitlab.io/OS/) for a course on Operating
+Systems (based on Just-in-Time Teaching [@jitt], which relies on
+considerable self-study) for which emacs-reveal was originally
+developed.
 
 # Acknowledgements
 
-The author acknowledges funding by the Ministry of Innovation, Science
-and Research of the State of North Rhine-Westphalia, Germany, and
+The author acknowledges funding for a fellowship for innovation in
+digital university teaching by the Ministry of Innovation, Science and
+Research of the State of North Rhine-Westphalia, Germany, and
 Stifterverband, Germany during the genesis of this project.
 
 # References
