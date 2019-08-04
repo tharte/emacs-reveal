@@ -13,7 +13,7 @@ authors:
 affiliations:
  - name: ERCIS, University of Münster, Germany
    index: 1
-date: 1 August 2019
+date: 4 August 2019
 bibliography: paper.bib
 ---
 
