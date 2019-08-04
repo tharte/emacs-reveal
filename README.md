@@ -2,6 +2,8 @@
 <!--- Copyright (C) 2017-2019 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
+[![DOI](https://jose.theoj.org/papers/10.21105/jose.00050/status.svg)](https://doi.org/10.21105/jose.00050)
+
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
 to create HTML presentations (slides with audio)
