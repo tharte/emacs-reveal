@@ -114,8 +114,8 @@ GitLab Continuous Integration infrastructures, notably a
 [Howto presentation](https://oer.gitlab.io/emacs-reveal-howto/howto.html)
 for emacs-reveal is maintained that way, as are
 [presentations](https://oer.gitlab.io/OS/) for a course on Operating
-Systems (based on Just-in-Time Teaching [@jitt], which relies on
-considerable self-study) for which emacs-reveal was originally
+Systems (based on Just-in-Time Teaching, which relies on
+considerable self-study, see @jitt) for which emacs-reveal was originally
 developed.
 
 # Acknowledgements
