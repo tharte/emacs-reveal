@@ -32,7 +32,7 @@ support models of good practice with a focus on cost-effectiveness,
 sustainability, exploration of new tools and technologies for the
 creation and sharing of OER”.
 
-Emacs-reveal [@emacs-reveal] is a Free/Libre and Open Source Software
+Emacs-reveal is a Free/Libre and Open Source Software
 (FLOSS) bundle (combining novel and established FLOSS components) in
 accordance with action (c).  Briefly, emacs-reveal is a software tool,
 embedded in a powerful Continuous Integration infrastructure, to
@@ -46,7 +46,7 @@ OER-specific requirements as summarized next.
 
 For educational resources to be free and open, next to proper
 licensing requirements also technical requirements exist (as defined
-in the ALMS framework [@HWSJ10], extended in [@Lec19]):
+in the ALMS framework [@HWSJ10], extended in @Lec19):
 
 - OER should be usable (for learning) with FLOSS
   on (almost) any device, also mobile and offline.
@@ -72,12 +72,12 @@ The author was unable to locate FLOSS for the creation of OER
 presentations with audio explanations that satisfies the above
 requirements, confirming the need for “new tools and technologies for
 the creation and sharing of OER” identified in the Action Plan
-[@Une17] cited above.
+cited above [@Une17].
 
 For example, support for presentations created with software such as
 LibreOffice Impress on mobile devices was and still is limited, as is
 support for Single Sourcing and separation of contents from layout.
-Beamer LaTeX presentations [@beamer] support Single Sourcing with
+Beamer LaTeX presentations [see @beamer] support Single Sourcing with
 separation of contents from layout, and generated PDF documents can
 embed audio files, but their playback using FLOSS on mobile devices
 was and still is limited.  The author did not systematically analyze
@@ -90,13 +90,13 @@ control systems such as Git [@gitbook].
 
 Emacs-reveal meets all of the above requirements, which lowers entry
 barriers towards a more widespread creation of OER.  As described in
-[@Lec19b], for OER creators it simplifies licensing attribution when
+@Lec19b, for OER creators it simplifies licensing attribution when
 re-using figures with machine-readable meta-data based on an extension
 of CC REL (The Creative Commons Rights Expression Language, see
-[@AAL+12]), (a) avoiding manual identification and copying of
+@AAL+12), (a) avoiding manual identification and copying of
 licensing information, which is among the most time-consuming factors
-for OER projects [@FLGB16], and (b) making licensing information
-accessible on the Semantic Web (with RDFa in HTML) [@Hor08].
+for OER projects [see @FLGB16], and (b) making licensing information
+accessible on the Semantic Web (with RDFa in HTML) [see @Hor08].
 
 With emacs-reveal, source files for presentations are written in the
 lightweight markup language Org Mode [@SD11] (which is native to the
