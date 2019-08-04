@@ -46,14 +46,15 @@ OER-specific requirements as summarized next.
 
 For educational resources to be free and open, next to proper
 licensing requirements also technical requirements exist (as defined
-in the ALMS framework [@HWSJ10], extended in @Lec19):
+in the ALMS framework, which was proposed by @HWSJ10 and extended by
+@Lec19):
 
 - OER should be usable (for learning) with FLOSS
   on (almost) any device, also mobile and offline.
 - OER should be editable with FLOSS
   (this requires source file access).
-- OER should be re-usable under the Single Sourcing paradigm (see
-  [@Roc01]), which enables reuse and revision from a single,
+- OER should be re-usable under the Single Sourcing paradigm
+  [@Roc01], which enables reuse and revision from a single,
   consistent source without copy&paste (copy&paste creates isolated
   copies, where the reconciliation of changes and improvements by
   different individuals would be almost impossible).
@@ -96,15 +97,17 @@ of CC REL (The Creative Commons Rights Expression Language, see
 @AAL+12), (a) avoiding manual identification and copying of
 licensing information, which is among the most time-consuming factors
 for OER projects [see @FLGB16], and (b) making licensing information
-accessible on the Semantic Web (with RDFa in HTML) [see @Hor08].
+accessible on the Semantic Web with RDFa in HTML
+[see @Hor08 for a general introduction to the Semantic Web].
 
 With emacs-reveal, source files for presentations are written in the
-lightweight markup language Org Mode [@SD11] (which is native to the
-text editor [GNU Emacs](https://www.gnu.org/software/emacs/) but can
-be edited in any text editor and which is also used in other contexts
-to create modular and reusable teaching materials [@org-coursepack])
-and converted to slideshows based on the HTML presentation framework
+lightweight markup language Org Mode [@SD11] and converted to
+slideshows based on the HTML presentation framework
 [reveal.js](https://revealjs.com/).
+Org mode is native to the
+text editor [GNU Emacs](https://www.gnu.org/software/emacs/) but can
+be edited in any text editor; it is also used in other contexts
+to create modular and reusable teaching materials [@org-coursepack].
 [Docker images for emacs-reveal](https://gitlab.com/oer/docker)
 can be used to generate OER presentations in
 GitLab Continuous Integration infrastructures, notably a
