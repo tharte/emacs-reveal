@@ -18,6 +18,7 @@ suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Ope
 
 - [Introduction](#introduction)
 - [Technical Background](#technical-background)
+- [Publications on emacs-reveal](#publications-on-emacs-reveal)
 - [Usage of emacs-reveal](#usage-of-emacs-reveal)
   - [Emacs-reveal in GitLab CI/CD](#emacs-reveal-in-gitlab-cicd)
   - [Emacs-reveal with Docker](#emacs-reveal-with-docker)
@@ -129,6 +130,12 @@ The setup is as follows:
    * [Reveal.js-TOC-Progress](https://github.com/e-gor/Reveal.js-TOC-Progress)
      (for a hyperlinked table of contents as slide footer)
  * LaTeX for PDF generation
+
+# Publications on emacs-reveal
+
+* [Emacs-reveal: A software bundle to create OER presentations](https://doi.org/10.21105/jose.00050)
+* [Erstellung und Weiterentwicklung von Open Educational Resources im Selbstversuch](https://www.medienpaed.com/article/view/651)
+* [Simplifying license attribution for OER with emacs-reveal](https://gitlab.com/lechten/publications/tree/master/delfi2019)
 
 # Usage of emacs-reveal
 
