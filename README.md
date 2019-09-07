@@ -135,7 +135,7 @@ The setup is as follows:
 
 * [Emacs-reveal: A software bundle to create OER presentations](https://doi.org/10.21105/jose.00050)
 * [Erstellung und Weiterentwicklung von Open Educational Resources im Selbstversuch](https://www.medienpaed.com/article/view/651)
-* [Simplifying license attribution for OER with emacs-reveal](https://gitlab.com/lechten/publications/tree/master/delfi2019)
+* [Simplifying license attribution for OER with emacs-reveal](https://dx.doi.org/10.18420/delfi2019_280)
 
 # Usage of emacs-reveal
 
