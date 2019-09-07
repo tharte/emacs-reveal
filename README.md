@@ -175,8 +175,10 @@ In both cases, a shell opens in the container.  Type `emacs` to start
 GNU Emacs, load an `org` file (e.g., `Readme.org` coming with
 `org-re-reveal`, available under directory
 `/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>`)
-and export the reveal.js presentation (with function
-`org-re-reveal-export-to-html`, bound to key `C-c C-e v v`).
+and export the reveal.js presentation (either with function
+`org-re-reveal-export-to-html`, bound to key `C-c C-e v v`, or
+`oer-reveal-export-to-html`, bound to key `C-c C-e w w` for additional
+reveal.js plugins).
 
 Copy the generated HTML presentation (and resources `local.css` as well as
 `images/`) from the container to a directory with your `reveal.js`
@@ -260,6 +262,5 @@ invocation above installs necessary packages, which is only necessary
 once.  The second one publishes the HTML presentation into the
 subdirectory `public`.  (From within Emacs, you can generate the HTML
 presentation for an individual `org` file using Org’s export
-functionality by pressing a key such as `C-c C-e v b` or
-`C-c C-e v v`; note that the key binding changed with different
-versions of the back-end.)
+functionality by pressing keys for org-re-reveal or oer-reveal as
+mentioned above.)
