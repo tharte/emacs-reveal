@@ -7,8 +7,8 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 4.0.0
-;; Package-Requires: ((emacs "24.4") (oer-reveal "1.0.0") (org-re-reveal-ref "0.9.1"))
+;; Version: 4.1.0
+;; Package-Requires: ((emacs "24.4") (oer-reveal "1.4.0") (org-re-reveal-ref "0.9.1"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
 ;;; License:
@@ -94,7 +94,6 @@
 (require 'oer-reveal-publish)
 (oer-reveal-setup-submodules t)
 (oer-reveal-generate-include-files t)
-(oer-reveal-setup-plugins)
 (oer-reveal-publish-setq-defaults)
 
 ;; Setup Bibliography in HTML based on default bib file (which helps to
