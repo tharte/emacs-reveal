@@ -16,6 +16,7 @@ suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Ope
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Relationships between Emacs packages](#relationships-between-emacs-packages)
 - [Introduction](#introduction)
 - [Technical Background](#technical-background)
 - [Publications on emacs-reveal](#publications-on-emacs-reveal)
@@ -26,6 +27,22 @@ suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Ope
 - [Emacs-reveal for a course on Operating Systems](#emacs-reveal-for-a-course-on-operating-systems)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Relationships between Emacs packages
+
+| Package                                                       | Description                                                                                                                                      |
+|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| [org-reveal](https://github.com/yjwen/org-reveal)             | Origin of org-re-reveal                                                                                                                          |
+| [org-re-reveal](https://gitlab.com/oer/org-re-reveal)         | Fork of org-reveal, initially to add audio fragments, now with [various changes](https://gitlab.com/oer/org-re-reveal/blob/master/CHANGELOG.org) |
+| [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref) | Addon to org-re-reveal for bibliography slide based on [org-ref](https://github.com/jkitchin/org-ref)                                            |
+| [oer-reveal](https://gitlab.com/oer/oer-reveal)               | Export backend derived from org-re-reveal; functionality for installation of reveal.js and plugins; simplification of licensing for OER          |
+| [emacs-reveal](https://gitlab.com/oer/emacs-reveal/)          | Bundling of org-re-reveal, org-re-reveal-ref, and oer-reveal                                                                                     |
+
+Originally, *emacs-reveal* was created to enhance *org-reveal*, and it
+contained the code of what is now maintained separately as
+*org-re-reveal-ref* and *oer-reveal*.  Those packages were separated
+to make as much of *emacs-reveal* available on MELPA as possible.
+Whether anyone wants to use those package in isolation is up to them.
 
 # Introduction
 
