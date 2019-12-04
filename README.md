@@ -49,7 +49,10 @@ Whether anyone wants to use those package in isolation is up to them.
 
 During summer term 2017 I created emacs-reveal to
 produce lecture slides (initially for a course on Operating Systems)
-and presentations as OER using the
+and presentations as OER under the
+[Creative Commons license](https://creativecommons.org/use-remix/cc-licenses/)
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+using the
 HTML presentation framework [reveal.js](https://github.com/hakimel/reveal.js/)
 (see [here for my presentations on Operating Systems](https://oer.gitlab.io/OS/)).
 
@@ -61,8 +64,8 @@ simplified considerably; see the project hosting
 [this paper](https://gitlab.com/lechten/publications/blob/master/delfi2019/delfi.org)
 for more details on my approach towards meta-data, which is based on
 standard vocabularies and embeds license information using
-[CC REL](https://labs.creativecommons.org/2011/ccrel-guide/) (with
-[RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML),
+the [Creative Commons Rights Expression Language (CC REL)](https://labs.creativecommons.org/2011/ccrel-guide/)
+(with [RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML),
 (a) avoiding manual identification and copying of licensing
 information and (b) making licensing information accessible on the
 [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web).
