@@ -6,7 +6,8 @@
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
-to create HTML presentations (slides with audio)
+to create HTML presentations (slides with audio) and PDF documents for
+those presentations
 from [Org mode](https://orgmode.org/) source files.
 Emacs-reveal satisfies several requirements in a novel way to
 ensure that resulting presentations and source files are
@@ -100,8 +101,8 @@ text document, which can be exported to HTML for presentation in a Web
 browser (besides, presentations can be downloaded in two different
 layouts in PDF format in response to students’ requests:
 one PDF version contains one page per slide while the other one is
-generated via [LaTeX](https://www.latex-project.org/) from Org source
-documents).  All layout
+a more concise version generated via [LaTeX](https://www.latex-project.org/)
+from Org source documents).  All layout
 information is kept separately from content, so little effort is
 necessary to adapt presentations to different styles or corporate
 identities.
