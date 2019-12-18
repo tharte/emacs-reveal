@@ -98,9 +98,9 @@
 
 ;; Setup Bibliography in HTML based on default bib file (which helps to
 ;; locate the bib file when the current buffer does not specify one).
-;; Display article, book, inproceedings differently.  Entries misc and
-;; phdthesis are new.
-;; Remaining entries are defaults.
+;; Display article, book, inproceedings differently.
+;; Entries incollection, misc, and phdthesis are new.
+;; Entries techreport and proceedings are defaults.
 (require 'org-ref)
 (require 'org-re-reveal-ref)
 (setq org-ref-default-bibliography '("references.bib")

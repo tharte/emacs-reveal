@@ -2,10 +2,15 @@
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
 ;;; Commentary:
-;; If you use the Docker image specified in .gitlab-ci.yml,
-;; this file is not necessary as the image contains oer-reveal.
+;; Use this file to install (and update) Lisp packages for
+;; emacs-reveal from the package repository MELPA.  Alternatively, you
+;; might use the Docker image emacs-reveal (see URL
+;; `https://gitlab.com/oer/docker') or configure your `load-path' to
+;; include submodules of emacs-reveal.  In those cases, this file is
+;; not necessary.
 ;;
-;; To install packages, use this from the directory containing this file:
+;; To install necessary packages from MELPA, invoke the
+;; following from the directory containing this file:
 ;; emacs --batch --load install.el --funcall install
 ;;
 ;; To update, without batch mode for user interaction:
