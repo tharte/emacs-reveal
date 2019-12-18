@@ -1,0 +1,12 @@
+[submodule "org-re-reveal"]
+	path = org-re-reveal
+	url = ../../oer/org-re-reveal.git
+[submodule "org-re-reveal-ref"]
+	path = org-re-reveal-ref
+	url = ../../oer/org-re-reveal-ref.git
+[submodule "oer-reveal"]
+	path = oer-reveal
+	url = ../../oer/oer-reveal.git
+[submodule "org-mode"]
+	path = org-mode
+	url = https://code.orgmode.org/bzg/org-mode.git
