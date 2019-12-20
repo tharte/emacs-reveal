@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 4.2.0
+;; Version: 4.3.0
 ;; Package-Requires: ((emacs "24.4") (oer-reveal "1.4.0") (org-re-reveal-ref "0.9.1"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
@@ -91,6 +91,19 @@
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
 
 ;;; Code:
+(defcustom emacs-reveal-docker-path nil
+  "Path of emacs-reveal in Docker container.
+If non-nil, add paths of submodules of emacs-reveal to `load-path'."
+  :group 'emacs-reveal
+  :type '(choice string (const nil))
+  :package-version '(emacs-reveal . "4.3.0"))
+
+(when emacs-reveal-docker-path
+  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-mode/lisp"))
+  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-re-reveal"))
+  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-re-reveal-ref"))
+  (add-to-list 'load-path (f-join emacs-reveal-docker-path "oer-reveal")))
+
 (require 'oer-reveal-publish)
 (oer-reveal-setup-submodules t)
 (oer-reveal-generate-include-files t)
