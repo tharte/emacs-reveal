@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 5.0.4
+;; Version: 5.1.0
 ;; Package-Requires: ((emacs "24.4") (oer-reveal "2.0.0") (org-re-reveal-ref "0.9.1"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
@@ -91,18 +91,39 @@
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
 
 ;;; Code:
-(defcustom emacs-reveal-docker-path nil
-  "Path of emacs-reveal in Docker container.
-If non-nil, add paths of submodules of emacs-reveal to `load-path'."
+(defconst emacs-reveal-lisp-packages
+  '("org-mode/lisp" "org-re-reveal" "org-re-reveal-ref" "oer-reveal")
+  "Subdirectories of emacs-reveal with essential Lisp packages.")
+
+(require 'f)
+(defcustom emacs-reveal-docker-path
+  (let ((install-dir (f-join user-emacs-directory "elpa" "emacs-reveal")))
+    (when (file-readable-p install-dir)
+      (when (not
+             (memq nil
+                   (mapcar #'file-readable-p
+                           (mapcar (lambda (subdir)
+                                     (f-join install-dir subdir))
+                                   emacs-reveal-lisp-packages))))
+        install-dir)))
+  "Path of emacs-reveal directory (in Docker container).
+If non-nil, the code in `emacs-reveal.el' tests whether packages of
+`emacs-reveal-lisp-packages' exists as subdirectories of this directory;
+if all exist, they are added to `load-path'.
+By default, \"~/.emacs.d/elpa/emacs-reveal\" is checked, which contains
+necessary packages in the Docker image
+\"registry.gitlab.com/oer/docker/emacs-reveal\", see
+URL `https://gitlab.com/oer/docker'.
+If you installed the Lisp packages yourself (e.g., from MELPA), then
+you do not need to worry about this variable as you set up `load-path'
+by other means."
   :group 'emacs-reveal
-  :type '(choice string (const nil))
-  :package-version '(emacs-reveal . "4.3.0"))
+  :type '(choice directory (const nil))
+  :package-version '(emacs-reveal . "5.1.0"))
 
 (when emacs-reveal-docker-path
-  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-mode/lisp"))
-  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-re-reveal"))
-  (add-to-list 'load-path (f-join emacs-reveal-docker-path "org-re-reveal-ref"))
-  (add-to-list 'load-path (f-join emacs-reveal-docker-path "oer-reveal")))
+  (dolist (subdir emacs-reveal-lisp-packages)
+    (add-to-list 'load-path (f-join emacs-reveal-docker-path subdir))))
 
 (require 'oer-reveal-publish)
 (oer-reveal-setup-submodules t)
