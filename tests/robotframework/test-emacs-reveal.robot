@@ -60,22 +60,34 @@ Menu Links And Slide Changing
   Slide Number Should Be    3
   Go To Slide   5
 
-Check Quiz
+# With scaling of reveal.js enabled, Chrome does not target the proper elements.
+Check Quiz Click
+  Pass Execution If    '${BROWSER}' == 'chrome'    Skipped click test with Chrome.
   Go To Slide    ${QUIZ SLIDE NUMBER}
-  Wait Until Element Is Visible   xpath://*[@id="slickQuiz-0_question0_1"]
-  Click Element                   xpath://*[@id="slickQuiz-0_question0_1"]
-  Wait Until Element Is Visible   xpath://*[@id="question0"]/a[3]
-  Click Element                   xpath://*[@id="question0"]/a[3]
-  Element Should Contain          //*[@id="question0"]/ul[2]/li[1]/p    Correct!
-  Element Should Contain          //*[@id="question0"]/ul[2]/li[2]/p    ${EMPTY}
-  Wait Until Element Is Visible   xpath://*[@id="question0"]/a[2]
-  Click Element                   xpath://*[@id="question0"]/a[2]
-  Wait Until Element Is Visible   xpath://*[@id="question1"]/ul[1]/li[2]/label
-  Click Element                   xpath://*[@id="question1"]/ul[1]/li[2]/label
-  Click Element                   xpath://*[@id="question1"]/ul[1]/li[3]/label
-  Click Element                   xpath://*[@id="question1"]/ul[1]/li[4]/label
-  Click Element                   xpath://*[@id="question1"]/a[3]
-  Element Should Contain          //*[@id="question1"]/ul[2]/li[2]/p    Not Quite.
+  Wait Until Element Is Visible    xpath://*[@id="slickQuiz-0_question0_1"]
+# Choose option.
+  Click Element                    xpath://*[@id="slickQuiz-0_question0_1"]
+# Check answer.
+  Click Element                    xpath://*[@id="question0"]/a[3]
+  Wait Until Element Is Visible    //*[@id="question0"]/ul[2]/li[1]/p
+  Element Should Contain           //*[@id="question0"]/ul[2]/li[1]/p    Correct!
+  Element Should Contain           //*[@id="question0"]/ul[2]/li[2]/p    ${EMPTY}
+# Go to next question, wait for it.
+  Click Element                    xpath://*[@id="question0"]/a[2]
+  Wait Until Element Is Visible    xpath://*[@id="question1"]/ul[1]/li[2]/label
+# Choose options
+  Click Element                    xpath://*[@id="question1"]/ul[1]/li[2]/label
+  Click Element                    xpath://*[@id="question1"]/ul[1]/li[3]/label
+  Click Element                    xpath://*[@id="question1"]/ul[1]/li[4]/label
+# Check answer.
+  Click Element                    xpath://*[@id="question1"]/a[3]
+  Element Should Contain           //*[@id="question1"]/ul[2]/li[2]/p    Not Quite.
+# Follow "Next" link.
+  Click Element                    xpath://*[@id="question1"]/a[2]
+# Wait for "Retry" link and follow it.
+  Wait Until Element Is Visible    xpath://*[@id="slickQuiz-0"]/div[2]/div/p[1]/a
+  Click Element                    xpath://*[@id="slickQuiz-0"]/div[2]/div/p[1]/a
+  Wait Until Element Is Visible    xpath://*[@id="slickQuiz-0_question0_1"]
 
 Courseware View
   Go To Slide    ${NOTES SLIDE NUMBER}
