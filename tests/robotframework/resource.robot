@@ -54,13 +54,6 @@ Slide Number Should Be
   [Arguments]   ${slidenumber}
   Element Should Contain   ${SLIDE NO SELECTOR}   ${slidenumber}
 
-# Folienwechsel über eingeben der Foliennummer
-# Durch xpath=//body tritt der Menüfehler nicht auf
-Go To Slide Fixed
-  [Arguments]   ${slidenumber}
-  Press Keys    None    ${slidenumber}
-  Press Keys    xpath=//body    ENTER
-
 Go To Slide
   [Arguments]   ${slidenumber}
   Press Keys    None    ${slidenumber}
