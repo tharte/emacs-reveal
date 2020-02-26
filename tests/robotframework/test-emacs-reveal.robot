@@ -26,34 +26,52 @@ Slide Changing
   Go To Slide    ${NOTES SLIDE NUMBER}
 
 Next Slide Shortcut
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go To Next Slide
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go To Previous Slide
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Previous Slide Shortcut
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go To Previous Slide
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go To Next Slide
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Navigation Button Up
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go One Slide Up
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go One Slide Down
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Navigation Button Down
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go One Slide Down
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go One Slide Up
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Navigation Button Left
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go One Slide Left
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go One Slide Right
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Navigation Button Right
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
   Go One Slide Right
   ${newslide}    Get Slide Number
   Should Not Be Equal As Integers    ${TEST SLIDE NUMBER}    ${newslide}
+  Go One Slide Left
+  Slide Number Should Be    ${TEST SLIDE NUMBER}
 
 Menu Links And Slide Changing
   Press Menu Link   Main Part
