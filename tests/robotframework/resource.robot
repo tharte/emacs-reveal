@@ -7,14 +7,15 @@ Documentation     Reusable keywords and variables for reveal.js tests.
 Library           SeleniumLibrary
 
 *** Variables ***
-${SERVER}         file:///robot/public
-${BROWSER}        %{BROWSER}
-${START SLIDE}    ${SERVER}/test.html
+${SERVER}          file:///robot/public
+${BROWSER}         %{BROWSER}
+${PRESENTATION}    %{PRESENTATION}
+${START SLIDE}     ${SERVER}/${PRESENTATION}
 ${PRESENTATION TITLE}     Test presentation for emacs-reveal
 ${NOTES URL}              ${SERVER}/reveal.js/plugin/notes/notes.html
 
 # Slide that allows navigation to all directions
-${TEST SLIDE}             ${SERVER}/test.html#/slide-navigation
+${TEST SLIDE}             ${START SLIDE}#/slide-navigation
 ${TEST SLIDE NUMBER}      4
 
 # The numbers of the following div elements depend on the presence or
