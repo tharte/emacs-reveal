@@ -15,7 +15,7 @@ build:
   before_script:
     - git submodule sync --recursive
     - git submodule update --init --recursive
-    - cd org-mode && make autoloads
+    - cd org-mode && make autoloads && cd ..
   script:
     - cd tests
     - emacs --batch --load elisp/publish.el
