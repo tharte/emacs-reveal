@@ -24,7 +24,7 @@ build:
     - emacs --batch --load elisp/publish.el
   artifacts:
     paths:
-      - public
+      - tests/public
     expire_in: 20 minutes
   only:
     refs:
@@ -38,7 +38,7 @@ test-robot:
     entrypoint: [""]
   script:
     - pwd
-    - ls
+    - ls tests/public
   only:
     refs:
       - master
