@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2020 Jens Lechtenbörger
+# SPDX-License-Identifier: CC0-1.0
+
+# CI tests for emacs-reveal
+# 1. Test for reuse compatibility
+# 2. Run robot framework test cases
+
+stages:
+  - reuse
+  - build
+  - robot
+
+test-reuse:
+  stage: reuse
+  image: fsfe/reuse:latest
+  script:
+    - reuse lint
+
+build:
+  stage: build
+  image: registry.gitlab.com/oer/docker/emacs-reveal:6.3.0
+  script:
+    - cd tests
+    - emacs --batch --load elisp/publish.el
+  artifacts:
+    paths:
+      - public
+    expire_in: 20 minutes
+  only:
+    refs:
+      - master
+      - merge_requests
+
+test-robot:
+  stage: robot
+  image:
+    - name: "ppodgorsek/robot-framework"
+    - entrypoint: "/bin/sh"
+  volumes:
+    - ./tests/robotframework:/opt/robotframework/tests
+    - ./tests/public:/robot/public
+  script:
+    - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
+  only:
+    refs:
+      - master
+      - merge_requests
