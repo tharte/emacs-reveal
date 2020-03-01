@@ -34,8 +34,8 @@ build:
 test-robot:
   stage: robot
   image:
-    - name: "ppodgorsek/robot-framework"
-    - entrypoint: "/bin/sh"
+    - name: ppodgorsek/robot-framework
+    - entrypoint: ["/bin/sh"]
   script:
     - pwd
     - ls
