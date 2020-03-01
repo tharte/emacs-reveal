@@ -36,11 +36,9 @@ test-robot:
   image:
     - name: "ppodgorsek/robot-framework"
     - entrypoint: "/bin/sh"
-  volumes:
-    - ./tests/robotframework:/opt/robotframework/tests
-    - ./tests/public:/robot/public
   script:
-    - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
+    - pwd
+    - ls
   only:
     refs:
       - master
