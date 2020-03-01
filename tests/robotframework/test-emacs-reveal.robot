@@ -14,6 +14,7 @@ ${QUIZ SLIDE NUMBER}     6
 
 *** Test Cases ***
 Initialization
+  Log To Console    Testing ${BROWSER} on ${PRESENTATION}
   Go To Test Slide
 
 Menu Links
