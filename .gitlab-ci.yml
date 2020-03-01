@@ -42,6 +42,10 @@ test-robot:
   script:
     - mkdir -p /robot && cp -r tests/public /robot
     - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
+    - BROWSER=chrome PRESENTATION=test.html run-tests-in-virtual-screen.sh
+  artifacts:
+    paths:
+      - tests/public
   only:
     refs:
       - master
