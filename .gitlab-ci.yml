@@ -13,8 +13,9 @@ build:
   stage: build
   image: registry.gitlab.com/oer/docker/emacs-reveal:6.3.0
   before_script:
-  - git submodule sync --recursive
-  - git submodule update --init --recursive
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+    - cd org-mode && make autoloads
   script:
     - cd tests
     - emacs --batch --load elisp/publish.el
