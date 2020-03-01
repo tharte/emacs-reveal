@@ -6,15 +6,8 @@
 # 2. Run robot framework test cases
 
 stages:
-  - reuse
   - build
-  - robot
-
-test-reuse:
-  stage: reuse
-  image: fsfe/reuse:latest
-  script:
-    - reuse lint
+  - test
 
 build:
   stage: build
@@ -31,8 +24,14 @@ build:
       - master
       - merge_requests
 
+test-reuse:
+  stage: test
+  image: fsfe/reuse:latest
+  script:
+    - reuse lint
+
 test-robot:
-  stage: robot
+  stage: test
   image:
     name: ppodgorsek/robot-framework
     entrypoint: [""]
