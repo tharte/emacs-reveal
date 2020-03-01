@@ -36,9 +36,12 @@ test-robot:
   image:
     name: ppodgorsek/robot-framework
     entrypoint: [""]
+  variables:
+    ROBOT_REPORTS_DIR: "tests/public/reports"
+    ROBOT_TESTS_DIR: "tests/robotframework"
   script:
-    - pwd
-    - ls tests/public
+    - mkdir -p /robot && cp -r tests/public /robot
+    - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
   only:
     refs:
       - master
