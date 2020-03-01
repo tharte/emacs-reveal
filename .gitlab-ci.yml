@@ -49,6 +49,7 @@ test-robot:
   artifacts:
     paths:
       - tests/public
+    expire_in: 1 week
   only:
     refs:
       - master
