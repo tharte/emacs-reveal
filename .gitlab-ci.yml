@@ -37,7 +37,7 @@ test-reuse:
 test-robot:
   stage: test
   image:
-    name: ppodgorsek/robot-framework:3.5.0
+    name: ppodgorsek/robot-framework:latest
     entrypoint: [""]
   variables:
     ROBOT_REPORTS_DIR: "tests/public/reports"

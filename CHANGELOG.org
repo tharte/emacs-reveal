@@ -10,7 +10,7 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 *** Fixed
-    - Fix version 3.5.0 for ppodgorsek/robot-framework in .gitlab-ci.yml;
+    - Fix version latest for ppodgorsek/robot-framework in .gitlab-ci.yml;
       upload artifacts in case of failure
 
 ** [5.4.0] - 2020-03-06
