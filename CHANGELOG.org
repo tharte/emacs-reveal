@@ -9,9 +9,16 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+
+** [5.5.0] - 2020-03-06
+*** Added
+    - Variable [[file:emacs-reveal.el::(defcustom emacs-reveal-completion-library][emacs-reveal-completion-library]]
+      for compatibility with Emacs 24.4.
+    - Customization group ~org-export-emacs-reveal~
 *** Fixed
     - CI: Upload test artifacts in case of failure
     - Add wait condition to avoid test failures
+    - Assigned ~emacs-reveal-docker-path~ to proper customization group
 
 ** [5.4.0] - 2020-03-06
 *** Changed
