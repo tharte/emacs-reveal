@@ -53,7 +53,8 @@ Go One Slide Down
 
 Slide Number Should Be
   [Arguments]   ${slidenumber}
-  Element Should Contain   ${SLIDE NO SELECTOR}   ${slidenumber}
+  Wait Until Element Is Visible    ${SLIDE NO SELECTOR}
+  Element Should Contain           ${SLIDE NO SELECTOR}   ${slidenumber}
 
 Go To Slide
   [Arguments]   ${slidenumber}
