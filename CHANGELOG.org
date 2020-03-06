@@ -10,8 +10,8 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 *** Fixed
-    - Fix version latest for ppodgorsek/robot-framework in .gitlab-ci.yml;
-      upload artifacts in case of failure
+    - CI: Upload test artifacts in case of failure
+    - Add wait condition to avoid test failures
 
 ** [5.4.0] - 2020-03-06
 *** Changed
