@@ -1,0 +1,96 @@
+# Local IspellDict: en
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 2020 Jens Lechtenbörger
+
+* Changelog
+This file is based on
+[[https://keepachangelog.com/en/1.0.0/][Keep a Changelog]],
+where version numbers starting with version 4.0.0 adhere to
+[[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
+
+** [Unreleased]
+
+** [5.4.0] - 2020-03-06
+*** Changed
+    - Update oer-reveal to 2.3.1
+
+** [5.3.1] - 2020-03-01
+*** Added
+    - CI for tests
+*** Changed
+    - Update oer-reveal to 2.2.1
+
+** [5.3.0] - 2020-01-24
+*** Changed
+    - Update oer-reveal to 2.2.0
+
+** [5.2.0] - 2020-01-02
+*** Changed
+    - Update oer-reveal to 2.1.0
+
+** [5.1.1] - 2020-01-02
+*** Changed
+    - Update oer-reveal to 2.0.4
+
+** [5.1.0] - 2020-01-02
+*** Changed
+    - Set up emacs-reveal-docker-path differently.  Try default
+      location to set up load-path
+
+** [5.0.4] - 2019-12-31
+*** Changed
+    - Update oer-reveal to 2.0.3
+
+** [5.0.3] - 2019-12-31
+*** Changed
+    - Update oer-reveal to 2.0.2
+
+** [5.0.2] - 2019-12-31
+*** Changed
+    - Update oer-reveal to 2.0.1
+
+** [5.0.1] - 2019-12-31
+*** Changed
+    - Update org to 9.3.1
+
+** [5.0.0] - 2019-12-31
+*** Changed
+    - Update oer-reveal to 2.0.0
+*** Fixed
+    - Set up for REUSE compliance
+
+** [4.4.0] - 2019-12-21
+*** Changed
+    - Update oer-reveal to 1.15.0
+
+** [4.3.0] - 2019-12-20
+*** Added
+    - Submodules for Lisp packages org-re-reveal, org-re-reveal-ref,
+      oer-reveal, org-mode
+      - Removes the need to wait for creation of packages on MELPA
+    - Variable emacs-reveal-docker-path
+*** Changed
+    - Update oer-reveal to 1.14.0
+
+** [4.2.0] - 2019-10-24
+*** Added
+    - Function [[file:install.el::defun update][update]]
+
+** [4.1.0] - 2019-09-07
+*** Changed
+    - Require oer-reveal 1.4.0, which defines an export backend
+    - Do not call oer-reveal-setup-plugins any longer
+
+** [4.0.0] - 2019-08-21
+*** Added
+    - Finish paper https://doi.org/10.21105/jose.00050
+*** Changed
+    - Require oer-reveal 1.0.0
+
+# Remember
+# - Change types: Added, Changed, Deprecated, Removed, Fixed, Security
+# - Versions: Major.Minor.Patch
+#   - Major for incompatible changes
+#   - Minor for backwards compatible changes
+#   - Patch for backwards compatible bug fixes
+# - Might use Ma.Mi.P-alpha < Ma.Mi.P-alpha.1 < Ma.Mi.P-beta
