@@ -37,7 +37,7 @@ test-reuse:
 test-robot:
   stage: test
   image:
-    name: ppodgorsek/robot-framework
+    name: ppodgorsek/robot-framework:3.5.0
     entrypoint: [""]
   variables:
     ROBOT_REPORTS_DIR: "tests/public/reports"
@@ -47,6 +47,7 @@ test-robot:
     - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
     - BROWSER=chrome PRESENTATION=test.html run-tests-in-virtual-screen.sh
   artifacts:
+    when: on_failure
     paths:
       - tests/public
     expire_in: 1 week
