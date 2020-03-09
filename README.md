@@ -264,25 +264,3 @@ Continuous Integration (CI) upon commit by a GitLab runner (see its
 [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
 for details), which publishes the
 [presentations as GitLab pages](https://oer.gitlab.io/OS/).
-
-The following builds presentations for my course on Operating Systems
-locally (without Docker) from `org` source files into target directory
-`public` (as of March 2019, the first `git` command alone downloads
-about 150 MB of resources):
-
-	$ git clone https://gitlab.com/oer/OS.git
-	$ cd OS
-	$ git submodule sync --recursive
-	$ git submodule update --init --recursive
-	$ emacs --batch --load emacs-reveal/install.el --funcall install
-	$ emacs --batch --load elisp/publish.el
-
-As usual, use `git pull` to update the source directory later on.
-Included submodules need to be updated separately, though, with
-`git submodule update --recursive --remote`.  The first `emacs`
-invocation above installs necessary packages, which is only necessary
-once.  The second one publishes the HTML presentation into the
-subdirectory `public`.  (From within Emacs, you can generate the HTML
-presentation for an individual `org` file using Org’s export
-functionality by pressing keys for org-re-reveal or oer-reveal as
-mentioned above.)
