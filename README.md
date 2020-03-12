@@ -1,5 +1,5 @@
 <!--- Local IspellDict: en -->
-<!--- SPDX-FileCopyrightText: 2017-2020 Jens Lechtenbörger -->
+<!--- SPDX-FileCopyrightText: 2020 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
 This project offers a small Emacs Lisp package with functions to
