@@ -7,3 +7,6 @@ invoke Git commands (clone, pull, update of submodules).
 Some commands invoke Git and direct output into an output buffer,
 others return a string; see doc strings of contained functions.  This
 is not meant for end users but for programmers.
+
+Functionality here is refactored from code in
+[oer-reveal.el](https://gitlab.com/oer/oer-reveal/-/blob/master/oer-reveal.el).

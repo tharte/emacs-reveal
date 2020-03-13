@@ -29,10 +29,14 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
-;; This package offers Elisp functions to invoke Git commands.
+;; This package offers Elisp functions to invoke Git commands (clone,
+;; pull, update of submodules).
 ;; Some commands invoke Git and direct output into git-invoke-buffer,
 ;; others return a string; see doc strings of functions below.
 ;; This is not meant for end users but for programmers.
+;;
+;; Functionality here is refactored from code in oer-reveal:
+;; https://gitlab.com/oer/oer-reveal/-/blob/master/oer-reveal.el
 
 ;;; Code:
 (require 'subr-x) ; string-trim, string-join
