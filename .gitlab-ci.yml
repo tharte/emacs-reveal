@@ -25,10 +25,11 @@ stages:
 
 .build_html: &build_html
   script:
-    - make html
+    - make all
   artifacts:
     paths:
       - tests/public
+      - docker/emacs-reveal.tar.bz2
     expire_in: 20 minutes
   only:
     refs:
@@ -93,7 +94,6 @@ emacs-reveal:
   <<: *docker_template
   stage: build-docker
   script:
-    - make archive
     - docker build -t $IMAGE_LATEST -t $IMAGE_TAG -f docker/$CI_JOB_NAME/Dockerfile docker
   only:
     - lechten
