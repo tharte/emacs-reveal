@@ -41,6 +41,16 @@ build-html-1:
   stage: build
   image: $OLD_EMACS_REVEAL
 
+.docker_template: &docker_template
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:$CI_COMMIT_TAG
+    IMAGE_LATEST: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:latest
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
 debian-emacs-tex:
   <<: *docker_template
   stage: build
@@ -56,16 +66,6 @@ test-reuse:
   image: fsfe/reuse:latest
   script:
     - reuse lint
-
-.docker_template: &docker_template
-  image: docker:stable
-  services:
-    - docker:dind
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:$CI_COMMIT_TAG
-    IMAGE_LATEST: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:latest
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 .test-robot: &test-robot
   <<: *docker_template
