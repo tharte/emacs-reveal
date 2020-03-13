@@ -95,30 +95,17 @@ emacs-reveal:
   <<: *docker_template
   stage: build-docker
   script:
-    - docker build -t $IMAGE_LATEST -t $IMAGE_TAG -f docker/$CI_JOB_NAME/Dockerfile docker
+    - docker build -t emacs-reveal:latest -t $IMAGE_LATEST -t $IMAGE_TAG -f docker/$CI_JOB_NAME/Dockerfile docker
   only:
     - tags
-
-emacs-reveal-lechten:
-  <<: *docker_template
-  stage: build-docker
-  script:
-    - docker build -t $IMAGE_LATEST -f docker/emacs-reveal/Dockerfile docker
-  only:
     - lechten
 
 build-html-2:
   <<: *build_html
   stage: build-new
-  image: $CI_REGISTRY_IMAGE/emacs-reveal:latest
+  image: emacs-reveal:latest
   only:
     - tags
-
-build-html-2-lechten:
-  <<: *build_html
-  stage: build-new
-  image: $CI_REGISTRY_IMAGE/emacs-reveal-lechten:latest
-  only:
     - lechten
 
 test-robot-2:
