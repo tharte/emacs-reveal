@@ -91,49 +91,68 @@
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
 
 ;;; Code:
+(require 'f)
 (defconst emacs-reveal-lisp-packages
-  '("org-mode/lisp" "org-re-reveal" "org-re-reveal-ref" "oer-reveal")
-  "Subdirectories of emacs-reveal with essential Lisp packages.")
+  (list (f-join "org-mode" "lisp" "org.el")
+        (f-join "org-re-reveal" "org-re-reveal.el")
+        (f-join "org-re-reveal-ref" "org-re-reveal-ref.el")
+        (f-join "oer-reveal" "oer-reveal.el"))
+  "Lisp files of packages included as submodules.")
 
 (defgroup org-export-emacs-reveal nil
   "Options for exporting Org files to reveal.js HTML pressentations.
-The options here are provided by package emacs-reveal.  They extend those
-of oer-reveal."
+The options here are provided by package `emacs-reveal'.  They extend those
+of `oer-reveal'."
   :tag "Org Export emacs-reveal"
   :group 'org-export-oer-reveal)
 
+(defcustom emacs-reveal-managed-install-p t
+  "Configure whether to use update `emacs-reveal' and submodules or not.
+By default, `emacs-reveal' tries to update itself and its submodules via Git.
+If you set this to nil, you should install Lisp packages in
+`emacs-reveal-lisp-packages' yourself."
   :group 'org-export-emacs-reveal
+  :type 'boolean
+  :package-version '(emacs-reveal . "7.0.0"))
 
+(defvar emacs-reveal-install-dir
+  (file-name-directory (or load-file-name (buffer-file-name)))
+  "Directory of file \"emacs-reveal.el\".")
 
-(require 'f)
-(defcustom emacs-reveal-docker-path
-  (let ((install-dir (f-join user-emacs-directory "elpa" "emacs-reveal")))
-    (when (file-readable-p install-dir)
-      (when (not
-             (memq nil
-                   (mapcar #'file-readable-p
-                           (mapcar (lambda (subdir)
-                                     (f-join install-dir subdir))
-                                   emacs-reveal-lisp-packages))))
-        install-dir)))
-  "Path of emacs-reveal directory (in Docker container).
-If non-nil, the code in `emacs-reveal.el' tests whether packages of
-`emacs-reveal-lisp-packages' exists as subdirectories of this directory;
-if all exist, they are added to `load-path'.
-By default, \"~/.emacs.d/elpa/emacs-reveal\" is checked, which contains
-necessary packages in the Docker image
-\"registry.gitlab.com/oer/docker/emacs-reveal\", see
-URL `https://gitlab.com/oer/docker'.
-If you installed the Lisp packages yourself (e.g., from MELPA), then
-you do not need to worry about this variable as you set up `load-path'
-by other means."
-  :group 'org-export-emacs-reveal
-  :type '(choice directory (const nil))
-  :package-version '(emacs-reveal . "5.1.0"))
+(defun emacs-reveal-submodules-ok ()
+  "Check whether submodules are initialized properly.
+Check whether (a) Lisp files for submodules in `emacs-reveal-lisp-packages'
+are readable and (b) the JavaScript file \"reveal.js\" is readable.
+If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
+  (let ((revealjs (f-join emacs-reveal-install-dir "emacs-reveal-submodules"
+                          "reveal.js" "js" "reveal.js")))
+    (when (and
+           (not (memq nil
+                      (mapcar #'file-readable-p
+                              (mapcar (lambda (file)
+                                        (f-join emacs-reveal-install-dir file))
+                                      emacs-reveal-lisp-packages))))
+           (file-readable-p revealjs))
+      emacs-reveal-install-dir)))
 
-(when emacs-reveal-docker-path
-  (dolist (subdir emacs-reveal-lisp-packages)
-    (add-to-list 'load-path (f-join emacs-reveal-docker-path subdir))))
+(require 'git-invoke)
+(defun emacs-reveal-setup ()
+  "Set up `emacs-reveal'."
+  (when emacs-reveal-managed-install-p
+    (unless (file-readable-p (f-join emacs-reveal-install-dir ".git"))
+      (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))
+    (git-invoke-update-submodules emacs-reveal-install-dir))
+  (when (emacs-reveal-submodules-ok)
+    (dolist (file emacs-reveal-lisp-packages)
+      (add-to-list 'load-path (f-join emacs-reveal-install-dir
+                                      (file-name-directory file))))
+    (let ((dir (f-join emacs-reveal-install-dir "emacs-reveal-submodules")))
+      (setq oer-reveal-submodules-dir dir
+            oer-reveal-submodules-version nil))))
+
+;; Possibly update emacs-reveal (depending on emacs-reveal-managed-install-p);
+;; set up load-path if necessary directories are present.
+(emacs-reveal-setup)
 
 (require 'oer-reveal-publish)
 (oer-reveal-setup-submodules t)
