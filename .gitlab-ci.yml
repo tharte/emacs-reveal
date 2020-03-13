@@ -8,6 +8,18 @@
 
 # CI for emacs-reveal: Tests and docker images
 
+# Some lessons learned:
+# - Avoid colons in scripts.  They confuse the YAML parser.  Quoting
+#   did not work for me.
+# - In the "variables:" section, variables cannot be defined in terms
+#   of other (predefined) variables.  That is the reason for the
+#   export command for TESTDIR below.
+# - Command “docker run” requires absolute paths for volumes with “-v”.
+# - Newly build Docker images are not available in subsequent stages.
+#   Thus, push test image, tag later.
+# - Of course, be more careful which commands are available in what
+#   image :)
+
 variables:
   ROBOT_FRAMEWORK: ppodgorsek/robot-framework:latest
   ROBOT_HTML_DIR: public
