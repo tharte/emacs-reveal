@@ -49,6 +49,7 @@ build-html-1:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:$CI_COMMIT_TAG
     IMAGE_LATEST: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:latest
+    IMAGE_TEST: $CI_REGISTRY_IMAGE/${CI_JOB_NAME}_test:latest
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
@@ -95,7 +96,8 @@ emacs-reveal:
   <<: *docker_template
   stage: build-docker
   script:
-    - docker build -t emacs-reveal:latest -t $IMAGE_LATEST -f docker/$CI_JOB_NAME/Dockerfile docker
+    - docker build -t $IMAGE_TEST -f docker/$CI_JOB_NAME/Dockerfile docker
+    - docker push $IMAGE_TEST
   only:
     - tags
     - lechten
@@ -103,7 +105,7 @@ emacs-reveal:
 build-html-2:
   <<: *build_html
   stage: build-new
-  image: emacs-reveal:latest
+  image: $CI_REGISTRY_IMAGE/emacs-reveal_test:latest
   only:
     - tags
     - lechten
@@ -119,8 +121,9 @@ emacs-reveal-push:
   <<: *docker_template
   stage: push-docker
   script:
+    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:latest
+    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
     - docker push $CI_REGISTRY_IMAGE/emacs-reveal:latest
-    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal:latest $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
     - docker push $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
   only:
     - tags
