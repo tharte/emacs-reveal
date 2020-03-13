@@ -5,7 +5,7 @@
 # requires the mkdir command below:
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 
-FROM registry.gitlab.com/oer/docker/debian-emacs-tex
+FROM registry.gitlab.com/oer/emacs-reveal/debian-emacs-tex
 LABEL maintainer="Jens Lechtenbörger"
 RUN mkdir -p /usr/share/man/man1 && \
     apt-get update -y && apt-get --no-install-recommends install -y \
@@ -16,4 +16,4 @@ RUN curl --create-dirs -o /root/plantuml-$PU_VERSION/plantuml.zip -L https://sou
 COPY code/* /tmp/
 RUN cp /tmp/.emacs /root/
 RUN /tmp/install-melpa.sh "org-ref"
-ADD emacs-reveal.tar.bz2 /root/.emacs.d/elpa/emacs-reveal
+ADD emacs-reveal.tar.gz /root/.emacs.d/elpa/emacs-reveal
