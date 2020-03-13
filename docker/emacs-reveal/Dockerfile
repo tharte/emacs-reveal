@@ -5,8 +5,7 @@
 # requires the mkdir command below:
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 
-# FROM registry.gitlab.com/oer/docker/debian-emacs-tex
-FROM debian-emacs-tex
+FROM registry.gitlab.com/oer/docker/debian-emacs-tex
 LABEL maintainer="Jens Lechtenbörger"
 RUN mkdir -p /usr/share/man/man1 && \
     apt-get update -y && apt-get --no-install-recommends install -y \
