@@ -72,8 +72,6 @@ test-reuse:
   before_script:
     - export TESTDIR="${CI_PROJECT_DIR}/tests"
   script:
-    - echo $CI_PROJECT_DIR
-    - echo $TESTDIR
     - docker run -v $TESTDIR/$ROBOT_REPORTS_DIR:/opt/robotframework/reports:Z -v $TESTDIR/$ROBOT_TESTS_DIR:/opt/robotframework/tests:Z -v $TESTDIR/$ROBOT_HTML_DIR:/robot/public -e BROWSER=firefox -e PRESENTATION=test.html $ROBOT_FRAMEWORK
   artifacts:
     when: on_failure
