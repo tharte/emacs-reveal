@@ -9,6 +9,8 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+
+** [7.0.0] - 2020-03-13
 *** Added
     - CI: Build Docker images from subdirectory ~docker~
     - Submodule ~emacs-reveal-submodules~
@@ -24,6 +26,10 @@ where version numbers starting with version 4.0.0 adhere to
     - Variables ~emacs-reveal-docker-path~ and
       ~emacs-reveal-completion-library~
       - Code in ~emacs-reveal.el~ sets up ~load-path~ automatically now
+
+** Version 6.0.0 did never exist
+   - Skipped to avoid confusion with versions of Docker image
+     ~emacs-reveal~ under https://gitlab.com/oer/docker
 
 ** [5.5.0] - 2020-03-06
 *** Added
