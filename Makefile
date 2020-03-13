@@ -6,7 +6,7 @@ DIR := ${CURDIR}
 BUILDHTML := emacs --batch --load elisp/publish.el
 GITTAG    := $(shell git describe --tags)
 TARFILE   := emacs-reveal.tar.bz2
-TAROPTS   := --exclude-vcs --exclude=emacs-reveal.tar* -cvjf
+TAROPTS   := --exclude-vcs --exclude=emacs-reveal.tar* --exclude=./tests -cvjf
 TESTDIR   := $(DIR)/tests
 
 ROBOT_FRAMEWORK    := ppodgorsek/robot-framework:latest
@@ -14,7 +14,9 @@ ROBOT_HTML_DIR     := $(TESTDIR)/public
 ROBOT_REPORTS_DIR  := $(TESTDIR)/reports
 ROBOT_TESTS_DIR    := $(TESTDIR)/robotframework
 
-.PHONY: archive docker html init setup
+.PHONY: all archive docker html init robot-test setup tar
+
+all: html archive
 
 html: setup
 	rm -rf ~/.org-timestamps
