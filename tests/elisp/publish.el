@@ -14,6 +14,9 @@
 ;;; Code:
 (package-initialize)
 
+;; For old Docker image, ensure Emacs 24.4 compatibility.
+(setq org-ref-completion-library 'org-ref-reftex)
+
 ;; Load emacs-reveal, use embedded submodules.
 (add-to-list 'load-path (expand-file-name "../.." (file-name-directory load-file-name)))
 (require 'emacs-reveal)
