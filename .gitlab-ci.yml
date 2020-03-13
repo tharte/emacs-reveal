@@ -9,10 +9,11 @@
 # CI for emacs-reveal: Tests and docker images
 
 variables:
+  TEST_DIR: $CI_BUILDS_DIR/tests
   ROBOT_FRAMEWORK: ppodgorsek/robot-framework:latest
-  ROBOT_HTML_DIR: tests/public
-  ROBOT_REPORTS_DIR: tests/reports
-  ROBOT_TESTS_DIR: tests/robotframework
+  ROBOT_HTML_DIR: $TEST_DIR/public
+  ROBOT_REPORTS_DIR: $TEST_DIR/reports
+  ROBOT_TESTS_DIR: $TEST_DIR/robotframework
   OLD_EMACS_REVEAL: registry.gitlab.com/oer/docker/emacs-reveal:latest
 
 stages:
