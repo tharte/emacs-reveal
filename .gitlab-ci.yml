@@ -71,8 +71,8 @@ test-reuse:
 .test-robot: &test-robot
   <<: *docker_template
   script:
-    - echo '"CI: $CI_BUILDS_DIR"'
-    - echo '"Reports: $ROBOT_REPORTS_DIR"'
+    - echo '"CI $CI_BUILDS_DIR"'
+    - echo '"Reports $ROBOT_REPORTS_DIR"'
     - docker run -v $ROBOT_REPORTS_DIR:/opt/robotframework/reports:Z -v $ROBOT_TESTS_DIR:/opt/robotframework/tests:Z -v $ROBOT_HTML_DIR:/robot/public -e BROWSER=firefox -e PRESENTATION=test.html $ROBOT_FRAMEWORK
   artifacts:
     when: on_failure
