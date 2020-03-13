@@ -95,10 +95,6 @@
   '("org-mode/lisp" "org-re-reveal" "org-re-reveal-ref" "oer-reveal")
   "Subdirectories of emacs-reveal with essential Lisp packages.")
 
-(defconst emacs-reveal-helm-version "25.1"
-  "Emacs version that is necessary for Helm (and, thus, org-ref).
-See `emacs-reveal-completion-library'.")
-
 (defgroup org-export-emacs-reveal nil
   "Options for exporting Org files to reveal.js HTML pressentations.
 The options here are provided by package emacs-reveal.  They extend those
@@ -106,25 +102,8 @@ of oer-reveal."
   :tag "Org Export emacs-reveal"
   :group 'org-export-oer-reveal)
 
-(defcustom emacs-reveal-completion-library 'org-ref-reftex
-  "Value for `org-ref-completion-library'.
-This is a workaround to keep compatibility of emacs-reveal with Emacs 24.4.
-The issue is this: We use org-ref, which requires Helm, which in turn will
-stop support for Emacs 24.4,
-see URL `https://github.com/emacs-helm/helm/issues/2282'.
-When (a) your variable `emacs-version' is smaller than
-`emacs-reveal-helm-version' and (b) `org-ref-completion-library'
-is `org-ref-reftex', emacs-reveal sets `org-ref-completion-library'
-to `org-ref-reftex'; then, Helm is not loaded by org-ref.
-If you set this variable to nil (before loading emacs-reveal), emacs-reveal
-does not touch `org-ref-completion-library'."
   :group 'org-export-emacs-reveal
-  :type '(choice (const org-ref-reftex) (const nil))
-  :package-version '(emacs-reveal . "5.5.0"))
 
-(when (and (version< emacs-version emacs-reveal-helm-version)
-           emacs-reveal-completion-library)
-  (setq org-ref-completion-library emacs-reveal-completion-library))
 
 (require 'f)
 (defcustom emacs-reveal-docker-path
