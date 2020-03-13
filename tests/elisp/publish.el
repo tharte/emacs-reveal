@@ -15,9 +15,7 @@
 (package-initialize)
 
 ;; Load emacs-reveal, use embedded submodules.
-(setq emacs-reveal-docker-path
-      (expand-file-name "../.." (file-name-directory load-file-name)))
-(add-to-list 'load-path emacs-reveal-docker-path)
+(add-to-list 'load-path (expand-file-name "../.." (file-name-directory load-file-name)))
 (require 'emacs-reveal)
 
 ;; Don't create PDF.
