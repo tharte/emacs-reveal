@@ -5,8 +5,8 @@ DIR := ${CURDIR}
 
 BUILDHTML := emacs --batch --load elisp/publish.el
 GITTAG    := $(shell git describe --tags)
-TARFILE   := emacs-reveal.tar.bz2
-TAROPTS   := --exclude-vcs --exclude=emacs-reveal.tar* --exclude=./tests -cvjf
+TARFILE   := emacs-reveal.tar.gz
+TAROPTS   := --exclude-vcs --exclude=emacs-reveal.tar* --exclude=./tests -cvzf
 TESTDIR   := $(DIR)/tests
 
 ROBOT_FRAMEWORK    := ppodgorsek/robot-framework:latest

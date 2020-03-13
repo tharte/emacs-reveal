@@ -29,7 +29,7 @@ stages:
   artifacts:
     paths:
       - tests/public
-      - docker/emacs-reveal.tar.bz2
+      - docker/emacs-reveal.tar.gz
     expire_in: 20 minutes
   only:
     refs:
