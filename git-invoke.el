@@ -64,9 +64,10 @@ Otherwise, invoke `call-process' and direct output to `git-invoke-buffer'."
 	   ;; obtains its directory.
 	   (buffer-file-name (concat git-dir git-invoke-buffer)))
       (if as-string
-          (string-trim
-           (shell-command-to-string
-            (format "git %s %s" command (string-join args " "))))
+          (with-temp-buffer
+            (apply #'call-process "git" nil t nil command args)
+            (string-trim
+             (buffer-substring-no-properties (point-min) (point-max))))
         (apply #'call-process "git" nil t t command args)))))
 
 (defun git-invoke-clone (git-dir url)
