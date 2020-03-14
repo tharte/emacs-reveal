@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/git-invoke
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: git, vc
 
