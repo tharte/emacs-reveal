@@ -48,6 +48,7 @@ stages:
       - lechten
       - master
       - merge_requests
+      - tags
 
 build-html-1:
   <<: *build_html
