@@ -137,6 +137,32 @@ If you set this to nil, you should install Lisp packages in
   (file-name-directory (or load-file-name (buffer-file-name)))
   "Directory of file \"emacs-reveal.el\".")
 
+(defcustom emacs-reveal-default-bibliography '("references.bib")
+  "Default bibliography to assign to `org-ref-default-bibliography'.
+A default helps to locate the bib file when the current buffer does not
+specify one."
+  :group 'org-export-emacs-reveal
+  :type '(repeat :tag "List of BibTeX files" file)
+  :package-version '(emacs-reveal . "7.1.0"))
+
+(defcustom emacs-reveal-bibliography-entry-format
+  '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
+    ("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
+    ("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
+    ("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
+    ("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
+    ("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
+    ("techreport" . "%a, %t, %i, %u (%y).")
+    ("proceedings" . "%e, %t in %S, %u (%y)."))
+  "Value to assign to `org-ref-bibliography-entry-format'.
+This defines the layout of bibliography entries in presentations.
+The default value displays article, book, inproceedings differently;
+entries incollection, misc, and phdthesis are new, while entries
+  techreport and proceedings are defaults of `org-ref'."
+  :group 'org-export-emacs-reveal
+  :type '(alist :key-type (string) :value-type (string))
+  :package-version '(emacs-reveal . "7.1.0"))
+
 (defun emacs-reveal-submodules-ok ()
   "Check whether submodules are initialized properly.
 Check whether (a) Lisp files for submodules in `emacs-reveal-lisp-packages'
