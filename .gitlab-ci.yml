@@ -86,6 +86,8 @@ test-reuse:
   image: fsfe/reuse:latest
   script:
     - reuse lint
+  except:
+    - tags
 
 .test-robot: &test-robot
   <<: *docker_template
