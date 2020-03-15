@@ -186,9 +186,11 @@ If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
 If `emacs-reveal-managed-install-p' is t, update submodules.
 If submodules are present, add directories of Lisp packages to `load-path'."
   (when emacs-reveal-managed-install-p
-    (unless (file-readable-p (f-join emacs-reveal-install-dir ".git"))
-      (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))
-    (git-invoke-update-submodules emacs-reveal-install-dir))
+    (if (file-readable-p (f-join emacs-reveal-install-dir ".git"))
+        (git-invoke-update-submodules emacs-reveal-install-dir)
+      ;; Submodules might still be OK, e.g., in Docker.  Raise error if not.
+      (unless (emacs-reveal-submodules-ok)
+        (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))))
   (when (emacs-reveal-submodules-ok)
     (dolist (file emacs-reveal-lisp-packages)
       (add-to-list 'load-path (f-join emacs-reveal-install-dir
