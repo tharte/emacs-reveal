@@ -7,9 +7,14 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 5.5.0
-;; Package-Requires: ((emacs "24.4") (oer-reveal "2.0.0") (org-re-reveal-ref "0.9.1"))
+;; Version: 7.1.0
+;; Package-Requires: ((emacs "25.1") (oer-reveal "2.5.0") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
+
+;; Note that package org-ref is transitively required by emacs-reveal
+;; (org-re-reveal-ref requires org-ref).  As org-ref has lots of
+;; depencies itself, those packages are not included here.  If org-ref
+;; is missing, installation from MELPA is offered.
 
 ;;; License:
 ;; This program is free software; you can redistribute it and/or
@@ -91,94 +96,136 @@
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
 
 ;;; Code:
-(defconst emacs-reveal-lisp-packages
-  '("org-mode/lisp" "org-re-reveal" "org-re-reveal-ref" "oer-reveal")
-  "Subdirectories of emacs-reveal with essential Lisp packages.")
+(package-initialize)
+(condition-case nil
+    (require 'org-ref)
+  (error
+   (unless
+       (yes-or-no-p
+        "Required package `org-ref' not found.  Install from MELPA? ")
+     (error "Please install `org-ref' to use `emacs-reveal'"))
+   (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
+     (package-refresh-contents)
+     (package-install 'org-ref))))
 
-(defconst emacs-reveal-helm-version "25.1"
-  "Emacs version that is necessary for Helm (and, thus, org-ref).
-See `emacs-reveal-completion-library'.")
+;; org-ref has f as dependency, so it is available here.
+(require 'f)
+(defconst emacs-reveal-lisp-packages
+  (list (f-join "org-mode" "lisp" "org.el")
+        (f-join "org-re-reveal" "org-re-reveal.el")
+        (f-join "org-re-reveal-ref" "org-re-reveal-ref.el")
+        (f-join "oer-reveal" "oer-reveal.el"))
+  "Lisp files of packages included as submodules.")
 
 (defgroup org-export-emacs-reveal nil
   "Options for exporting Org files to reveal.js HTML pressentations.
-The options here are provided by package emacs-reveal.  They extend those
-of oer-reveal."
+The options here are provided by package `emacs-reveal'.  They extend those
+of `oer-reveal'."
   :tag "Org Export emacs-reveal"
   :group 'org-export-oer-reveal)
 
-(defcustom emacs-reveal-completion-library 'org-ref-reftex
-  "Value for `org-ref-completion-library'.
-This is a workaround to keep compatibility of emacs-reveal with Emacs 24.4.
-The issue is this: We use org-ref, which requires Helm, which in turn will
-stop support for Emacs 24.4,
-see URL `https://github.com/emacs-helm/helm/issues/2282'.
-When (a) your variable `emacs-version' is smaller than
-`emacs-reveal-helm-version' and (b) `org-ref-completion-library'
-is `org-ref-reftex', emacs-reveal sets `org-ref-completion-library'
-to `org-ref-reftex'; then, Helm is not loaded by org-ref.
-If you set this variable to nil (before loading emacs-reveal), emacs-reveal
-does not touch `org-ref-completion-library'."
+(defcustom emacs-reveal-managed-install-p t
+  "Configure whether to use update `emacs-reveal' and submodules or not.
+By default, `emacs-reveal' tries to update itself and its submodules via Git.
+If you set this to nil, you should install Lisp packages in
+`emacs-reveal-lisp-packages' yourself."
   :group 'org-export-emacs-reveal
-  :type '(choice (const org-ref-reftex) (const nil))
-  :package-version '(emacs-reveal . "5.5.0"))
+  :type 'boolean
+  :package-version '(emacs-reveal . "7.0.0"))
 
-(when (and (version< emacs-version emacs-reveal-helm-version)
-           emacs-reveal-completion-library)
-  (setq org-ref-completion-library emacs-reveal-completion-library))
+(defvar emacs-reveal-install-dir
+  (file-name-directory (or load-file-name (buffer-file-name)))
+  "Directory of file \"emacs-reveal.el\".")
 
-(require 'f)
-(defcustom emacs-reveal-docker-path
-  (let ((install-dir (f-join user-emacs-directory "elpa" "emacs-reveal")))
-    (when (file-readable-p install-dir)
-      (when (not
-             (memq nil
-                   (mapcar #'file-readable-p
-                           (mapcar (lambda (subdir)
-                                     (f-join install-dir subdir))
-                                   emacs-reveal-lisp-packages))))
-        install-dir)))
-  "Path of emacs-reveal directory (in Docker container).
-If non-nil, the code in `emacs-reveal.el' tests whether packages of
-`emacs-reveal-lisp-packages' exists as subdirectories of this directory;
-if all exist, they are added to `load-path'.
-By default, \"~/.emacs.d/elpa/emacs-reveal\" is checked, which contains
-necessary packages in the Docker image
-\"registry.gitlab.com/oer/docker/emacs-reveal\", see
-URL `https://gitlab.com/oer/docker'.
-If you installed the Lisp packages yourself (e.g., from MELPA), then
-you do not need to worry about this variable as you set up `load-path'
-by other means."
+(defcustom emacs-reveal-default-bibliography '("references.bib")
+  "Default bibliography to assign to `org-ref-default-bibliography'.
+A default helps to locate the bib file when the current buffer does not
+specify one."
   :group 'org-export-emacs-reveal
-  :type '(choice directory (const nil))
-  :package-version '(emacs-reveal . "5.1.0"))
+  :type '(repeat :tag "List of BibTeX files" file)
+  :package-version '(emacs-reveal . "7.1.0"))
 
-(when emacs-reveal-docker-path
-  (dolist (subdir emacs-reveal-lisp-packages)
-    (add-to-list 'load-path (f-join emacs-reveal-docker-path subdir))))
+(defcustom emacs-reveal-bibliography-entry-format
+  '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
+    ("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
+    ("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
+    ("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
+    ("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
+    ("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
+    ("techreport" . "%a, %t, %i, %u (%y).")
+    ("proceedings" . "%e, %t in %S, %u (%y)."))
+  "Value to assign to `org-ref-bibliography-entry-format'.
+This defines the layout of bibliography entries in presentations.
+The default value displays article, book, inproceedings differently;
+entries incollection, misc, and phdthesis are new, while entries
+  techreport and proceedings are defaults of `org-ref'."
+  :group 'org-export-emacs-reveal
+  :type '(alist :key-type (string) :value-type (string))
+  :package-version '(emacs-reveal . "7.1.0"))
 
+(defun emacs-reveal-submodules-ok ()
+  "Check whether submodules are initialized properly.
+Check whether (a) Lisp files for submodules in `emacs-reveal-lisp-packages'
+are readable and (b) the JavaScript file \"reveal.js\" is readable.
+If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
+  (let ((revealjs (f-join emacs-reveal-install-dir "emacs-reveal-submodules"
+                          "reveal.js" "js" "reveal.js")))
+    (when (and
+           (not (memq nil
+                      (mapcar #'file-readable-p
+                              (mapcar (lambda (file)
+                                        (f-join emacs-reveal-install-dir file))
+                                      emacs-reveal-lisp-packages))))
+           (file-readable-p revealjs))
+      emacs-reveal-install-dir)))
+
+(add-to-list 'load-path (f-join emacs-reveal-install-dir "git-invoke"))
+(require 'git-invoke)
+(defun emacs-reveal-setup ()
+  "Set up `emacs-reveal'.
+If `emacs-reveal-managed-install-p' is t, update submodules.
+If submodules are present, add directories of Lisp packages to `load-path'."
+  (when emacs-reveal-managed-install-p
+    (if (file-readable-p (f-join emacs-reveal-install-dir ".git"))
+        (git-invoke-update-submodules emacs-reveal-install-dir)
+      ;; Submodules might still be OK, e.g., in Docker.  Raise error if not.
+      (unless (emacs-reveal-submodules-ok)
+        (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))))
+  (when (emacs-reveal-submodules-ok)
+    (dolist (file emacs-reveal-lisp-packages)
+      (add-to-list 'load-path (f-join emacs-reveal-install-dir
+                                      (file-name-directory file))))))
+
+(defun emacs-reveal-setup-oer-reveal ()
+  "Set up `oer-reveal' for use with `emacs-reveal'.
+If `oer-reveal' is used standalone, it manages installation and updating
+of \"emacs-reveal-submodules\" itself.  When used as part of
+`emacs-reveal' with properly installed submodules, `oer-reveal' should
+not touch submodules.  Thus, set `oer-reveal-submodules-dir' to its
+subdirectory under `emacs-reveal' and set
+`oer-reveal-submodules-version' to nil.
+Call `oer-reveal-setup-submodules', `oer-reveal-generate-include-files',
+and `oer-reveal-publish-setq-defaults'."
+  (when (emacs-reveal-submodules-ok)
+    (let ((dir (f-join emacs-reveal-install-dir "emacs-reveal-submodules")))
+      (setq oer-reveal-submodules-dir dir
+            oer-reveal-submodules-version nil)))
+  (oer-reveal-setup-submodules t)
+  (oer-reveal-generate-include-files t)
+  (oer-reveal-publish-setq-defaults))
+
+;; Possibly update emacs-reveal (depending on emacs-reveal-managed-install-p);
+;; set up load-path if necessary directories are present.
+;; Afterwards, set up oer-reveal.
+(emacs-reveal-setup)
 (require 'oer-reveal-publish)
-(oer-reveal-setup-submodules t)
-(oer-reveal-generate-include-files t)
-(oer-reveal-publish-setq-defaults)
+(emacs-reveal-setup-oer-reveal)
 
-;; Setup Bibliography in HTML based on default bib file (which helps to
-;; locate the bib file when the current buffer does not specify one).
-;; Display article, book, inproceedings differently.
-;; Entries incollection, misc, and phdthesis are new.
-;; Entries techreport and proceedings are defaults.
+;; Set up bibliography in HTML.
 (require 'org-ref)
 (require 'org-re-reveal-ref)
-(setq org-ref-default-bibliography '("references.bib")
-      org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
-	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
-	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
-	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
-	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
-	("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
-	("techreport" . "%a, %t, %i, %u (%y).")
-	("proceedings" . "%e, %t in %S, %u (%y).")
-	))
+(setq org-ref-default-bibliography emacs-reveal-default-bibliography
+      org-ref-bibliography-entry-format emacs-reveal-bibliography-entry-format)
 
 (provide 'emacs-reveal)
 ;;; emacs-reveal.el ends here

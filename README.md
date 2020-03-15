@@ -7,8 +7,8 @@
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
-to create HTML presentations (slides with audio) and PDF documents for
-those presentations
+to create HTML presentations ([reveal.js](https://revealjs.com/)
+slides with audio) and PDF documents for those presentations
 from [Org mode](https://orgmode.org/) source files.
 Emacs-reveal satisfies several requirements in a novel way to
 ensure that resulting presentations and source files are
@@ -141,6 +141,8 @@ The setup is as follows:
      [my repositories](https://gitlab.com/oer))
    * Htmlize (for source code highlighting)
  * reveal.js
+   * [reveal-a11y](https://github.com/marcysutton/reveal-a11y)
+     (for improved accessibility)
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins)
      (for audio explanations and SVG animations)
    * [reveal.js-coursemod](https://github.com/Sonaryr/reveal.js-coursemod)
@@ -166,7 +168,7 @@ To use emacs-reveal, several options exist as sketched subsequently.
 1. Use emacs-reveal inside [GitLab’s Continuous Integration](https://docs.gitlab.com/ce/ci/)
    infrastructure with automatic deployment of resulting presentations
    as [GitLab Pages](https://docs.gitlab.com/ce/user/project/pages/index.html).
-2. Use docker image `registry.gitlab.com/oer/docker/emacs-reveal`.
+2. Use docker image `registry.gitlab.com/oer/emacs-reveal/emacs-reveal`.
 3. Install GNU Emacs, emacs-reveal, and above packages.
 
 ## Emacs-reveal in GitLab CI/CD
@@ -184,19 +186,28 @@ For the second option, [install Docker](https://docs.docker.com/install/)
 and start a container for emacs-reveal, e.g.:
 
 ```
-docker run --rm --name emacs-reveal -it registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
-Or for GUI support:
+For GUI support, you need to set up authentication information for the
+Docker container.  The details depend on your environment.  If you
+have got an environment variable `XAUTHORITY` in your host system, the
+following should work:
 
 ```
-docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $XAUTHORITY:/root/.Xauthority registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
-In both cases, a shell opens in the container.  Type `emacs` to start
+Alternatively, if you have got a file `~/.Xauthority`:
+
+```
+docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority registry.gitlab.com/oer/emacs-reveal/emacs-reveal
+```
+
+In any case, a shell opens in the container.  Type `emacs` to start
 GNU Emacs, load an `org` file (e.g., `Readme.org` coming with
 `org-re-reveal`, available under directory
-`/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>`)
+`/root/.emacs.d/elpa/emacs-reveal/org-re-reveal`)
 and export the reveal.js presentation (either with function
 `org-re-reveal-export-to-html`, bound to key `C-c C-e v v`, or
 `oer-reveal-export-to-html`, bound to key `C-c C-e w w` for additional
@@ -207,7 +218,7 @@ Copy the generated HTML presentation (and resources `local.css` as well as
 installation.  E.g., use commands such as the following:
 
 ```
-docker cp emacs-reveal:/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>/Readme.html .
+docker cp emacs-reveal:/root/.emacs.d/elpa/emacs-reveal/org-re-reveal/Readme.html .
 ```
 
 Open presentation in browser.
@@ -217,7 +228,7 @@ binding your directory with `org` files into the container (with
 option `-v`):
 
 ```
-docker run --rm --name emacs-reveal -it -v /some/dir/with/org-files:/tmp registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it -v /some/dir/with/org-files:/tmp registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
 Note that more powerful features of emacs-reveal based on plugins of
@@ -232,20 +243,20 @@ For the third option (my daily work environment), you need
 [GNU Emacs](https://www.gnu.org/software/emacs/download.html),
 a directory containing the contents of
 [this GitLab repository](https://gitlab.com/oer/emacs-reveal)
-(cloned via Git or extracted from an archive downloaded from GitLab, e.g.,
-[a ZIP archive](https://gitlab.com/oer/oer-courses/vm-neuland/-/archive/master/vm-neuland-master.zip)),
-and the packages mentioned above.  Once Emacs is installed,
-the packages can be installed manually or with the following command:
+(cloned via Git: `git clone https://gitlab.com/oer/emacs-reveal.git`).
 
-```
-emacs --batch --load emacs-reveal/install.el --funcall install
-```
-
-Emacs initialization code for all packages and reveal.js with its
+Initialization code emacs-reveal and reveal.js with its
 plugins can be activated with [the file `emacs-reveal.el`](emacs-reveal.el),
-which you can load from your `~/.emacs` (as done in
-[.emacs](https://gitlab.com/oer/docker/blob/master/code/.emacs)
-coming with the Docker image).
+which you can load as follows from your `~/.emacs`:
+
+```
+(add-to-list 'load-path "/root/.emacs.d/elpa/emacs-reveal")
+(require 'emacs-reveal)
+```
+
+After restarting Emacs, emacs-reveal checks whether its dependency
+org-ref is installed; if not, you are asked whether emacs-reveal
+should install it from [MELPA](https://melpa.org/) for you.
 
 A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
 sample presentation generated with emacs-reveal that explains how to

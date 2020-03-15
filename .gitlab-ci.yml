@@ -1,57 +1,153 @@
-# SPDX-FileCopyrightText: 2020 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2017-2020 Jens Lechtenbörger
 # SPDX-License-Identifier: CC0-1.0
 
-# CI tests for emacs-reveal
-# 1. Test for reuse compatibility
-# 2. Run robot framework test cases
+# Inspired by: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
+# See also:
+# - https://docs.gitlab.com/ee/ci/variables/
+# - https://docs.gitlab.com/ee/ci/yaml/
+
+# CI for emacs-reveal: Tests and docker images
+
+# Some lessons learned:
+# - Avoid colons in scripts.  They confuse the YAML parser.  Quoting
+#   did not work for me.
+# - In the "variables:" section, variables cannot be defined in terms
+#   of other (predefined) variables.  That is the reason for the
+#   export command for TESTDIR below.
+# - Command “docker run” requires absolute paths for volumes with “-v”.
+# - Newly built Docker images are not available in subsequent stages.
+#   Thus, push test image.
+# - Newly built Docker images cannot be just tagged.  Pull first.
+# - When building Docker images, use --cache-from to speed up job.
+# - Of course, be more careful which commands are available in what
+#   image :)
+
+variables:
+  ROBOT_FRAMEWORK: ppodgorsek/robot-framework:latest
+  ROBOT_HTML_DIR: public
+  ROBOT_REPORTS_DIR: reports
+  ROBOT_TESTS_DIR: robotframework
+  OLD_EMACS_REVEAL: registry.gitlab.com/oer/emacs-reveal/emacs-reveal:latest
 
 stages:
   - build
   - test
+  - build-docker
+  - build-new
+  - test-docker
+  - push-docker
 
-build:
-  stage: build
-  image: registry.gitlab.com/oer/docker/emacs-reveal:6.3.0
-  before_script:
-    - git submodule sync --recursive
-    - git submodule update --init --recursive
-    - cd org-mode && make autoloads && cd ..
+.build_html: &build_html
   script:
-    - cd tests
-    - emacs --batch --load elisp/publish.el
+    - make all
   artifacts:
     paths:
       - tests/public
+      - docker/emacs-reveal.tar.gz
     expire_in: 20 minutes
   only:
     refs:
+      - lechten
       - master
       - merge_requests
+      - tags
+
+build-html-1:
+  <<: *build_html
+  stage: build
+  image: $OLD_EMACS_REVEAL
+
+.docker_template: &docker_template
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:$CI_COMMIT_TAG
+    IMAGE_LATEST: $CI_REGISTRY_IMAGE/$CI_JOB_NAME:latest
+    IMAGE_TEST: $CI_REGISTRY_IMAGE/${CI_JOB_NAME}_test:latest
+  before_script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+debian-emacs-tex:
+  <<: *docker_template
+  stage: build
+  script:
+    - docker pull $IMAGE_LATEST || true
+    - docker build --cache-from $IMAGE_LATEST -t $IMAGE_LATEST -f docker/$CI_JOB_NAME/Dockerfile .
+    - docker push $IMAGE_LATEST
+  only:
+    changes:
+      - docker/debian-emacs-tex/*
+  except:
+    - tags
 
 test-reuse:
   stage: test
   image: fsfe/reuse:latest
   script:
     - reuse lint
+  except:
+    - tags
 
-test-robot:
-  stage: test
-  image:
-    name: ppodgorsek/robot-framework:latest
-    entrypoint: [""]
-  variables:
-    ROBOT_REPORTS_DIR: "tests/public/reports"
-    ROBOT_TESTS_DIR: "tests/robotframework"
+.test-robot: &test-robot
+  <<: *docker_template
+  before_script:
+    - export TESTDIR="${CI_PROJECT_DIR}/tests"
   script:
-    - mkdir -p /robot && cp -r tests/public /robot
-    - BROWSER=firefox PRESENTATION=test.html run-tests-in-virtual-screen.sh
-    - BROWSER=chrome PRESENTATION=test.html run-tests-in-virtual-screen.sh
+    - docker run -v $TESTDIR/$ROBOT_REPORTS_DIR:/opt/robotframework/reports:Z -v $TESTDIR/$ROBOT_TESTS_DIR:/opt/robotframework/tests:Z -v $TESTDIR/$ROBOT_HTML_DIR:/robot/public -e BROWSER=firefox -e PRESENTATION=test.html $ROBOT_FRAMEWORK
+    - docker run -v $TESTDIR/$ROBOT_REPORTS_DIR:/opt/robotframework/reports:Z -v $TESTDIR/$ROBOT_TESTS_DIR:/opt/robotframework/tests:Z -v $TESTDIR/$ROBOT_HTML_DIR:/robot/public -e BROWSER=chrome -e PRESENTATION=test.html $ROBOT_FRAMEWORK
   artifacts:
     when: on_failure
     paths:
-      - tests/public
+      - $TESTDIR/$ROBOT_HTML_DIR
+      - $TESTDIR/$ROBOT_REPORTS_DIR
     expire_in: 1 week
   only:
     refs:
+      - lechten
       - master
       - merge_requests
+
+test-robot-1:
+  <<: *test-robot
+  stage: test
+
+emacs-reveal:
+  <<: *docker_template
+  stage: build-docker
+  script:
+    - docker pull $IMAGE_TEST || true
+    - docker build --cache-from $IMAGE_TEST -t $IMAGE_TEST -f docker/$CI_JOB_NAME/Dockerfile docker
+    - docker push $IMAGE_TEST
+  only:
+    - tags
+    - lechten
+
+build-html-2:
+  <<: *build_html
+  stage: build-new
+  image: $CI_REGISTRY_IMAGE/emacs-reveal_test:latest
+  only:
+    - tags
+    - lechten
+
+test-robot-2:
+  <<: *test-robot
+  stage: test-docker
+  only:
+    - lechten
+    - tags
+
+emacs-reveal-push:
+  <<: *docker_template
+  variables:
+    GIT_STRATEGY: none
+  stage: push-docker
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/emacs-reveal_test:latest
+    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:latest
+    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE/emacs-reveal:latest
+    - docker push $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
+  only:
+    - tags

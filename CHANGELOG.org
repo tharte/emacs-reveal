@@ -10,6 +10,44 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.1.0] - 2020-03-15
+*** Added
+    - Initialization code to offer installation of ~org-ref~ if it is missing
+    - Variables [[file:emacs-reveal.el::(defcustom emacs-reveal-default-bibliography][emacs-reveal-default-bibliography]]
+      and [[file:emacs-reveal.el::(defcustom emacs-reveal-bibliography-entry-format][emacs-reveal-bibliography-entry-format]]
+*** Changed
+    - Initialization code refactored to use new variables
+
+** [7.0.2] - 2020-03-15
+*** Fixed
+    - CI: Pull image before trying to tag it
+
+** [7.0.1] - 2020-03-15
+*** Fixed
+    - CI: Build tar file for tags, try to avoid job
+      debian-emacs-tex for tags
+
+** [7.0.0] - 2020-03-13
+*** Added
+    - CI: Build Docker images from subdirectory ~docker~
+    - Submodule ~emacs-reveal-submodules~
+    - Variable [[file:emacs-reveal.el::(defcustom emacs-reveal-managed-install-p][emacs-reveal-managed-install-p]]
+      with functions [[file:emacs-reveal.el::(defun emacs-reveal-setup][emacs-reveal-setup]]
+      and [[file:emacs-reveal.el::(defun emacs-reveal-submodules-ok][emacs-reveal-submodules-ok]]
+*** Changed
+    - Require Emacs version 25.1 (inherited from org-ref),
+      oer-reveal 2.5.0, org-re-reveal-ref 1.0.0
+    - Const ~emacs-reveal-lisp-packages~ contains paths to Lisp files
+      (instead of their directories)
+*** Removed
+    - Variables ~emacs-reveal-docker-path~ and
+      ~emacs-reveal-completion-library~
+      - Code in ~emacs-reveal.el~ sets up ~load-path~ automatically now
+
+** Version 6.0.0 did never exist
+   - Skipped to avoid confusion with versions of Docker image
+     ~emacs-reveal~ under https://gitlab.com/oer/docker
+
 ** [5.5.0] - 2020-03-06
 *** Added
     - Variable [[file:emacs-reveal.el::(defcustom emacs-reveal-completion-library][emacs-reveal-completion-library]]

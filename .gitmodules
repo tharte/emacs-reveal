@@ -13,3 +13,6 @@
 [submodule "org-mode"]
 	path = org-mode
 	url = https://code.orgmode.org/bzg/org-mode.git
+[submodule "emacs-reveal-submodules"]
+	path = emacs-reveal-submodules
+	url = ../../oer/emacs-reveal-submodules.git
