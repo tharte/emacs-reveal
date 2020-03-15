@@ -168,7 +168,7 @@ To use emacs-reveal, several options exist as sketched subsequently.
 1. Use emacs-reveal inside [GitLab’s Continuous Integration](https://docs.gitlab.com/ce/ci/)
    infrastructure with automatic deployment of resulting presentations
    as [GitLab Pages](https://docs.gitlab.com/ce/user/project/pages/index.html).
-2. Use docker image `registry.gitlab.com/oer/docker/emacs-reveal`.
+2. Use docker image `registry.gitlab.com/oer/emacs-reveal/emacs-reveal`.
 3. Install GNU Emacs, emacs-reveal, and above packages.
 
 ## Emacs-reveal in GitLab CI/CD
@@ -186,19 +186,28 @@ For the second option, [install Docker](https://docs.docker.com/install/)
 and start a container for emacs-reveal, e.g.:
 
 ```
-docker run --rm --name emacs-reveal -it registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
-Or for GUI support:
+For GUI support, you need to set up authentication information for the
+Docker container.  The details depend on your environment.  If you
+have got an environment variable `XAUTHORITY` in your host system, the
+following should work:
 
 ```
-docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $XAUTHORITY:/root/.Xauthority registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
-In both cases, a shell opens in the container.  Type `emacs` to start
+Alternatively, if you have got a file `~/.Xauthority`:
+
+```
+docker run --rm --name emacs-reveal -it --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority registry.gitlab.com/oer/emacs-reveal/emacs-reveal
+```
+
+In any case, a shell opens in the container.  Type `emacs` to start
 GNU Emacs, load an `org` file (e.g., `Readme.org` coming with
 `org-re-reveal`, available under directory
-`/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>`)
+`/root/.emacs.d/elpa/emacs-reveal/org-re-reveal`)
 and export the reveal.js presentation (either with function
 `org-re-reveal-export-to-html`, bound to key `C-c C-e v v`, or
 `oer-reveal-export-to-html`, bound to key `C-c C-e w w` for additional
@@ -209,7 +218,7 @@ Copy the generated HTML presentation (and resources `local.css` as well as
 installation.  E.g., use commands such as the following:
 
 ```
-docker cp emacs-reveal:/root/.emacs.d/elpa/org-re-reveal-<some-version-specific-string>/Readme.html .
+docker cp emacs-reveal:/root/.emacs.d/elpa/emacs-reveal/org-re-reveal/Readme.html .
 ```
 
 Open presentation in browser.
@@ -219,7 +228,7 @@ binding your directory with `org` files into the container (with
 option `-v`):
 
 ```
-docker run --rm --name emacs-reveal -it -v /some/dir/with/org-files:/tmp registry.gitlab.com/oer/docker/emacs-reveal
+docker run --rm --name emacs-reveal -it -v /some/dir/with/org-files:/tmp registry.gitlab.com/oer/emacs-reveal/emacs-reveal
 ```
 
 Note that more powerful features of emacs-reveal based on plugins of
@@ -234,20 +243,16 @@ For the third option (my daily work environment), you need
 [GNU Emacs](https://www.gnu.org/software/emacs/download.html),
 a directory containing the contents of
 [this GitLab repository](https://gitlab.com/oer/emacs-reveal)
-(cloned via Git or extracted from an archive downloaded from GitLab, e.g.,
-[a ZIP archive](https://gitlab.com/oer/oer-courses/vm-neuland/-/archive/master/vm-neuland-master.zip)),
-and the packages mentioned above.  Once Emacs is installed,
-the packages can be installed manually or with the following command:
+(cloned via Git: `git clone https://gitlab.com/oer/emacs-reveal.git`).
 
-```
-emacs --batch --load emacs-reveal/install.el --funcall install
-```
-
-Emacs initialization code for all packages and reveal.js with its
+Initialization code emacs-reveal and reveal.js with its
 plugins can be activated with [the file `emacs-reveal.el`](emacs-reveal.el),
-which you can load from your `~/.emacs` (as done in
-[.emacs](https://gitlab.com/oer/docker/blob/master/code/.emacs)
-coming with the Docker image).
+which you can load as follows from your `~/.emacs`:
+
+```
+(add-to-list 'load-path "/root/.emacs.d/elpa/emacs-reveal")
+(require 'emacs-reveal)
+```
 
 A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
 sample presentation generated with emacs-reveal that explains how to
@@ -257,34 +262,34 @@ use emacs-reveal.  Its publication code automatically loads
 mentioned above documents various features and options of
 org-re-reveal, which are also available with emacs-reveal.
 
-# Emacs-reveal for a course on Operating Systems
+<!-- # Emacs-reveal for a course on Operating Systems -->
 
-My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS)
-is a real-world use case for emacs-reveal, combining all previously
-mentioned aspects.  Presentations are built automatically using
-Continuous Integration (CI) upon commit by a GitLab runner (see its
-[configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml)
-for details), which publishes the
-[presentations as GitLab pages](https://oer.gitlab.io/OS/).
+<!-- My [course on Operating Systems with OER presentations](https://gitlab.com/oer/OS) -->
+<!-- is a real-world use case for emacs-reveal, combining all previously -->
+<!-- mentioned aspects.  Presentations are built automatically using -->
+<!-- Continuous Integration (CI) upon commit by a GitLab runner (see its -->
+<!-- [configuration file](https://gitlab.com/oer/OS/blob/master/.gitlab-ci.yml) -->
+<!-- for details), which publishes the -->
+<!-- [presentations as GitLab pages](https://oer.gitlab.io/OS/). -->
 
-The following builds presentations for my course on Operating Systems
-locally (without Docker) from `org` source files into target directory
-`public` (as of March 2019, the first `git` command alone downloads
-about 150 MB of resources):
+<!-- The following builds presentations for my course on Operating Systems -->
+<!-- locally (without Docker) from `org` source files into target directory -->
+<!-- `public` (as of March 2019, the first `git` command alone downloads -->
+<!-- about 150 MB of resources): -->
 
-	$ git clone https://gitlab.com/oer/OS.git
-	$ cd OS
-	$ git submodule sync --recursive
-	$ git submodule update --init --recursive
-	$ emacs --batch --load emacs-reveal/install.el --funcall install
-	$ emacs --batch --load elisp/publish.el
+<!-- 	$ git clone https://gitlab.com/oer/OS.git -->
+<!-- 	$ cd OS -->
+<!-- 	$ git submodule sync --recursive -->
+<!-- 	$ git submodule update --init --recursive -->
+<!-- 	$ emacs --batch --load emacs-reveal/install.el --funcall install -->
+<!-- 	$ emacs --batch --load elisp/publish.el -->
 
-As usual, use `git pull` to update the source directory later on.
-Included submodules need to be updated separately, though, with
-`git submodule update --recursive --remote`.  The first `emacs`
-invocation above installs necessary packages, which is only necessary
-once.  The second one publishes the HTML presentation into the
-subdirectory `public`.  (From within Emacs, you can generate the HTML
-presentation for an individual `org` file using Org’s export
-functionality by pressing keys for org-re-reveal or oer-reveal as
-mentioned above.)
+<!-- As usual, use `git pull` to update the source directory later on. -->
+<!-- Included submodules need to be updated separately, though, with -->
+<!-- `git submodule update --recursive --remote`.  The first `emacs` -->
+<!-- invocation above installs necessary packages, which is only necessary -->
+<!-- once.  The second one publishes the HTML presentation into the -->
+<!-- subdirectory `public`.  (From within Emacs, you can generate the HTML -->
+<!-- presentation for an individual `org` file using Org’s export -->
+<!-- functionality by pressing keys for org-re-reveal or oer-reveal as -->
+<!-- mentioned above.) -->
