@@ -10,9 +10,13 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.0.2] - 2020-03-15
+*** Fixed
+    - CI: Pull image before trying to tag it
+
 ** [7.0.1] - 2020-03-15
 *** Fixed
-    - CI: Build tar file for tags, try to avoid job 
+    - CI: Build tar file for tags, try to avoid job
       debian-emacs-tex for tags
 
 ** [7.0.0] - 2020-03-13
