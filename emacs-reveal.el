@@ -96,6 +96,19 @@
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
 
 ;;; Code:
+(package-initialize)
+(condition-case nil
+    (require 'org-ref)
+  (error
+   (unless
+       (yes-or-no-p
+        "Required package `org-ref' not found.  Install from MELPA? ")
+     (error "Please install `org-ref' to use `emacs-reveal'"))
+   (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
+     (package-refresh-contents)
+     (package-install 'org-ref))))
+
+;; org-ref has f as dependency, so it is available here.
 (require 'f)
 (defconst emacs-reveal-lisp-packages
   (list (f-join "org-mode" "lisp" "org.el")
