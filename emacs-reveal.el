@@ -179,6 +179,7 @@ If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
            (file-readable-p revealjs))
       emacs-reveal-install-dir)))
 
+(add-to-list 'load-path (f-join emacs-reveal-install-dir "git-invoke"))
 (require 'git-invoke)
 (defun emacs-reveal-setup ()
   "Set up `emacs-reveal'.
@@ -193,8 +194,6 @@ If submodules are present, add directories of Lisp packages to `load-path'."
       (add-to-list 'load-path (f-join emacs-reveal-install-dir
                                       (file-name-directory file))))))
 
-(require 'oer-reveal)
-(require 'oer-reveal-publish)
 (defun emacs-reveal-setup-oer-reveal ()
   "Set up `oer-reveal' for use with `emacs-reveal'.
 If `oer-reveal' is used standalone, it manages installation and updating
@@ -214,11 +213,13 @@ and `oer-reveal-publish-setq-defaults'."
   (oer-reveal-publish-setq-defaults))
 
 ;; Possibly update emacs-reveal (depending on emacs-reveal-managed-install-p);
-;; set up load-path if necessary directories are present.  Set up oer-reveal.
+;; set up load-path if necessary directories are present.
+;; Afterwards, set up oer-reveal.
 (emacs-reveal-setup)
+(require 'oer-reveal-publish)
 (emacs-reveal-setup-oer-reveal)
 
-;; Setup Bibliography in HTML.
+;; Set up bibliography in HTML.
 (require 'org-ref)
 (require 'org-re-reveal-ref)
 (setq org-ref-default-bibliography emacs-reveal-default-bibliography
