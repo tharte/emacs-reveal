@@ -75,6 +75,8 @@ debian-emacs-tex:
   only:
     changes:
       - docker/debian-emacs-tex/*
+  except:
+    - tags
 
 test-reuse:
   stage: test
