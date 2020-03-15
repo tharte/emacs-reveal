@@ -27,7 +27,7 @@ variables:
   ROBOT_HTML_DIR: public
   ROBOT_REPORTS_DIR: reports
   ROBOT_TESTS_DIR: robotframework
-  OLD_EMACS_REVEAL: registry.gitlab.com/oer/docker/emacs-reveal:latest
+  OLD_EMACS_REVEAL: registry.gitlab.com/oer/emacs-reveal/emacs-reveal:latest
 
 stages:
   - build
