@@ -140,6 +140,8 @@ test-robot-2:
 
 emacs-reveal-push:
   <<: *docker_template
+  variables:
+    GIT_STRATEGY: none
   stage: push-docker
   script:
     - docker pull $CI_REGISTRY_IMAGE/emacs-reveal_test:latest
