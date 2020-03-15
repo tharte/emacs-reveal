@@ -11,6 +11,11 @@
 ;; Package-Requires: ((emacs "25.1") (oer-reveal "2.5.0") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
+;; Note that package org-ref is transitively required by emacs-reveal
+;; (org-re-reveal-ref requires org-ref).  As org-ref has lots of
+;; depencies itself, those packages are not included here.  If org-ref
+;; is missing, installation from MELPA is offered.
+
 ;;; License:
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
