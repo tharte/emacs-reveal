@@ -254,6 +254,10 @@ which you can load as follows from your `~/.emacs`:
 (require 'emacs-reveal)
 ```
 
+After restarting Emacs, emacs-reveal checks whether its dependency
+org-ref is installed; if not, you are asked whether emacs-reveal
+should install it from [MELPA](https://melpa.org/) for you.
+
 A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
 sample presentation generated with emacs-reveal that explains how to
 use emacs-reveal.  Its publication code automatically loads
