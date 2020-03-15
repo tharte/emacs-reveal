@@ -191,38 +191,38 @@ If submodules are present, add directories of Lisp packages to `load-path'."
   (when (emacs-reveal-submodules-ok)
     (dolist (file emacs-reveal-lisp-packages)
       (add-to-list 'load-path (f-join emacs-reveal-install-dir
-                                      (file-name-directory file))))
+                                      (file-name-directory file))))))
+
+(require 'oer-reveal)
+(require 'oer-reveal-publish)
+(defun emacs-reveal-setup-oer-reveal ()
+  "Set up `oer-reveal' for use with `emacs-reveal'.
+If `oer-reveal' is used standalone, it manages installation and updating
+of \"emacs-reveal-submodules\" itself.  When used as part of
+`emacs-reveal' with properly installed submodules, `oer-reveal' should
+not touch submodules.  Thus, set `oer-reveal-submodules-dir' to its
+subdirectory under `emacs-reveal' and set
+`oer-reveal-submodules-version' to nil.
+Call `oer-reveal-setup-submodules', `oer-reveal-generate-include-files',
+and `oer-reveal-publish-setq-defaults'."
+  (when (emacs-reveal-submodules-ok)
     (let ((dir (f-join emacs-reveal-install-dir "emacs-reveal-submodules")))
       (setq oer-reveal-submodules-dir dir
-            oer-reveal-submodules-version nil))))
+            oer-reveal-submodules-version nil)))
+  (oer-reveal-setup-submodules t)
+  (oer-reveal-generate-include-files t)
+  (oer-reveal-publish-setq-defaults))
 
 ;; Possibly update emacs-reveal (depending on emacs-reveal-managed-install-p);
-;; set up load-path if necessary directories are present.
+;; set up load-path if necessary directories are present.  Set up oer-reveal.
 (emacs-reveal-setup)
+(emacs-reveal-setup-oer-reveal)
 
-(require 'oer-reveal-publish)
-(oer-reveal-setup-submodules t)
-(oer-reveal-generate-include-files t)
-(oer-reveal-publish-setq-defaults)
-
-;; Setup Bibliography in HTML based on default bib file (which helps to
-;; locate the bib file when the current buffer does not specify one).
-;; Display article, book, inproceedings differently.
-;; Entries incollection, misc, and phdthesis are new.
-;; Entries techreport and proceedings are defaults.
+;; Setup Bibliography in HTML.
 (require 'org-ref)
 (require 'org-re-reveal-ref)
-(setq org-ref-default-bibliography '("references.bib")
-      org-ref-bibliography-entry-format
-      '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
-	("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
-	("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
-	("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
-	("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
-	("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
-	("techreport" . "%a, %t, %i, %u (%y).")
-	("proceedings" . "%e, %t in %S, %u (%y).")
-	))
+(setq org-ref-default-bibliography emacs-reveal-default-bibliography
+      org-ref-bibliography-entry-format emacs-reveal-bibliography-entry-format)
 
 (provide 'emacs-reveal)
 ;;; emacs-reveal.el ends here
