@@ -15,8 +15,10 @@
 #   of other (predefined) variables.  That is the reason for the
 #   export command for TESTDIR below.
 # - Command “docker run” requires absolute paths for volumes with “-v”.
-# - Newly build Docker images are not available in subsequent stages.
-#   Thus, push test image, tag later.
+# - Newly built Docker images are not available in subsequent stages.
+#   Thus, push test image.
+# - Newly built Docker images cannot be just tagged.  Pull first.
+# - When building Docker images, use --cache-from to speed up job.
 # - Of course, be more careful which commands are available in what
 #   image :)
 
