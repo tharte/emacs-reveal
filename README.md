@@ -141,6 +141,8 @@ The setup is as follows:
      [my repositories](https://gitlab.com/oer))
    * Htmlize (for source code highlighting)
  * reveal.js
+   * [reveal-a11y](https://github.com/marcysutton/reveal-a11y)
+     (for improved accessibility)
    * [reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins)
      (for audio explanations and SVG animations)
    * [reveal.js-coursemod](https://github.com/Sonaryr/reveal.js-coursemod)
