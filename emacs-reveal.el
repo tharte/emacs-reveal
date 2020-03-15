@@ -181,7 +181,9 @@ If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
 
 (require 'git-invoke)
 (defun emacs-reveal-setup ()
-  "Set up `emacs-reveal'."
+  "Set up `emacs-reveal'.
+If `emacs-reveal-managed-install-p' is t, update submodules.
+If submodules are present, add directories of Lisp packages to `load-path'."
   (when emacs-reveal-managed-install-p
     (unless (file-readable-p (f-join emacs-reveal-install-dir ".git"))
       (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))
