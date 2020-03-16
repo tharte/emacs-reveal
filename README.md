@@ -168,7 +168,8 @@ To use emacs-reveal, several options exist as sketched subsequently.
 1. Use emacs-reveal inside [GitLab’s Continuous Integration](https://docs.gitlab.com/ce/ci/)
    infrastructure with automatic deployment of resulting presentations
    as [GitLab Pages](https://docs.gitlab.com/ce/user/project/pages/index.html).
-2. Use docker image `registry.gitlab.com/oer/emacs-reveal/emacs-reveal`.
+2. Use Docker image `registry.gitlab.com/oer/emacs-reveal/emacs-reveal` from
+   [this container registry](https://gitlab.com/oer/emacs-reveal/container_registry)
 3. Install GNU Emacs, emacs-reveal, and above packages.
 
 ## Emacs-reveal in GitLab CI/CD
