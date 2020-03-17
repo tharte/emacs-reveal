@@ -229,6 +229,7 @@ and `oer-reveal-publish-setq-defaults'."
 ;; set up load-path if necessary directories are present.
 ;; Afterwards, set up oer-reveal.
 (emacs-reveal-setup)
+(message "Using emacs-reveal with Org version: %s" (org-version))
 (require 'oer-reveal-publish)
 (emacs-reveal-setup-oer-reveal)
 
