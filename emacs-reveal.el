@@ -115,7 +115,7 @@
 
 (require 'f)
 (defconst emacs-reveal-lisp-packages
-  (list (f-join "org-mode" "lisp" "org.el")
+  (list (f-join "org-mode" "lisp" "org-version.el")
         (f-join "org-re-reveal" "org-re-reveal.el")
         (f-join "org-re-reveal-ref" "org-re-reveal-ref.el")
         (f-join "oer-reveal" "oer-reveal.el"))
