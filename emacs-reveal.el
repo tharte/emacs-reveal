@@ -97,18 +97,22 @@
 
 ;;; Code:
 (package-initialize)
+
+;; org-ref has f as dependency.  If f is missing, offer to install org-ref.
+;; Do not require org-ref here as that might pull in a wrong Org version,
+;; since load-path has not been set up yet.
 (condition-case nil
-    (require 'org-ref)
+    (require 'f)
   (error
    (unless
        (yes-or-no-p
-        "Required package `org-ref' not found.  Install from MELPA? ")
+        "Required package `f' for `org-ref' not found.  Install from MELPA? ")
      (error "Please install `org-ref' to use `emacs-reveal'"))
    (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
      (package-refresh-contents)
-     (package-install 'org-ref))))
+     (package-install 'org-ref)
+     (message-box "Installed `org-ref'.  Please restart Emacs to avoid issues with mixed Org installations."))))
 
-;; org-ref has f as dependency, so it is available here.
 (require 'f)
 (defconst emacs-reveal-lisp-packages
   (list (f-join "org-mode" "lisp" "org.el")
