@@ -131,6 +131,7 @@ of `oer-reveal'."
 (defcustom emacs-reveal-managed-install-p t
   "Configure whether to use update `emacs-reveal' and submodules or not.
 By default, `emacs-reveal' tries to update itself and its submodules via Git.
+This requires `git' and `make' to be installed.
 If you set this to nil, you should install Lisp packages in
 `emacs-reveal-lisp-packages' yourself."
   :group 'org-export-emacs-reveal
@@ -183,15 +184,21 @@ If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
            (file-readable-p revealjs))
       emacs-reveal-install-dir)))
 
-(add-to-list 'load-path (f-join emacs-reveal-install-dir "git-invoke"))
-(require 'git-invoke)
 (defun emacs-reveal-setup ()
   "Set up `emacs-reveal'.
 If `emacs-reveal-managed-install-p' is t, update submodules.
 If submodules are present, add directories of Lisp packages to `load-path'."
   (when emacs-reveal-managed-install-p
     (if (file-readable-p (f-join emacs-reveal-install-dir ".git"))
-        (git-invoke-update-submodules emacs-reveal-install-dir)
+        (let ((default-directory emacs-reveal-install-dir))
+          (message "Invoking \"make setup\" to set up submodules ...")
+          (message "... (downloads lots of data upon first time; sets up Org mode) ...")
+          (condition-case err
+              (unless (= 0 (call-process "make" nil nil nil "setup"))
+                (error "Status != 0"))
+            (error (error "Command \"make\" failed: %s"
+                          (error-message-string err))))
+          (message "... done"))
       ;; Submodules might still be OK, e.g., in Docker.  Raise error if not.
       (unless (emacs-reveal-submodules-ok)
         (error "Must have a \".git\" subdirectory for managed install of `emacs-reveal'"))))
