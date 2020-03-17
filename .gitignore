@@ -4,3 +4,4 @@
 *.elc
 public/
 docker/emacs-reveal.tar*
+tests/reports
