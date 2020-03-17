@@ -106,7 +106,7 @@
   (error
    (unless
        (yes-or-no-p
-        "Required package `f' for `org-ref' not found.  Install from MELPA? ")
+        "Emacs-reveal: Dependency of `org-ref' not found.  Install from MELPA? ")
      (error "Please install `org-ref' to use `emacs-reveal'"))
    (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
      (package-refresh-contents)
@@ -191,7 +191,7 @@ If submodules are present, add directories of Lisp packages to `load-path'."
   (when emacs-reveal-managed-install-p
     (if (file-readable-p (f-join emacs-reveal-install-dir ".git"))
         (let ((default-directory emacs-reveal-install-dir))
-          (message "Invoking \"make setup\" to set up submodules ...")
+          (message "Emacs-reveal: Invoking \"make setup\" to set up submodules ...")
           (message "... (downloads lots of data upon first time; sets up Org mode) ...")
           (condition-case err
               (unless (= 0 (call-process "make" nil nil nil "setup"))
