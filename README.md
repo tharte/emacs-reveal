@@ -241,15 +241,38 @@ CI/CD and also with the following option).
 For the third option (my daily work environment), you need
 [GNU Emacs](https://www.gnu.org/software/emacs/download.html),
 a directory containing the contents of
-[this GitLab repository](https://gitlab.com/oer/emacs-reveal)
-(cloned via Git: `git clone https://gitlab.com/oer/emacs-reveal.git`).
+[this GitLab repository](https://gitlab.com/oer/emacs-reveal).
 
-Initialization code emacs-reveal and reveal.js with its
-plugins can be activated with [the file `emacs-reveal.el`](emacs-reveal.el),
-which you can load as follows from your `~/.emacs`:
+Before cloning the repository, you may want to think about two options
+of using emacs-reveal.  First, you can stick with the default “managed
+mode” as defined by the customizable variable
+`emacs-reveal-managed-install-p`.  With its default value of `t`,
+emacs-reveal initializes and updates its submodules (Lisp packages
+for Org mode, org-re-reveal, org-re-reveal-ref, oer-reveal and
+reveal.js with several submodules).  In that case, you do not need to
+install any of the bundled software yourself, and you may want to
+clone the Git repository of emacs-reveal recursively, downloading
+161 MB as of March 2020 (if you clone without option `--recursive`,
+you just download 1.1 MB, but emacs-reveal will download the remaining
+components upon its first use, slowing down first use):
 
 ```
-(add-to-list 'load-path "/root/.emacs.d/elpa/emacs-reveal")
+git clone --recursive https://gitlab.com/oer/emacs-reveal.git
+```
+
+Then, activate emacs-reveal by loading it from your `~/.emacs`:
+
+```
+(add-to-list 'load-path "<path-where-you-cloned>/emacs-reveal")
+(require 'emacs-reveal)
+```
+
+If you decide to manage the bundled components yourself, clone without
+option `--recursive` and use the following in `~/.emacs`:
+
+```
+(add-to-list 'load-path "<path-where-you-cloned>/emacs-reveal")
+(setq emacs-reveal-managed-install-p nil)
 (require 'emacs-reveal)
 ```
 
