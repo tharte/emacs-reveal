@@ -23,6 +23,8 @@ html: setup
 	cd $(TESTDIR) && $(BUILDHTML) && cd $(DIR)
 
 init:
+	git checkout master
+	git pull
 	git submodule sync --recursive
 	git submodule update --init --recursive
 
