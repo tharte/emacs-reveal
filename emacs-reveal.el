@@ -186,7 +186,8 @@ If a check fails, return nil; otherwise, return directory of `emacs-reveal'."
 
 (defun emacs-reveal-setup ()
   "Set up `emacs-reveal'.
-If `emacs-reveal-managed-install-p' is t, update submodules.
+If `emacs-reveal-managed-install-p' is t and a \".git\" is present,
+invoke \"make setup\" to update `emacs-reveal' and submodules.
 If submodules are present, add directories of Lisp packages to `load-path'."
   (when emacs-reveal-managed-install-p
     (if (file-readable-p (f-join emacs-reveal-install-dir ".git"))
