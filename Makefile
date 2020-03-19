@@ -18,10 +18,6 @@ ROBOT_TESTS_DIR    := $(TESTDIR)/robotframework
 
 all: html archive
 
-html: setup
-	rm -rf ~/.org-timestamps
-	cd $(TESTDIR) && $(BUILDHTML) && cd $(DIR)
-
 init:
 	git checkout master
 	git pull
@@ -30,6 +26,10 @@ init:
 
 setup: init
 	cd org-mode && make clean && make autoloads && cd $(DIR)
+
+html: setup
+	rm -rf ~/.org-timestamps
+	cd $(TESTDIR) && $(BUILDHTML) && cd $(DIR)
 
 tar:
 	tar $(TAROPTS) docker/$(TARFILE) .
