@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.1.3] - 2020-03-19
+*** Fixed
+    - Update emacs-reveal as documented for ~emacs-reveal-managed-install-p~
+      - Adjust target init in Makefile
+
 ** [7.1.2] - 2020-03-17
 *** Fixed
     - Take more care to avoid mixed Org installations
