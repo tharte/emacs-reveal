@@ -196,8 +196,8 @@ If submodules are present, add directories of Lisp packages to `load-path'."
           (condition-case err
               (unless (= 0 (call-process "make" nil nil nil "setup"))
                 (error "Status != 0"))
-            (error (error "Command \"make\" failed: %s"
-                          (error-message-string err))))
+            (error (message-box "Emacs-reveal: Update with \"make setup\" failed: %s"
+                                (error-message-string err))))
           (message "... done"))
       ;; Submodules might still be OK, e.g., in Docker.  Raise error if not.
       (unless (emacs-reveal-submodules-ok)
