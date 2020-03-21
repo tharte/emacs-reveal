@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.1.4] - 2020-03-21
+*** Fixed
+    - Replace ~error~ with ~message-box~ when ~make setup~ fails to
+      allow offline use
+
 ** [7.1.3] - 2020-03-19
 *** Fixed
     - Update emacs-reveal as documented for ~emacs-reveal-managed-install-p~
