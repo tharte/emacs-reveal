@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.2.0] - 2020-03-24
+*** Changed
+    - Update oer-reveal to 2.6.0
+
 ** [7.1.4] - 2020-03-21
 *** Fixed
     - Replace ~error~ with ~message-box~ when ~make setup~ fails to
