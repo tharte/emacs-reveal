@@ -18,7 +18,6 @@ where version numbers starting with version 4.0.0 adhere to
 *** Fixed
     - Add correct license terms in [[file:LICENSES/CC-BY-SA-4.0.txt][LICENSES/CC-BY-SA-4.0.txt]]
 
-
 ** [7.4.3] - 2020-04-07
 *** Fixed
     - Update oer-reveal to 2.8.3
