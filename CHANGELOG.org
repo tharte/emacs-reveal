@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.8.1] - 2020-05-02
+*** Fixed
+    - Fix reuse lint in [[file:.gitlab-ci.yml]]
+
 ** [7.8.0] - 2020-05-02
 *** Changed
     - Update oer-reveal to 2.11.0
