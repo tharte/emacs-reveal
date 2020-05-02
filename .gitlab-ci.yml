@@ -83,7 +83,9 @@ debian-emacs-tex:
 
 test-reuse:
   stage: test
-  image: fsfe/reuse:latest
+  image:
+    name: fsfe/reuse:latest
+    entrypoint: [""]
   script:
     - reuse lint
   except:
