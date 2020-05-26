@@ -302,20 +302,21 @@ for details), which publishes the
 # Evaluation results
 
 I'm aware that my presentation format deviates from university
-standards, which may create initial challenges. I believe to have good
-reasons for that format (see [there for a paper in
-German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)), and the
-following figure contains some evaluation results for a
+standards, which may create initial challenges.  I believe to have good
+reasons for that format (see
+[that presentation for my interpretation of Just-in-Time Teaching (JiTT)](https://oer.gitlab.io/OS/Operating-Systems-JiTT.html)
+or [that paper in German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)),
+and the following figure contains some evaluation results for a
 [course on Operating Systems](https://gitlab.com/oer/OS)
 indicating that students generally agree.
 
 I added different types of hyperlinks in 2018 and extended them in
-2019; thus there is no data for 2017.  Also, I added the final two questions
-in 2019: First, some students ask to remove links every
-year; apparently, the majority disagrees. (For the minority, I plan to
-implement customizable CSS styles, but did not manage to do so
-yet.  Help would be very welcome!)  Second, based on student feedback,
-I disabled auto-play for audio in 2019; only a minority asked to
-revert this change.
+2019; thus there is no data for 2017.  Also, I added the final two
+questions in 2019: First, some students ask to remove links every
+year; apparently, the majority disagrees.  (For the minority, I plan
+to implement customizable CSS styles, but did not manage to do so yet.
+Help would be very welcome!)  Second, based on student feedback, I
+disabled auto-play for audio in 2019; only a minority asked to revert
+this change.
 
 ![Evaluation results for emacs-reveal](evaluation.png "Evaluation results for emacs-reveal")
