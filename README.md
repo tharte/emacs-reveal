@@ -27,6 +27,7 @@ suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Ope
   - [Emacs-reveal with Docker](#emacs-reveal-with-docker)
   - [Emacs-reveal for daily use](#emacs-reveal-for-daily-use)
 - [Emacs-reveal for a course on Operating Systems](#emacs-reveal-for-a-course-on-operating-systems)
+- [Evaluation results](#evaluation-results)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
