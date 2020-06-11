@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [7.11.0] - 2020-06-11
+*** Changed
+    - Update oer-reveal to 2.14.0
+    - Update emacs-reveal-submodules to 1.4.0
+
 ** [7.10.0] - 2020-06-10
 *** Changed
     - Update oer-reveal to 2.13.0
