@@ -9,6 +9,11 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+** [8.0.0] - 2020-06-27
+*** Changed
+    - Update org-re-reveal to 3.0.0, oer-reveal to 3.0.0,
+      emacs-reveal-submodules to 2.0.0
+      - This adds support for reveal.js 4.0
 
 ** [7.12.1] - 2020-06-23
 *** Fixed

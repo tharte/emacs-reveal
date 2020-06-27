@@ -7,8 +7,8 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 7.12.1
-;; Package-Requires: ((emacs "25.1") (oer-reveal "2.5.0") (org-re-reveal-ref "1.0.0"))
+;; Version: 8.0.0
+;; Package-Requires: ((emacs "25.1") (oer-reveal "3.0.0") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
 ;; Note that package org-ref is transitively required by emacs-reveal
@@ -80,8 +80,9 @@
 ;;     are installed.
 ;;     - Install with the usual package mechanism or like
 ;;       this: emacs --batch --load install.el --funcall install
-;;     - Or you could use this Docker image:
-;;       registry.gitlab.com/oer/docker/emacs-reveal:1.1
+;;     - Or you could use the Docker image for emacs-reveal:
+;;       - https://gitlab.com/oer/emacs-reveal/container_registry
+;;       - e.g., registry.gitlab.com/oer/emacs-reveal/emacs-reveal:8.0.0
 ;; (d) Add a line like this to ~/.emacs (beware, this changes settings
 ;;     of other packages) or to your publication code:
 ;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
