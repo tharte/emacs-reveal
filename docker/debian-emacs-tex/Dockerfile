@@ -1,7 +1,7 @@
-# Copyright (C) 2019-2020 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2019-2020 Jens Lechtenbörger
 # SPDX-License-Identifier: CC0-1.0
 
-FROM debian:10.3-slim
+FROM debian:10.4-slim
 LABEL maintainer="Jens Lechtenbörger"
 RUN apt-get update && apt-get --no-install-recommends install -y \
     ca-certificates \
