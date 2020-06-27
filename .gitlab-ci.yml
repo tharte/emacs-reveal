@@ -21,6 +21,9 @@
 # - When building Docker images, use --cache-from to speed up job.
 # - Of course, be more careful which commands are available in what
 #   image :)
+# - The use of variables in an artifacts path did not work for me.
+#   I tried $TESTDIR/$ROBOT_HTML_DIR and $TESTDIR/$ROBOT_REPORTS_DIR,
+#   which failed with empty $TESTDIR.  Thus, I use "tests" now.
 
 variables:
   ROBOT_FRAMEWORK: ppodgorsek/robot-framework:3.5.0
@@ -102,8 +105,8 @@ test-reuse:
   artifacts:
     when: on_failure
     paths:
-      - tests/public
-      - $TESTDIR/$ROBOT_REPORTS_DIR
+      - tests/$ROBOT_HTML_DIR
+      - tests/$ROBOT_REPORTS_DIR
     expire_in: 1 week
   only:
     refs:
