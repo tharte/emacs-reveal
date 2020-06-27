@@ -95,6 +95,12 @@
 ;; image on GitLab; its YML configuration shows the necessary steps
 ;; to generate and publish the project:
 ;; https://gitlab.com/oer/emacs-reveal-howto/blob/master/.gitlab-ci.yml
+;;
+;; With version 4, reveal.js introduced incompatible changes in some paths.
+;; The target version of reveal.js to be used with emacs-reveal is
+;; determined by oer-reveal-revealjs-version, which in turn takes
+;; precedence over org-re-reveal-revealjs-version.  Please consult its
+;; doc string.
 
 ;;; Code:
 (package-initialize)
