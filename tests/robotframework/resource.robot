@@ -23,7 +23,7 @@ ${TEST SLIDE NUMBER}      4
 ${REVEAL SELECTOR}        xpath:/html/body/div[1]
 ${COURSEVIEW SELECTOR}    xpath:/html/body/div[2]
 ${CONTROL SELECTOR}       ${REVEAL SELECTOR}/aside
-${SLIDE NO SELECTOR}      ${REVEAL SELECTOR}/div[3]/a/span
+${SLIDE NO SELECTOR}      xpath:(/html/body/div[1]/div[4]/a/span | /html/body/div[1]/div[3]/a/span)
 
 *** Keywords ***
 

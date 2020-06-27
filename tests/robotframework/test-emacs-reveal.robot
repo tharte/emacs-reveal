@@ -121,5 +121,5 @@ Speaker Notes
   Pass Execution If    '${BROWSER}' == 'chrome'    Skipped speaker notes with Chrome.
   Go To Slide    ${NOTES SLIDE NUMBER}
   Press Keys    None    s
-  Switch Window    reveal.js - Speaker View
+  Select Window    NEW
   Element Should Be Visible   xpath://*[@id="speaker-controls"]
