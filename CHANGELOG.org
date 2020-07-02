@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.0.2] - 2020-07-02
+*** Fixed
+    - Improve Docker build for different versions
+
 ** [8.0.1] - 2020-07-01
 *** Fixed
     - Update org-re-reveal to 3.0.1
@@ -19,6 +23,23 @@ where version numbers starting with version 4.0.0 adhere to
     - Update org-re-reveal to 3.0.0, oer-reveal to 3.0.0,
       emacs-reveal-submodules to 2.0.0
       - This adds support for reveal.js 4.0
+
+** [7.12.10] - 2020-07-02
+*** Fixed
+    - Again try to create ~latest~ image only on ~master~
+
+** [7.12.4] - 2020-07-02
+*** Fixed
+    - Do not switch branch during Docker build
+    - Create ~latest~ image only on ~master~
+
+** [7.12.3] - 2020-07-01
+*** Fixed
+    - Backport test changes for compatibility with version 8
+
+** [7.12.2] - 2020-07-01
+*** Fixed
+    - Update org-re-reveal to 3.0.1
 
 ** [7.12.1] - 2020-06-23
 *** Fixed
