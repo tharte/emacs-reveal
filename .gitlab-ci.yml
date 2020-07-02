@@ -24,6 +24,8 @@
 # - The use of variables in an artifacts path did not work for me.
 #   I tried $TESTDIR/$ROBOT_HTML_DIR and $TESTDIR/$ROBOT_REPORTS_DIR,
 #   which failed with empty $TESTDIR.  Thus, I use "tests" now.
+# - A tag is not bound to a branch, so branch restrictions in
+#   only/except do not work.
 
 variables:
   ROBOT_FRAMEWORK: ppodgorsek/robot-framework:3.5.0
@@ -39,6 +41,7 @@ stages:
   - build-new
   - test-docker
   - push-docker
+  - push-docker-master
 
 .build_html: &build_html
   script:
@@ -151,9 +154,19 @@ emacs-reveal-push:
   stage: push-docker
   script:
     - docker pull $CI_REGISTRY_IMAGE/emacs-reveal_test:latest
-    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:latest
     - docker tag $CI_REGISTRY_IMAGE/emacs-reveal_test:latest $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
-    - docker push $CI_REGISTRY_IMAGE/emacs-reveal:latest
     - docker push $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
   only:
     - tags
+
+emacs-reveal-push-not-old:
+  <<: *docker_template
+  variables:
+    GIT_STRATEGY: none
+  stage: push-docker-master
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG
+    - docker tag $CI_REGISTRY_IMAGE/emacs-reveal:$CI_COMMIT_TAG $CI_REGISTRY_IMAGE/emacs-reveal:latest
+    - docker push $CI_REGISTRY_IMAGE/emacs-reveal:latest
+  rules:
+    - if: '$CI_COMMIT_TAG && $CI_COMMIT_TAG !~ /^7/'
