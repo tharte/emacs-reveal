@@ -14,11 +14,15 @@ ROBOT_HTML_DIR     := $(TESTDIR)/public
 ROBOT_REPORTS_DIR  := $(TESTDIR)/reports
 ROBOT_TESTS_DIR    := $(TESTDIR)/robotframework
 
-.PHONY: all archive docker html init robot-test setup tar
+.PHONY: all archive docker html init init-master robot-test setup tar
 
 all: html archive
 
 init:
+	git submodule sync --recursive
+	git submodule update --init --recursive
+
+init-master:
 	git checkout master
 	git pull
 	git submodule sync --recursive
