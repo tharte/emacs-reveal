@@ -64,13 +64,25 @@ OER figures with proper attribution and license information has been
 simplified considerably; see the project hosting
 [OER figures](https://gitlab.com/oer/figures/) and
 [this paper](https://gitlab.com/lechten/publications/blob/master/delfi2019/delfi.org)
+([published version](https://dx.doi.org/10.18420/delfi2019_280))
 for more details on my approach towards meta-data, which is based on
-standard vocabularies and embeds license information using
+standard vocabularies and embeds machine-readable license information using
 the [Creative Commons Rights Expression Language (CC REL)](https://labs.creativecommons.org/2011/ccrel-guide/)
 (with [RDFa](https://wiki.creativecommons.org/wiki/RDFa) in HTML),
 (a) avoiding manual identification and copying of licensing
 information and (b) making licensing information accessible on the
 [Semantic Web](https://en.wikipedia.org/wiki/Semantic_Web).
+
+Beyond that paper’s contents, emacs-reveal supports the specification
+of a presentation’s primary license with SPDX headers (see the
+[REUSE project](https://reuse.software/) for more information on such
+headers), from which license information can be generated (“Except
+where otherwise noted, the work x by y is published under the license
+z”), e.g.,
+[that slide](https://oer.gitlab.io/emacs-reveal-howto/howto.html#slide-license),
+which includes machine-readable RDFa markup (the
+[PDF version of that presentation](https://oer.gitlab.io/emacs-reveal-howto/howto.pdf)
+just contains a human readable variant).
 
 I’m using emacs-reveal for my courses and talks in general.  Feel free
 to use and adapt for your purposes!
