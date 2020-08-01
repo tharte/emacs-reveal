@@ -131,11 +131,15 @@ of `oer-reveal'."
   :group 'org-export-oer-reveal)
 
 (defcustom emacs-reveal-managed-install-p t
-  "Configure whether to use update `emacs-reveal' and submodules or not.
+  "Configure whether to update `emacs-reveal' and submodules or not.
 By default, `emacs-reveal' tries to update itself and its submodules via Git.
 This requires `git' and `make' to be installed.
 If you set this to nil, you should install Lisp packages in
-`emacs-reveal-lisp-packages' yourself."
+`emacs-reveal-lisp-packages' yourself.  In that case, you also need to
+decide how to go about submodules of emacs-reveal, which are managed by
+`oer-reveal' by default (maybe change `oer-reveal-submodules-dir' to
+point to your manually managed directory and set
+`oer-reveal-submodules-version' to nil)."
   :group 'org-export-emacs-reveal
   :type 'boolean
   :package-version '(emacs-reveal . "7.0.0"))
