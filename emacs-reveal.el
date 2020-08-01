@@ -83,8 +83,13 @@
 ;; 3. Restart Emacs (installation of `org-ref' is offered, if necessary)
 ;;
 ;; * Usage
-;; Please check out the emacs-reveal howto mentioned above.  In
-;; particular, the howto contains a sample file "elisp/publish.el" to
+;; Load an Org file (e.g., Readme.org coming with `org-re-reveal') and
+;; export it to HTML (e.g., `C-c C-e w w').  Note that this just
+;; generates the HTML file but does neither publish images nor other
+;; resources such as JavaScript or CSS files.
+;; To publish a project with all related resources, please check out
+;; the emacs-reveal howto mentioned above.
+;; In particular, the howto contains a sample file "elisp/publish.el" to
 ;; publish reveal.js presentations from Org source files.
 ;; Note that the HTML version of the howto is generated in a Docker
 ;; image on GitLab; its YML configuration shows the necessary steps
