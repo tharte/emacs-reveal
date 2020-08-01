@@ -71,21 +71,16 @@
 ;;
 ;; Emacs-reveal is only available from GitLab.
 ;;
-;; Create a directory for your presentation(s)' Org source files.
-;; Somewhere, maybe in that directory install emacs-reveal and its
-;; prerequisite packages:
-;; (a) git clone https://gitlab.com/oer/emacs-reveal.git
-;; (b) cd emacs-reveal
-;; (c) Make sure that Emacs packages org-re-reveal-ref and oer-reveal
-;;     are installed.
-;;     - Install with the usual package mechanism or like
-;;       this: emacs --batch --load install.el --funcall install
-;;     - Or you could use the Docker image for emacs-reveal:
-;;       - https://gitlab.com/oer/emacs-reveal/container_registry
-;;       - e.g., registry.gitlab.com/oer/emacs-reveal/emacs-reveal:8.0.0
-;; (d) Add a line like this to ~/.emacs (beware, this changes settings
-;;     of other packages) or to your publication code:
-;;     (load "/path/to/emacs-reveal/emacs-reveal.el")
+;; The howto mentions several alternatives to install emacs-reveal.
+;; Here is one:
+;; 1. Choose directory, e.g., ~/.emacs.d/elpa, and clone software
+;;    - cd ~/.emacs.d/elpa
+;;    - git clone --recursive https://gitlab.com/oer/emacs-reveal.git
+;;      - (Option `--recursive' downloads submodules)
+;; 2. Add following lines to ~/.emacs
+;;    - (add-to-list 'load-path "~/.emacs.d/elpa/emacs-reveal")
+;;    - (require 'emacs-reveal)
+;; 3. Restart Emacs (installation of `org-ref' is offered, if necessary)
 ;;
 ;; * Usage
 ;; Please check out the emacs-reveal howto mentioned above.  In
