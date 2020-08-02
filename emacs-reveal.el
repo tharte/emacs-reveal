@@ -105,20 +105,23 @@
 ;;; Code:
 (package-initialize)
 
+(defun emacs-reveal--install-org-ref (explanation)
+  "Show EXPLANATION and offer installation of `org-ref'."
+  (unless (yes-or-no-p explanation)
+    (error "Please install `org-ref' to use `emacs-reveal'"))
+  (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
+    (package-refresh-contents)
+    (package-install 'org-ref)
+    (message-box "Installed `org-ref'.  Please restart Emacs to avoid issues with mixed Org installations.")))
+
 ;; org-ref has f as dependency.  If f is missing, offer to install org-ref.
 ;; Do not require org-ref here as that might pull in a wrong Org version,
 ;; since load-path has not been set up yet.
 (condition-case nil
     (require 'f)
   (error
-   (unless
-       (yes-or-no-p
-        "Emacs-reveal: Dependency of `org-ref' not found.  Install from MELPA? ")
-     (error "Please install `org-ref' to use `emacs-reveal'"))
-   (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
-     (package-refresh-contents)
-     (package-install 'org-ref)
-     (message-box "Installed `org-ref'.  Please restart Emacs to avoid issues with mixed Org installations."))))
+   (emacs-reveal--install-org-ref
+    "Emacs-reveal: Dependency of `org-ref' not found.  Install from MELPA? ")))
 
 (require 'f)
 (defconst emacs-reveal-lisp-packages
@@ -245,7 +248,11 @@ and `oer-reveal-publish-setq-defaults'."
 (emacs-reveal-setup-oer-reveal)
 
 ;; Set up bibliography in HTML.
-(require 'org-ref)
+(condition-case nil
+    (require 'org-ref)
+  (error
+   (emacs-reveal--install-org-ref
+    "Emacs-reveal: Package `org-ref' not found.  Install from MELPA? ")))
 (require 'org-re-reveal-ref)
 (setq org-ref-default-bibliography emacs-reveal-default-bibliography
       org-ref-bibliography-entry-format emacs-reveal-bibliography-entry-format)
