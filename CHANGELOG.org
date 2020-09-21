@@ -10,10 +10,6 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
-** [8.6.0] - 2020-09-21
-*** Changed
-    - Update oer-reveal to 3.5.0
-
 ** [8.5.0] - 2020-09-21
 *** Changed
     - Update plantuml to 1.2020.17
