@@ -41,6 +41,12 @@
    :END:
 #+REVEAL_HTML: <script data-quiz src="./quizzes/sample-quiz.js"></script>
 
+** Use of colors
+   :PROPERTIES:
+   :CUSTOM_ID: colors
+   :END:
+   This is [[color:red][red]].
+
 * The End is near
 
 #+MACRO: licensepreamble
