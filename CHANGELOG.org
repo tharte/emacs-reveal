@@ -10,6 +10,12 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.4.0] - 2020-09-21
+*** Changed
+    - Update Org mode to 9.4
+    - Update org-re-reveal to 3.2.1
+    - Update oer-reveal to 3.4.0
+
 ** [8.3.0] - 2020-08-24
 *** Changed
     - Update org-re-reveal to 3.1.1
