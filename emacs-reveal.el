@@ -165,7 +165,7 @@ specify one."
   :package-version '(emacs-reveal . "7.1.0"))
 
 (defcustom emacs-reveal-bibliography-entry-format
-  '(("article" . "%a, %t, <i>%j %v(%n)</i>, %p (%y). <a href=\"%U\">%U</a>")
+  '(("article" . "%a, %t, %j %v(%n), %p (%y). <a href=\"%U\">%U</a>")
     ("book" . "%a, %t, %u, %y. <a href=\"%U\">%U</a>")
     ("inproceedings" . "%a, %t, %b, %y. <a href=\"%U\">%U</a>")
     ("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")

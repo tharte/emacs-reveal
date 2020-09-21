@@ -9,6 +9,9 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+*** Fixed
+    - Remove i element from emacs-reveal-bibliography-entry-format to
+      avoid complaints by https://achecker.ca/checker/index.php
 
 ** [8.4.0] - 2020-09-21
 *** Changed
