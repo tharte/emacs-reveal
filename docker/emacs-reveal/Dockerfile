@@ -15,5 +15,7 @@ RUN curl --create-dirs -o /root/plantuml-$PU_VERSION/plantuml.zip -L https://sou
     && cd /root/plantuml-$PU_VERSION && unzip plantuml.zip && rm plantuml.zip
 COPY code/* /tmp/
 RUN cp /tmp/.emacs /root/
-RUN /tmp/install-melpa.sh "org-ref"
+# The second argument below is not used in install-melpa.sh.
+# It is added here to trigger the inclusion of an updated version of org-ref.
+RUN /tmp/install-melpa.sh "org-ref" "fa0a14"
 ADD emacs-reveal.tar.gz /root/.emacs.d/elpa/emacs-reveal
