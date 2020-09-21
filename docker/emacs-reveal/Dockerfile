@@ -10,7 +10,7 @@ LABEL maintainer="Jens Lechtenbörger"
 RUN mkdir -p /usr/share/man/man1 && \
     apt-get update -y && apt-get --no-install-recommends install -y \
     curl ditaa ghostscript graphviz imagemagick
-ENV PU_VERSION 1.2020.2
+ENV PU_VERSION 1.2020.17
 RUN curl --create-dirs -o /root/plantuml-$PU_VERSION/plantuml.zip -L https://sourceforge.net/projects/plantuml/files/$PU_VERSION/plantuml-jar-lgpl-$PU_VERSION.zip/download \
     && cd /root/plantuml-$PU_VERSION && unzip plantuml.zip && rm plantuml.zip
 COPY code/* /tmp/
