@@ -177,7 +177,7 @@ specify one."
 This defines the layout of bibliography entries in presentations.
 The default value displays article, book, inproceedings differently;
 entries incollection, misc, and phdthesis are new, while entries
-  techreport and proceedings are defaults of `org-ref'."
+techreport and proceedings are defaults of `org-ref'."
   :group 'org-export-emacs-reveal
   :type '(alist :key-type (string) :value-type (string))
   :package-version '(emacs-reveal . "7.1.0"))
