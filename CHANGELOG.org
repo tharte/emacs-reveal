@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.10.1] - 2020-10-18
+*** Fixed
+    - Update org-re-reveal to 3.4.2
+
 ** [8.10.0] - 2020-10-18
 *** Changed
     - Update emacs-reveal-submodules to 2.1.0
