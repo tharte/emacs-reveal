@@ -171,7 +171,7 @@ specify one."
     ("incollection" . "%a, %t, %b, %u, %y. <a href=\"%U\">%U</a>")
     ("misc" . "%a, %t, %i, %y.  <a href=\"%U\">%U</a>")
     ("phdthesis" . "%a, %t, %s, %y.  <a href=\"%U\">%U</a>")
-    ("techreport" . "%a, %t, %i, %u (%y).")
+    ("techreport" . "%a, %t, %i, %u (%y).  <a href=\"%U\">%U</a>")
     ("proceedings" . "%e, %t in %S, %u (%y)."))
   "Value to assign to `org-ref-bibliography-entry-format'.
 This defines the layout of bibliography entries in presentations.
