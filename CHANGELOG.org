@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.15.0] - 2020-12-07
+*** Changed
+    - Update oer-reveal to 3.12.0
+    - Show URLs for techreports
+
 ** [8.14.0] - 2020-12-07
 *** Changed
     - Update oer-reveal to 3.11.0
