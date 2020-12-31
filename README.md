@@ -7,12 +7,17 @@
 
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
-to create HTML presentations ([reveal.js](https://revealjs.com/)
-slides with audio) and PDF documents for those presentations
-from [Org mode](https://orgmode.org/) source files.
-Emacs-reveal satisfies several requirements in a novel way to
-ensure that resulting presentations and source files are
-suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources).
+to create [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources)
+in the form of [reveal.js](https://revealjs.com/) presentations (HTML
+slides with audio).  As the name suggests, emacs-reveal is based on
+the text editor [GNU Emacs](https://www.gnu.org/software/emacs/).
+More specifically, authors write their OER in a lightweight markup
+language called [Org mode](https://orgmode.org/), which is native to
+GNU Emacs but can be edited everywhere and which allows authors (a) to
+collaborate on source documents via version control systems such as
+Git and (b) to focus on contents, while layout information is
+maintained separately.  Org files can then be exported to various
+target formats (e.g., reveal.js presentations or PDF documents).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -44,7 +49,8 @@ suitable as [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Ope
 Originally, *emacs-reveal* was created to enhance *org-reveal*, and it
 contained the code of what is now maintained separately as
 *org-re-reveal-ref* and *oer-reveal*.  Those packages were separated
-to make as much of *emacs-reveal* available on MELPA as possible.
+to make as much of *emacs-reveal* available on the Emacs package
+repository [MELPA](https://melpa.org/) as possible.
 Whether anyone wants to use those package in isolation is up to them.
 
 # Introduction
