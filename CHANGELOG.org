@@ -1,6 +1,6 @@
 # Local IspellDict: en
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: 2020 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2020-2021 Jens Lechtenbörger
 
 * Changelog
 This file is based on
@@ -9,6 +9,11 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+
+** [8.16.1] - 2021-01-01
+*** Fixed
+    - Fixed download problem in Docker, see:
+      https://gitlab.com/oer/emacs-reveal/-/merge_requests/6
 
 ** [8.16.0] - 2020-12-31
 *** Changed
