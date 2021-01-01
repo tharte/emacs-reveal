@@ -16,6 +16,9 @@
 ;;; Code:
 (require 'package)
 
+;; TLSv1.3 does not work
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (defvar mp-target-directory nil
   "Absolute name of target directory.")
 
