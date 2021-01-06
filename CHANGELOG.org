@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.17.0] - 2021-01-06
+*** Changed
+    - Update oer-reveal to 3.14.0
+
 ** [8.16.1] - 2021-01-01
 *** Fixed
     - Fixed download problem in Docker, see:
