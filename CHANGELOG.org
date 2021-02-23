@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.20.0] - 2021-02-23
+*** Changed
+    - Update oer-reveal to 3.17.0
+
 ** [8.19.1] - 2021-02-23
 *** Fixed
     - Update oer-reveal to 3.16.1
