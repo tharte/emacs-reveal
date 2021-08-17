@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [8.25.1] - 2021-08-17
+*** Fixed
+    - Issue #27 related to testing
+
 ** [8.25.0] - 2021-08-17
 *** Changed
     - Update oer-reveal to 3.21.0
