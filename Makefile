@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2020 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2020,2021 Jens Lechtenbörger
 # SPDX-License-Identifier: CC0-1.0
 
 DIR := ${CURDIR}
@@ -46,6 +46,6 @@ docker: archive
 docker-dev: tar
 	docker build -t emacs-reveal:$(GITTAG) -f docker/emacs-reveal/Dockerfile docker
 
-# E.g.: BROWSER=firefox PRESENTATION=test.html make robot-test
+# E.g.: BROWSER=firefox PRESENTATION=test.html?default-navigation make robot-test
 robot-test:
 	docker run -v $(ROBOT_REPORTS_DIR):/opt/robotframework/reports:Z -v $(ROBOT_TESTS_DIR):/opt/robotframework/tests:Z -v $(ROBOT_HTML_DIR):/robot/public -e BROWSER=${BROWSER} -e PRESENTATION=${PRESENTATION} $(ROBOT_FRAMEWORK)
