@@ -1,5 +1,5 @@
 <!--- Local IspellDict: en -->
-<!--- SPDX-FileCopyrightText: 2017-2020 Jens Lechtenbörger -->
+<!--- SPDX-FileCopyrightText: 2017-2021 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
 [![DOI](https://jose.theoj.org/papers/10.21105/jose.00050/status.svg)](https://doi.org/10.21105/jose.00050)
@@ -326,15 +326,17 @@ reasons for that format (see
 or [that paper in German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)),
 and the following figure contains some evaluation results for a
 [course on Operating Systems](https://gitlab.com/oer/OS)
-indicating that students generally agree.
+indicating that students do not disagree in general, although students
+in 2021 stated a strong preference for videos.  I plan to repeat such
+evaluations in upcoming years…
 
 I added different types of hyperlinks in 2018 and extended them in
-2019; thus there is no data for 2017.  Also, I added the final two
-questions in 2019: First, some students ask to remove links every
-year; apparently, the majority disagrees.  (For the minority, I plan
-to implement customizable CSS styles, but did not manage to do so yet.
-Help would be very welcome!)  Second, based on student feedback, I
-disabled auto-play for audio in 2019; only a minority asked to revert
-this change.
+2019 and 2021; thus there is no data for 2017.  Based on student
+feedback, I disabled auto-play for audio in 2019; only a minority
+(nobody in 2021) asked to revert this change, which can be performed
+with URL parameter ~audio-autoplay~).  Since August 2021, hyperlinks
+to external contents open in new tabs, and I switched presentations to
+use the ~linear~ navigation mode of reveal.js (unless URL parameter
+~default-navigation~ is used).
 
 ![Evaluation results for emacs-reveal](evaluation.png "Evaluation results for emacs-reveal")
