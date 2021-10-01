@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2019,2021 Jens Lechtenbörger
 # SPDX-License-Identifier: CC0-1.0
 
 [submodule "org-re-reveal"]
@@ -12,7 +12,7 @@
 	url = ../../oer/oer-reveal.git
 [submodule "org-mode"]
 	path = org-mode
-	url = https://code.orgmode.org/bzg/org-mode.git
+	url = https://git.savannah.gnu.org/git/emacs/org-mode.git
 [submodule "emacs-reveal-submodules"]
 	path = emacs-reveal-submodules
 	url = ../../oer/emacs-reveal-submodules.git
