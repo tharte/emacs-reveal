@@ -13,7 +13,9 @@ slides with audio).  As the name suggests, emacs-reveal is based on
 the text editor [GNU Emacs](https://www.gnu.org/software/emacs/).
 More specifically, authors write their OER in a lightweight markup
 language called [Org mode](https://orgmode.org/), which is native to
-GNU Emacs but can be edited everywhere and which allows authors (a) to
+GNU Emacs but can be edited everywhere (as text file; also with
+“real” support in [other editors](https://orgmode.org/install.html#editors))
+and which allows authors (a) to
 collaborate on source documents via version control systems such as
 Git and (b) to focus on contents, while layout information is
 maintained separately.  Org files can then be exported to various
