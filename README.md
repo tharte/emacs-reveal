@@ -322,7 +322,7 @@ for details), which publishes the
 # Evaluation results
 
 I'm aware that my presentation format deviates from university
-standards, which may create initial challenges.  I believe to have good
+standards, which creates initial challenges.  I believe to have good
 reasons for that format (see
 [that presentation for my interpretation of Just-in-Time Teaching (JiTT)](https://oer.gitlab.io/OS/Operating-Systems-JiTT.html)
 or [that paper in German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)),
