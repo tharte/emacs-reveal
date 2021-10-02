@@ -9,6 +9,9 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+*** Changed
+    - Update Org mode to 9.5
+    - Update submodules to upstream versions
 
 ** [8.28.0] - 2021-09-15
 *** Changed
