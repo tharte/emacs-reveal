@@ -14,6 +14,10 @@ ROBOT_HTML_DIR     := $(TESTDIR)/public
 ROBOT_REPORTS_DIR  := $(TESTDIR)/reports
 ROBOT_TESTS_DIR    := $(TESTDIR)/robotframework
 
+DEBIAN_VERSION := 10.10
+DEBIAN_IMG     := registry.gitlab.com/oer/emacs-reveal/debian-emacs-tex:$(DEBIAN_VERSION)
+DOCKER_LATEST  := registry.gitlab.com/oer/emacs-reveal/emacs-reveal:latest
+
 .PHONY: all archive docker html init init-master robot-test setup tar
 
 all: html archive
@@ -45,6 +49,14 @@ docker: archive
 
 docker-dev: tar
 	docker build -t emacs-reveal:$(GITTAG) -f docker/emacs-reveal/Dockerfile docker
+
+docker-latest:
+	docker build -t $(DOCKER_LATEST) -f docker/emacs-reveal/Dockerfile docker
+	echo "Login and push manually, if necessary."
+
+debian-emacs-tex:
+	docker build -t $(DEBIAN_IMG) -f docker/debian-emacs-tex/Dockerfile docker
+	echo "Login and push manually, if necessary."
 
 # E.g.: BROWSER=firefox PRESENTATION=test.html?default-navigation make robot-test
 robot-test:
