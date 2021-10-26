@@ -109,7 +109,8 @@
   "Show EXPLANATION and offer installation of `org-ref'."
   (unless (yes-or-no-p explanation)
     (error "Please install `org-ref' to use `emacs-reveal'"))
-  (let ((package-archives '(("melpa" . "https://melpa.org/packages/"))))
+  (let ((package-archives (cons '("melpa-stable" . "https://stable.melpa.org/packages/")
+                                package-archives)))
     (package-refresh-contents)
     (package-install 'org-ref)
     (message-box "Installed `org-ref'.  Please restart Emacs to avoid issues with mixed Org installations.")))
