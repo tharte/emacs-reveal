@@ -8,13 +8,18 @@
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
 ;; Version: 8.30.1
-;; Package-Requires: ((emacs "25.1") (oer-reveal "3.0.0") (org-re-reveal-ref "1.0.0"))
+;; Package-Requires: ((emacs "25.1") (oer-reveal "3.0.0") (org-re-reveal-citeproc "2.0.1") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
-;; Note that package org-ref is transitively required by emacs-reveal
-;; (org-re-reveal-ref requires org-ref).  As org-ref has lots of
-;; depencies itself, those packages are not included here.  If org-ref
-;; is missing, installation from MELPA is offered.
+;; Emacs-reveal supports citations that are hyperlinked to a bibliography
+;; slide.  Traditionally, org-ref supported citations for Org mode, and
+;; org-re-reveal-ref integrated org-ref into emacs-reveal.
+;; In version 9.5, Org mode added a new citation format, which is supported
+;; by citeproc, which is integrated with org-re-reveal-citeproc.
+;; Customizable variable emacs-reveal-cite-pkg determines whether
+;; org-re-reveal-ref or org-re-reveal-citeproc is used.
+;; If dependencies (org-ref or citeproc) are missing,
+;; installation from MELPA is offered.
 
 ;;; License:
 ;; This program is free software; you can redistribute it and/or
@@ -71,6 +76,10 @@
 ;;
 ;; Emacs-reveal is only available from GitLab.
 ;;
+;; By default, reveal.js presentations and a PDF variant are generated,
+;; which requires a LaTeX installation.
+;; See `oer-reveal-publish-org-publishing-functions'.
+;;
 ;; The howto mentions several alternatives to install emacs-reveal.
 ;; Here is one:
 ;; 1. Choose directory, e.g., ~/.emacs.d/elpa, and clone software
@@ -80,7 +89,8 @@
 ;; 2. Add following lines to ~/.emacs
 ;;    - (add-to-list 'load-path "~/.emacs.d/elpa/emacs-reveal")
 ;;    - (require 'emacs-reveal)
-;; 3. Restart Emacs (installation of `org-ref' is offered, if necessary)
+;; 3. Restart Emacs (installation of `org-ref' or `citeproc' is offered,
+;;    if necessary)
 ;;
 ;; * Usage
 ;; Load an Org file (e.g., Readme.org coming with `org-re-reveal') and
