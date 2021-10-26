@@ -103,35 +103,6 @@
 ;; doc string.
 
 ;;; Code:
-(package-initialize)
-
-(defun emacs-reveal--install-org-ref (explanation)
-  "Show EXPLANATION and offer installation of `org-ref'."
-  (unless (yes-or-no-p explanation)
-    (error "Please install `org-ref' to use `emacs-reveal'"))
-  (let ((package-archives (cons '("melpa-stable" . "https://stable.melpa.org/packages/")
-                                package-archives)))
-    (package-refresh-contents)
-    (package-install 'org-ref)
-    (message-box "Installed `org-ref'.  Please restart Emacs to avoid issues with mixed Org installations.")))
-
-;; org-ref has f as dependency.  If f is missing, offer to install org-ref.
-;; Do not require org-ref here as that might pull in a wrong Org version,
-;; since load-path has not been set up yet.
-(condition-case nil
-    (require 'f)
-  (error
-   (emacs-reveal--install-org-ref
-    "Emacs-reveal: Dependency of `org-ref' not found.  Install from MELPA? ")))
-
-(require 'f)
-(defconst emacs-reveal-lisp-packages
-  (list (f-join "org-mode" "lisp" "org-version.el")
-        (f-join "org-re-reveal" "org-re-reveal.el")
-        (f-join "org-re-reveal-ref" "org-re-reveal-ref.el")
-        (f-join "oer-reveal" "oer-reveal.el"))
-  "Lisp files of packages included as submodules.")
-
 (defgroup org-export-emacs-reveal nil
   "Options for exporting Org files to reveal.js HTML pressentations.
 The options here are provided by package `emacs-reveal'.  They extend those
@@ -182,6 +153,49 @@ techreport and proceedings are defaults of `org-ref'."
   :group 'org-export-emacs-reveal
   :type '(alist :key-type (string) :value-type (string))
   :package-version '(emacs-reveal . "7.1.0"))
+
+(defcustom emacs-reveal-cite-pkg 'org-re-reveal-ref
+  "Default citation package to use."
+  :group 'org-export-emacs-reveal
+  :type '(choice (const org-re-reveal-ref)
+                 (const org-re-reveal-citeproc))
+  :package-version '(emacs-reveal . "8.31.0"))
+
+(defvar emacs-reveal--cite-pkg-req
+  (cond ((eq 'org-re-reveal-ref emacs-reveal-cite-pkg) 'org-ref)
+        ((eq 'org-re-reveal-citeproc emacs-reveal-cite-pkg)) 'citeproc)
+  "Requirement for `emacs-reveal-cite-pkg'.")
+
+(defun emacs-reveal--install-cite-pkg (explanation)
+  "Show EXPLANATION and offer installation of `emacs-reveal--cite-pkg-req'."
+  (unless (yes-or-no-p explanation)
+    (error "Please install %s to use `emacs-reveal'" emacs-reveal--cite-pkg-req))
+  (let ((package-archives (cons '("melpa" . "https://melpa.org/packages/") package-archives)))
+    (package-refresh-contents)
+    (package-install emacs-reveal--cite-pkg-req)
+    (message-box
+     "Installed %s.  Please restart Emacs to avoid issues with mixed Org installations."
+     emacs-reveal--cite-pkg-req)))
+
+;; org-ref and citeproc both have f as dependency.
+;; If f is missing, offer to install emacs-reveal--cite-pkg-req.
+;; Do not require emacs-reveal--cite-pkg-req here as that might pull in a
+;; wrong Org version, since load-path has not been set up yet.
+(package-initialize)
+(condition-case nil
+    (require 'f)
+  (error
+   (emacs-reveal--install-cite-pkg
+    "Emacs-reveal: Dependency for citations not found.  Install from MELPA? ")))
+
+(require 'f)
+(defconst emacs-reveal-lisp-packages
+  (list (f-join "org-mode" "lisp" "org-version.el")
+        (f-join "org-re-reveal" "org-re-reveal.el")
+        (f-join "org-re-reveal-citeproc" "org-re-reveal-citeproc.el")
+        (f-join "org-re-reveal-ref" "org-re-reveal-ref.el")
+        (f-join "oer-reveal" "oer-reveal.el"))
+  "Lisp files of packages included as submodules.")
 
 (defun emacs-reveal-submodules-ok ()
   "Check whether submodules are initialized properly.
@@ -250,13 +264,18 @@ and `oer-reveal-publish-setq-defaults'."
 
 ;; Set up bibliography in HTML.
 (condition-case nil
-    (require 'org-ref)
+    (require (eval 'emacs-reveal--cite-pkg-req))
   (error
-   (emacs-reveal--install-org-ref
-    "Emacs-reveal: Package `org-ref' not found.  Install from MELPA? ")))
-(require 'org-re-reveal-ref)
-(setq org-ref-default-bibliography emacs-reveal-default-bibliography
-      org-ref-bibliography-entry-format emacs-reveal-bibliography-entry-format)
-
+   (emacs-reveal--install-cite-pkg
+    (format
+     "Emacs-reveal: Citation package %s not found.  Install from MELPA? "
+     emacs-reveal--cite-pkg-req))))
+(require (eval 'emacs-reveal-cite-pkg))
+(cond ((eq 'org-re-reveal-ref emacs-reveal-cite-pkg)
+       (setq org-ref-default-bibliography emacs-reveal-default-bibliography
+             org-ref-bibliography-entry-format emacs-reveal-bibliography-entry-format))
+      ((eq 'org-re-reveal-citeproc emacs-reveal-cite-pkg)
+       (add-to-list 'org-export-filter-paragraph-functions
+	            #'org-re-reveal-citeproc-filter-cite)))
 (provide 'emacs-reveal)
 ;;; emacs-reveal.el ends here
