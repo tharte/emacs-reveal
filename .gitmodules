@@ -16,3 +16,6 @@
 [submodule "emacs-reveal-submodules"]
 	path = emacs-reveal-submodules
 	url = ../../oer/emacs-reveal-submodules.git
+[submodule "org-re-reveal-citeproc"]
+	path = org-re-reveal-citeproc
+	url = ../../oer/org-re-reveal-citeproc.git
