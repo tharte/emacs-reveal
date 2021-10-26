@@ -9,6 +9,12 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+** [8.30.1] - 2021-10-26
+*** Fixed
+    - Org-ref 3 introduced
+      [[https://github.com/jkitchin/org-ref#breaking-changes-in-version-3][breaking changes]].
+      Switch to MELPA stable to install version 2.
+
 ** [8.30.0] - 2021-10-15
 *** Changed
     - Update oer-reveal to 3.25.0
