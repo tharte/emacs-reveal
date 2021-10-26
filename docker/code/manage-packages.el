@@ -2,7 +2,7 @@
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
-;; Copyright (C) 2017, 2018, 2019 Jens Lechtenbörger
+;; SPDX-FileCopyrightText: 2017-2019,2021 Jens Lechtenbörger
 ;; SPDX-License-Identifier: CC0-1.0
 
 ;;; Commentary:
@@ -11,7 +11,8 @@
 ;; Warning! Patch functionality makes use of shell-command without
 ;; quoting of arguments.  This will not work with (file and directory)
 ;; names that contain spaces or semicolons.
-;; Only function mp-install-pkgs is meant to be called by users.
+;; Only functions mp-install-pkgs and mp-install-stable-pkgs are meant
+;; to be called by users.
 
 ;;; Code:
 (require 'package)
@@ -21,6 +22,9 @@
 
 (defvar mp-target-directory nil
   "Absolute name of target directory.")
+
+(defvar mp-melpa-variant '("melpa" . "https://melpa.org/packages/")
+  "MELPA variant to use.")
 
 (defun mp-make-absname (basename)
   "Make absolute name for BASENAME under `mp-target-directory'."
@@ -68,7 +72,7 @@
   "Download PACKAGES and their requirements.
 Write list of downloaded files to `mp-archives'."
   (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives mp-melpa-variant)
   (package-refresh-contents)
   (let ((filelist (mapcar 'mp-download-reqs packages)))
     (mapc 'mp-write-archives filelist)))
@@ -121,6 +125,11 @@ and, if optional PATCHINFO is non-nil, patch package archives via
     (let ((files (mp-read-archives)))
       (mapc 'package-install-file files))
     (delete-directory directory t)))
+
+(defun mp-install-stable-pkgs (packages directory)
+  "Download PACKAGES from MELPA stable to DIRECTORY and install them."
+  (let ((mp-melpa-variant '("melpa-stable" . "https://stable.melpa.org/packages/")))
+    (mp-install-pkgs packages directory)))
 
 (provide 'manage-packages)
 ;;; manage-packages.el ends here
