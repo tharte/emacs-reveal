@@ -15,8 +15,14 @@ RUN curl --create-dirs -o /root/plantuml-$PU_VERSION/plantuml.zip -L https://sou
     && cd /root/plantuml-$PU_VERSION && unzip plantuml.zip && rm plantuml.zip
 COPY code/* /tmp/
 RUN cp /tmp/.emacs /root/
+
+# The stable version of bibtex-completion does not work with org-ref.
+# Thus, install recent one.
+RUN /tmp/install-melpa.sh "bibtex-completion"
+
 # The third argument below is not used in install-melpa.sh.
 # It is added here to trigger the inclusion of an updated version of org-ref.
 RUN /tmp/install-melpa.sh "org-ref" "stable" "2.0.0"
+
 RUN /tmp/install-melpa.sh "citeproc"
 ADD emacs-reveal.tar.gz /root/.emacs.d/elpa/emacs-reveal
