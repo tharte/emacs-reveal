@@ -173,7 +173,7 @@ techreport and proceedings are defaults of `org-ref'."
 
 (defvar emacs-reveal--cite-pkg-req
   (cond ((eq 'org-re-reveal-ref emacs-reveal-cite-pkg) 'org-ref)
-        ((eq 'org-re-reveal-citeproc emacs-reveal-cite-pkg)) 'citeproc)
+        ((eq 'org-re-reveal-citeproc emacs-reveal-cite-pkg) 'citeproc))
   "Requirement for `emacs-reveal-cite-pkg'.")
 
 (defun emacs-reveal--install-cite-pkg (explanation)
