@@ -9,6 +9,17 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+** [9.0.0] - 2021-10-28
+*** Added
+    - Submodule org-re-reveal-citeproc to support new citation links
+      of Org mode 9.5
+    - Variable [[file:emacs-reveal.el::(defcustom emacs-reveal-cite-pkg][emacs-reveal-cite-pkg]]
+      to choose between org-re-reveal-ref and org-re-reveal-citeproc
+*** Changed
+    - Switch to oer-reveal 4.0.0.  In particular,
+      oer-reveal-publish-setq-defaults now changes fewer parts of the
+      user’s environment.
+
 ** [8.30.1] - 2021-10-26
 *** Fixed
     - Org-ref 3 introduced

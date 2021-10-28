@@ -7,7 +7,7 @@
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 8.30.1
+;; Version: 9.0.0
 ;; Package-Requires: ((emacs "25.1") (oer-reveal "3.0.0") (org-re-reveal-citeproc "2.0.1") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
@@ -169,7 +169,7 @@ techreport and proceedings are defaults of `org-ref'."
   :group 'org-export-emacs-reveal
   :type '(choice (const org-re-reveal-ref)
                  (const org-re-reveal-citeproc))
-  :package-version '(emacs-reveal . "8.31.0"))
+  :package-version '(emacs-reveal . "9.0.0"))
 
 (defvar emacs-reveal--cite-pkg-req
   (cond ((eq 'org-re-reveal-ref emacs-reveal-cite-pkg) 'org-ref)
