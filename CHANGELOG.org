@@ -9,6 +9,11 @@ where version numbers starting with version 4.0.0 adhere to
 [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
 ** [Unreleased]
+
+** [9.0.1] - 2021-10-28
+*** Fixed
+    - Initialization for org-re-reveal-citeproc
+
 ** [9.0.0] - 2021-10-28
 *** Added
     - Submodule org-re-reveal-citeproc to support new citation links
