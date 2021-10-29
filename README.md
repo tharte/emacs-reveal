@@ -47,7 +47,7 @@ target formats (e.g., reveal.js presentations or PDF documents).
 | [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref)           | Addon to org-re-reveal for bibliography slide based on [org-ref](https://github.com/jkitchin/org-ref)                                            |
 | [org-re-reveal-citeproc](https://gitlab.com/oer/org-re-reveal-citeproc) | Alternative to org-re-reveal-ref for bibliography slide based on syntax of Org mode 9.5                                                          |
 | [oer-reveal](https://gitlab.com/oer/oer-reveal)                         | Export backend derived from org-re-reveal; functionality for installation of reveal.js and plugins; simplification of licensing for OER          |
-| [emacs-reveal](https://gitlab.com/oer/emacs-reveal/)                    | Bundling of org-re-reveal, org-re-reveal-ref, and oer-reveal                                                                                     |
+| [emacs-reveal](https://gitlab.com/oer/emacs-reveal/)                    | Bundling of org-re-reveal, org-re-reveal-citeproc, org-re-reveal-ref, and oer-reveal                                                             |
 
 Originally, *emacs-reveal* was created to enhance *org-reveal*, and it
 contained the code of what is now maintained separately as
