@@ -40,13 +40,14 @@ target formats (e.g., reveal.js presentations or PDF documents).
 
 # Relationships between Emacs packages
 
-| Package                                                       | Description                                                                                                                                      |
-|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| [org-reveal](https://github.com/yjwen/org-reveal)             | Origin of org-re-reveal                                                                                                                          |
-| [org-re-reveal](https://gitlab.com/oer/org-re-reveal)         | Fork of org-reveal, initially to add audio fragments, now with [various changes](https://gitlab.com/oer/org-re-reveal/blob/master/CHANGELOG.org) |
-| [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref) | Addon to org-re-reveal for bibliography slide based on [org-ref](https://github.com/jkitchin/org-ref)                                            |
-| [oer-reveal](https://gitlab.com/oer/oer-reveal)               | Export backend derived from org-re-reveal; functionality for installation of reveal.js and plugins; simplification of licensing for OER          |
-| [emacs-reveal](https://gitlab.com/oer/emacs-reveal/)          | Bundling of org-re-reveal, org-re-reveal-ref, and oer-reveal                                                                                     |
+| Package                                                                 | Description                                                                                                                                      |
+|-------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| [org-reveal](https://github.com/yjwen/org-reveal)                       | Origin of org-re-reveal                                                                                                                          |
+| [org-re-reveal](https://gitlab.com/oer/org-re-reveal)                   | Fork of org-reveal, initially to add audio fragments, now with [various changes](https://gitlab.com/oer/org-re-reveal/blob/master/CHANGELOG.org) |
+| [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref)           | Addon to org-re-reveal for bibliography slide based on [org-ref](https://github.com/jkitchin/org-ref)                                            |
+| [org-re-reveal-citeproc](https://gitlab.com/oer/org-re-reveal-citeproc) | Alternative to org-re-reveal-ref for bibliography slide based on syntax of Org mode 9.5                                                          |
+| [oer-reveal](https://gitlab.com/oer/oer-reveal)                         | Export backend derived from org-re-reveal; functionality for installation of reveal.js and plugins; simplification of licensing for OER          |
+| [emacs-reveal](https://gitlab.com/oer/emacs-reveal/)                    | Bundling of org-re-reveal, org-re-reveal-ref, and oer-reveal                                                                                     |
 
 Originally, *emacs-reveal* was created to enhance *org-reveal*, and it
 contained the code of what is now maintained separately as
@@ -118,7 +119,8 @@ text format called [Org mode](https://orgmode.org/), which can be
 exported to reveal.js thanks to
 [Org-Reveal](https://github.com/yjwen/org-reveal/), for which I
 maintain [the forked variant org-re-reveal](https://gitlab.com/oer/org-re-reveal),
-its extension [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref)
+its extensions [org-re-reveal-ref](https://gitlab.com/oer/org-re-reveal-ref)
+and [org-re-reveal-citeproc](https://gitlab.com/oer/org-re-reveal-citeproc)
 for citations and bibliography, and
 [oer-reveal](https://gitlab.com/oer/oer-reveal) with further OER resources.
 That way, I can focus on slides’ contents in a highly intuitive plain
@@ -158,8 +160,8 @@ To embed audio, I’m using the
 The setup is as follows:
  * GNU Emacs with the following packages
    * Org mode (recent versions, e.g., from ELPA)
-   * Org-re-reveal, org-re-reveal-ref, oer-reveal (from MELPA or
-     [my repositories](https://gitlab.com/oer))
+   * Org-re-reveal, org-re-reveal-citeproc, org-re-reveal-ref, oer-reveal
+     (from MELPA or [my repositories](https://gitlab.com/oer))
    * Htmlize (for source code highlighting)
  * reveal.js
    * [reveal-a11y](https://github.com/marcysutton/reveal-a11y)
@@ -269,8 +271,9 @@ of using emacs-reveal.  First, you can stick with the default “managed
 mode” as defined by the customizable variable
 `emacs-reveal-managed-install-p`.  With its default value of `t`,
 emacs-reveal initializes and updates its submodules (Lisp packages
-for Org mode, org-re-reveal, org-re-reveal-ref, oer-reveal and
-reveal.js with several submodules).  In that case, you do not need to
+for Org mode, org-re-reveal, org-re-reveal-citeproc or org-re-reveal-ref,
+oer-reveal and reveal.js with several submodules).
+In that case, you do not need to
 install any of the bundled software yourself, and you may want to
 clone the Git repository of emacs-reveal recursively, downloading
 161 MB as of March 2020 (if you clone without option `--recursive`,
@@ -297,8 +300,8 @@ option `--recursive` and use the following in `~/.emacs`:
 (require 'emacs-reveal)
 ```
 
-After restarting Emacs, emacs-reveal checks whether its dependency
-org-ref is installed; if not, you are asked whether emacs-reveal
+After restarting Emacs, emacs-reveal checks whether its dependencies
+are installed; if not, you are asked whether emacs-reveal
 should install it from [MELPA](https://melpa.org/) for you.
 
 A [Howto](https://gitlab.com/oer/emacs-reveal-howto) provides a small
