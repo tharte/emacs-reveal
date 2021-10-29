@@ -165,7 +165,10 @@ techreport and proceedings are defaults of `org-ref'."
   :package-version '(emacs-reveal . "7.1.0"))
 
 (defcustom emacs-reveal-cite-pkg 'org-re-reveal-ref
-  "Default citation package to use."
+  "Default citation package to use.
+If the value is `org-re-reveal-citeproc', upon loading, emacs-reveal adds
+function `org-re-reveal-citeproc-filter-cite' to
+`org-export-filter-paragraph-functions'."
   :group 'org-export-emacs-reveal
   :type '(choice (const org-re-reveal-ref)
                  (const org-re-reveal-citeproc))
