@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.1.1] - 2021-12-07
+*** Fixed
+    - Update emacs-reveal-submodules to 2.2.3; addresses issue #28
+
 ** [9.1.0] - 2021-10-29
 *** Changed
     - Update oer-reveal to 4.1.0
