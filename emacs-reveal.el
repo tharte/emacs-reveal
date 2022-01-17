@@ -2,12 +2,12 @@
 ;; -*- Mode: Emacs-Lisp -*-
 ;; -*- coding: utf-8 -*-
 
-;; SPDX-FileCopyrightText: 2017-2021 Jens Lechtenbörger
+;; SPDX-FileCopyrightText: 2017-2022 Jens Lechtenbörger
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
 ;; Author: Jens Lechtenbörger
 ;; URL: https://gitlab.com/oer/emacs-reveal
-;; Version: 9.1.1
+;; Version: 9.1.2
 ;; Package-Requires: ((emacs "25.1") (oer-reveal "3.0.0") (org-re-reveal-citeproc "2.0.1") (org-re-reveal-ref "1.0.0"))
 ;; Keywords: hypermedia, tools, slideshow, presentation, OER
 
