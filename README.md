@@ -1,5 +1,5 @@
 <!--- Local IspellDict: en -->
-<!--- SPDX-FileCopyrightText: 2017-2021 Jens Lechtenbörger -->
+<!--- SPDX-FileCopyrightText: 2017-2022 Jens Lechtenbörger -->
 <!--- SPDX-License-Identifier: GPL-3.0-or-later -->
 
 [![DOI](https://jose.theoj.org/papers/10.21105/jose.00050/status.svg)](https://doi.org/10.21105/jose.00050)
@@ -339,9 +339,9 @@ I added different types of hyperlinks in 2018 and extended them in
 2019 and 2021; thus there is no data for 2017.  Based on student
 feedback, I disabled auto-play for audio in 2019; only a minority
 (nobody in 2021) asked to revert this change, which can be performed
-with URL parameter ~audio-autoplay~).  Since August 2021, hyperlinks
+with URL parameter `audio-autoplay`).  Since August 2021, hyperlinks
 to external contents open in new tabs, and I switched presentations to
-use the ~linear~ navigation mode of reveal.js (unless URL parameter
-~default-navigation~ is used).
+use the `linear` navigation mode of reveal.js (unless URL parameter
+`default-navigation` is used).
 
 ![Evaluation results for emacs-reveal](evaluation.png "Evaluation results for emacs-reveal")
