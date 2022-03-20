@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.2.0] - 2022-03-20
+*** Changed
+    - Update oer-reveal to 4.2.0
+
 ** [9.1.2] - 2022-01-17
 *** Fixed
     - Update oer-reveal to 4.1.2; addresses issue #30
