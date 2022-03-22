@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.4.1] - 2022-03-22
+*** Fixed
+    - Revert update of emacs-reveal-submodules to 2.3.0,
+      breaks quiz plugin with reveal.js 4.3.1
+
 ** [9.4.0] - 2022-03-22
 *** Changed
     - Update emacs-reveal-submodules to 2.3.0, with reveal.js 4.3.1
