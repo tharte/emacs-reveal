@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.5.1] - 2022-04-02
+*** Fixed
+    - Update oer-reveal to 4.3.1
+
 ** [9.5.0] - 2022-04-02
 *** Changed
     - Update emacs-reveal-submodules to 2.3.1, with reveal.js 4.3.1
