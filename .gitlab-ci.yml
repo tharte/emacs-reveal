@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2017-2021 Jens Lechtenbörger
+# SPDX-FileCopyrightText: 2017-2022 Jens Lechtenbörger
 # SPDX-License-Identifier: CC0-1.0
 
 # Inspired by: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
@@ -84,6 +84,19 @@ debian-emacs-tex:
   only:
     changes:
       - docker/debian-emacs-tex/*
+  except:
+    - tags
+
+selenium-chrome:
+  <<: *docker_template
+  stage: build
+  script:
+    - docker pull $IMAGE_LATEST || true
+    - docker build --cache-from $IMAGE_LATEST -t $IMAGE_LATEST -f docker/$CI_JOB_NAME/Dockerfile .
+    - docker push $IMAGE_LATEST
+  only:
+    changes:
+      - docker/selenium-chrome/*
   except:
     - tags
 
