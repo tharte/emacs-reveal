@@ -69,7 +69,10 @@ def main(urlfile, host, pdfdir):
     driver = get_driver(host, pdfdir)
     with open(urlfile, "r") as urls:
         for url in urls.readlines():
-            navigate_print(driver, url.strip())
+            url = url.strip()
+            if url.startswith("/"):
+                url = "file://" + url
+            navigate_print(driver, url)
     driver.close()
     driver.quit()
 
