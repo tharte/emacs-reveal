@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.8.0] - 2022-05-13
+*** Added
+    - Docker image for Selenium with Chrome and Python bindings
+
 ** [9.7.0] - 2022-05-13
 *** Added
     - Script [[file:python/selenium-print-pdf.py]] to print
