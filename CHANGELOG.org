@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.7.0] - 2022-05-13
+*** Added
+    - Script [[file:python/selenium-print-pdf.py]] to print
+      presentation to PDF with Selenium
+
 ** [9.6.0] - 2022-04-02
 *** Changed
     - Update org-re-reveal to 3.13.0 and oer-reveal to 4.4.0
