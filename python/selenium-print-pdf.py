@@ -18,6 +18,8 @@ import sys
 
 from selenium import webdriver
 
+WAIT_TIME = 60
+
 
 def get_driver(host, pdfdir):
     """Return a Chrome webdriver for use in Docker.
@@ -50,7 +52,7 @@ def get_driver(host, pdfdir):
         command_executor="http://" + host + ":4444/wd/hub",
         options=options
     )
-    driver.implicitly_wait(20)
+    driver.implicitly_wait(WAIT_TIME)
     return driver
 
 
