@@ -25,7 +25,7 @@ def get_driver(host, pdfdir):
     See StackOverflow for settings:
     https://stackoverflow.com/questions/54578876/selenium-chrome-save-as-pdf-change-download-folder
     """
-    appState = {
+    state = {
         "recentDestinations": [
             {
                 "id": "Save as PDF",
@@ -38,7 +38,7 @@ def get_driver(host, pdfdir):
     }
 
     profile = {
-        "printing.print_preview_sticky_settings.appState": json.dumps(appState),
+        "printing.print_preview_sticky_settings.appState": json.dumps(state),
         "savefile.default_directory": pdfdir
     }
 
@@ -75,13 +75,13 @@ def main(urlfile, host, pdfdir):
 
 
 if __name__ == '__main__':
-    host = "localhost"
-    pdfdir = "/pdfs/"
+    HOST = "localhost"
+    PDFDIR = "/pdfs/"
     if len(sys.argv) > 1:
         if len(sys.argv) > 2:
-            host = sys.argv[2]
+            HOST = sys.argv[2]
             if len(sys.argv) > 3:
-                pdfdir = sys.argv[3]
+                PDFDIR = sys.argv[3]
     else:
         print("Usage: <{0}> urlfile [host] [pdfdir]".format(sys.argv[0]))
-    main(sys.argv[1], host, pdfdir)
+    main(sys.argv[1], HOST, PDFDIR)
