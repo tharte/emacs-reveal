@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.8.2] - 2022-05-13
+*** Changed
+    - Increase wait time in [[file:python/selenium-print-pdf.py]]
+
 ** [9.8.1] - 2022-05-13
 *** Fixed
     - Use file URIs in [[file:python/selenium-print-pdf.py]]
