@@ -8,8 +8,8 @@
 
 This script supposes that Selenium is used with Docker, e.g., as service in
 a GitLab CI job or locally:
-- docker run -d -p 4444:4444 -v /dev/shm:/dev/shm \
-  -v $PWD:/builds/oer/OS selenium/standalone-chrome
+- docker run --name selenium-chrome -p 4444:4444 -it -v $PWD:/builds/oer/OS \
+  registry.gitlab.com/oer/emacs-reveal/selenium-chrome
 - selenium-print-pdf.py urls.txt localhost /builds/oer/OS/public/pdfs
 """
 
@@ -26,7 +26,7 @@ WAIT_TIME = 60
 def get_driver(host, pdfdir):
     """Return a Chrome webdriver for use in Docker.
 
-    See StackOverflow for settings:
+    See StackOverflow for print settings:
     https://stackoverflow.com/questions/54578876/selenium-chrome-save-as-pdf-change-download-folder
     """
     state = {
