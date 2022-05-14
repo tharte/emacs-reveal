@@ -97,6 +97,7 @@ selenium-chrome:
   only:
     changes:
       - docker/selenium-chrome/*
+      - docker/code/selenium-print-pdf.py
   except:
     - tags
 
