@@ -10,6 +10,11 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.9.0] - 2022-05-14
+*** Changed
+    - Move updated selenium-print-pdf.py to
+      [[file:docker/code/selenium-print-pdf.py]]
+
 ** [9.8.2] - 2022-05-13
 *** Changed
     - Increase wait time in [[file:python/selenium-print-pdf.py]]
