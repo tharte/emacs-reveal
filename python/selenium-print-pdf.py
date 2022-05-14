@@ -14,9 +14,11 @@ a GitLab CI job or locally:
 """
 
 import json
+import logging
 import sys
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 WAIT_TIME = 60
 
@@ -60,10 +62,13 @@ def navigate_print(driver, url):
     """Navigate with driver to url and print to PDF."""
     if not url.endswith("?print-pdf"):
         url += "?print-pdf"
+    logging.info("Getting for printing: %s", url)
     driver.get(url)
-    # Wait for slide number, then print.
-    driver.find_element_by_class_name("slide-number-pdf")
-    driver.execute_script('window.print();')
+    logging.debug("Finding slide number.")
+    driver.find_element(By.CLASS_NAME, "slide-number-pdf")
+    logging.debug("Printing.")
+    driver.execute_script("window.print();")
+    logging.debug("Printing done.")
 
 
 def main(urlfile, host, pdfdir):
@@ -82,6 +87,7 @@ def main(urlfile, host, pdfdir):
 if __name__ == '__main__':
     HOST = "localhost"
     PDFDIR = "/pdfs/"
+    LOGLEVEL = logging.DEBUG
     if len(sys.argv) > 1:
         if len(sys.argv) > 2:
             HOST = sys.argv[2]
@@ -89,4 +95,7 @@ if __name__ == '__main__':
                 PDFDIR = sys.argv[3]
     else:
         print("Usage: <{0}> urlfile [host] [pdfdir]".format(sys.argv[0]))
+    logging.basicConfig(stream=sys.stdout, level=LOGLEVEL,
+                        format="%(asctime)s %(levelname)-8s %(message)s",
+                        datefmt="%Y-%m-%d %H:%M:%S")
     main(sys.argv[1], HOST, PDFDIR)
