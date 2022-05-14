@@ -49,12 +49,21 @@ def get_driver(host, pdfdir):
     options = webdriver.ChromeOptions()
     options.add_experimental_option("prefs", profile)
     options.add_argument("--kiosk-printing")
-    options.add_argument("--start-maximized")
+
+    # Important!  In GitLab CI, shared memory is limited to 64 MB.
+    # Then, print jobs time out.
+    # No change in sight:
+    # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4475
+    # https://gitlab.com/gitlab-org/gitlab/-/issues/281199
+    # Thus, disable shared memory usage here.
+    options.add_argument("--disable-dev-shm-usage")
+
     driver = webdriver.Remote(
         command_executor="http://" + host + ":4444/wd/hub",
         options=options
     )
     driver.implicitly_wait(WAIT_TIME)
+    driver.set_script_timeout(2 * WAIT_TIME)
     return driver
 
 
