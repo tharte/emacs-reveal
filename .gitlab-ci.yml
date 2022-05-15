@@ -98,8 +98,7 @@ selenium-chrome:
     changes:
       - docker/selenium-chrome/*
       - docker/code/selenium-print-pdf.py
-  except:
-    - tags
+      - gitlab-ci.yml
 
 test-reuse:
   stage: test
