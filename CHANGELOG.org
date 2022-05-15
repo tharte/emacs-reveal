@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.9.1] - 2022-05-14
+*** Fixed
+    - Restrict build context for image selenium-chrome
+
 ** [9.9.0] - 2022-05-14
 *** Changed
     - Move updated selenium-print-pdf.py to
