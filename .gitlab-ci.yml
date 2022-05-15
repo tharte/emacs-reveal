@@ -92,7 +92,7 @@ selenium-chrome:
   stage: build
   script:
     - docker pull $IMAGE_LATEST || true
-    - docker build --cache-from $IMAGE_LATEST -t $IMAGE_LATEST -f docker/$CI_JOB_NAME/Dockerfile .
+    - docker build --cache-from $IMAGE_LATEST -t $IMAGE_LATEST -f docker/$CI_JOB_NAME/Dockerfile docker
     - docker push $IMAGE_LATEST
   only:
     changes:
