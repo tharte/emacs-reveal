@@ -96,7 +96,7 @@ def main(urlfile, host, pdfdir):
 if __name__ == '__main__':
     HOST = "localhost"
     PDFDIR = "/pdfs/"
-    LOGLEVEL = logging.DEBUG
+    LOGLEVEL = logging.INFO
     if len(sys.argv) > 1:
         if len(sys.argv) > 2:
             HOST = sys.argv[2]
