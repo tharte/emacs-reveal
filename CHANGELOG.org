@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.9.2] - 2022-05-16
+*** Fixed
+    - Update oer-reveal to 4.4.1
+
 ** [9.9.1] - 2022-05-14
 *** Fixed
     - Restrict build context for image selenium-chrome
