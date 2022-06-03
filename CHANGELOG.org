@@ -10,6 +10,13 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.9.4] - 2022-06-03
+*** Fixed
+    - Update emacs-reveal-submodules to 2.3.2 with downgrade of
+      Anything plugin
+      (https://github.com/rajgoel/reveal.js-plugins/issues/147)
+    - Update oer-reveal to 4.4.3
+
 ** [9.9.3] - 2022-05-16
 *** Changed
     - Update oer-reveal to 4.4.2
