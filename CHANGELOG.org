@@ -10,6 +10,13 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.10.0] - 2022-06-13
+*** Added
+    - URL parameter ~audio-speed~
+      - Update emacs-reveal-submodules to 2.4.0 with own branch
+        oer-audio (with option to control audio speed)
+      - Update oer-reveal to 4.5.0
+
 ** [9.9.5] - 2022-06-03
 *** Fixed
     - Update emacs-reveal-submodules to 2.3.3 with own branch of
