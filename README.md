@@ -349,4 +349,4 @@ navigation mode of reveal.js (unless URL parameter
 `default-navigation` is used).  In June 2022, I added URL parameter
 `audio-speed`.
 
-![Evaluation results for emacs-reveal](/oer/figures/-/raw/master/org/emacs-reveal/evaluation.png "Evaluation results for emacs-reveal")
+![Evaluation results for emacs-reveal](https://gitlab.com/oer/figures/-/raw/master/org/emacs-reveal/evaluation.png "Evaluation results for emacs-reveal")
