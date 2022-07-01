@@ -332,7 +332,7 @@ or [that paper in German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)),
 and the following figure contains some evaluation results for a
 [course on Operating Systems](https://gitlab.com/oer/OS)
 indicating that students do not disagree in general, although the
-picture seems to changing since 2021 (see figure with evaluation
+picture changed in 2021 (see figure with evaluation
 results below): students started to state a strong preference for
 videos, and the perceived usefulness of hyperlinks decreased.
 (About a third in 2022 voted in favor of a “video mode”.)
