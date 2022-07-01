@@ -331,17 +331,22 @@ reasons for that format (see
 or [that paper in German](https://doi.org/10.21240/mpaed/34/2019.03.02.X)),
 and the following figure contains some evaluation results for a
 [course on Operating Systems](https://gitlab.com/oer/OS)
-indicating that students do not disagree in general, although students
-in 2021 stated a strong preference for videos.  I plan to repeat such
-evaluations in upcoming years…
+indicating that students do not disagree in general, although the
+picture seems to changing since 2021 (see figure with evaluation
+results below): students started to state a strong preference for
+videos and the perceived usefulness of hyperlinks decreased.
+(About a third in 2022 voted in favor of a “video mode”.)
+I plan to repeat such evaluations…
 
+These are some changed based on student feedback:
 I added different types of hyperlinks in 2018 and extended them in
-2019 and 2021; thus there is no data for 2017.  Based on student
-feedback, I disabled auto-play for audio in 2019; only a minority
-(nobody in 2021) asked to revert this change, which can be performed
-with URL parameter `audio-autoplay`).  Since August 2021, hyperlinks
-to external contents open in new tabs, and I switched presentations to
-use the `linear` navigation mode of reveal.js (unless URL parameter
-`default-navigation` is used).
+2019 and 2021; thus there is no data for 2017.  I disabled auto-play
+for audio in 2019; only a minority (nobody in 2021) asked to revert
+this change, which can be performed with URL parameter
+`audio-autoplay`).  Since August 2021, hyperlinks to external contents
+open in new tabs, and I switched presentations to use the `linear`
+navigation mode of reveal.js (unless URL parameter
+`default-navigation` is used).  In June 2022, I added URL parameter
+`audio-speed`.
 
-![Evaluation results for emacs-reveal](evaluation.png "Evaluation results for emacs-reveal")
+![Evaluation results for emacs-reveal](../figures/org/emacs-reveal/evaluation.png "Evaluation results for emacs-reveal")
