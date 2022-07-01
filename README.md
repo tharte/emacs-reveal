@@ -334,11 +334,11 @@ and the following figure contains some evaluation results for a
 indicating that students do not disagree in general, although the
 picture seems to changing since 2021 (see figure with evaluation
 results below): students started to state a strong preference for
-videos and the perceived usefulness of hyperlinks decreased.
+videos, and the perceived usefulness of hyperlinks decreased.
 (About a third in 2022 voted in favor of a “video mode”.)
 I plan to repeat such evaluations…
 
-These are some changed based on student feedback:
+These are some changes based on student feedback:
 I added different types of hyperlinks in 2018 and extended them in
 2019 and 2021; thus there is no data for 2017.  I disabled auto-play
 for audio in 2019; only a minority (nobody in 2021) asked to revert
