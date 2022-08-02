@@ -10,6 +10,10 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
+** [9.11.0] - 2022-08-02
+*** Changed
+    - Update oer-reveal to 4.6.0
+
 ** [9.10.0] - 2022-06-13
 *** Added
     - URL parameter ~audio-speed~
