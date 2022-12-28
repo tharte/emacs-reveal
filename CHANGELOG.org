@@ -10,12 +10,13 @@ where version numbers starting with version 4.0.0 adhere to
 
 ** [Unreleased]
 
-** [9.16.0] - 2022-12-28
+** [9.16.0],[9.16.1] - 2022-12-28
 *** Changed
     - Update org-re-reveal to 3.17.0
     - Update oer-reveal to 4.10.0
     - These changes allow to configure CSS with plugins directly,
       related to issue #35
+    - Version 9.16.0 tagged as 9.16.1 by accident
 
 ** [9.15.1] - 2022-11-21
 *** Fixed
