@@ -5,6 +5,13 @@
 [![DOI](https://jose.theoj.org/papers/10.21105/jose.00050/status.svg)](https://doi.org/10.21105/jose.00050)
 [![REUSE status](https://api.reuse.software/badge/gitlab.com/oer/emacs-reveal)](https://api.reuse.software/info/gitlab.com/oer/emacs-reveal)
 
+Pseudo-forked from the [emacs-reveal](https://gitlab.com/oer/emacs-reveal) repo on Gitlab 
+(can't fork from GitLab to GitHub, unfortunately). Add:
+
+```
+git remote add upstream  https://gitlab.com/oer/emacs-reveal
+```
+
 This repository provides *emacs-reveal*, which is
 [free/libre and open source software (FLOSS)](https://en.wikipedia.org/wiki/Free_and_open-source_software)
 to create [Open Educational Resources (OER)](https://en.wikipedia.org/wiki/Open_educational_resources)
